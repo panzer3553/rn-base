@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 // Styles
 import styles from './Containers/Styles/RootStyle'
 import drawerStyles from './Containers/Styles/DrawerStyle'
+import I18n from './I18n/I18n.js'
 
 const store = configureStore()
 
@@ -36,7 +37,7 @@ export default class RNBase extends React.Component {
             <View style={drawerStyles.section}>
               <Icon name="add-location" size={30} color="#FFF" style={drawerStyles.icon}/>
               <Text style={drawerStyles.text}>
-                Location
+                {I18n.t('location')}
               </Text>
             </View>
           </TouchableWithoutFeedback>
@@ -44,7 +45,7 @@ export default class RNBase extends React.Component {
             <View style={drawerStyles.section}>
               <Icon name="person" size={30} color="#FFF" style={drawerStyles.icon}/>
               <Text style={drawerStyles.text}>
-                Profile
+                {I18n.t('profile')}
               </Text>
             </View>
           </TouchableWithoutFeedback>
@@ -52,7 +53,7 @@ export default class RNBase extends React.Component {
             <View style={drawerStyles.section}>
               <Icon name="local-hospital" size={30} color="#FFF" style={drawerStyles.icon}/>
               <Text style={drawerStyles.text}>
-                Medical Information
+                {I18n.t('medicalInformation')}
               </Text>
             </View>
           </TouchableWithoutFeedback>
@@ -60,7 +61,7 @@ export default class RNBase extends React.Component {
             <View style={drawerStyles.section}>
               <Icon name="settings" size={30} color="#FFF" style={drawerStyles.icon}/>
               <Text style={drawerStyles.text}>
-                Support
+                {I18n.t('support')}
               </Text>
             </View>
           </TouchableWithoutFeedback>
@@ -68,7 +69,7 @@ export default class RNBase extends React.Component {
             <View style={drawerStyles.section}>
               <Icon name="share" size={30} color="#FFF" style={drawerStyles.icon}/>
               <Text style={drawerStyles.text}>
-                Share the app
+                {I18n.t('share')}
               </Text>
             </View>
           </TouchableWithoutFeedback>
