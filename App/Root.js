@@ -1,12 +1,14 @@
-import React, { View, Text, Navigator, StatusBar } from 'react-native'
+import React, { View, Text, Navigator, StatusBar, TouchableWithoutFeedback } from 'react-native'
 import {Router, Routes, NavigationBar} from './Navigation/'
 import configureStore from './Store/Store'
 import { Provider } from 'react-redux'
 import Actions from './Actions/Creators'
 import Drawer from 'react-native-drawer'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 // Styles
 import styles from './Containers/Styles/RootStyle'
+import drawerStyles from './Containers/Styles/DrawerStyle'
 
 const store = configureStore()
 
@@ -21,15 +23,58 @@ export default class RNBase extends React.Component {
     this.navigator.drawer = this.drawer
   }
 
-  renderDrawerContent () {
-    return (
-      <View style={{marginTop: 30, padding: 10}}>
-        <Text>
-          Drawer Content
-        </Text>
-      </View>
-    )
+  _changePath(){
+    const Login = Routes.LoginScreen
+    this.navigator.push(Login)
+    this.drawer.close()
   }
+
+  renderDrawerContent () {
+  return (
+        <View style={{marginTop: 30, padding: 10}}>
+          <TouchableWithoutFeedback onPress={this._changePath.bind(this)}>
+            <View style={drawerStyles.section}>
+              <Icon name="add-location" size={30} color="#FFF" style={drawerStyles.icon}/>
+              <Text style={drawerStyles.text}>
+                Location
+              </Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={this._changePath.bind(this)}>
+            <View style={drawerStyles.section}>
+              <Icon name="person" size={30} color="#FFF" style={drawerStyles.icon}/>
+              <Text style={drawerStyles.text}>
+                Profile
+              </Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={this._changePath.bind(this)}>
+            <View style={drawerStyles.section}>
+              <Icon name="local-hospital" size={30} color="#FFF" style={drawerStyles.icon}/>
+              <Text style={drawerStyles.text}>
+                Medical Information
+              </Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={this._changePath.bind(this)}>
+            <View style={drawerStyles.section}>
+              <Icon name="settings" size={30} color="#FFF" style={drawerStyles.icon}/>
+              <Text style={drawerStyles.text}>
+                Support
+              </Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={this._changePath.bind(this)}>
+            <View style={drawerStyles.section}>
+              <Icon name="share" size={30} color="#FFF" style={drawerStyles.icon}/>
+              <Text style={drawerStyles.text}>
+                Share the app
+              </Text>
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+      )  
+    }
 
   renderApp () {
     return (
@@ -41,12 +86,20 @@ export default class RNBase extends React.Component {
 
           <Drawer
             ref={(ref) => { this.drawer = ref }}
-            content={this.renderDrawerContent()}
-            style={styles.drawer}
-            openDrawerOffset={100}
-            type='static'
-            tapToClose
-          >
+              content={this.renderDrawerContent()}
+              type="static"
+              tapToClose={true}
+              openDrawerOffset={0.2} // 20% gap on the right side of drawer
+              panCloseMask={0.2}
+              closedDrawerOffset={-3}
+              styles={{
+                drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3, backgroundColor:"#E64A19"},
+                main: {paddingLeft: 3}
+              }}
+              tweenHandler={(ratio) => ({
+                main: { opacity:(2-ratio)/2 }
+              })}
+            >
             <Navigator
               ref={(ref) => { this.navigator = ref }}
               initialRoute={Routes.AllComponentsScreen}
