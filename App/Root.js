@@ -6,16 +6,16 @@ import Actions from './Actions/Creators'
 import Drawer from 'react-native-drawer'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Colors, Images, Metrics } from './Themes'
-
+import DrawerContent from './Components/DrawerContent'
 // Styles
 import styles from './Containers/Styles/RootStyle'
 import drawerStyles from './Containers/Styles/DrawerStyle'
 import I18n from './I18n/I18n.js'
 
 const store = configureStore()
+const drawerItems = [["add-location", 'location'], ["person", "profile"], ["local-hospital", "medicalInformation"], ["settings", "support"], ["share", "share"]]
 
 //Array contains icon name and label of drawer items
-const drawerItems = [["add-location", 'location'], ["person", "profile"], ["local-hospital", "medicalInformation"], ["settings", "support"], ["share", "share"]]
 
 export default class RNBase extends React.Component {
 
@@ -25,6 +25,7 @@ export default class RNBase extends React.Component {
   }
 
   componentDidMount () {
+    console.log(this.navigator);
     this.navigator.drawer = this.drawer
   }
 
@@ -35,10 +36,16 @@ export default class RNBase extends React.Component {
   }
 
   renderDrawerContent () {
-  return (
-        <View style={{marginTop: 30, padding: 10}}>
-          {drawerItems.map((item) =>
-           <TouchableWithoutFeedback onPress={this._changePath.bind(this)}>
+  // I tried this but it don't work. The renderDrawerContent run before the main render run so i can't pass this.navigator to navigator. 
+  // It give me unidentified value >_<
+  // return (
+  //       <DrawerContent navigator={this.navigator}/>
+  //       )
+
+    return (
+      <View style={{marginTop: 30, padding: 10}}>
+        {drawerItems.map((item, i) =>
+          <TouchableWithoutFeedback key ={i} onPress={this._changePath.bind(this)}>
             <View style={drawerStyles.section}>
               <Icon name={item[0]} size={Metrics.icons.medium} color="white" style={drawerStyles.icon}/>
               <Text style={drawerStyles.text}>
@@ -46,9 +53,10 @@ export default class RNBase extends React.Component {
               </Text>
             </View>
           </TouchableWithoutFeedback>)  
-          }
-          </View>
-        )
+        }
+      </View>
+    )
+
   }
 
   renderApp () {
