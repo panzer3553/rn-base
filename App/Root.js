@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import Actions from './Actions/Creators'
 import Drawer from 'react-native-drawer'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Colors, Images, Metrics } from './Themes'
 
 // Styles
 import styles from './Containers/Styles/RootStyle'
@@ -12,6 +13,9 @@ import drawerStyles from './Containers/Styles/DrawerStyle'
 import I18n from './I18n/I18n.js'
 
 const store = configureStore()
+
+//Array contains icon name and label of drawer items
+const drawerItems = [["add-location", 'location'], ["person", "profile"], ["local-hospital", "medicalInformation"], ["settings", "support"], ["share", "share"]]
 
 export default class RNBase extends React.Component {
 
@@ -33,49 +37,19 @@ export default class RNBase extends React.Component {
   renderDrawerContent () {
   return (
         <View style={{marginTop: 30, padding: 10}}>
-          <TouchableWithoutFeedback onPress={this._changePath.bind(this)}>
+          {drawerItems.map((item) =>
+           <TouchableWithoutFeedback onPress={this._changePath.bind(this)}>
             <View style={drawerStyles.section}>
-              <Icon name="add-location" size={30} color="#FFF" style={drawerStyles.icon}/>
+              <Icon name={item[0]} size={Metrics.icons.medium} color="white" style={drawerStyles.icon}/>
               <Text style={drawerStyles.text}>
-                {I18n.t('location')}
+                {I18n.t(item[1])}
               </Text>
             </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this._changePath.bind(this)}>
-            <View style={drawerStyles.section}>
-              <Icon name="person" size={30} color="#FFF" style={drawerStyles.icon}/>
-              <Text style={drawerStyles.text}>
-                {I18n.t('profile')}
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this._changePath.bind(this)}>
-            <View style={drawerStyles.section}>
-              <Icon name="local-hospital" size={30} color="#FFF" style={drawerStyles.icon}/>
-              <Text style={drawerStyles.text}>
-                {I18n.t('medicalInformation')}
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this._changePath.bind(this)}>
-            <View style={drawerStyles.section}>
-              <Icon name="settings" size={30} color="#FFF" style={drawerStyles.icon}/>
-              <Text style={drawerStyles.text}>
-                {I18n.t('support')}
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={this._changePath.bind(this)}>
-            <View style={drawerStyles.section}>
-              <Icon name="share" size={30} color="#FFF" style={drawerStyles.icon}/>
-              <Text style={drawerStyles.text}>
-                {I18n.t('share')}
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-      )  
-    }
+          </TouchableWithoutFeedback>)  
+          }
+          </View>
+        )
+  }
 
   renderApp () {
     return (
@@ -84,7 +58,6 @@ export default class RNBase extends React.Component {
           <StatusBar
             barStyle='light-content'
           />
-
           <Drawer
             ref={(ref) => { this.drawer = ref }}
               content={this.renderDrawerContent()}
@@ -94,7 +67,7 @@ export default class RNBase extends React.Component {
               panCloseMask={0.2}
               closedDrawerOffset={-3}
               styles={{
-                drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3, backgroundColor:"#E64A19"},
+                drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3, backgroundColor:Colors.drawerColor},
                 main: {paddingLeft: 3}
               }}
               tweenHandler={(ratio) => ({
