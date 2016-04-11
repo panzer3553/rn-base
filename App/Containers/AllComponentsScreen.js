@@ -13,13 +13,57 @@ import Animatable from 'react-native-animatable'
 // I18n
 import I18n from '../I18n/I18n.js'
 
+import MapScreen from './MapScreen'
+import VectorIcon from 'react-native-vector-icons/Ionicons'
+import mapstyle from './Styles/MapScreenStyle'
+import FakePopup from './FakePopupScreen'
+import fakePopupStyle from './Styles/FakePopupScreenStyle'
+import CircleIcon from './CircleIcon'
+
+var fireItems = [ 
+      {icon: 'fire', text: 'item1', func: 'call1'}, 
+      {icon: 'fire', text: 'item2', func: 'call2'}, 
+      {icon: 'fire', text: 'item3', func: 'call3'}, 
+      {icon: 'fire', text: 'item4', func: 'call4'}, 
+      {icon: 'fire', text: 'item5', func: 'call5'}, 
+      {icon: 'fire', text: 'item6', func: 'call6'},
+    ];
+
+var ambulanceItems  = [ 
+      {icon: 'ambulance', text: 'item1', func: 'call1'}, 
+      {icon: 'ambulance', text: 'item2', func: 'call2'}, 
+      {icon: 'ambulance', text: 'item3', func: 'call3'}, 
+      {icon: 'ambulance', text: 'item4', func: 'call4'}, 
+      {icon: 'ambulance', text: 'item5', func: 'call5'}, 
+      {icon: 'ambulance', text: 'item6', func: 'call6'},
+    ];
+var policeItems =  [ 
+      {icon: 'bell', text: 'item1', func: 'call1'}, 
+      {icon: 'bell', text: 'item2', func: 'call2'}, 
+      {icon: 'bell', text: 'item3', func: 'call3'}, 
+      {icon: 'bell', text: 'item4', func: 'call4'}, 
+      {icon: 'bell', text: 'item5', func: 'call5'}, 
+      {icon: 'bell', text: 'item6', func: 'call6'},
+    ];
+
+const POP_UP_FIRE = 0;
+const POP_UP_AMBULANCE = 1;
+const POP_UP_POLICE = 2;
+
+const { SCREEN_WIDTH, SCREEN_HEIGHT } = React.Dimensions.get('window')
+
 export default class AllComponentsScreen extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      isPopupShow: false,
+      items: [],
+    }
+
     this.handlePressLogin = this.handlePressLogin.bind(this)
     this.handlePressLogout = this.handlePressLogout.bind(this)
+    this.handleRequestLocation  = this.handleRequestLocation.bind(this)
   }
 
   static propTypes = {
@@ -27,7 +71,9 @@ export default class AllComponentsScreen extends React.Component {
     loggedIn: PropTypes.bool,
     dispatch: PropTypes.func,
     temperature: PropTypes.number,
-    city: PropTypes.string
+    city: PropTypes.string,
+    latitude:  PropTypes.number,
+    longitude: PropTypes.number,
   };
 
   componentWillMount () {
@@ -47,6 +93,30 @@ export default class AllComponentsScreen extends React.Component {
   handlePressLogout () {
     const { dispatch } = this.props
     dispatch(Actions.logout())
+  }
+
+  handleRequestLocation() {
+    const { dispatch } = this.props
+    dispatch(Actions.requestLocation())
+  }
+
+  handleRequestCall() {
+    const { dispatch } = this.props
+    dispatch(Actions.requestCall())
+  }
+
+  handleRequestShowDirection() {
+    //temp do nothing
+  }
+
+  handleShowPopUp (_items) {
+    this.setState({items: _items})
+    this.setState({isPopupShow: true})
+    console.log('handleShowPopUp')
+  }
+
+  handleClosePopUp () {
+    this.setState({isPopupShow: false})
   }
 
   renderLoginButton () {
@@ -76,40 +146,31 @@ export default class AllComponentsScreen extends React.Component {
   render () {
     const { loggedIn, temperature, city } = this.props
     return (
-      <ScrollView style={styles.screenContainer}>
-        <Text style={styles.componentLabel}>{I18n.t('loginLogoutExampleTitle')}</Text>
-        {loggedIn ? this.renderLogoutButton() : this.renderLoginButton()}
-        <Text style={styles.componentLabel}>{I18n.t('progressiveImageComponent')}</Text>
-        <ProgressiveImage
-          style={styles.progressiveImage}
-          defaultSource={Images.logo}
-          source='https://upload.wikimedia.org/wikipedia/commons/c/cc/ESC_large_ISS022_ISS022-E-11387-edit_01.JPG'
-          thumbnail='http://i.imgur.com/eVAFUhj.png'
-        />
-        <Text style={styles.componentLabel}>{I18n.t('httpClient')}: {city}</Text>
-        <Text style={styles.temperature}>{temperature && `${temperature} ${I18n.t('tempIndicator')}`}</Text>
-        <Text style={styles.componentLabel}>{I18n.t('rnVectorIcons')}</Text>
-        <View style={styles.groupContainer}>
-          <Icon name='rocket' size={Metrics.icons.medium} color={Colors.error} />
-          <Icon name='send' size={Metrics.icons.medium} color={Colors.error} />
-          <Icon name='star' size={Metrics.icons.medium} color={Colors.error} />
-          <Icon name='trophy' size={Metrics.icons.medium} color={Colors.error} />
-          <Icon name='warning' size={Metrics.icons.medium} color={Colors.error} />
-        </View>
-        <View style={styles.groupContainer}>
-          <Icon.Button name='facebook' style={styles.facebookButton} backgroundColor={Colors.facebook} onPress={() => window.alert('Facebook')}>
-            {I18n.t('loginWithFacebook')}
-          </Icon.Button>
-        </View>
-        <Text style={styles.componentLabel}>{I18n.t('rnAnimatable')}</Text>
-        <View style={styles.groupContainer}>
-          <Animatable.Text animation='fadeIn' iterationCount='infinite' direction='alternate'>{I18n.t('rnAnimatable')}</Animatable.Text>
-          <Animatable.Image animation='pulse' iterationCount='infinite' source={Images.logo} />
-          <Animatable.View animation='jello' iterationCount='infinite'>
-            <Icon name='cab' size={Metrics.icons.medium} />
-          </Animatable.View>
-        </View>
-      </ScrollView>
+      <View style={styles.screenContainer}>
+        <MapScreen />
+        <FakePopup  items={this.state.items}
+                    visibility={this.state.isPopupShow}/>
+        <View style={mapstyle.icons_container}>
+              <CircleIcon
+                name='fire'
+                size={Metrics.icons.medium}
+                color={Colors.error}
+                onPress={this.handleShowPopUp.bind(this, fireItems)}
+                />
+              <CircleIcon
+                name='ambulance'
+                size={Metrics.icons.medium}
+                color={Colors.error}
+                onPress={this.handleShowPopUp.bind(this, ambulanceItems)}
+                />
+              <CircleIcon
+                name='bell'
+                size={Metrics.icons.medium}
+                color={Colors.error}
+                onPress={this.handleShowPopUp.bind(this, policeItems)}
+              />
+       </View>   
+     </View>
     )
   }
 }
@@ -118,7 +179,9 @@ const mapStateToProps = (state) => {
   return {
     loggedIn: state.login.username !== null,
     temperature: state.weather.temperature,
-    city: state.weather.city
+    city: state.weather.city,
+    latitude: state.mapscreen.latitude,
+    longitude: state.mapscreen.longitude
   }
 }
 
