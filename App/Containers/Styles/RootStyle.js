@@ -8,7 +8,7 @@ const RootStyle = React.StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: Colors.ocean
+    backgroundColor: Colors.snow
   },
   drawer: {
     shadowColor: '#000000',

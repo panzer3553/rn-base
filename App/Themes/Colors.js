@@ -15,7 +15,8 @@ const colors = {
   windowTint: 'rgba(0, 0, 0, 0.4)',
   panther: '#464646',
   charcoal: '#595959',
-  coal: '#2d2d2d'
+  coal: '#2d2d2d',
+  iconColor: '#A4A4A4'
 }
 
 export default colors

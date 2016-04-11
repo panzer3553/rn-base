@@ -29,11 +29,19 @@ export default class RNBase extends React.Component {
     this.navigator.drawer = this.drawer
   }
 
-  _changePath(){
-    const Login = Routes.LoginScreen
-    this.navigator.push(Login)
+  _changePath(path){
+    switch(path){
+      case 'profile':
+        const Profile = Routes.ProfileScreen
+        this.navigator.push(Profile)
+        break
+      default:
+        const AllComponentsScreen = Routes.AllComponentsScreen
+        this.navigator.push(AllComponentsScreen)
+        break
+    }
     this.drawer.close()
-  }
+}
 
   renderDrawerContent () {
   // I tried this but it don't work. The renderDrawerContent run before the main render run so i can't pass this.navigator to navigator. 
@@ -45,7 +53,7 @@ export default class RNBase extends React.Component {
     return (
       <View style={{marginTop: 30, padding: 10}}>
         {drawerItems.map((item, i) =>
-          <TouchableWithoutFeedback key ={i} onPress={this._changePath.bind(this)}>
+          <TouchableWithoutFeedback key ={i} onPress={this._changePath.bind(this, item[1])}>
             <View style={drawerStyles.section}>
               <Icon name={item[0]} size={Metrics.icons.medium} color="white" style={drawerStyles.icon}/>
               <Text style={drawerStyles.text}>
