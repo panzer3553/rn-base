@@ -20,7 +20,12 @@ I18n.translations = {
     cancel: 'Cancel',
     welcome: 'Welcome',
     login: 'Login',
-    tempIndicator: 'F'
+    tempIndicator: 'F',
+    location: 'Location',
+    profile: 'Profile',
+    medicalInformation: 'Medical Information',
+    support: 'Support',
+    share: 'Share the app'
   },
   fr: {
     signIn: 'Se connecter',

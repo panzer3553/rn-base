@@ -1,14 +1,21 @@
-import React, { View, Text, Navigator, StatusBar } from 'react-native'
+import React, { View, Text, Navigator, StatusBar, TouchableWithoutFeedback } from 'react-native'
 import {Router, Routes, NavigationBar} from './Navigation/'
 import configureStore from './Store/Store'
 import { Provider } from 'react-redux'
 import Actions from './Actions/Creators'
 import Drawer from 'react-native-drawer'
-
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Colors, Images, Metrics } from './Themes'
+import DrawerContent from './Components/DrawerContent'
 // Styles
 import styles from './Containers/Styles/RootStyle'
+import drawerStyles from './Containers/Styles/DrawerStyle'
+import I18n from './I18n/I18n.js'
 
 const store = configureStore()
+const drawerItems = [["add-location", 'location'], ["person", "profile"], ["local-hospital", "medicalInformation"], ["settings", "support"], ["share", "share"]]
+
+//Array contains icon name and label of drawer items
 
 export default class RNBase extends React.Component {
 
@@ -18,17 +25,38 @@ export default class RNBase extends React.Component {
   }
 
   componentDidMount () {
+    console.log(this.navigator);
     this.navigator.drawer = this.drawer
   }
 
+  _changePath(){
+    const Login = Routes.LoginScreen
+    this.navigator.push(Login)
+    this.drawer.close()
+  }
+
   renderDrawerContent () {
+  // I tried this but it don't work. The renderDrawerContent run before the main render run so i can't pass this.navigator to navigator. 
+  // It give me unidentified value >_<
+  // return (
+  //       <DrawerContent navigator={this.navigator}/>
+  //       )
+
     return (
       <View style={{marginTop: 30, padding: 10}}>
-        <Text>
-          Drawer Content
-        </Text>
+        {drawerItems.map((item, i) =>
+          <TouchableWithoutFeedback key ={i} onPress={this._changePath.bind(this)}>
+            <View style={drawerStyles.section}>
+              <Icon name={item[0]} size={Metrics.icons.medium} color="white" style={drawerStyles.icon}/>
+              <Text style={drawerStyles.text}>
+                {I18n.t(item[1])}
+              </Text>
+            </View>
+          </TouchableWithoutFeedback>)  
+        }
       </View>
     )
+
   }
 
   renderApp () {
@@ -38,15 +66,22 @@ export default class RNBase extends React.Component {
           <StatusBar
             barStyle='light-content'
           />
-
           <Drawer
             ref={(ref) => { this.drawer = ref }}
-            content={this.renderDrawerContent()}
-            style={styles.drawer}
-            openDrawerOffset={100}
-            type='static'
-            tapToClose
-          >
+              content={this.renderDrawerContent()}
+              type="static"
+              tapToClose={true}
+              openDrawerOffset={0.2} // 20% gap on the right side of drawer
+              panCloseMask={0.2}
+              closedDrawerOffset={-3}
+              styles={{
+                drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3, backgroundColor:Colors.drawerColor},
+                main: {paddingLeft: 3}
+              }}
+              tweenHandler={(ratio) => ({
+                main: { opacity:(2-ratio)/2 }
+              })}
+            >
             <Navigator
               ref={(ref) => { this.navigator = ref }}
               initialRoute={Routes.AllComponentsScreen}

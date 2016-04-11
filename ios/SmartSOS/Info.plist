@@ -13,6 +13,10 @@
 		<string>Octicons.ttf</string>
 		<string>Zocial.ttf</string>
 	</array>
+	<key>NSHumanReadableCopyright</key>
+	<string></string>
+	<key>CFBundleGetInfoString</key>
+	<string></string>
 	<key>CFBundleDisplayName</key>
 	<string></string>
 	<key>LSApplicationCategoryType</key>

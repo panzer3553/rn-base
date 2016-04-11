@@ -2,6 +2,7 @@ const colors = {
   rainbow: 'rgb(' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ',' + (Math.floor(Math.random() * 256)) + ')',
   background: 'white',
   snow: 'white',
+  drawerColor: '#E36F34',
   clear: 'rgba(0,0,0,0)',
   ocean: '#415572',
   deepOcean: '#32435c',
