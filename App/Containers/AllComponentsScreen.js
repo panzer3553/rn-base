@@ -100,15 +100,7 @@ export default class AllComponentsScreen extends React.Component {
           <Icon.Button name='facebook' style={styles.facebookButton} backgroundColor={Colors.facebook} onPress={() => window.alert('Facebook')}>
             {I18n.t('loginWithFacebook')}
           </Icon.Button>
-        </View>
-        <Text style={styles.componentLabel}>{I18n.t('rnAnimatable')}</Text>
-        <View style={styles.groupContainer}>
-          <Animatable.Text animation='fadeIn' iterationCount='infinite' direction='alternate'>{I18n.t('rnAnimatable')}</Animatable.Text>
-          <Animatable.Image animation='pulse' iterationCount='infinite' source={Images.logo} />
-          <Animatable.View animation='jello' iterationCount='infinite'>
-            <Icon name='cab' size={Metrics.icons.medium} />
-          </Animatable.View>
-        </View>
+        </View>      
       </ScrollView>
     )
   }

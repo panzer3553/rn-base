@@ -31,10 +31,11 @@ const NavigationStyle = React.StyleSheet.create({
     padding: Metrics.baseMargin
   },
   navButtonLeft: {
-    margin: Metrics.baseMargin
+    marginLeft: 15,
+    marginTop: 2
   },
   navigationBar: {
-    backgroundColor: Colors.ocean
+    backgroundColor: Colors.drawerColor,  
   }
 })
 
