@@ -15,9 +15,7 @@ export default class ProfileScreen extends React.Component {
 
     constructor (props) {
     super(props)
-    this.state = {
-      form: null
-    }
+    this.state = {}
   }
 
     static propTypes = {
@@ -31,16 +29,15 @@ export default class ProfileScreen extends React.Component {
     }
   }
 
-  componentDidMount(){
-    console.log(this.form);
-  }
-
    handleFormFocus(event, reactNode){
    this.refs.scroll.scrollToFocusedInput(event, reactNode)
   }
 
   handleFormChange(formData){
-    this.setState({form: formData});
+    //formData will be a json object that will contain
+    // refs of every field
+    //formData.first_name
+    //formData.last_name
   }
 
   render(){
@@ -48,21 +45,22 @@ export default class ProfileScreen extends React.Component {
       <KeyboardAwareScrollView ref='scroll'>
         <Form
           style={formStyles.form}
-          ref={(ref) => { this.form = ref }}
+          ref='registrationForm'
           onFocus={this.handleFormFocus.bind(this)}
           onChange={this.handleFormChange.bind(this)}
           label="Personal Information">
           <Separator label='BASIC'/>
-          <InputField ref='ios-person' placeholder='First Name' iconLeft={
-          <Icon name='person'
+          <InputField ref='first_name' placeholder='First Name' 
+          iconLeft={
+          <Icon name='ios-person'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignLeft, {color: Colors.iconColor}]}/>}
+            style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}
           />
           <InputField ref='last_name' placeholder='Last Name'
           iconLeft={
           <Icon name='ios-person-outline'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignLeft, {color: Colors.iconColor}]}/>}
+            style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}
             />
           <DatePickerField ref='birthday'
             minimumDate={new Date('1/1/1900')}
@@ -95,11 +93,11 @@ export default class ProfileScreen extends React.Component {
           iconRight={
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignRight, {color: Colors.iconColor}]}/> }
+            style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
           iconLeft={
-          <Icon name='android-mail'
+          <Icon name='ios-email-outline'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignLeft, {color: Colors.iconColor}]}/>}   
+            style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}   
           />
           <InputField ref='mobile' label='Mobile' placeholder='mobile' keyboardType="phone-pad"
           iconRight={
@@ -109,7 +107,7 @@ export default class ProfileScreen extends React.Component {
           iconLeft={
           <Icon name='ios-telephone-outline'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignLeft, , {color: Colors.iconColor}]}/>}   
+            style={[formStyles.alignLeft, , {color: Colors.formTextColor}]}/>}   
           />
           <Separator label='ADDRESS'/>
           <InputField ref='address' placeholder='Add new address'
@@ -118,9 +116,9 @@ export default class ProfileScreen extends React.Component {
             size={Metrics.icons.x_small}
             style={[formStyles.alignRight, {color: Colors.iconColor}]}/> }
           iconLeft={
-          <Icon name='android-home'
+          <Icon name='ios-home-outline'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignLeft, {color: Colors.iconColor}]}/>}
+            style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}
           />
         </Form>
       </KeyboardAwareScrollView>

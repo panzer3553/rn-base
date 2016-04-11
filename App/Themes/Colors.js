@@ -16,7 +16,8 @@ const colors = {
   panther: '#464646',
   charcoal: '#595959',
   coal: '#2d2d2d',
-  iconColor: '#A4A4A4'
+  iconColor: '#A4A4A4',
+  formTextColor: '#F4511E'
 }
 
 export default colors

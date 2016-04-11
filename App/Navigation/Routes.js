@@ -34,7 +34,6 @@ export default new class Routes {
     return {
       title: I18n.t('profile'),
       component: require('../Containers/ProfileScreen').default,
-      customConfiguration: Transitions.modal,
       leftButton: 'HAMBURGER'
     }
   }
