@@ -4,7 +4,7 @@ import createReducer from './CreateReducer'
 
 export const INITIAL_STATE = Immutable({
   profile: null,
-  saved: null
+  saved: false
 })
 
 const saveProfile = (state, action) =>

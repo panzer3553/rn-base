@@ -92,11 +92,11 @@ export default class ProfileScreen extends React.Component {
             iconLeft={
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignLeft, {color: Colors.iconColor}]}/>}   
+            style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}   
             iconRight={
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignRight, {color: Colors.iconColor}]}/> }
+            style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
           />
           <PickerField ref='gender' placeholder='Gender' value={gender}
             options={{
@@ -106,11 +106,11 @@ export default class ProfileScreen extends React.Component {
           iconRight={
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignRight, {color: Colors.iconColor}]}/> }
+            style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
           iconLeft={
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignLeft, {color: Colors.iconColor}]}/>}   
+            style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}   
             />
           <Separator label='CONTACT'/>
           <InputField ref='email' placeholder='Email' keyboardType="email-address" value={email}
@@ -127,7 +127,7 @@ export default class ProfileScreen extends React.Component {
           iconRight={
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignRight, {color: Colors.iconColor}]}/> }
+            style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
           iconLeft={
           <Icon name='ios-telephone-outline'
             size={Metrics.icons.x_small}
@@ -138,7 +138,7 @@ export default class ProfileScreen extends React.Component {
           iconRight={
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignRight, {color: Colors.iconColor}]}/> }
+            style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
           iconLeft={
           <Icon name='ios-home-outline'
             size={Metrics.icons.x_small}
