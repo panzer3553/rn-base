@@ -25,7 +25,6 @@ export default class RNBase extends React.Component {
   }
 
   componentDidMount () {
-    console.log(this.navigator);
     this.navigator.drawer = this.drawer
   }
 

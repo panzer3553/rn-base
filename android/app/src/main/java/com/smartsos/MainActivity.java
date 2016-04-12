@@ -5,6 +5,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n; 
+import com.AirMaps.AirPackage; // <--- This!
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +39,8 @@ public class MainActivity extends ReactActivity {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
             new VectorIconsPackage(),
-            new ReactNativeI18n()
+            new ReactNativeI18n(),
+            new AirPackage()
         );
     }
 }
