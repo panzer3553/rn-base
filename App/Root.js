@@ -6,7 +6,6 @@ import Actions from './Actions/Creators'
 import Drawer from 'react-native-drawer'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Colors, Images, Metrics } from './Themes'
-import DrawerContent from './Components/DrawerContent'
 // Styles
 import styles from './Containers/Styles/RootStyle'
 import drawerStyles from './Containers/Styles/DrawerStyle'
@@ -25,7 +24,6 @@ export default class RNBase extends React.Component {
   }
 
   componentDidMount () {
-    console.log(this.navigator);
     this.navigator.drawer = this.drawer
   }
 
