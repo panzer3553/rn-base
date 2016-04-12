@@ -25,7 +25,7 @@ const NavigationStyle = React.StyleSheet.create({
   },
   navButtonText: {
     color: Colors.snow,
-    marginTop: 8,
+    marginTop: 4,
     marginLeft: 8,
     fontFamily: Fonts.bold,
     padding: Metrics.baseMargin

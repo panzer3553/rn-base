@@ -1,4 +1,4 @@
-import React, { View, ScrollView, Text, TouchableOpacity, PropTypes, StyleSheet} from 'react-native'
+import React, { View, ScrollView, Text, TouchableOpacity, PropTypes, StyleSheet, Alert} from 'react-native'
 import { Form, InputField, Separator, SwitchField, LinkField ,PickerField, DatePickerField, KeyboardAwareScrollView} from 'react-native-form-generator';
 import { connect } from 'react-redux'
 import formStyles from './Styles/ProfileStyle.js'
@@ -15,7 +15,18 @@ export default class ProfileScreen extends React.Component {
 
     constructor (props) {
     super(props)
-    this.state = {}
+    this.state = {
+      profile: {
+        firstName: null,
+        lastName: null,
+        birthday: null,
+        gender: null,
+        email: null,
+        mobile: null,
+        address: null
+      },
+      saved: false
+    }
   }
 
     static propTypes = {
@@ -27,10 +38,21 @@ export default class ProfileScreen extends React.Component {
     this.props.navigator.state.tapHamburger = () => {
       this.props.navigator.drawer.toggle()
     }
+    this.props.navigator.state.tapSaveButton = this.tapSaveButton.bind(this)
+    if(this.props.profileData.saved){
+      this.state.profile = this.props.profileData.profile
+      this.state.saved = this.props.profileData.saved
+    }
   }
 
    handleFormFocus(event, reactNode){
    this.refs.scroll.scrollToFocusedInput(event, reactNode)
+  }
+
+  tapSaveButton(){
+    Alert.alert("Saved")
+    const { dispatch } = this.props
+    dispatch(Actions.saveProfile(this.state.profile))
   }
 
   handleFormChange(formData){
@@ -38,10 +60,12 @@ export default class ProfileScreen extends React.Component {
     // refs of every field
     //formData.first_name
     //formData.last_name
+    this.setState({profile: formData})
   }
 
   render(){
-    return(
+      const {firstName, lastName, birthday, gender, email, mobile, address} = this.state.profile
+      return(
       <KeyboardAwareScrollView ref='scroll'>
         <Form
           style={formStyles.form}
@@ -50,19 +74,19 @@ export default class ProfileScreen extends React.Component {
           onChange={this.handleFormChange.bind(this)}
           label="Personal Information">
           <Separator label='BASIC'/>
-          <InputField ref='first_name' placeholder='First Name' 
+          <InputField ref='firstName' placeholder='First Name' value={firstName}
           iconLeft={
           <Icon name='ios-person'
             size={Metrics.icons.x_small}
             style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}
           />
-          <InputField ref='last_name' placeholder='Last Name'
+          <InputField ref='lastName' placeholder='Last Name' value={lastName}
           iconLeft={
           <Icon name='ios-person-outline'
             size={Metrics.icons.x_small}
             style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}
             />
-          <DatePickerField ref='birthday'
+          <DatePickerField ref='birthday' date={birthday}
             minimumDate={new Date('1/1/1900')}
             maximumDate={new Date()} mode='date' placeholder='Birthday' 
             iconLeft={
@@ -74,7 +98,7 @@ export default class ProfileScreen extends React.Component {
             size={Metrics.icons.x_small}
             style={[formStyles.alignRight, {color: Colors.iconColor}]}/> }
           />
-          <PickerField ref='gender' placeholder='Gender'
+          <PickerField ref='gender' placeholder='Gender' value={gender}
             options={{
               male: 'Male',
               female: 'Female'
@@ -89,7 +113,7 @@ export default class ProfileScreen extends React.Component {
             style={[formStyles.alignLeft, {color: Colors.iconColor}]}/>}   
             />
           <Separator label='CONTACT'/>
-          <InputField ref='email' placeholder='Email' keyboardType="email-address"
+          <InputField ref='email' placeholder='Email' keyboardType="email-address" value={email}
           iconRight={
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
@@ -99,7 +123,7 @@ export default class ProfileScreen extends React.Component {
             size={Metrics.icons.x_small}
             style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}   
           />
-          <InputField ref='mobile' label='Mobile' placeholder='mobile' keyboardType="phone-pad"
+          <InputField ref='mobile' label='Mobile' placeholder='mobile' keyboardType="phone-pad" value={mobile}
           iconRight={
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
@@ -110,7 +134,7 @@ export default class ProfileScreen extends React.Component {
             style={[formStyles.alignLeft, , {color: Colors.formTextColor}]}/>}   
           />
           <Separator label='ADDRESS'/>
-          <InputField ref='address' placeholder='Add new address'
+          <InputField ref='address' placeholder='Add new address' value={address}
           iconRight={
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
@@ -128,6 +152,7 @@ export default class ProfileScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    profileData: state.profileData
   }
 }
 

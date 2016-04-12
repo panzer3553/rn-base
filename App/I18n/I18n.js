@@ -25,7 +25,8 @@ I18n.translations = {
     profile: 'Profile',
     medicalInformation: 'Medical Information',
     support: 'Support',
-    share: 'Share the app'
+    share: 'Share the app',
+    save: 'Save'
   },
   fr: {
     signIn: 'Se connecter',

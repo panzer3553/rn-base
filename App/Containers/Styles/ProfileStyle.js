@@ -12,8 +12,4 @@ export default StyleSheet.create({
       marginTop: 40,
       backgroundColor: "white",
       padding: 8
-    },  
-    a: {
-      marginLeft: 27,
-    }
-  })
+    }  })

@@ -20,6 +20,8 @@ export default {
         return NavButtons.backButton(this.BackButton.bind(this, navigator))
       case 'FORGOT_PASSWORD':
         return NavButtons.forgotPasswordButton(navigator.state.tapForgotPassword)
+      case 'SAVE':
+        return NavButtons.saveButton(navigator.state.tapSaveButton)
       case 'HAMBURGER':
         return NavButtons.hamburgerButton(navigator.state.tapHamburger)
       default:

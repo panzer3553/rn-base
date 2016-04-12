@@ -34,7 +34,8 @@ export default new class Routes {
     return {
       title: I18n.t('profile'),
       component: require('../Containers/ProfileScreen').default,
-      leftButton: 'HAMBURGER'
+      rightButton: 'SAVE',
+      leftButton: 'HAMBURGER',
     }
   }
 

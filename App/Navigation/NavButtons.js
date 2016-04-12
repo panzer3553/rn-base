@@ -38,6 +38,14 @@ export default {
         <Text style={styles.navButtonText}>{I18n.t('forgotPassword')}</Text>
       </TouchableOpacity>
     )
+  },
+
+  saveButton (onPressFunction) {
+    return (
+      <TouchableOpacity onPress={onPressFunction}>
+        <Text style={styles.navButtonText}>{I18n.t('save')}</Text>
+      </TouchableOpacity>
+    )
   }
 
 }

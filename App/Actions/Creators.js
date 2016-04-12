@@ -18,6 +18,7 @@ const requestTemperature = (city) => createAction(Types.TEMPERATURE_REQUEST, { c
 const receiveTemperature = (temperature) => createAction(Types.TEMPERATURE_RECEIVE, { temperature })
 const receiveTemperatureFailure = () => createAction(Types.TEMPERATURE_FAILURE)
 
+const saveProfile = (profile) => createAction(Types.SAVE_PROFILE, {profile})
 /**
  Makes available all the action creators we've created.
  */
@@ -29,5 +30,6 @@ export default {
   startup,
   requestTemperature,
   receiveTemperature,
-  receiveTemperatureFailure
+  receiveTemperatureFailure,
+  saveProfile
 }
