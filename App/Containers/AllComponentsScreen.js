@@ -26,7 +26,6 @@ var fireItems = [
       {icon: 'fire', text: 'item3', func: 'call3'}, 
       {icon: 'fire', text: 'item4', func: 'call4'}, 
       {icon: 'fire', text: 'item5', func: 'call5'}, 
-      {icon: 'fire', text: 'item6', func: 'call6'},
     ];
 
 var ambulanceItems  = [ 
@@ -119,6 +118,7 @@ export default class AllComponentsScreen extends React.Component {
 
   handleClosePopUp () {
     this.setState({isPopupShow: false})
+    console.log('handleClosepopUp')
   }
 
   renderLoginButton () {
@@ -156,26 +156,27 @@ export default class AllComponentsScreen extends React.Component {
                     elementHeight={30}
                     topPopUpPos={this.state.topPopUpPos}
                     leftPosClick={this.state.leftPosClick}
-                    visibility={this.state.isPopupShow}
+                    isVisible={this.state.isPopupShow}
+                    onClose={this.handleClosePopUp.bind(this)}
                      />
         <View style={mapstyle.icons_container}>
               <CircleIcon
                 name='fire'
                 size={Metrics.icons.medium}
                 color={Colors.error}
-                onPress={this.handleShowPopUp.bind(this, fireItems,  Metrics.screenWidth / 6, 30)}
+                onPress={this.handleShowPopUp.bind(this, fireItems,  Metrics.screenWidth/10, 30)}
                 />
               <CircleIcon
                 name='ambulance'
                 size={Metrics.icons.medium}
                 color={Colors.error}
-                onPress={this.handleShowPopUp.bind(this, ambulanceItems,  Metrics.screenWidth * 2 / 3, 30)}
+                onPress={this.handleShowPopUp.bind(this, ambulanceItems,  Metrics.screenWidth/2 - Metrics.screenWidth/5, 30)}
                 />
               <CircleIcon
                 name='bell'
                 size={Metrics.icons.medium}
                 color={Colors.error}
-                onPress={this.handleShowPopUp.bind(this, policeItems, Metrics.screenWidth, 30)}
+                onPress={this.handleShowPopUp.bind(this, policeItems, Metrics.screenWidth/2 + Metrics.screenWidth/5 , 30)}
               />
        </View>   
      </View>

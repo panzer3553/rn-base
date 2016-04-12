@@ -50,7 +50,7 @@ export default StyleSheet.create({
   },
 
   icons_container: {
-    margin: 5,
+
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',

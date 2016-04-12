@@ -11,6 +11,7 @@ import React, {
 	Component, 
 	Text,
 	TouchableHighlight,
+	PropTypes,
 } from 'react-native'
 
 var itemCount = 0;
@@ -19,8 +20,26 @@ export default class FakePopupScreen extends React.Component {
 
 	constructor (props) {
 		super(props)
-		this.state = {}
+		this.state = {
+			isVisible: false,
+		}
 	}
+
+	static propTypes = {
+	    isVisible: PropTypes.bool,
+	    onClose: PropTypes.func,
+  	};
+
+  	componentWillReceiveProps (nextProps: any) {
+  		var willBeVisible = nextProps.isVisible
+  		var isVisible = this.props.isVisible
+
+  		if (willBeVisible != isVisible) {
+  			if (willBeVisible) {
+  				this.setState({isVisible: true})
+  			}
+  		}
+  	}
 	
 	render () {
 
@@ -31,9 +50,9 @@ export default class FakePopupScreen extends React.Component {
 		const leftPosClick	= this.props.leftPosClick
 		const leftPopUpPos	= (Metrics.screenWidth - elementWidth) / 2
 		const talkBubbleHeight = elementHeight * (elementCounts + 2)
-		console.log(topPopUpPos + '__' + talkBubbleHeight )
-		if (this.props.visibility){
-			console.log('visibility')
+		const willBeVisible = this.props.isVisible
+
+		if (this.props.isVisible){
 			return (
 				<View style={fakePopupStyles.container}>
 		        <View style={fakePopupStyles.talkBubble}
@@ -53,8 +72,9 @@ export default class FakePopupScreen extends React.Component {
 			          		top={topPopUpPos + talkBubbleHeight}	
 			          		/>
 			        <View style={fakePopupStyles.titleContainer}
-			        	width={elementWidth}>  
-			        	<Text style={fakePopupStyles.title}></Text>  
+			        	width={elementWidth}			        	
+			        	top={topPopUpPos} >  
+			        	<Text style={fakePopupStyles.title}>THIS IS HEADER</Text>  
 			        </View>
 			        <View  	style={fakePopupStyles.listContainer} 
 			        		width={elementWidth}
@@ -87,6 +107,28 @@ export default class FakePopupScreen extends React.Component {
 				        </TouchableHighlight>)
 			        }
 			        </View>
+			        <View style={fakePopupStyles.footerContainer}
+        			        	width={elementWidth}
+        			        	height={elementHeight} 
+        			        	top={topPopUpPos + talkBubbleHeight - elementHeight}>
+        			      <View style={fakePopupStyles.rowText}> 
+						        	<Text> 
+						   		   		THIS IS FOOTER
+						        	</Text>
+    			    	  </View>
+    			    	  
+    			    	  
+      			    	  <View style={fakePopupStyles.button}
+
+      			    	  		> 
+      			    	  		<TouchableHighlight onPress={this.props.onClose}
+      			    	  		style={fakePopupStyles.button}>
+      
+      			    	  		<Text> CLOSE BUTTON </Text>
+      			    	  		</TouchableHighlight>
+    			    	  </View>
+    			    	  
+			        </View>
 			      </View>
 			    </View>  
 
@@ -100,11 +142,12 @@ export default class FakePopupScreen extends React.Component {
 
 	handlePressItem(item) {
 		console.log('FakePopupScreen press ' + item.text)	
+		alert(item.func);
 		
 	}
 
 	handleCall() {
-
+		alert('CALL FUNCTION');
 	}
 
 }
