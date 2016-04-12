@@ -50,14 +50,14 @@ const POP_UP_FIRE = 0;
 const POP_UP_AMBULANCE = 1;
 const POP_UP_POLICE = 2;
 
-const { SCREEN_WIDTH, SCREEN_HEIGHT } = React.Dimensions.get('window')
-
 export default class AllComponentsScreen extends React.Component {
 
   constructor (props) {
     super(props)
     this.state = {
       isPopupShow: false,
+      leftPosClick: null,
+      topPopUpPos: null,
       items: [],
     }
 
@@ -109,9 +109,11 @@ export default class AllComponentsScreen extends React.Component {
     //temp do nothing
   }
 
-  handleShowPopUp (_items) {
+  handleShowPopUp (_items, left, top) {
     this.setState({items: _items})
     this.setState({isPopupShow: true})
+    this.setState({leftPosClick: left})
+    this.setState({topPopUpPos: top})
     console.log('handleShowPopUp')
   }
 
@@ -145,35 +147,43 @@ export default class AllComponentsScreen extends React.Component {
 
   render () {
     const { loggedIn, temperature, city } = this.props
+
     return (
       <View style={styles.screenContainer}>
         <MapScreen />
         <FakePopup  items={this.state.items}
-                    visibility={this.state.isPopupShow}/>
+                    elementWidth={Metrics.screenWidth * 4 / 5}
+                    elementHeight={30}
+                    topPopUpPos={this.state.topPopUpPos}
+                    leftPosClick={this.state.leftPosClick}
+                    visibility={this.state.isPopupShow}
+                     />
         <View style={mapstyle.icons_container}>
               <CircleIcon
                 name='fire'
                 size={Metrics.icons.medium}
                 color={Colors.error}
-                onPress={this.handleShowPopUp.bind(this, fireItems)}
+                onPress={this.handleShowPopUp.bind(this, fireItems,  Metrics.screenWidth / 6, 30)}
                 />
               <CircleIcon
                 name='ambulance'
                 size={Metrics.icons.medium}
                 color={Colors.error}
-                onPress={this.handleShowPopUp.bind(this, ambulanceItems)}
+                onPress={this.handleShowPopUp.bind(this, ambulanceItems,  Metrics.screenWidth * 2 / 3, 30)}
                 />
               <CircleIcon
                 name='bell'
                 size={Metrics.icons.medium}
                 color={Colors.error}
-                onPress={this.handleShowPopUp.bind(this, policeItems)}
+                onPress={this.handleShowPopUp.bind(this, policeItems, Metrics.screenWidth, 30)}
               />
        </View>   
      </View>
     )
   }
 }
+
+
 
 const mapStateToProps = (state) => {
   return {

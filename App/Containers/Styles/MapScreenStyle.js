@@ -84,7 +84,7 @@ export default StyleSheet.create({
     borderLeftWidth: 13,
     borderRightWidth: 13,
     borderTopWidth: 26,
-    borderTopColor: 'blue',
+    borderTopColor: 'white',
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
     borderBottomColor: 'transparent'

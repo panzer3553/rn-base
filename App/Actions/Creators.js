@@ -36,7 +36,7 @@ const requestCall = (phoneNumber) =>
   createAction(Types.CALL_REQUEST, {phoneNumber})
 const requestCallReceive = () =>
   createAction(Types.CALL_RECEIVE)
-const requestReceiveFailure = (errorCode) =>
+const requestCallFailure = (errorCode) =>
   createAction(Types.CALL_FAILURE, {errorCode})
 
 /**
@@ -50,5 +50,11 @@ export default {
   startup,
   requestTemperature,
   receiveTemperature,
-  receiveTemperatureFailure
+  receiveTemperatureFailure,
+  requestLocation,
+  receiveLocation,
+  receiveLocationFailure,
+  requestCall,
+  requestCallReceive,
+  requestCallFailure,
 }
