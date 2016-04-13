@@ -21,15 +21,15 @@ import CircleIcon from '../Components/CircleIcon'
 import MapScreen from '../Components/MapScreen'
 
 var fireItems = [ 
-      {icon: 'fire', text: 'item1', func: 'call1'}, 
-      {icon: 'fire', text: 'item2', func: 'call2'}, 
+      {icon: 'fire', text: 'Fire Call', func: 'fireCall'}, 
+      {icon: 'fire', text: 'Show Location', func: 'showUserLocation'}, 
       {icon: 'fire', text: 'item3', func: 'call3'}, 
       {icon: 'fire', text: 'item4', func: 'call4'}, 
       {icon: 'fire', text: 'item5', func: 'call5'}, 
     ];
 
 var ambulanceItems  = [ 
-      {icon: 'ambulance', text: 'item1', func: 'call1'}, 
+      {icon: 'ambulance', text: 'Ambulance Call', func: 'ambulanceCall'}, 
       {icon: 'ambulance', text: 'item2', func: 'call2'}, 
       {icon: 'ambulance', text: 'item3', func: 'call3'}, 
       {icon: 'ambulance', text: 'item4', func: 'call4'}, 
@@ -75,6 +75,7 @@ export default class AllComponentsScreen extends React.Component {
     longitude: PropTypes.number,
   };
 
+
   componentWillMount () {
     this.props.navigator.state.tapHamburger = () => {
       this.props.navigator.drawer.toggle()
@@ -100,8 +101,9 @@ export default class AllComponentsScreen extends React.Component {
   }
 
   handleRequestCall() {
-    const { dispatch } = this.props
-    dispatch(Actions.requestCall())
+    //const { dispatch } = this.props
+    //dispatch(Actions.requestCall())
+
   }
 
   handleRequestShowDirection() {
@@ -147,10 +149,13 @@ export default class AllComponentsScreen extends React.Component {
 
   render () {
     const { loggedIn, temperature, city } = this.props
-
+    //console.log('__' + Metrics.screenHeight )
     return (
       <View style={styles.screenContainer}>
-        <MapScreen />
+        <MapScreen 
+            latitude={this.state.latitude}
+            longitude={this.state.longitude}
+        />
                 <FakePopup  items={this.state.items}
                     elementWidth={Metrics.screenWidth * 4 / 5}
                     elementHeight={30}
@@ -164,11 +169,16 @@ export default class AllComponentsScreen extends React.Component {
                 name='fire-extinguisher'
                 size={Metrics.icons.medium}
                 color={Colors.error}
+                onPress={this.handleShowPopUp.bind(this, 
+                                                   fireItems, 
+                                                   Metrics.screenWidth/10,
+                                                   30)}
                 />
               <CircleIcon
                 name='ambulance'
                 size={Metrics.icons.medium}
                 color={Colors.error}
+                onPress={this.handleRequestLocation.bind(this)}
                 />
               <CircleIcon
                 name='bell'

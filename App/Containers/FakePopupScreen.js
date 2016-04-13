@@ -4,6 +4,7 @@ import styles from './Styles/AllComponentsScreenStyle'
 import { Colors, Images, Metrics } from '../Themes'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Communications from 'react-native-communications'
+import Actions from '../Actions/Creators'
 import React, {
 	StyleSheet,
 	View, 
@@ -16,7 +17,7 @@ import React, {
 
 var itemCount = 0;
 
-export default class FakePopupScreen extends React.Component {
+export default class FakePopupScreen extends Component {
 
 	constructor (props) {
 		super(props)
@@ -141,15 +142,34 @@ export default class FakePopupScreen extends React.Component {
 	}
 
 	handlePressItem(item) {
-		console.log('FakePopupScreen press ' + item.text)	
-		alert(item.func);
+		//console.log('FakePopupScreen press ' + item.text)	
+		switch (item.func) {
+			case 'fireCall': {
+				this.handleCall()
+				break;
+			}
+			case 'showUserLocation': {
+				this.showUserLocation()
+				break;
+			}
+			default: {
+				alert(item.func);
+				break;
+			}
+		}
+		
 		
 	}
 
 	handleCall() {
-		alert('CALL FUNCTION');
+		Communications.phonecall('+84982709185', false)
 	}
 
+	showUserLocation() {
+	    //const { dispatch } = this.props
+	    //dispatch(Actions.requestLocation())
+	}
 }
+
 
 

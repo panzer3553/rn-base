@@ -3,7 +3,8 @@ import React, {
 	View, 
 	Component, 
 	Image, 
-	TouchableHighlight 
+	TouchableHighlight,
+	PropTypes
 } from 'react-native'
 
 import MapView from 'react-native-maps'
@@ -28,6 +29,8 @@ export default class MapScreen extends React.Component {
 		}
 	}
 
+
+
 	componentDidMount () {
 		//init map with current 
 		navigator.geolocation.getCurrentPosition(
@@ -49,6 +52,10 @@ export default class MapScreen extends React.Component {
 		navigator.geolocation.clearWatch(this.watchID)
 	}
 
+	componentWillReceiveProps (nextProps:any) {
+		//
+	}
+
 
 	onRegionChange(region) {
 		this.setState({ region })
@@ -63,4 +70,15 @@ export default class MapScreen extends React.Component {
 		  />
 		)
 	}
+}
+
+MapScreen.propTypes = {
+  dispatch: PropTypes.func,
+  getUserLocation: PropTypes.func
+}
+
+const mapStateToProps = (state) => {
+  return {
+    getUserLocation: state.mapscreen.getUserLocation
+  }
 }
