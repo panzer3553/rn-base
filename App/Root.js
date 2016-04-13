@@ -78,11 +78,9 @@ export default class RNBase extends React.Component {
               type="static"
               tapToClose={true}
               openDrawerOffset={0.2} // 20% gap on the right side of drawer
-              panCloseMask={0.2}
               closedDrawerOffset={-3}
               styles={{
                 drawer: {backgroundColor:Colors.drawerColor},
-                main: {paddingLeft: 3}
               }}
               tweenHandler={Drawer.tweenPresets.parallax}
             >
