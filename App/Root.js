@@ -81,12 +81,10 @@ export default class RNBase extends React.Component {
               panCloseMask={0.2}
               closedDrawerOffset={-3}
               styles={{
-                drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3, backgroundColor:Colors.drawerColor},
+                drawer: {backgroundColor:Colors.drawerColor},
                 main: {paddingLeft: 3}
               }}
-              tweenHandler={(ratio) => ({
-                main: { opacity:(2-ratio)/2 }
-              })}
+              tweenHandler={Drawer.tweenPresets.parallax}
             >
             <Navigator
               ref={(ref) => { this.navigator = ref }}
