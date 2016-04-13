@@ -35,30 +35,44 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   title: {
+    flex: 1,
     position: 'absolute',
-    color: 'blue',
+    alignItems: 'center',
   },
   titleContainer: {
+    flex: 1,
     position: 'absolute', 
+    alignItems: 'center',
+  },
+  footerContainer: {
+    position: 'absolute',
+    flex: 1,
+    flexDirection:'row',
+    backgroundColor: 'white',
+    borderRadius: 10,
+
   },
   rowContainer: {
     flex: 1,
     flexDirection:'row',
     backgroundColor: 'white',
-    borderColor: 'black',
-    borderWidth: 1,
   },
-rowIcon: {
-    flex: 9,
+  rowIcon: {
+    flex: 3,
     alignItems: 'center',
   },
   rowText: {
-    flex: 4,
+    flex: 6,
   },
   listContainer: {
     position: 'absolute',
     flex: 1,
     flexDirection:'column'
   },
-
+  button: {
+    flex: 6,
+    alignSelf: 'stretch',
+    borderWidth: 1,
+    borderRadius: 10,
+  }
 })

@@ -117,6 +117,7 @@ export default class AllComponentsScreen extends React.Component {
 
   handleClosePopUp () {
     this.setState({isPopupShow: false})
+    console.log('handleClosepopUp')
   }
 
 
