@@ -57,7 +57,7 @@ export default StyleSheet.create({
     position: 'absolute',
     width: width,
     left: 0,
-    bottom: 20,
+    bottom: 30,
     backgroundColor: 'transparent',
   },
 

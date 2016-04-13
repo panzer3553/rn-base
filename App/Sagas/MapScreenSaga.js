@@ -13,11 +13,12 @@ var OUTPUT_TYPE = 'json'; // 'xml';
 var DEBUG_TAG 	= 'MAP_SCREEN_SAGA';
 
 export function * getLocation () {
-
-	const response = yield call (navigator.geolocation.getCurrentPosition, (position) => {
-		put(Actions.receiveLocationFailure())
-	})
-
+	try{
+	  const response = yield call(navigator.geolocation.getCurrentPosition)
+	  yield put(Actions.receiveLocation(response.coords.latitude, response.coords.longitude))
+    }catch(e){
+    	yield put(Actions.receiveLocationFailure(e.message))
+    }
 }
 
 
@@ -41,7 +42,7 @@ export function * getLocationInfo (_latitude, _longitude, _output = OUTPUT_TYPE)
 
 export function * watchLocationRequest () {
 	while (true) {
-		const action = yield take (Types.MAP_LOCATION_REQUEST);
-		yield call (getLocation, action);
+		const action = yield take (Types.MAP_LOCATION_REQUEST)
+		yield call(getLocation)
 	}
 }

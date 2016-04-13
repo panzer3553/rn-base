@@ -17,7 +17,7 @@ import VectorIcon from 'react-native-vector-icons/Ionicons'
 import mapstyle from './Styles/MapScreenStyle'
 import FakePopup from './FakePopupScreen'
 import fakePopupStyle from './Styles/FakePopupScreenStyle'
-import CircleIcon from './CircleIcon'
+import CircleIcon from '../Components/CircleIcon'
 import MapScreen from '../Components/MapScreen'
 
 var fireItems = [ 
@@ -161,9 +161,10 @@ export default class AllComponentsScreen extends React.Component {
                      />
         <View style={mapstyle.icons_container}>
               <CircleIcon
-                name='fire'
+                name='fire-extinguisher'
                 size={Metrics.icons.medium}
                 color={Colors.error}
+                onPress={() => this.props.dispatch(Actions.requestLocation())}
                 />
               <CircleIcon
                 name='ambulance'

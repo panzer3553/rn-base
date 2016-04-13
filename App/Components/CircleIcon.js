@@ -17,7 +17,6 @@ export default class CircleIcon extends React.Component {
 	}
 
 	handlePress() {
-		console.log('CircleIcon CLICK ')
 	}
 
 
