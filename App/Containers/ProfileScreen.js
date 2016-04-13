@@ -114,20 +114,12 @@ export default class ProfileScreen extends React.Component {
             />
           <Separator label='CONTACT'/>
           <InputField ref='email' placeholder='Email' keyboardType="email-address" value={email}
-          iconRight={
-          <Icon name='ios-arrow-right'
-            size={Metrics.icons.x_small}
-            style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
           iconLeft={
           <Icon name='ios-email-outline'
             size={Metrics.icons.x_small}
             style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}   
           />
-          <InputField ref='mobile' label='Mobile' placeholder='mobile' keyboardType="phone-pad" value={mobile}
-          iconRight={
-          <Icon name='ios-arrow-right'
-            size={Metrics.icons.x_small}
-            style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
+          <InputField ref='mobile' placeholder='Mobile' keyboardType="phone-pad" value={mobile}
           iconLeft={
           <Icon name='ios-telephone-outline'
             size={Metrics.icons.x_small}
@@ -135,10 +127,6 @@ export default class ProfileScreen extends React.Component {
           />
           <Separator label='ADDRESS'/>
           <InputField ref='address' placeholder='Add new address' value={address}
-          iconRight={
-          <Icon name='ios-arrow-right'
-            size={Metrics.icons.x_small}
-            style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
           iconLeft={
           <Icon name='ios-home-outline'
             size={Metrics.icons.x_small}
