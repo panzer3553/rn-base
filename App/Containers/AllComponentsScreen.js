@@ -19,7 +19,7 @@ import Routes from '../Navigation/Routes'
 // external libs
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Animatable from 'react-native-animatable'
-
+import {MKButton,MKColor} from 'react-native-material-kit'
 // I18n
 import I18n from '../I18n/I18n.js'
 import MapView from 'react-native-maps';
@@ -31,7 +31,7 @@ import CircleIcon from '../Components/CircleIcon'
 import MapScreen from '../Components/MapScreen'
 import BubblePopUp from './BubblePopUp.js'
 import CustomListView from './CustomListView'
-
+import Communications from 'react-native-communications'
 
 var fireItems = [ 
       {icon: 'fire', text: 'Show Info Screen', func: 'fireCall'}, 
@@ -71,7 +71,6 @@ export default class AllComponentsScreen extends React.Component {
       leftPosClick: null,
       topPopUpPos: null,
       items: [],
-      alert_isVisible: false,
     }
 
     this.handlePressLogin = this.handlePressLogin.bind(this)
@@ -112,12 +111,6 @@ export default class AllComponentsScreen extends React.Component {
   handleRequestLocation() {
     const { dispatch } = this.props
     dispatch(Actions.requestLocation())
-  }
-
-  handleRequestCall() {
-    //const { dispatch } = this.props
-    //dispatch(Actions.requestCall())
-
   }
 
   handleRequestShowDirection() {
@@ -164,6 +157,12 @@ export default class AllComponentsScreen extends React.Component {
   render () {
     const { loggedIn, temperature, city } = this.props
     //console.log('__' + Metrics.screenHeight )
+    const PlainFab = MKButton.plainFab()
+    .withStyle({width:80, height: 80})
+    .build();
+    const SmallPlainFab = MKButton.plainFab()
+    .withStyle({width:60, height: 60})
+    .build();
     return (
       <View style={styles.screenContainer}>
         <MapScreen 
@@ -171,14 +170,9 @@ export default class AllComponentsScreen extends React.Component {
             longitude={this.state.longitude}
         />
         <View style={styles.infoIconContainer}>
-          <CircleIcon 
-                  name='info'
-                  width={20}
-                  height={20}
-                  iconSize={Metrics.icons.medium}
-                  color={Colors.error}
-                  onPress={this.handleShowPopUp.bind(this, fireItems, Metrics.screenWidth  / 10, 30)}
-          />
+          <SmallPlainFab onPress={() =>Alert.alert("Not implement yet")}>
+            <Icon name="info" size={Metrics.icons.small} color="red" />
+          </SmallPlainFab>
         </View>
         <BubblePopUp  items={this.state.items}
             elementWidth={Metrics.screenWidth * 4 / 5}
@@ -189,71 +183,43 @@ export default class AllComponentsScreen extends React.Component {
             onClose={this.handleClosePopUp.bind(this)}
         />
         <View style={mapstyle.icons_container}>
-              <CircleIcon
-                name='fire-extinguisher'
-                width={60}
-                height={60}
-                iconSize={Metrics.icons.medium}
-                color={Colors.error}
-                onPress={this.showConfirmDialog.bind(this, 
+          <PlainFab onPress={this.showConfirmDialog.bind(this, 
                                                     'Do you want to make this call ?',
-                                                    'Only make this call when you are in an emergency! ' +
+                                                    'Only make this call when you are in an emergency situation! ' +
                                                      'Please confirm to make the call to FIRE STATION: ',
-                                                     '+84982709185' )}
-                />
-              <CircleIcon
-                name='ambulance'
-                iconSize={Metrics.icons.medium}
-                color={Colors.error}
-                onPress={this.showConfirmDialog.bind(this, 
+                                                     '+84982709185' )}>
+            <Icon name="fire" size={Metrics.icons.medium} color="red" />
+          </PlainFab>
+          <PlainFab  onPress={this.showConfirmDialog.bind(this, 
                                                     'Do you want to make this call ?',
-                                                    'Only make this call when you are in an emergency! ' +
-                                                     'Please confirm to make the call to AMBULANCE STATION: ',
-                                                     '+84982709185' )}
-                />
-              <CircleIcon
-                name='bell'
-                width={60}
-                height={60}
-                iconSize={Metrics.icons.medium}
-                color={Colors.error}
-                onPress={this.showConfirmDialog.bind(this, 
+                                                    'Only make this call when you are in an emergency situation! ' +
+                                                     'Please confirm to make the call to  AMBULANCE: ',
+                                                     '+84982709185' )}>
+            <Icon name="ambulance" size={Metrics.icons.medium} color="red" />
+          </PlainFab>
+          <PlainFab  onPress={this.showConfirmDialog.bind(this, 
                                                     'Do you want to make this call ?',
-                                                    'Only make this call when you are in an emergency! ' +
+                                                    'Only make this call when you are in an emergency situation! ' +
                                                      'Please confirm to make the call to POLICE STATION: ',
-                                                     '+84982709185' )}
-              />
+                                                     '+84982709185' )}>
+            <Icon name="bell" size={Metrics.icons.medium} color="red" />
+          </PlainFab>
        </View>   
      </View>
     )
   }
 
   showConfirmDialog (_title, _message, _phoneNumber) {
-    this.setState({
-      alert_isVisible: true,
-    })
 
      Alert.alert(
             _title,
             _message + _phoneNumber,
             [
-               {text: 'Cancel', onPress: () => this.handleOnCancelAlert.bind(this)},
-              {text: 'OK', onPress: () => this.handleOnConfirmDialog.bind(this, _phoneNumber)},
+               {text: 'Cancel', onPress: () => console.log("Cancel")},
+              {text: 'OK', onPress: () =>  Communications.phonecall(_phoneNumber, false)},
             ]
     )
   }
-  handleOnCancelAlert() {
-    this.setState({
-      alert_isVisible: false,
-    })
-  }
-
-  handleOnConfirmDialog (_phoneNumber) {
-    this.setState({
-      alert_isVisible: false,
-    })
-   Communications.phonecall(_phoneNumber, false)
-  } 
 }
 
 const style1s = StyleSheet.create({

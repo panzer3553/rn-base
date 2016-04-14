@@ -60,6 +60,16 @@ export default class BubblePopUp extends Component {
 							left={elementWidth} />			
 			        <CustomListView 
 					    	items={this.props.items}/>
+					    	      			    	  <View style={fakePopupStyles.button}
+
+      			    	  		> 
+      			    	  		<TouchableHighlight onPress={this.props.onClose}
+      			    	  		style={fakePopupStyles.button}>
+      
+      			    	  		<Text> CLOSE BUTTON </Text>
+      			    	  		</TouchableHighlight>
+    			    	  </View>
+
 			    </View>
 			    </View>  
 

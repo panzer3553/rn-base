@@ -6,7 +6,7 @@ import com.facebook.react.shell.MainReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n; 
 import com.AirMaps.AirPackage; // <--- This!
-
+import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,7 +40,8 @@ public class MainActivity extends ReactActivity {
             new MainReactPackage(),
             new VectorIconsPackage(),
             new ReactNativeI18n(),
-            new AirPackage()
+            new AirPackage(),
+            new ReactMaterialKitPackage()
         );
     }
 }

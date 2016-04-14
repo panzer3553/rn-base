@@ -41,7 +41,7 @@ export default StyleSheet.create({
   infoIconContainer: {
     width: Metrics.icons.medium,
     height: Metrics.icons.medium,
-    top: 0,
-    left: Metrics.screenWidth - Metrics.icons.xl,
+    top: 10,
+    left: Metrics.screenWidth - 80
   }
 })

@@ -33,6 +33,7 @@
 		F8661E5A1CB605B80079A5B2 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8661E521CB605B80079A5B2 /* Octicons.ttf */; };
 		F8661E5B1CB605B80079A5B2 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8661E531CB605B80079A5B2 /* Zocial.ttf */; };
 		F8F925BA1CBF594E00D9B10C /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F925AC1CBF592500D9B10C /* libAirMaps.a */; };
+		F8F925FE1CBFA0D800D9B10C /* libRCTMaterialKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F925F41CBFA0C700D9B10C /* libRCTMaterialKit.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,13 @@
 			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
 			remoteInfo = AirMaps;
 		};
+		F8F925F31CBFA0C700D9B10C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F8F925EA1CBFA0C700D9B10C /* RCTMaterialKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8A1B8E771B22E4E300DB45C2;
+			remoteInfo = RCTMaterialKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -176,6 +184,7 @@
 		F8661E521CB605B80079A5B2 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		F8661E531CB605B80079A5B2 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
 		F8F925A71CBF592500D9B10C /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
+		F8F925EA1CBFA0C700D9B10C /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +203,7 @@
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				F8F925BA1CBF594E00D9B10C /* libAirMaps.a in Frameworks */,
+				F8F925FE1CBFA0D800D9B10C /* libRCTMaterialKit.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				F8661E3E1CB6038A0079A5B2 /* libRNVectorIcons.a in Frameworks */,
 				F8661E1E1CB601090079A5B2 /* libRNI18n.a in Frameworks */,
@@ -315,6 +325,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				F8F925EA1CBFA0C700D9B10C /* RCTMaterialKit.xcodeproj */,
 				F8F925A71CBF592500D9B10C /* AirMaps.xcodeproj */,
 				F8661E381CB603750079A5B2 /* RNVectorIcons.xcodeproj */,
 				F8661E0B1CB600E90079A5B2 /* RNI18n.xcodeproj */,
@@ -399,6 +410,14 @@
 			isa = PBXGroup;
 			children = (
 				F8F925AC1CBF592500D9B10C /* libAirMaps.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F8F925EB1CBFA0C700D9B10C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F8F925F41CBFA0C700D9B10C /* libRCTMaterialKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -491,6 +510,10 @@
 				{
 					ProductGroup = 78C398B11ACF4ADC00677621 /* Products */;
 					ProjectRef = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
+				},
+				{
+					ProductGroup = F8F925EB1CBFA0C700D9B10C /* Products */;
+					ProjectRef = F8F925EA1CBFA0C700D9B10C /* RCTMaterialKit.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
@@ -630,6 +653,13 @@
 			fileType = archive.ar;
 			path = libAirMaps.a;
 			remoteRef = F8F925AB1CBF592500D9B10C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F8F925F41CBFA0C700D9B10C /* libRCTMaterialKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTMaterialKit.a;
+			remoteRef = F8F925F31CBFA0C700D9B10C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
