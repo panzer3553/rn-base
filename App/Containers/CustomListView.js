@@ -34,7 +34,7 @@ export default class CustomListView extends Component {
 	 renderRow(rowData, sectionID, rowID)  {
 	 	return (
 		  <TouchableHighlight  
-		        underlayColor='#ddddd'
+		  		width={this.props.width}
 		        onPress = {this.onPressRow.bind(this, rowData)}>
 		      <View >
 		        <View style={styles.rowContainer} >
@@ -61,6 +61,7 @@ export default class CustomListView extends Component {
 		return (
 		    <ListView 
 		    	top={this.props.top}
+		    	width={this.props.width}
 		    	height={this.props.height}
 		      	dataSource={this.state.dataSource}
 		      	renderRow={this.renderRow.bind(this)}

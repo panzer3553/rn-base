@@ -14,9 +14,8 @@ export default class Triangle extends Component {
 		return (
 			<View
 				style={this.props.style}
-				width={0}
-				height={0}
 				left={this.props.left}
+				top={this.props.top}
 			    backgroundColor={'transparent'}
 			    borderStyle={'solid'} 
 			    borderLeftColor={'transparent'}
