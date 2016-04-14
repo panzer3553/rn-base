@@ -9,8 +9,6 @@ export default StyleSheet.create({
   icon_background_circle: {
     backgroundColor: 'white',
     borderRadius: 30,
-    width: 60,
-    height: 60,
     alignItems:'center',
     justifyContent: 'center',
   },

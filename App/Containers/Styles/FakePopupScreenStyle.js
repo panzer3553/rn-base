@@ -18,7 +18,6 @@ export default StyleSheet.create({
     borderRadius: 10
   },
   talkBubbleTriangle: {
-    position: 'absolute',
     backgroundColor: 'transparent',
     borderTopColor: 'white',
     borderLeftColor: 'transparent',
@@ -26,6 +25,8 @@ export default StyleSheet.create({
     borderBottomColor: 'transparent'
   },
   container: {
+    flex: 2,
+    flexDirection: 'row',
   	position: 'absolute',
   	left: 0,
   	top: 0,
@@ -74,5 +75,16 @@ export default StyleSheet.create({
     alignSelf: 'stretch',
     borderWidth: 1,
     borderRadius: 10,
-  }
+  },
+  triangleRight: {
+    transform: [
+      {rotate: '90deg'}
+    ]
+  },
+  triangleLeft: {
+    transform: [
+      {rotate: '-90deg'}
+    ]
+  },
+
 })

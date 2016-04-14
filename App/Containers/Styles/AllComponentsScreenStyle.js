@@ -37,5 +37,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  infoIconContainer: {
+    width: Metrics.icons.medium,
+    height: Metrics.icons.medium,
+    top: 0,
+    left: Metrics.screenWidth - Metrics.icons.xl,
   }
 })
