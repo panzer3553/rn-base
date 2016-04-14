@@ -1,5 +1,15 @@
 // An All Components Screen is a great way to dev and quick-test components
-import React, { View, ScrollView, Text, TouchableOpacity, PropTypes, StyleSheet } from 'react-native'
+import React, 
+  { 
+    View, 
+    ScrollView, 
+    Text, 
+    TouchableOpacity, 
+    PropTypes, 
+    StyleSheet,
+    Alert,
+    TouchableHighlight
+} from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/AllComponentsScreenStyle'
 import ProgressiveImage from '../Components/ProgressiveImage'
@@ -19,9 +29,12 @@ import FakePopup from './FakePopupScreen'
 import fakePopupStyle from './Styles/FakePopupScreenStyle'
 import CircleIcon from '../Components/CircleIcon'
 import MapScreen from '../Components/MapScreen'
+import BubblePopUp from './BubblePopUp.js'
+import CustomListView from './CustomListView'
+
 
 var fireItems = [ 
-      {icon: 'fire', text: 'Fire Call', func: 'fireCall'}, 
+      {icon: 'fire', text: 'Show Info Screen', func: 'fireCall'}, 
       {icon: 'fire', text: 'Show Location', func: 'showUserLocation'}, 
       {icon: 'fire', text: 'item3', func: 'call3'}, 
       {icon: 'fire', text: 'item4', func: 'call4'}, 
@@ -58,6 +71,7 @@ export default class AllComponentsScreen extends React.Component {
       leftPosClick: null,
       topPopUpPos: null,
       items: [],
+      alert_isVisible: false,
     }
 
     this.handlePressLogin = this.handlePressLogin.bind(this)
@@ -156,39 +170,90 @@ export default class AllComponentsScreen extends React.Component {
             latitude={this.state.latitude}
             longitude={this.state.longitude}
         />
-                <FakePopup  items={this.state.items}
-                    elementWidth={Metrics.screenWidth * 4 / 5}
-                    elementHeight={30}
-                    topPopUpPos={this.state.topPopUpPos}
-                    leftPosClick={this.state.leftPosClick}
-                    isVisible={this.state.isPopupShow}
-                    onClose={this.handleClosePopUp.bind(this)}
-                     />
+        <View style={styles.infoIconContainer}>
+          <CircleIcon 
+                  name='info'
+                  width={20}
+                  height={20}
+                  iconSize={Metrics.icons.medium}
+                  color={Colors.error}
+                  onPress={this.handleShowPopUp.bind(this, fireItems, Metrics.screenWidth  / 10, 30)}
+          />
+        </View>
+        <BubblePopUp  items={this.state.items}
+            elementWidth={Metrics.screenWidth * 4 / 5}
+            elementHeight={30}
+            topPopUpPos={this.state.topPopUpPos}
+            leftPosClick={this.state.leftPosClick}
+            isVisible={this.state.isPopupShow}
+            onClose={this.handleClosePopUp.bind(this)}
+        />
         <View style={mapstyle.icons_container}>
               <CircleIcon
                 name='fire-extinguisher'
-                size={Metrics.icons.medium}
+                width={60}
+                height={60}
+                iconSize={Metrics.icons.medium}
                 color={Colors.error}
-                onPress={this.handleShowPopUp.bind(this, 
-                                                   fireItems, 
-                                                   Metrics.screenWidth/10,
-                                                   30)}
+                onPress={this.showConfirmDialog.bind(this, 
+                                                    'Do you want to make this call ?',
+                                                    'Only make this call when you are in an emergency! ' +
+                                                     'Please confirm to make the call to FIRE STATION: ',
+                                                     '+84982709185' )}
                 />
               <CircleIcon
                 name='ambulance'
-                size={Metrics.icons.medium}
+                iconSize={Metrics.icons.medium}
                 color={Colors.error}
-                onPress={this.handleRequestLocation.bind(this)}
+                onPress={this.showConfirmDialog.bind(this, 
+                                                    'Do you want to make this call ?',
+                                                    'Only make this call when you are in an emergency! ' +
+                                                     'Please confirm to make the call to AMBULANCE STATION: ',
+                                                     '+84982709185' )}
                 />
               <CircleIcon
                 name='bell'
-                size={Metrics.icons.medium}
+                width={60}
+                height={60}
+                iconSize={Metrics.icons.medium}
                 color={Colors.error}
+                onPress={this.showConfirmDialog.bind(this, 
+                                                    'Do you want to make this call ?',
+                                                    'Only make this call when you are in an emergency! ' +
+                                                     'Please confirm to make the call to POLICE STATION: ',
+                                                     '+84982709185' )}
               />
        </View>   
      </View>
     )
   }
+
+  showConfirmDialog (_title, _message, _phoneNumber) {
+    this.setState({
+      alert_isVisible: true,
+    })
+
+     Alert.alert(
+            _title,
+            _message + _phoneNumber,
+            [
+               {text: 'Cancel', onPress: () => this.handleOnCancelAlert.bind(this)},
+              {text: 'OK', onPress: () => this.handleOnConfirmDialog.bind(this, _phoneNumber)},
+            ]
+    )
+  }
+  handleOnCancelAlert() {
+    this.setState({
+      alert_isVisible: false,
+    })
+  }
+
+  handleOnConfirmDialog (_phoneNumber) {
+    this.setState({
+      alert_isVisible: false,
+    })
+   Communications.phonecall(_phoneNumber, false)
+  } 
 }
 
 const style1s = StyleSheet.create({

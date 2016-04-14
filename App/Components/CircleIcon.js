@@ -22,13 +22,14 @@ export default class CircleIcon extends React.Component {
 
 	render () {
 		return (
-             <TouchableHighlight style={styles.icon_background_circle}>
+             <TouchableHighlight style={styles.icon_background_circle}
+             	onPress={this.props.onPress}>
                 <Icon
                   name={this.props.name}
                   style={styles.icon_circle}
                   size={this.props.size}
 	              color={this.props.color}
-                  onPress={this.props.onPress}
+                  
                   >
                 </Icon>
              </TouchableHighlight>  

@@ -13,6 +13,7 @@ import React, {
 	Text,
 	TouchableHighlight,
 	PropTypes,
+	AlertIOS,
 } from 'react-native'
 
 var itemCount = 0;
