@@ -21,12 +21,13 @@ I18n.translations = {
     welcome: 'Welcome',
     login: 'Login',
     tempIndicator: 'F',
-    location: 'Location',
+    save: 'Save',
+    home: 'Home',
     profile: 'Profile',
-    medicalInformation: 'Medical Information',
-    support: 'Support',
-    share: 'Share the app',
-    save: 'Save'
+    emergency: 'Emergency Instruction',
+    recommend: 'Recommend SmartSOS',
+    feedback: 'Send Feedback',
+    about: 'About'
   },
   fr: {
     signIn: 'Se connecter',

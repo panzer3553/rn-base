@@ -12,7 +12,7 @@ import drawerStyles from './Containers/Styles/DrawerStyle'
 import I18n from './I18n/I18n.js'
 
 const store = configureStore()
-const drawerItems = [["add-location", 'location'], ["person", "profile"], ["local-hospital", "medicalInformation"], ["settings", "support"], ["share", "share"]]
+const drawerItems = [["home", 'home'], ["person", "profile"], ["local-hospital", "emergency"], ["email", "recommend"], ["share", "feedback"], ["settings", "about"]]
 
 //Array contains icon name and label of drawer items
 
@@ -33,9 +33,25 @@ export default class RNBase extends React.Component {
         const Profile = Routes.ProfileScreen
         this.navigator.push(Profile)
         break
-      default:
+      case 'home':
         const AllComponentsScreen = Routes.AllComponentsScreen
         this.navigator.push(AllComponentsScreen)
+        break
+      case 'emergency':
+        const Emergency = Routes.EmergencyScreen
+        this.navigator.push(Emergency)
+        break
+      case 'recommend':
+        const Recommend = Routes.RecommendScreen
+        this.navigator.push(Recommend)
+        break
+      case 'feedback':
+        const Feedback = Routes.FeedbackScreen
+        this.navigator.push(Feedback)
+        break
+      case 'about':
+        const About = Routes.AboutScreen
+        this.navigator.push(About)
         break
     }
     this.drawer.close()

@@ -14,19 +14,9 @@ export default new class Routes {
 
   get AllComponentsScreen () {
     return {
-      title: I18n.t('welcome'),
+      title: I18n.t('home'),
       component: require('../Containers/AllComponentsScreen').default,
       leftButton: 'HAMBURGER'
-    }
-  }
-
-  get LoginScreen () {
-    return {
-      title: I18n.t('login'),
-      component: require('../Containers/LoginScreen').default,
-      customConfiguration: Transitions.modal,
-      rightButton: 'FORGOT_PASSWORD',
-      leftButton: 'BACK'
     }
   }
 
@@ -39,4 +29,35 @@ export default new class Routes {
     }
   }
 
+    get EmergencyScreen () {
+    return {
+      title: I18n.t('emergency'),
+      component: require('../Containers/Developing').default,
+      leftButton: 'HAMBURGER'
+    }
+  }
+
+    get RecommendScreen () {
+    return {
+      title: I18n.t('recommend'),
+      component: require('../Containers/Developing').default,
+      leftButton: 'HAMBURGER'
+    }
+  }
+
+    get FeedbackScreen () {
+    return {
+      title: I18n.t('feedback'),
+      component: require('../Containers/Developing').default,
+      leftButton: 'HAMBURGER'
+    }
+  }
+
+    get AboutScreen () {
+    return {
+      title: I18n.t('about'),
+      component: require('../Containers/Developing').default,
+      leftButton: 'HAMBURGER'
+    }
+  }
 }

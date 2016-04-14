@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import Animatable from 'react-native-animatable'
 // I18n
 import I18n from '../I18n/I18n.js'
+import Styles from './Styles/LoginScreenStyle'
 export default class ProfileScreen extends React.Component {
 
     constructor (props) {
