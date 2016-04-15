@@ -22,7 +22,6 @@ import Animatable from 'react-native-animatable'
 import {MKButton,MKColor} from 'react-native-material-kit'
 // I18n
 import I18n from '../I18n/I18n.js'
-import MapView from 'react-native-maps';
 import VectorIcon from 'react-native-vector-icons/Ionicons'
 import mapstyle from './Styles/MapScreenStyle'
 import FakePopup from './FakePopupScreen'
@@ -165,10 +164,7 @@ export default class AllComponentsScreen extends React.Component {
     .build();
     return (
       <View style={styles.screenContainer}>
-        <MapScreen 
-            latitude={this.state.latitude}
-            longitude={this.state.longitude}
-        />
+        <MapScreen />
         <View style={styles.infoIconContainer}>
           <SmallPlainFab onPress={() =>Alert.alert("Not implement yet")}>
             <Icon name="info" size={Metrics.icons.small} color="red" />
