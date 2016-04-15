@@ -23,7 +23,7 @@ export default class CircleIcon extends React.Component {
 
 	render () {
 		return (
-             <TouchableHighlight}
+             <TouchableHighlight
              	width={this.props.width}
              	height={this.props.height}
                 onPress={this.props.onPress}

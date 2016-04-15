@@ -34,7 +34,7 @@ import CustomListView from './CustomListView'
 
 
 var fireItems = [ 
-      {icon: 'fire', text: 'Show Info Screen', func: 'fireCall'}, 
+      {icon: 'fire', text: 'Show Info Screen', func: 'showHelpScreen'}, 
       {icon: 'fire', text: 'Show Location', func: 'showUserLocation'}, 
       {icon: 'fire', text: 'item3', func: 'call3'}, 
       {icon: 'fire', text: 'item4', func: 'call4'}, 
@@ -161,6 +161,12 @@ export default class AllComponentsScreen extends React.Component {
     )
   }
 
+  showHelpScreen () {
+      const { navigator } = this.props
+      const route = Routes.HelpScreen
+      navigator.push(route)
+  }
+
   render () {
     const { loggedIn, temperature, city } = this.props
     //console.log('__' + Metrics.screenHeight )
@@ -187,6 +193,8 @@ export default class AllComponentsScreen extends React.Component {
             leftPosClick={this.state.leftPosClick}
             isVisible={this.state.isPopupShow}
             onClose={this.handleClosePopUp.bind(this)}
+            navigator={this.props.navigator}
+            dispatch={this.props.dispatch}
         />
         <View style={mapstyle.icons_container}>
               <CircleIcon

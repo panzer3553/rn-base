@@ -30,4 +30,13 @@ export default new class Routes {
     }
   }
 
+  get HelpScreen () {
+    return {
+      title: I18n.t('helpInfo'),
+      component: require('../Containers/HelpScreen').default,
+      customConfiguration: Transitions.modal,
+      leftButton: 'BACK'
+    }
+  }
+
 }

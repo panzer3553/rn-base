@@ -16,23 +16,28 @@ export default StyleSheet.create({
     width: width,
     height: height,
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
-    justifyContent: 'center'
   },
 
   bubbleContainer: {
     backgroundColor: 'transparent',
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   squareContainer: {
+    position: 'relative',
     flex:3,
     flexDirection: 'column',
     backgroundColor: 'white',
     borderRadius: 10
   },
-  triangleRight: {
+  triangleContainer: {
     flex: 1,
-    flexDirection: 'row',
+    backgroundColor: 'transparent',
+  },
+  triangleRight: {
+    position: 'absolute',
+    flex: 1,
+    flexDirection: 'column',
     transform: [
       {rotate: '90deg'}
     ]
@@ -43,8 +48,15 @@ export default StyleSheet.create({
     ]
   },
   headerContainer: {
-    flex: 1,
+    position: 'relative',
     alignItems: 'center',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    backgroundColor: Colors.panther,
+  },
+  headerText: {
+    textAlign: 'center',
+    color: Colors.silver
   },
   footerContainer: {
     flex: 1,
@@ -55,12 +67,20 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection:'column'
   },
+  closeButtonWraper: {
+    flex: 1,
+  },
   closeButton: {
-    flex: 6,
-    alignSelf: 'stretch',
+    flex: 1,
     borderWidth: 1,
+    borderColor: 'rgba(77, 148, 255, 0.8)',
+    backgroundColor: 'rgba(128, 179, 255, 0.5)',
+    padding: 6,
     borderRadius: 10,
-    backgroundColor: 'rgba(26, 180, 232, 0.2)',
+  },
+  closeText: {
+    textAlign: 'center',
+    color: Colors.silver
   },
 
 })
