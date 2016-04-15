@@ -24,6 +24,12 @@ const receiveLocation = (latitude, longitude) =>
   createAction(Types.MAP_LOCATION_RECEIVE, { latitude, longitude  })
 const receiveLocationFailure = (errorCode) =>
   createAction(Types.MAP_LOCATION_FAILURE, {errorCode})
+  const requestMapJSON = (latitude, longitude, type) =>
+  createAction(Types.MAP_JSON_REQUEST)
+const receiveMapJSON = (json) =>
+  createAction(Types.MAP_JSON_RECEIVE, { latitude, longitude  })
+const receiveMapJSONFailure = (errorCode) =>
+  createAction(Types.MAP_JSON_FAILURE, {errorCode})
 
 const addMarker = (latitude, longitude, title) =>
   createAction(Types.MAP_MARKER_ADD, { latitude, longitude, title })
@@ -57,4 +63,8 @@ export default {
   requestCall,
   requestCallReceive,
   requestCallFailure,
+  requestMapJSON,
+  receiveMapJSON,
+  receiveMapJSONFailure,
+
 }

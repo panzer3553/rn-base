@@ -106,6 +106,9 @@ export default class BubblePopUp extends React.Component {
 				this.showUserLocation()
 				break
 			}
+			case 'JSONLocation':
+				this.showJSONInfo()
+				break
 
 			default: {
 				alert(_itemFuncName)
@@ -128,6 +131,17 @@ export default class BubblePopUp extends React.Component {
 
 		const {dispatch} = this.props
 		dispatch(Actions.requestLocation())
+	}
+
+	showJSONInfo() {
+		if (typeof this.props.onClose === 'function') {
+            this.props.onClose()
+        }
+
+		const {dispatch} = this.props
+		const  lat = 16.089327
+		const  lng = 108.220243
+		dispatch(Actions.requestMapJSON(lat, lng, 'json'))
 	}
 
 }

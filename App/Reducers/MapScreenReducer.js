@@ -8,14 +8,16 @@ export const INITIAL_STATE = Immutable({
 	latitude:  null,
 	longitude: null,
 	fetching:  null,
-	errorCode: null
+	errorCode: null,
+	json: null,
 })
 
 const request= (state, action) => 
 	state.merge({
 		fetching: true,
-		latitude: null,
-		longitude: null
+		latitude: action.latitude,
+		longitude: action.longitude,
+		json: null,
 	})
 
 const receive = (state, action) =>
@@ -23,7 +25,8 @@ const receive = (state, action) =>
 		fetching: false,
 		latitude: action.latitude,
 		longitude: action.longitude,
-		errorCode: null
+		errorCode: null,
+		json: action.json,
 	})
 
 const failure = (state, action) =>
@@ -31,13 +34,17 @@ const failure = (state, action) =>
 		fetching: 	false,
 		latitude: 	null,
 		longitude: 	null,
-		errorCode: 	true
+		errorCode: 	true,
+		json: null,
 	})
 
 const ACTION_HANDLERS = {
 	[Types.MAP_LOCATION_REQUEST]: request,
 	[Types.MAP_LOCATION_RECEIVE]: receive,
 	[Types.MAP_LOCATION_FAILURE]: failure,
+	[Types.MAP_JSON_REQUEST]: request,
+	[Types.MAP_JSON_RECEIVE]: receive,
+	[Types.MAP_JSON_FAILURE]: failure,
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)

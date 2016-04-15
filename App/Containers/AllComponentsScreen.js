@@ -36,7 +36,7 @@ import CustomListView from './CustomListView'
 var fireItems = [ 
       {icon: 'fire', text: 'Show Info Screen', func: 'showHelpScreen'}, 
       {icon: 'fire', text: 'Show Location', func: 'showUserLocation'}, 
-      {icon: 'fire', text: 'item3', func: 'call3'}, 
+      {icon: 'fire', text: 'Location Info', func: 'JSONLocation'}, 
       {icon: 'fire', text: 'item4', func: 'call4'}, 
       {icon: 'fire', text: 'item5', func: 'call5'}, 
     ];
@@ -87,6 +87,7 @@ export default class AllComponentsScreen extends React.Component {
     city: PropTypes.string,
     latitude:  PropTypes.number,
     longitude: PropTypes.number,
+    json: PropTypes.object
   };
 
 
@@ -280,7 +281,8 @@ const mapStateToProps = (state) => {
     temperature: state.weather.temperature,
     city: state.weather.city,
     latitude: state.mapscreen.latitude,
-    longitude: state.mapscreen.longitude
+    longitude: state.mapscreen.longitude,
+    json: state.mapscreen.json
   }
 }
 
