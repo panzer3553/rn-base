@@ -1,28 +1,33 @@
 // An All Components Screen is a great way to dev and quick-test components
-import React, { View, Text, PropTypes, StyleSheet, Alert} from 'react-native'
+import React, { 
+    View, 
+    ScrollView, 
+    Text, 
+    TouchableOpacity, 
+    PropTypes, 
+    StyleSheet,
+    Alert,
+    TouchableHighlight
+} from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/AllComponentsScreenStyle'
 import { Colors, Images, Metrics } from '../Themes'
 import Actions from '../Actions/Creators'
 import Routes from '../Navigation/Routes'
-// external libs
-import Icon from 'react-native-vector-icons/FontAwesome'
-import Animatable from 'react-native-animatable'
-import {MKButton,MKColor} from 'react-native-material-kit'
-// I18n
-import I18n from '../I18n/I18n.js'
-import VectorIcon from 'react-native-vector-icons/Ionicons'
-import mapstyle from './Styles/MapScreenStyle'
-import CircleIcon from '../Components/CircleIcon'
 import MapScreen from '../Components/MapScreen'
 import BubblePopUp from './BubblePopUp.js'
+// external libs
+import Icon from 'react-native-vector-icons/FontAwesome'
+import {MKButton,MKColor} from 'react-native-material-kit'
 import Communications from 'react-native-communications'
+// I18n
+import I18n from '../I18n/I18n.js'
 
 var fireItems = [ 
      {icon: 'fire', text: 'Show Info Screen', func: 'showHelpScreen'}, 
      {icon: 'fire', text: 'Show Location', func: 'showUserLocation'}, 
      {icon: 'fire', text: 'Location Info', func: 'JSONLocation'}, 
-   ];
+    ]
 
 export default class AllComponentsScreen extends React.Component {
 
@@ -37,7 +42,7 @@ export default class AllComponentsScreen extends React.Component {
   static propTypes = {
     navigator: PropTypes.object.isRequired,
     dispatch: PropTypes.func,
-  };
+  }
 
 
   componentWillMount () {
@@ -45,7 +50,6 @@ export default class AllComponentsScreen extends React.Component {
       this.props.navigator.drawer.toggle()
     }
   }
-
 
   handleShowPopUp (_items) {
     this.setState({items: _items})
@@ -66,7 +70,7 @@ export default class AllComponentsScreen extends React.Component {
     .build()
 
     const bottomButtons = this.state.isPopupShow ? null : (
-        <View style={mapstyle.icons_container}>
+        <View style={styles.icons_container}>
           <PlainFab onPress={this.showConfirmDialog.bind(this, 
                                                     'Do you want to make this call ?',
                                                     'Only make this call when you are in an emergency situation! ' +
@@ -91,7 +95,7 @@ export default class AllComponentsScreen extends React.Component {
        </View>   
       )
 
-    return (
+        return (
       <View style={styles.screenContainer}>
         <MapScreen 
         />
@@ -119,16 +123,18 @@ export default class AllComponentsScreen extends React.Component {
             _title,
             _message + _phoneNumber,
             [
-               {text: 'Cancel', onPress: () => console.log("Cancel")},
+               {text: 'Cancel', onPress: () => console.log('Cancel')},
               {text: 'OK', onPress: () =>  Communications.phonecall(_phoneNumber, false)},
             ]
     )
   }
 }
 
-
 const mapStateToProps = (state) => {
   return {
+    loggedIn: state.login.username !== null,
+    latitude: state.mapscreen.latitude,
+    longitude: state.mapscreen.longitude,
   }
 }
 

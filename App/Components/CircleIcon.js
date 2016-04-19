@@ -12,13 +12,12 @@ export default class CircleIcon extends React.Component {
 	constructor (props) {
 		super(props)
 		this.state = {}
-
 		this.handlePress = this.handlePress.bind(this)
 	}
 
 	handlePress() {
+		//do nothing
 	}
-
 
 	render () {
 		return (
@@ -28,9 +27,7 @@ export default class CircleIcon extends React.Component {
                   name={this.props.name}
                   style={styles.icon_circle}
                   size={this.props.size}
-	              color={this.props.color}
-                  
-                  >
+	              color={this.props.color}>
                 </Icon>
              </TouchableHighlight>  
 		)

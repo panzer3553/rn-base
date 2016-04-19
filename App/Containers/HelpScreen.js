@@ -1,3 +1,7 @@
+import { connect } from 'react-redux'
+import Styles from './Styles/HelpScreenStyle'
+import Actions from '../Actions/Creators'
+import {Images, Metrics} from '../Themes'
 import React, {
   Component,
   PropTypes,
@@ -10,10 +14,6 @@ import React, {
   LayoutAnimation,
   Alert
 } from 'react-native'
-import { connect } from 'react-redux'
-import Styles from './Styles/HelpScreenStyle'
-import Actions from '../Actions/Creators'
-import {Images, Metrics} from '../Themes'
 
 // I18n
 import I18n from '../I18n/I18n.js'
@@ -29,22 +29,16 @@ class HelpScreen extends Component {
     
   }
 
-  handlePressOk () {
-
-  }
-
-  handlePressCancel () {
-  }
-
   render () {
     const { username, password } = this.state
+
     return (
       <View style={[Styles.container, {height: this.state.visibleHeight}]}>
         <View style={Styles.form}>
         </View>
-
       </View>
     )
+
   }
 
 }

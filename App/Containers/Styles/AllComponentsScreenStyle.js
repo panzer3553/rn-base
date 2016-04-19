@@ -7,11 +7,6 @@ export default StyleSheet.create({
     marginTop: Metrics.navBarHeight,
     backgroundColor: Colors.background
   },
-  progressiveImage: {
-    width: Metrics.screenWidth,
-    height: Metrics.screenHeight / 3,
-    alignSelf: 'center'
-  },
   loginBox: {
     padding: 20
   },
@@ -25,12 +20,10 @@ export default StyleSheet.create({
     textAlign: 'center',
     color: Colors.silver
   },
+  
   componentLabel: {
     ...Base.darkLabel,
     marginBottom: 5
-  },
-  temperature: {
-    fontSize: Metrics.fonts.title
   },
   groupContainer: {
     margin: 5,
@@ -43,5 +36,15 @@ export default StyleSheet.create({
     height: Metrics.icons.medium,
     top: 10,
     left: Metrics.screenWidth - 80
-  }
+  },
+  icons_container: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    position: 'absolute',
+    width: Metrics.screenWidth,
+    left: 0,
+    bottom: 30,
+    backgroundColor: 'transparent',
+  },
 })

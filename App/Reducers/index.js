@@ -1,13 +1,11 @@
 import { combineReducers } from 'redux'
 import LoginReducer from './LoginReducer'
-import WeatherReducer from './WeatherReducer'
 import MapScreenReducer from './MapScreenReducer'
 import SaveProfileReducer from './SaveProfileReducer'
 
 // glue all the reducers together into 1 root reducer
 export default combineReducers({
   login: LoginReducer,
-  weather: WeatherReducer,
   mapscreen: MapScreenReducer,
   profileData: SaveProfileReducer 
 })
