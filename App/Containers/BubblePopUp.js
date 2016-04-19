@@ -58,8 +58,8 @@ export default class BubblePopUp extends React.Component {
 							 {	this.props.items.map((item, i) => 	
 								  <TouchableHighlight  
 								  		width={elementWidth}
-								  		onPress ={ 	this.handlePressItem.bind(this, item.func)}>
-
+								  		onPress ={ 	this.handlePressItem.bind(this, item.func)}
+								  		key={i}>
 								      <View >
 								        <View style={listStyles.rowContainer} >
 								          <Icon      
@@ -97,9 +97,7 @@ export default class BubblePopUp extends React.Component {
 							/>
 						</View>
 	    			</View>
-
 				</View>
-
 			)
 		}
 		return (
