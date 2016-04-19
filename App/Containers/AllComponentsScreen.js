@@ -33,13 +33,10 @@ import CustomListView from './CustomListView'
 import Communications from 'react-native-communications'
 
 var fireItems = [ 
-      {icon: 'fire', text: 'Show Info Screen', func: 'fireCall'}, 
-      {icon: 'fire', text: 'Show Location', func: 'showUserLocation'}, 
-      {icon: 'fire', text: 'item3', func: 'call3'}, 
-      {icon: 'fire', text: 'item4', func: 'call4'}, 
-      {icon: 'fire', text: 'item5', func: 'call5'}, 
-    ];
-
+     {icon: 'fire', text: 'Show Info Screen', func: 'showHelpScreen'}, 
+     {icon: 'fire', text: 'Show Location', func: 'showUserLocation'}, 
+     {icon: 'fire', text: 'Location Info', func: 'JSONLocation'}, 
+   ];
 var ambulanceItems  = [ 
       {icon: 'ambulance', text: 'Ambulance Call', func: 'ambulanceCall'}, 
       {icon: 'ambulance', text: 'item2', func: 'call2'}, 
@@ -162,11 +159,15 @@ export default class AllComponentsScreen extends React.Component {
     const SmallPlainFab = MKButton.plainFab()
     .withStyle({width:60, height: 60})
     .build();
-    return (
+
+
+    if (this.state.isPopupShow) {
+      return (
       <View style={styles.screenContainer}>
-        <MapScreen />
+        <MapScreen 
+        />
         <View style={styles.infoIconContainer}>
-          <SmallPlainFab onPress={() =>Alert.alert("Not implement yet")}>
+          <SmallPlainFab onPress={this.handleShowPopUp.bind(this, fireItems, Metrics.screenWidth  / 10, 30)}>
             <Icon name="info" size={Metrics.icons.small} color="red" />
           </SmallPlainFab>
         </View>
@@ -177,7 +178,22 @@ export default class AllComponentsScreen extends React.Component {
             leftPosClick={this.state.leftPosClick}
             isVisible={this.state.isPopupShow}
             onClose={this.handleClosePopUp.bind(this)}
+            navigator={this.props.navigator}
+            dispatch={this.props.dispatch}
         />
+     </View>
+    )
+    }
+
+    return (
+      <View style={styles.screenContainer}>
+        <MapScreen 
+        />
+        <View style={styles.infoIconContainer}>
+          <SmallPlainFab onPress={this.handleShowPopUp.bind(this, fireItems, Metrics.screenWidth  / 10, 30)}>
+            <Icon name="info" size={Metrics.icons.small} color="red" />
+          </SmallPlainFab>
+        </View>
         <View style={mapstyle.icons_container}>
           <PlainFab onPress={this.showConfirmDialog.bind(this, 
                                                     'Do you want to make this call ?',

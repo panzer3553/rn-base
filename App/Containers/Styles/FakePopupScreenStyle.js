@@ -9,11 +9,9 @@ const marginLeft = 30;
 
 export default StyleSheet.create({
   talkBubble: {
-    position: 'absolute',
     backgroundColor: 'transparent',
   },
   talkBubbleSquare: {
-    position: 'absolute',
     backgroundColor: 'white',
     borderRadius: 10
   },

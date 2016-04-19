@@ -5,11 +5,14 @@ import React, {
   TouchableHighlight,
   ListView,
   Text,
-  Component
+  Component,
+  PropTypes
 } from 'react-native'
 import styles from './Styles/CustomListViewStyle'
 import CircleIcon from '../Components/CircleIcon'
 import { Colors, Images, Metrics } from '../Themes'
+import Actions from '../Actions/Creators'
+import Routes from '../Navigation/Routes'
 
 
 export default class CustomListView extends Component {
@@ -22,6 +25,16 @@ export default class CustomListView extends Component {
 		this.state = {	
 			dataSource: ds.cloneWithRows(this.props.items)
 		}
+
+	}
+
+	static propTypes= {
+		itemFuncName: PropTypes.string,
+		onPressItem: PropTypes.func,
+	}
+
+	componentWillReceiveProps (newProps) {
+	    this.props.navigator.pop()
 	}
 
 	componentWillMount() {
@@ -29,22 +42,19 @@ export default class CustomListView extends Component {
 	}
 
 	onPressRow(rowData) {
-		alert(rowData.func)
+
+		if (typeof this.props.onPressItem === 'function') {
+			this.props.onPressItem(rowData.func)
+		}
 	}
-	 renderRow(rowData, sectionID, rowID)  {
+
+	renderRow(rowData, sectionID, rowID)  {
 	 	return (
 		  <TouchableHighlight  
-		        underlayColor='#ddddd'
-		        onPress = {this.onPressRow.bind(this, rowData)}>
+		  		width={this.props.width}
+		        onPress ={ 	this.onPressRow.bind(this, rowData)}>
 		      <View >
 		        <View style={styles.rowContainer} >
-		          <CircleIcon      
-		      		 name={rowData.icon}
-		             width={20}	
-		             height={20}		      		
-		      		 iconSize={Metrics.icons.small}
-		      		 color={'blue'}
-		      		 />
 		          <View  style={styles.textContainer}>
 		            <Text style={styles.title}>{rowData.text}</Text>
 		            <Text style={styles.description}
@@ -61,10 +71,10 @@ export default class CustomListView extends Component {
 		return (
 		    <ListView 
 		    	top={this.props.top}
+		    	width={this.props.width}
 		    	height={this.props.height}
 		      	dataSource={this.state.dataSource}
 		      	renderRow={this.renderRow.bind(this)}
-
 		    />
 		)
 	}

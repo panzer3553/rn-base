@@ -35,7 +35,6 @@ export default class MapScreen extends React.Component {
       },
       (error) => console.log(error),
     )
-    console.log(this.props)
   }
 
   componentWillUnmount(){

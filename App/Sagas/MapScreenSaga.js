@@ -6,7 +6,6 @@ import Actions from '../Actions/Creators'
 
 import I18n from '../I18n/I18n.js'
 import React from 'react-native'
-import BackgroundGeoLocation from 'react-native-background-geolocation'
 
 
 var API_KEY 	= 'AIzaSyA5tP4bdbtsuyicrzzsZkoZ9gmxRovDiMc';
@@ -42,18 +41,18 @@ export function * getUserLocation() {
 
 export function * getLocationInfo (_latitude, _longitude, _output = OUTPUT_TYPE) {
 
-	var strUrl 		= 'http://maps.googleapis.com/maps/api/geocode/';
-	strURL 		   += OUTPUT_TYPE + '?latlng=' + _latitude + ',' + _longitude + '&sensor=true;';
-
-	const client 	= Client({ baseUrl: strURL});
+	const strUrl 		= 'http://maps.googleapis.com/maps/api/geocode/' + 
+                     _output + '?latlng=' + _latitude + ',' + _longitude + '&sensor=true;'
+  console.log(strUrl)
+	const client 	= Client({ baseUrl: strUrl});
 	const response 	= yield call (client.get);
 
 	const { ok, json } = response;
 	if (ok) {
-		//console.log(DEBUG_TAG + ' getLocationInfo OK');
+		alert(JSON.stringify(json))
 	}
 	else {
-		//console.log(DEBUG_TAG + ' getLocationInfo FAILURE');
+		alert('GET JSON FAILURE')//console.log(DEBUG_TAG + ' getLocationInfo FAILURE');
 	}
 
 }
@@ -66,4 +65,13 @@ export function * watchLocationRequest () {
 		const action = yield take (Types.MAP_LOCATION_REQUEST)
 		yield call(getUserLocation)
 	}
+}
+
+export function * watchJsonRequest () {
+
+  while(true) {
+    const action = yield take(Types.MAP_JSON_REQUEST)
+    const { lattitude,  longtitude} = action
+    yield call(getLocationInfo, lattitude, longtitude, OUTPUT_TYPE)
+  }
 }

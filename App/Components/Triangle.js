@@ -17,11 +17,11 @@ export default class Triangle extends Component {
 				width={0}
 				height={0}
 				left={this.props.left}
+				top={this.props.top}
 			    backgroundColor={'transparent'}
 			    borderStyle={'solid'} 
 			    borderLeftColor={'transparent'}
 			    borderRightColor={'transparent'}
-
 				borderLeftWidth={this.props.size / 3}
 				borderRightWidth={this.props.size / 3}
 				borderBottomWidth={this.props.size}
