@@ -32,8 +32,13 @@ I18n.translations = {
     emergency: 'Emergency Instruction',
     recommend: 'Recommend SmartSOS',
     feedback: 'Send Feedback',
-    about: 'About'
+    about: 'About',
+    urgentCallTitle: 'Do you want to make this call ?',
+    urgentFireCallMessage:  'Only make this call when you are in an emergency situation! Please confirm to make the call to  FIRESTATION: ',
+    urgentAmbulanceCallMessage:'Only make this call when you are in an emergency situation! Please confirm to make the call to  AMBULANCE: ',
+    urgentPoliceCallMessage: 'Only make this call when you are in an emergency situation! Please confirm to make the call to  POLICESTATION: ',
   },
+
   fr: {
     signIn: 'Se connecter',
     logOut: 'Se déconnecter',
@@ -49,7 +54,19 @@ I18n.translations = {
     cancel: 'Annuler',
     welcome: 'Bienvenue',
     login: 'S\'identifier',
-    tempIndicator: 'C'
+    tempIndicator: 'C',
+    save: 'Save',
+    home: 'Home',
+    profile: 'Profile',
+    medicalInformation: 'Medical Information',
+    support: 'Support',
+    share: 'Share the app',
+    helpInfo: 'Help Info',
+    location: 'Location',
+    emergency: 'Emergency Instruction',
+    recommend: 'Recommend SmartSOS',
+    feedback: 'Send Feedback',
+    about: 'About',
   }
 }
 

@@ -42,8 +42,11 @@ export function * getUserLocation() {
 export function * getLocationInfo (_latitude, _longitude, _output = OUTPUT_TYPE) {
 
 	const strUrl 		= 'http://maps.googleapis.com/maps/api/geocode/' + 
-                     _output + '?latlng=' + _latitude + ',' + _longitude + '&sensor=true;'
-  console.log(strUrl)
+                     _output + 
+                     '?latlng=' + 
+                     _latitude + ',' + _longitude + 
+                     '&sensor=true;'
+  //console.log(strUrl)
 	const client 	= Client({ baseUrl: strUrl});
 	const response 	= yield call (client.get);
 
@@ -52,14 +55,13 @@ export function * getLocationInfo (_latitude, _longitude, _output = OUTPUT_TYPE)
 		alert(JSON.stringify(json))
 	}
 	else {
-		alert('GET JSON FAILURE')//console.log(DEBUG_TAG + ' getLocationInfo FAILURE');
+		alert('GET JSON FAILURE')
 	}
 
 }
 
 
 export function * watchLocationRequest () {
-
 
 	while (true) {
 		const action = yield take (Types.MAP_LOCATION_REQUEST)

@@ -1,4 +1,3 @@
-
 import React, {
 	View, 
 	Component, 
@@ -10,7 +9,6 @@ import MapView from 'react-native-maps'
 import styles from './Styles/MapScreenStyle' 
 
 export default class MapScreen extends React.Component {
-
 
 	constructor (props) {
 		super(props);
@@ -24,7 +22,7 @@ export default class MapScreen extends React.Component {
 		}
 	}
 
-  componentDidMount(){
+  componentDidMount () {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({region: {latitude: position.coords.latitude,
@@ -37,17 +35,16 @@ export default class MapScreen extends React.Component {
     )
   }
 
-  componentWillUnmount(){
+  componentWillUnmount () {
     navigator.geolocation.clearWatch(this.watchID)
   }
 
-
   render () {
-	return (
-		<MapView 
-		  style={styles.map}
-		  region={this.state.region}
-   		/>
-		)
-	}
+  	return (
+  		<MapView 
+  		  style={styles.map}
+  		  region={this.state.region}
+     	/>
+  		)
+  	}
 }

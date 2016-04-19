@@ -1,6 +1,5 @@
 // An All Components Screen is a great way to dev and quick-test components
-import React, 
-  { 
+import React, { 
     View, 
     ScrollView, 
     Text, 
@@ -12,51 +11,23 @@ import React,
 } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/AllComponentsScreenStyle'
-import ProgressiveImage from '../Components/ProgressiveImage'
 import { Colors, Images, Metrics } from '../Themes'
 import Actions from '../Actions/Creators'
 import Routes from '../Navigation/Routes'
-// external libs
-import Icon from 'react-native-vector-icons/FontAwesome'
-import Animatable from 'react-native-animatable'
-import {MKButton,MKColor} from 'react-native-material-kit'
-// I18n
-import I18n from '../I18n/I18n.js'
-import VectorIcon from 'react-native-vector-icons/Ionicons'
-import mapstyle from './Styles/MapScreenStyle'
-import FakePopup from './FakePopupScreen'
-import fakePopupStyle from './Styles/FakePopupScreenStyle'
-import CircleIcon from '../Components/CircleIcon'
 import MapScreen from '../Components/MapScreen'
 import BubblePopUp from './BubblePopUp.js'
-import CustomListView from './CustomListView'
+// external libs
+import Icon from 'react-native-vector-icons/FontAwesome'
+import {MKButton,MKColor} from 'react-native-material-kit'
 import Communications from 'react-native-communications'
+// I18n
+import I18n from '../I18n/I18n.js'
 
 var fireItems = [ 
      {icon: 'fire', text: 'Show Info Screen', func: 'showHelpScreen'}, 
      {icon: 'fire', text: 'Show Location', func: 'showUserLocation'}, 
      {icon: 'fire', text: 'Location Info', func: 'JSONLocation'}, 
-   ];
-var ambulanceItems  = [ 
-      {icon: 'ambulance', text: 'Ambulance Call', func: 'ambulanceCall'}, 
-      {icon: 'ambulance', text: 'item2', func: 'call2'}, 
-      {icon: 'ambulance', text: 'item3', func: 'call3'}, 
-      {icon: 'ambulance', text: 'item4', func: 'call4'}, 
-      {icon: 'ambulance', text: 'item5', func: 'call5'}, 
-      {icon: 'ambulance', text: 'item6', func: 'call6'},
-    ];
-var policeItems =  [ 
-      {icon: 'bell', text: 'item1', func: 'call1'}, 
-      {icon: 'bell', text: 'item2', func: 'call2'}, 
-      {icon: 'bell', text: 'item3', func: 'call3'}, 
-      {icon: 'bell', text: 'item4', func: 'call4'}, 
-      {icon: 'bell', text: 'item5', func: 'call5'}, 
-      {icon: 'bell', text: 'item6', func: 'call6'},
-    ];
-
-const POP_UP_FIRE = 0;
-const POP_UP_AMBULANCE = 1;
-const POP_UP_POLICE = 2;
+    ]
 
 export default class AllComponentsScreen extends React.Component {
 
@@ -64,8 +35,6 @@ export default class AllComponentsScreen extends React.Component {
     super(props)
     this.state = {
       isPopupShow: false,
-      leftPosClick: null,
-      topPopUpPos: null,
       items: [],
     }
 
@@ -78,11 +47,9 @@ export default class AllComponentsScreen extends React.Component {
     navigator: PropTypes.object.isRequired,
     loggedIn: PropTypes.bool,
     dispatch: PropTypes.func,
-    temperature: PropTypes.number,
-    city: PropTypes.string,
     latitude:  PropTypes.number,
     longitude: PropTypes.number,
-  };
+  }
 
 
   componentWillMount () {
@@ -109,15 +76,9 @@ export default class AllComponentsScreen extends React.Component {
     dispatch(Actions.requestLocation())
   }
 
-  handleRequestShowDirection() {
-    //temp do nothing
-  }
-
-  handleShowPopUp (_items, left, top) {
+  handleShowPopUp (_items) {
     this.setState({items: _items})
     this.setState({isPopupShow: true})
-    this.setState({leftPosClick: left})
-    this.setState({topPopUpPos: top})
   }
 
   handleClosePopUp () {
@@ -151,7 +112,7 @@ export default class AllComponentsScreen extends React.Component {
   }
 
   render () {
-    const { loggedIn, temperature, city } = this.props
+    const { loggedIn } = this.props
     //console.log('__' + Metrics.screenHeight )
     const PlainFab = MKButton.plainFab()
     .withStyle({width:80, height: 80})
@@ -162,62 +123,71 @@ export default class AllComponentsScreen extends React.Component {
 
 
     if (this.state.isPopupShow) {
-      return (
-      <View style={styles.screenContainer}>
-        <MapScreen 
-        />
-        <View style={styles.infoIconContainer}>
-          <SmallPlainFab onPress={this.handleShowPopUp.bind(this, fireItems, Metrics.screenWidth  / 10, 30)}>
-            <Icon name="info" size={Metrics.icons.small} color="red" />
-          </SmallPlainFab>
-        </View>
-        <BubblePopUp  items={this.state.items}
-            elementWidth={Metrics.screenWidth * 4 / 5}
-            elementHeight={30}
-            topPopUpPos={this.state.topPopUpPos}
-            leftPosClick={this.state.leftPosClick}
-            isVisible={this.state.isPopupShow}
-            onClose={this.handleClosePopUp.bind(this)}
-            navigator={this.props.navigator}
-            dispatch={this.props.dispatch}
-        />
-     </View>
-    )
+        return (
+          <View style={styles.screenContainer}>
+            <MapScreen />
+            <View style={styles.infoIconContainer}>
+              <SmallPlainFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
+                <Icon name="info" 
+                    size={Metrics.icons.small} 
+                    color={Colors.error} 
+                />
+              </SmallPlainFab>
+            </View>
+            <BubblePopUp  
+                items={this.state.items}
+                elementWidth={Metrics.screenWidth * 4 / 5}
+                elementHeight={30}
+                isVisible={this.state.isPopupShow}
+                onClose={this.handleClosePopUp.bind(this)}
+                navigator={this.props.navigator}
+                dispatch={this.props.dispatch}
+            />
+         </View>
+      )
     }
 
     return (
       <View style={styles.screenContainer}>
-        <MapScreen 
-        />
+        <MapScreen />
         <View style={styles.infoIconContainer}>
-          <SmallPlainFab onPress={this.handleShowPopUp.bind(this, fireItems, Metrics.screenWidth  / 10, 30)}>
-            <Icon name="info" size={Metrics.icons.small} color="red" />
+          <SmallPlainFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
+            <Icon name="info" 
+                size={Metrics.icons.small} 
+                color={Colors.error} 
+            />
           </SmallPlainFab>
         </View>
-        <View style={mapstyle.icons_container}>
-          <PlainFab onPress={this.showConfirmDialog.bind(this, 
-                                                    'Do you want to make this call ?',
-                                                    'Only make this call when you are in an emergency situation! ' +
-                                                     'Please confirm to make the call to FIRE STATION: ',
-                                                     '+84982709185' )}>
-            <Icon name="fire" size={Metrics.icons.medium} color="red" />
+        <View style={styles.icons_group_container}>
+         <PlainFab  onPress={this.showConfirmDialog.bind(this, I18n.t('urgentCallTitle'),
+                                                     I18n.t('urgentFireCallMessage'),
+                                                     '+84982709185')}>
+            <Icon 
+              name='ambulance'
+              size={Metrics.icons.medium} 
+              color={Colors.error} 
+            />
           </PlainFab>
-          <PlainFab  onPress={this.showConfirmDialog.bind(this, 
-                                                    'Do you want to make this call ?',
-                                                    'Only make this call when you are in an emergency situation! ' +
-                                                     'Please confirm to make the call to  AMBULANCE: ',
+          <PlainFab  onPress={this.showConfirmDialog.bind(this, I18n.t('urgentCallTitle'),
+                                                     I18n.t('urgentAmbulanceCallMessage'),
                                                      '+84982709185' )}>
-            <Icon name="ambulance" size={Metrics.icons.medium} color="red" />
+            <Icon 
+              name='ambulance'
+              size={Metrics.icons.medium} 
+              color={Colors.error} 
+            />
           </PlainFab>
-          <PlainFab  onPress={this.showConfirmDialog.bind(this, 
-                                                    'Do you want to make this call ?',
-                                                    'Only make this call when you are in an emergency situation! ' +
-                                                     'Please confirm to make the call to POLICE STATION: ',
+          <PlainFab  onPress={this.showConfirmDialog.bind(this, I18n.t('urgentCallTitle'),
+                                                     I18n.t('urgentPoliceCallMessage'),
                                                      '+84982709185' )}>
-            <Icon name="bell" size={Metrics.icons.medium} color="red" />
+            <Icon 
+              name='bell'
+              size={Metrics.icons.medium} 
+              color={Colors.error} 
+              />
           </PlainFab>
-       </View>   
-     </View>
+        </View>   
+     </View> 
     )
   }
 
@@ -227,30 +197,18 @@ export default class AllComponentsScreen extends React.Component {
             _title,
             _message + _phoneNumber,
             [
-               {text: 'Cancel', onPress: () => console.log("Cancel")},
+               {text: 'Cancel', onPress: () => console.log('Cancel')},
               {text: 'OK', onPress: () =>  Communications.phonecall(_phoneNumber, false)},
             ]
     )
   }
 }
 
-const style1s = StyleSheet.create({
-  map: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-});
-
 const mapStateToProps = (state) => {
   return {
     loggedIn: state.login.username !== null,
-    temperature: state.weather.temperature,
-    city: state.weather.city,
     latitude: state.mapscreen.latitude,
-    longitude: state.mapscreen.longitude
+    longitude: state.mapscreen.longitude,
   }
 }
 

@@ -1,11 +1,7 @@
-import { StyleSheet } from 'react-native'
 import {Colors, Metrics} from '../../Themes'
-import React from 'react-native'
-
-
-const { width, height } = React.Dimensions.get('window')
-
-const marginLeft = 30;
+import React, { 
+  StyleSheet, 
+} from 'react-native'
 
 export default StyleSheet.create({
   screenContainer: {
@@ -13,13 +9,13 @@ export default StyleSheet.create({
     position: 'absolute',
     left: 0,
     top: 0,
-    width: width,
-    height: height,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    width: Metrics.screenWidth,
+    height: Metrics.screenHeight,
+    backgroundColor: Colors.windowTint,
   },
 
   bubbleContainer: {
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.transparent,
     flex: 1,
     flexDirection: 'row',
   },
@@ -32,7 +28,7 @@ export default StyleSheet.create({
   },
   triangleContainer: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.transparent,
   },
   triangleRight: {
     position: 'absolute',
@@ -47,6 +43,7 @@ export default StyleSheet.create({
       {rotate: '-90deg'}
     ]
   },
+
   headerContainer: {
     position: 'relative',
     alignItems: 'center',
@@ -56,17 +53,14 @@ export default StyleSheet.create({
   },
   headerText: {
     textAlign: 'center',
-    color: Colors.silver
+    color: Colors.silver,
   },
   footerContainer: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.transparent,
     borderRadius: 10,
   },
-  listViewContainer: {
-    flex: 1,
-    flexDirection:'column'
-  },
+  
   closeButtonWraper: {
     flex: 1,
   },
@@ -80,7 +74,7 @@ export default StyleSheet.create({
   },
   closeText: {
     textAlign: 'center',
-    color: Colors.silver
+    color: Colors.silver,
   },
 
 })

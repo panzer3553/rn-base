@@ -12,7 +12,14 @@ import drawerStyles from './Containers/Styles/DrawerStyle'
 import I18n from './I18n/I18n.js'
 
 const store = configureStore()
-const drawerItems = [["home", 'home'], ["person", "profile"], ["local-hospital", "emergency"], ["email", "recommend"], ["share", "feedback"], ["settings", "about"]]
+const drawerItems = [
+                      ["home", 'home'], 
+                      ["person", "profile"], 
+                      ["local-hospital", "emergency"], 
+                      ["email", "recommend"], 
+                      ["share", "feedback"], 
+                      ["settings", "about"]
+                  ]
 
 //Array contains icon name and label of drawer items
 
@@ -89,7 +96,7 @@ export default class RNBase extends React.Component {
             barStyle='light-content'
           />
           <Drawer
-            ref={(ref) => { this.drawer = ref }}
+              ref={(ref) => { this.drawer = ref }}
               content={this.renderDrawerContent()}
               type="static"
               tapToClose={true}
@@ -99,7 +106,7 @@ export default class RNBase extends React.Component {
                 drawer: {backgroundColor:Colors.drawerColor},
               }}
               tweenHandler={Drawer.tweenPresets.parallax}
-            >
+          >
             <Navigator
               ref={(ref) => { this.navigator = ref }}
               initialRoute={Routes.AllComponentsScreen}
