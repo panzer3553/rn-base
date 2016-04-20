@@ -6,7 +6,7 @@ export default StyleSheet.create({
     alignRight:{
       marginTop: 9, 
       position:'absolute', 
-      right: 10,
+      right: 1
     },
 
     alignLeft:{

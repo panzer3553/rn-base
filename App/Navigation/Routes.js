@@ -23,7 +23,7 @@ export default new class Routes {
     get ProfileScreen () {
     return {
       title: I18n.t('profile'),
-      component: require('../Containers/ProfileScreen.android.js').default,
+      component: require('../Containers/ProfileScreen').default,
       rightButton: 'SAVE',
       leftButton: 'HAMBURGER',
     }

@@ -24,6 +24,7 @@ export default class ProfileScreen extends React.Component {
         gender: null,
         email: null,
         mobile: null,
+        groups: null,
         address: null
       },
       saved: false
@@ -65,7 +66,7 @@ export default class ProfileScreen extends React.Component {
   }
 
   render(){
-      const {firstName, lastName, birthday, gender, email, mobile, address} = this.state.profile
+      const {firstName, lastName, birthday, gender, email, mobile, groups, address} = this.state.profile
       return(
       <KeyboardAwareScrollView ref='scroll'>
         <Form
@@ -90,10 +91,6 @@ export default class ProfileScreen extends React.Component {
           <DatePickerField ref='birthday' date={birthday}
             minimumDate={new Date('1/1/1900')}
             maximumDate={new Date()} mode='date' placeholder='Birthday' 
-            iconLeft={
-          <Icon name='ios-arrow-right'
-            size={Metrics.icons.x_small}
-            style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}   
             iconRight={
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
@@ -108,10 +105,21 @@ export default class ProfileScreen extends React.Component {
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
             style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
-          iconLeft={
+            />
+            <PickerField ref='groups' placeholder='User Groups' value={groups}
+            options={{
+              police: 'Police Station',
+              fire: 'Fire Station',
+              ambulance: 'Ambulance',
+              medical: 'Medical User',
+              militarian: 'Militarian User',
+              volunteer: 'Volunteer',
+              other: 'Other'
+            }}
+          iconRight={
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
-            style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}   
+            style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
             />
           <Separator label='CONTACT'/>
           <InputField ref='email' placeholder='Email' keyboardType="email-address" value={email}
