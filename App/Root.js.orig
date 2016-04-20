@@ -10,7 +10,8 @@ import { Colors, Images, Metrics } from './Themes'
 import styles from './Containers/Styles/RootStyle'
 import drawerStyles from './Containers/Styles/DrawerStyle'
 import I18n from './I18n/I18n.js'
-import PushNotification from 'react-native-push-notification'
+<<<<<<< HEAD
+var PushNotification = require('react-native-push-notification');
 
 PushNotification.configure({
 
@@ -45,6 +46,9 @@ PushNotification.configure({
       */
     requestPermissions: true,
 });
+=======
+import PushNotification from 'react-native-push-notification'
+>>>>>>> e7209cc07761b5fc6782d3322c9a8e4db77b9e4f
 
 const store = configureStore()
 const drawerItems = [
