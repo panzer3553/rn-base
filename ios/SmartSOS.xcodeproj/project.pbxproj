@@ -32,6 +32,7 @@
 		F8661E591CB605B80079A5B2 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8661E511CB605B80079A5B2 /* MaterialIcons.ttf */; };
 		F8661E5A1CB605B80079A5B2 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8661E521CB605B80079A5B2 /* Octicons.ttf */; };
 		F8661E5B1CB605B80079A5B2 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8661E531CB605B80079A5B2 /* Zocial.ttf */; };
+		F88953591CC7337400C8A032 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F88953501CC7335E00C8A032 /* libRCTPushNotification.a */; };
 		F8F925BA1CBF594E00D9B10C /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F925AC1CBF592500D9B10C /* libAirMaps.a */; };
 		F8F925FE1CBFA0D800D9B10C /* libRCTMaterialKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F925F41CBFA0C700D9B10C /* libRCTMaterialKit.a */; };
 /* End PBXBuildFile section */
@@ -135,6 +136,13 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		F889534F1CC7335E00C8A032 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F88953441CC7335D00C8A032 /* RCTPushNotification.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTPushNotification;
+		};
 		F8F925AB1CBF592500D9B10C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F8F925A71CBF592500D9B10C /* AirMaps.xcodeproj */;
@@ -183,6 +191,7 @@
 		F8661E511CB605B80079A5B2 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		F8661E521CB605B80079A5B2 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		F8661E531CB605B80079A5B2 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		F88953441CC7335D00C8A032 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		F8F925A71CBF592500D9B10C /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		F8F925EA1CBFA0C700D9B10C /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -202,6 +211,7 @@
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
+				F88953591CC7337400C8A032 /* libRCTPushNotification.a in Frameworks */,
 				F8F925BA1CBF594E00D9B10C /* libAirMaps.a in Frameworks */,
 				F8F925FE1CBFA0D800D9B10C /* libRCTMaterialKit.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
@@ -325,6 +335,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				F88953441CC7335D00C8A032 /* RCTPushNotification.xcodeproj */,
 				F8F925EA1CBFA0C700D9B10C /* RCTMaterialKit.xcodeproj */,
 				F8F925A71CBF592500D9B10C /* AirMaps.xcodeproj */,
 				F8661E381CB603750079A5B2 /* RNVectorIcons.xcodeproj */,
@@ -406,6 +417,14 @@
 			path = "../node_modules/react-native-vector-icons/Fonts";
 			sourceTree = "<group>";
 		};
+		F88953451CC7335D00C8A032 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F88953501CC7335E00C8A032 /* libRCTPushNotification.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F8F925A81CBF592500D9B10C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,6 +495,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 5TY9P9S7PP;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -518,6 +542,10 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
+				},
+				{
+					ProductGroup = F88953451CC7335D00C8A032 /* Products */;
+					ProjectRef = F88953441CC7335D00C8A032 /* RCTPushNotification.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -646,6 +674,13 @@
 			fileType = archive.ar;
 			path = libRNVectorIcons.a;
 			remoteRef = F8661E3C1CB603760079A5B2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F88953501CC7335E00C8A032 /* libRCTPushNotification.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTPushNotification.a;
+			remoteRef = F889534F1CC7335E00C8A032 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F8F925AC1CBF592500D9B10C /* libAirMaps.a */ = {
@@ -864,6 +899,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../node_modules/react-native/Libraries/**",
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -905,6 +941,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../node_modules/react-native/Libraries/**",
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
