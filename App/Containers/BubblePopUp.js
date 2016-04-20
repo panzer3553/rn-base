@@ -37,7 +37,7 @@ export default class BubblePopUp extends React.Component {
 		const elementWidth  = this.props.elementWidth
 		const elementHeight = this.props.elementHeight
 		const elementCounts = this.props.items.length
-		const talkBubbleHeight = elementHeight * (elementCounts + 3) 
+		const talkBubbleHeight = elementHeight * (elementCounts) + Metrics.fonts.large + elementHeight + elementCounts * 2
 
 		if (this.props.isVisible){
 			return (
@@ -54,17 +54,21 @@ export default class BubblePopUp extends React.Component {
 								style={styles.headerContainer}
 								elementHeight = {elementHeight}
 							>
-								<Text style={styles.headerText}>Instruction</Text>
+								<Text style={styles.headerText}
+								height={elementHeight}
+								>Instruction</Text>
 							</View>
 							 {	this.props.items.map((item, i) => 	
 
 								  <TouchableHighlight  
 								  		key ={i} 
 								  		width={elementWidth}
+								  		height={elementHeight}
 								  		onPress ={ 	this.handlePressItem.bind(this, item.func)}
 								  		key={i}>
 								      <View >
-								        <View style={listStyles.rowContainer} >
+								        <View style={listStyles.rowContainer} 
+								        	height={elementHeight}>
 								          <Icon      
 								      		 name={item.icon}	      		
 								      		 size={Metrics.icons.small}
@@ -81,12 +85,13 @@ export default class BubblePopUp extends React.Component {
 								      </View>
 								    </TouchableHighlight>)
 							}
-				    	    <View > 
+				    	    <View height={elementHeight}> 
       			    	  		<TouchableOpacity 
       			    	  			style={styles.closeButtonWraper} 
       			    	  			onPress={this.props.onClose}
       			    	  		>
-					              <View style={styles.closeButton}>
+					              <View style={styles.closeButton}
+					              height={elementHeight}>
 					                <Text style={styles.closeText}>{I18n.t('cancel')}</Text>
 					              </View>
 					            </TouchableOpacity>

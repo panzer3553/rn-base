@@ -100,13 +100,13 @@ export default class AllComponentsScreen extends React.Component {
         <MapScreen 
         />
         <View style={styles.infoIconContainer}>
-          <SmallPlainFab onPress={this.handleShowPopUp.bind(this, fireItems, Metrics.screenWidth  / 10, 30)}>
+          <SmallPlainFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
             <Icon name="info" size={Metrics.icons.small} color="red" />
           </SmallPlainFab>
         </View>
         <BubblePopUp  items={this.state.items}
             elementWidth={Metrics.screenWidth * 4 / 5}
-            elementHeight={30}
+            elementHeight={Metrics.screenHeight / 15}
             isVisible={this.state.isPopupShow}
             onClose={this.handleClosePopUp.bind(this)}
             navigator={this.props.navigator}

@@ -54,6 +54,7 @@ export default StyleSheet.create({
   headerText: {
     textAlign: 'center',
     color: Colors.silver,
+    fontSize: Metrics.fonts.large,
   },
   footerContainer: {
     flex: 1,

@@ -44,6 +44,7 @@ export default class MapScreen extends React.Component {
   		<MapView 
   		  style={styles.map}
   		  region={this.state.region}
+        showsUserLocation
      	/>
   		)
   	}
