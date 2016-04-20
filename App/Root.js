@@ -10,6 +10,7 @@ import { Colors, Images, Metrics } from './Themes'
 import styles from './Containers/Styles/RootStyle'
 import drawerStyles from './Containers/Styles/DrawerStyle'
 import I18n from './I18n/I18n.js'
+import PushNotification from 'react-native-push-notification'
 
 const store = configureStore()
 const drawerItems = [
@@ -22,6 +23,40 @@ const drawerItems = [
                   ]
 
 //Array contains icon name and label of drawer items
+
+PushNotification.configure({
+
+  // (optional) Called when Token is generated (iOS and Android)
+  onRegister: (token) => {
+    console.log('TOKEN:', token)
+  },
+
+  // (required) Called when a remote or local notification is opened or received
+  onNotification: (notification) => {
+    console.log('NOTIFICATION:', notification)
+  },
+
+  // ANDROID ONLY: (optional) GCM Sender ID.
+  senderID: '56113279400',
+
+  // IOS ONLY (optional): default: all - Permissions to register.
+  permissions: {
+    alert: true,
+    badge: true,
+    sound: true
+  },
+
+  // Should the initial notification be popped automatically
+  // default: true
+  popInitialNotification: false,
+
+  /**
+    * IOS ONLY: (optional) default: true
+    * - Specified if permissions will requested or not,
+    * - if not, you must call PushNotificationsHandler.requestPermissions() later
+    */
+  requestPermissions: false
+})
 
 export default class RNBase extends React.Component {
 

@@ -9,8 +9,14 @@ import com.AirMaps.AirPackage; // <--- This!
 import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import java.util.Arrays;
 import java.util.List;
+import android.content.Intent;
+import android.os.Bundle;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import android.provider.Settings;
 
 public class MainActivity extends ReactActivity {
+
+  private ReactNativePushNotificationPackage mReactNativePushNotificationPackage;
 
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -36,12 +42,22 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected List<ReactPackage> getPackages() {
+
+        mReactNativePushNotificationPackage = new ReactNativePushNotificationPackage(this); 
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
             new VectorIconsPackage(),
             new ReactNativeI18n(),
             new AirPackage(),
-            new ReactMaterialKitPackage()
+            new ReactMaterialKitPackage(),
+            mReactNativePushNotificationPackage
         );
+    }
+
+    // Add onNewIntent
+    @Override
+    protected void onNewIntent (Intent intent) {
+      super.onNewIntent(intent);
+      mReactNativePushNotificationPackage.newIntent(intent);
     }
 }
