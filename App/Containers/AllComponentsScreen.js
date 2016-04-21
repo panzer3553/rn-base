@@ -1,13 +1,9 @@
 // An All Components Screen is a great way to dev and quick-test components
 import React, { 
     View, 
-    ScrollView, 
     Text, 
-    TouchableOpacity, 
     PropTypes, 
-    StyleSheet,
     Alert,
-    TouchableHighlight
 } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/AllComponentsScreenStyle'
@@ -75,21 +71,21 @@ export default class AllComponentsScreen extends React.Component {
                                                     'Do you want to make this call ?',
                                                     'Only make this call when you are in an emergency situation! ' +
                                                      'Please confirm to make the call to FIRE STATION: ',
-                                                     '+84982709185' )}>
+                                                     '+84982709185', 'fire' )}>
             <Icon name="fire" size={Metrics.icons.medium} color="red" />
           </PlainFab>
           <PlainFab  onPress={this.showConfirmDialog.bind(this, 
                                                     'Do you want to make this call ?',
                                                     'Only make this call when you are in an emergency situation! ' +
                                                      'Please confirm to make the call to  AMBULANCE: ',
-                                                     '+84982709185' )}>
+                                                     '+84982709185', 'ambulance' )}>
             <Icon name="ambulance" size={Metrics.icons.medium} color="red" />
           </PlainFab>
           <PlainFab  onPress={this.showConfirmDialog.bind(this, 
                                                     'Do you want to make this call ?',
                                                     'Only make this call when you are in an emergency situation! ' +
                                                      'Please confirm to make the call to POLICE STATION: ',
-                                                     '+84982709185' )}>
+                                                     '+84982709185', 'police' )}>
             <Icon name="bell" size={Metrics.icons.medium} color="red" />
           </PlainFab>
        </View>   
@@ -121,8 +117,8 @@ export default class AllComponentsScreen extends React.Component {
     )
   }
 
-  showConfirmDialog (_title, _message, _phoneNumber) {
-     Alert.alert(
+  showConfirmDialog (_title, _message, _phoneNumber, type) {
+    Alert.alert(
             _title,
             _message + _phoneNumber,
             [
@@ -130,6 +126,17 @@ export default class AllComponentsScreen extends React.Component {
               {text: 'OK', onPress: () =>  Communications.phonecall(_phoneNumber, false)},
             ]
     )
+    this.saveEmergency({
+      latitude: this.props.latitude,
+      longitude: this.props.longitude,
+      time: new Date(),
+      type: type,
+    })
+  }
+
+  saveEmergency(emergency){
+    const {dispatch} = this.props
+    dispatch(Actions.saveEmergency(emergency))
   }
 }
 

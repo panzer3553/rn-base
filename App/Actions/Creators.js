@@ -26,6 +26,16 @@ const receiveMapJSONFailure = (errorCode) =>
   createAction(Types.MAP_JSON_FAILURE, {errorCode})
 
 const saveProfile = (profile) => createAction(Types.SAVE_PROFILE, {profile})
+const saveProfileSuccess = (ok) =>
+  createAction(Types.SAVE_PROFILE_SUCCCESS, {ok})
+const saveProfileFailure = (error) =>
+  createAction(Types.SAVE_PROFILE_FAILURE, {error})
+
+const saveEmergency= (emergency) => createAction(Types.SAVE_EMERGENCY, {emergency})
+const saveEmergencySuccess = (ok) =>
+  createAction(Types.SAVE_EMERGENCY_SUCCCESS, {ok})
+const saveEmergencyFailure = (error) =>
+  createAction(Types.SAVE_EMERGENCY_FAILURE, {error})
 
 const turnOnPushNotifications = () =>
   createAction(Types.TURNED_ON_PUSH_NOTIFICATIONS)
@@ -54,9 +64,14 @@ export default {
   receiveMapJSON,
   receiveMapJSONFailure,
   saveProfile,
+  saveProfileSuccess,
+  saveProfileFailure,
   turnOnPushNotifications,
   storeDeviceToken,
   skipPushNotifications,
   receivePushNotification,
   markAllNotificationsAsSeen,
+  saveEmergency,
+  saveEmergencySuccess,
+  saveEmergencyFailure
 }

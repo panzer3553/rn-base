@@ -55,24 +55,6 @@ export default class ProfileScreen extends React.Component {
     Alert.alert("Saved")
     const { dispatch } = this.props
     dispatch(Actions.saveProfile(this.state.profile))
-    fetch('https://api.parse.com/1/classes/Profile', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-Parse-Application-Id': 'htqpp4xRds01PrnaGs6IuNpp5LnEdmyQ3iTVglvX',
-        'X-Parse-REST-API-Key': 'M6D4OV9Dd12hfOnaknCh3BNSnUk0AXBA6nk57OnH'
-      },
-      body: JSON.stringify(
-        this.state.profile
-      )
-    }).then((response) => response.text())
-    .then((responseText) => {
-      console.log(responseText);
-    })
-    .catch((error) => {
-      console.warn(error);
-    })
   }
 
   handleFormChange(formData){

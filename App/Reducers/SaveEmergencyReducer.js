@@ -3,21 +3,24 @@ import Immutable from 'seamless-immutable'
 import createReducer from './CreateReducer'
 
 export const INITIAL_STATE = Immutable({
-  profile: null,
+  emergency: null,
   saved: false,
   error: null,
-  errorCode: null
+  errorCode: null,
+  ok: null,
 })
 
-const saveProfile = (state, action) =>
+const saveEmergency = (state, action) =>
   state.merge({
-    profile: action.profile,
+    emergency: action.emergency,
     saved: true
   })
 
 const success = (state, action) =>
   state.merge({
-  	error:false
+  	error:false,
+    ok: action.ok,
+    errorCode: null,
   })
 
 const failure = (state, action) =>
@@ -27,10 +30,9 @@ const failure = (state, action) =>
   })
   
  const ACTION_HANDLERS = {
-  [Types.SAVE_PROFILE]: saveProfile,
-  [Types.SAVE_PROFILE_FAILURE]: failure,
-  [Types.SAVE_PROFILE_SUCCCESS]: success
+  [Types.SAVE_EMERGENCY]: saveEmergency,
+  [Types.SAVE_EMERGENCY_SUCCCESS]: success,
+  [Types.SAVE_EMERGENCY_FAILURE]: failure
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)
-

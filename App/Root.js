@@ -11,7 +11,6 @@ import styles from './Containers/Styles/RootStyle'
 import drawerStyles from './Containers/Styles/DrawerStyle'
 import I18n from './I18n/I18n.js'
 import PushNotification from 'react-native-push-notification'
-
 const store = configureStore()
 const drawerItems = [
                       ["home", 'home'], 
@@ -29,6 +28,7 @@ PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
   onRegister: (token) => {
     console.log('TOKEN:', token)
+    dispatch(Actions.saveToken(token))
   },
 
   // (required) Called when a remote or local notification is opened or received
@@ -62,7 +62,6 @@ export default class RNBase extends React.Component {
 
   componentWillMount () {
     const { dispatch } = store
-    dispatch(Actions.startup())
     dispatch(Actions.requestLocation())
   }
 
