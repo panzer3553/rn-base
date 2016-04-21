@@ -12,40 +12,6 @@ import drawerStyles from './Containers/Styles/DrawerStyle'
 import I18n from './I18n/I18n.js'
 import PushNotification from 'react-native-push-notification'
 
-PushNotification.configure({
-
-    // (optional) Called when Token is generated (iOS and Android)
-    onRegister: function(token) {
-        console.log( 'TOKEN:', token );
-    },
-
-    // (required) Called when a remote or local notification is opened or received
-    onNotification: function(notification) {
-        console.log( 'NOTIFICATION:', notification );
-    },
-
-    // ANDROID ONLY: (optional) GCM Sender ID.
-    senderID: "e7209cc07761b5fc6782d3322c9a8e4db77b9e4f",
-
-    // IOS ONLY (optional): default: all - Permissions to register.
-    permissions: {
-        alert: true,
-        badge: true,
-        sound: true
-    },
-
-    // Should the initial notification be popped automatically
-    // default: true
-    popInitialNotification: true,
-
-    /**
-      * IOS ONLY: (optional) default: true
-      * - Specified if permissions will requested or not,
-      * - if not, you must call PushNotificationsHandler.requestPermissions() later
-      */
-    requestPermissions: true,
-});
-
 const store = configureStore()
 const drawerItems = [
                       ["home", 'home'], 
