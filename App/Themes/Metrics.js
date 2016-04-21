@@ -30,7 +30,11 @@ const metrics = {
     small: 12,
     tiny: 8.5,
     large: 24,
-  }
+  },
+  button:{
+    large: 80,
+    medium: 60,
+  },
 }
 
 export default metrics
