@@ -26,6 +26,18 @@ const receiveMapJSONFailure = (errorCode) =>
   createAction(Types.MAP_JSON_FAILURE, {errorCode})
 
 const saveProfile = (profile) => createAction(Types.SAVE_PROFILE, {profile})
+
+const turnOnPushNotifications = () =>
+  createAction(Types.TURNED_ON_PUSH_NOTIFICATIONS)
+const storeDeviceToken = (deviceToken) =>
+  createAction(Types.REGISTERED_PUSH_NOTIFICATIONS)
+const skipPushNotifications = () =>
+  createAction(Types.SKIPPED_PUSH_NOTIFICATIONS)
+const receivePushNotification = (notification) =>
+  createAction(Types.RECEIVED_PUSH_NOTIFICATION)
+const markAllNotificationsAsSeen = () =>
+  createAction(Types.SEEN_ALL_NOTIFICATIONS)
+
 /**
  Makes available all the action creators we've created.
  */
@@ -42,4 +54,9 @@ export default {
   receiveMapJSON,
   receiveMapJSONFailure,
   saveProfile,
+  turnOnPushNotifications,
+  storeDeviceToken,
+  skipPushNotifications,
+  receivePushNotification,
+  markAllNotificationsAsSeen,
 }

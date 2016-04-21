@@ -20,6 +20,7 @@ import BubblePopUp from './BubblePopUp.js'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {MKButton,MKColor} from 'react-native-material-kit'
 import Communications from 'react-native-communications'
+import PushNotification from 'react-native-push-notification'
 // I18n
 import I18n from '../I18n/I18n.js'
 
@@ -49,6 +50,12 @@ export default class AllComponentsScreen extends React.Component {
     this.props.navigator.state.tapHamburger = () => {
       this.props.navigator.drawer.toggle()
     }
+  }
+
+  componentDidMount () {
+      console.log('Requesting push notification permissions.')
+      PushNotification.requestPermissions()
+
   }
 
   handleShowPopUp (_items) {
