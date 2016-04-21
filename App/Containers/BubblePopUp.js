@@ -48,18 +48,15 @@ export default class BubblePopUp extends React.Component {
 			        	  marginTop={10}>
 						<View style={styles.squareContainer} 
 								width={elementWidth}
-								height={talkBubbleHeight} 
-						>
+								height={talkBubbleHeight}>
 							<View 
 								style={styles.headerContainer}
-								elementHeight = {elementHeight}
-							>
+								elementHeight = {elementHeight}>
 								<Text style={styles.headerText}
 								height={elementHeight}
 								>Instruction</Text>
 							</View>
-							 {	this.props.items.map((item, i) => 	
-
+							 {this.props.items.map((item, i) => 	
 								  <TouchableHighlight  
 								  		key ={i} 
 								  		width={elementWidth}
@@ -83,13 +80,11 @@ export default class BubblePopUp extends React.Component {
 								        </View>
 								        <View style={listStyles.separator}/>
 								      </View>
-								    </TouchableHighlight>)
-							}
+								    </TouchableHighlight>)}
 				    	    <View height={elementHeight}> 
       			    	  		<TouchableOpacity 
       			    	  			style={styles.closeButtonWraper} 
-      			    	  			onPress={this.props.onClose}
-      			    	  		>
+      			    	  			onPress={this.props.onClose}>
 					              <View style={styles.closeButton}
 					              height={elementHeight}>
 					                <Text style={styles.closeText}>{I18n.t('cancel')}</Text>

@@ -28,19 +28,22 @@ export default StyleSheet.create({
   },
   triangleContainer: {
     flex: 1,
-    backgroundColor: Colors.transparent,
   },
   triangleRight: {
     position: 'absolute',
     flex: 1,
     flexDirection: 'column',
+    width: 0,
+    height: 0,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderLeftWidth: 15,
+    borderRightWidth: 15,
+    borderBottomWidth: 40,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
     transform: [
       {rotate: '90deg'}
-    ]
-  },
-  triangleLeft: {
-    transform: [
-      {rotate: '-90deg'}
     ]
   },
 
