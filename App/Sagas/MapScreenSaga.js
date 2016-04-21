@@ -32,7 +32,7 @@ export function * getUserLocation() {
   const { error, location } = yield call(getLocation)
 
   if (error) {
-    yield put(Actions.receiveLocationFailure())
+    yield put(Actions.receiveLocationFailure(error))
   } 
   else {
     yield put(Actions.receiveLocation(location.coords.latitude, location.coords.longitude))

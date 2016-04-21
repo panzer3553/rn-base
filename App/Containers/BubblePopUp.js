@@ -157,7 +157,6 @@ export default class BubblePopUp extends React.Component {
 		const {dispatch} = this.props
 		const  testLat = 16.089327
 		const  testLong = 108.220243
-		dispatch(Actions.requestMapJSON(testLat, testLong, 'json'))
 	}
 
 }

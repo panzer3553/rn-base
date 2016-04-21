@@ -45,17 +45,10 @@ export default class AllComponentsScreen extends React.Component {
     dispatch: PropTypes.func,
   }
 
-
   componentWillMount () {
     this.props.navigator.state.tapHamburger = () => {
       this.props.navigator.drawer.toggle()
     }
-  }
-
-  componentDidMount () {
-      console.log('Requesting push notification permissions.')
-      PushNotification.requestPermissions()
-
   }
 
   handleShowPopUp (_items) {
@@ -105,13 +98,17 @@ export default class AllComponentsScreen extends React.Component {
         return (
       <View style={styles.screenContainer}>
         <MapScreen 
+          latitude={this.props.latitude}
+          longitude={this.props.longitude}
+          isReloadMap={!this.state.isPopupShow}
         />
         <View style={styles.infoIconContainer}>
           <SmallPlainFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
             <Icon name="info" size={Metrics.icons.small} color="red" />
           </SmallPlainFab>
         </View>
-        <BubblePopUp  items={this.state.items}
+        <BubblePopUp  
+            items={this.state.items}
             elementWidth={Metrics.screenWidth * 4 / 5}
             elementHeight={Metrics.screenHeight / 15}
             isVisible={this.state.isPopupShow}
@@ -125,7 +122,6 @@ export default class AllComponentsScreen extends React.Component {
   }
 
   showConfirmDialog (_title, _message, _phoneNumber) {
-
      Alert.alert(
             _title,
             _message + _phoneNumber,
@@ -139,7 +135,6 @@ export default class AllComponentsScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    loggedIn: state.login.username !== null,
     latitude: state.mapscreen.latitude,
     longitude: state.mapscreen.longitude,
   }
