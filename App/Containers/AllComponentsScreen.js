@@ -58,11 +58,11 @@ export default class AllComponentsScreen extends React.Component {
 
   render () {
     const PlainFab = MKButton.plainFab()
-    .withStyle({width:Metrics.button.large, height: Metrics.button.large, borderRadius: Metrics.button.large/2})
+    .withStyle({width:Metrics.button.large, height: Metrics.button.large, borderRadius: Metrics.button.large/2, backgroundColor: Colors.snow})
     .build()
 
     const SmallPlainFab = MKButton.plainFab()
-    .withStyle({width:Metrics.button.medium, height: Metrics.button.medium, borderRadius: Metrics.button.medium/2})
+    .withStyle({width:Metrics.button.medium, height: Metrics.button.medium, borderRadius: Metrics.button.medium/2, backgroundColor: Colors.snow})
     .build()
 
     const bottomButtons = this.state.isPopupShow ? null : (

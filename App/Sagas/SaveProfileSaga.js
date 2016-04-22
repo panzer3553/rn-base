@@ -21,7 +21,7 @@ function * saveProfile (profile) {
 
 export function * watchSaveProfile () {
     const {profile} = yield take(Types.SAVE_PROFILE)
-    const ok = yield call(saveProfile, profile)
+    const {ok, error} = yield call(saveProfile, profile)
     if(error){
     	yield put(Actions.saveProfileFailure(error))
     }
