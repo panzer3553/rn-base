@@ -28,6 +28,7 @@ PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
   onRegister: (token) => {
     console.log('TOKEN:', token)
+    const { dispatch } = store
     dispatch(Actions.saveToken(token))
   },
 
@@ -48,14 +49,14 @@ PushNotification.configure({
 
   // Should the initial notification be popped automatically
   // default: true
-  popInitialNotification: false,
+  popInitialNotification: true,
 
   /**
     * IOS ONLY: (optional) default: true
     * - Specified if permissions will requested or not,
     * - if not, you must call PushNotificationsHandler.requestPermissions() later
     */
-  requestPermissions: false
+  requestPermissions: true
 })
 
 export default class RNBase extends React.Component {

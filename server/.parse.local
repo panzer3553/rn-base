@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "SmartSOS": {
+      "applicationId": "htqpp4xRds01PrnaGs6IuNpp5LnEdmyQ3iTVglvX"
+    },
+    "_default": {
+      "link": "SmartSOS"
+    }
+  }
+}

@@ -36,7 +36,6 @@ const saveEmergencySuccess = (ok) =>
   createAction(Types.SAVE_EMERGENCY_SUCCCESS, {ok})
 const saveEmergencyFailure = (error) =>
   createAction(Types.SAVE_EMERGENCY_FAILURE, {error})
-
 const turnOnPushNotifications = () =>
   createAction(Types.TURNED_ON_PUSH_NOTIFICATIONS)
 const storeDeviceToken = (deviceToken) =>
@@ -47,6 +46,11 @@ const receivePushNotification = (notification) =>
   createAction(Types.RECEIVED_PUSH_NOTIFICATION)
 const markAllNotificationsAsSeen = () =>
   createAction(Types.SEEN_ALL_NOTIFICATIONS)
+const saveToken = (token) => createAction(Types.SAVE_TOKEN, {token})
+const saveTokenSuccess = (ok) =>
+  createAction(Types.SAVE_TOKEN_SUCCCESS, {ok})
+const saveTokenFailure = (error) =>
+  createAction(Types.SAVE_TOKEN_FAILURE, {error})
 
 /**
  Makes available all the action creators we've created.
@@ -73,5 +77,8 @@ export default {
   markAllNotificationsAsSeen,
   saveEmergency,
   saveEmergencySuccess,
-  saveEmergencyFailure
+  saveEmergencyFailure,
+  saveToken,
+  saveTokenSuccess,
+  saveProfileFailure,
 }

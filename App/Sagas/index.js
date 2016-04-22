@@ -4,11 +4,14 @@ import { watchLocationRequest, watchJsonRequest } from './MapScreenSaga'
 //import { watchLoginAttempt } from './PushNotificationSaga'
 import {watchSaveProfile} from './SaveProfileSaga'
 import {watchSaveEmergency} from './SaveEmergencySaga'
+import {watchSaveToken} from './SaveTokenSaga'
+
 // start the daemons
 export default [
   watchLoginAttempt,
   watchLocationRequest,
   watchJsonRequest,
   watchSaveProfile,
-  watchSaveEmergency
+  watchSaveEmergency,
+  watchSaveToken
 ]
