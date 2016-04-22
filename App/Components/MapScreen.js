@@ -28,7 +28,6 @@ export default class MapScreen extends React.Component {
 	}
 
   componentWillReceiveProps(nextProps: any){
-    console.log(nextProps)
   }
 
   render () {

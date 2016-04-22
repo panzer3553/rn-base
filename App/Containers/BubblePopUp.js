@@ -1,6 +1,5 @@
 
 import styles from './Styles/BubblePopUpStyle'
-import listStyles from './Styles/CustomListViewStyle'
 import Triangle from '../Components/Triangle'
 import { Colors, Images, Metrics } from '../Themes'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -64,21 +63,21 @@ export default class BubblePopUp extends React.Component {
 								  		onPress ={ 	this.handlePressItem.bind(this, item.func)}
 								  		key={i}>
 								      <View >
-								        <View style={listStyles.rowContainer} 
+								        <View style={styles.rowContainer} 
 								        	height={elementHeight}>
 								          <Icon      
 								      		 name={item.icon}	      		
 								      		 size={Metrics.icons.small}
 								      		 color={'blue'}
 								      		 />
-								          <View  style={listStyles.textContainer}>
-								            <Text style={listStyles.title}>{item.text}</Text>
-								            <Text style={listStyles.description}
+								          <View  style={styles.textContainer}>
+								            <Text style={styles.title}>{item.text}</Text>
+								            <Text style={styles.description}
 								                  numberOfLines={1}>{item.func}
 								            </Text>
 								          </View>
 								        </View>
-								        <View style={listStyles.separator}/>
+								        <View style={styles.separator}/>
 								      </View>
 								    </TouchableHighlight>)}
 				    	    <View height={elementHeight}> 

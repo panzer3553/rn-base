@@ -21,8 +21,7 @@ const drawerItems = [
                       ["settings", "about"]
                   ]
 
-//Array contains icon name and label of drawer items
-
+//TODO: Move it to a serperate component accroding F8 app of fb
 PushNotification.configure({
 
   // (optional) Called when Token is generated (iOS and Android)

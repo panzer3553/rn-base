@@ -3,15 +3,16 @@ import { take, call, put } from 'redux-saga/effects'
 import R from 'ramda'
 import Types from '../Actions/Types'
 import Actions from '../Actions/Creators'
+import config from '../Config/AppSetting'
 
 function * saveToken (token) {
-  return fetch('https://api.parse.com/1/installations', {
+  return fetch(config.url + 'installations', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-Parse-Application-Id': 'htqpp4xRds01PrnaGs6IuNpp5LnEdmyQ3iTVglvX',
-        'X-Parse-REST-API-Key': 'M6D4OV9Dd12hfOnaknCh3BNSnUk0AXBA6nk57OnH'
+        'X-Parse-Application-Id': config.parse_id,
+        'X-Parse-REST-API-Key': config.parse_api_key
       },
       body: JSON.stringify({
         deviceToken: token.token,

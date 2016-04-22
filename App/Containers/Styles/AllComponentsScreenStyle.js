@@ -21,5 +21,17 @@ export default StyleSheet.create({
     left: 0,
     bottom: 30,
     backgroundColor: 'transparent',
+  },
+  fab: {
+    width:Metrics.button.large, 
+    height: Metrics.button.large, 
+    borderRadius: Metrics.button.large/2, 
+    backgroundColor: Colors.snow
+  },
+  small_fab: {
+   width:Metrics.button.medium, 
+   height: Metrics.button.medium, 
+   borderRadius: Metrics.button.medium/2, 
+   backgroundColor: Colors.snow
   }
 })
