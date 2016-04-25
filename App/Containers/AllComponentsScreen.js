@@ -97,6 +97,7 @@ export default class AllComponentsScreen extends React.Component {
           latitude={this.props.latitude}
           longitude={this.props.longitude}
           isReloadMap={!this.state.isPopupShow}
+          markers={[{latlng:{latitude: 16.070843, longitude: 108.2080}, title:"Fire", description: "Fire time baby"}]}
         />
         <View style={styles.infoIconContainer}>
           <SmallFab onPress={this.handleShowPopUp.bind(this, fireItems)}>

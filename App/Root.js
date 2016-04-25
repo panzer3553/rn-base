@@ -34,6 +34,8 @@ PushNotification.configure({
   // (required) Called when a remote or local notification is opened or received
   onNotification: (notification) => {
     console.log('NOTIFICATION:', notification)
+    const { dispatch } = store
+    dispatch(Actions.receivePushNotification(notification))
   },
 
   // ANDROID ONLY: (optional) GCM Sender ID.

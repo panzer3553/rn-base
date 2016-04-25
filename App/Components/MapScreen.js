@@ -7,6 +7,7 @@ import React, {
 } from 'react-native'
 import MapView from 'react-native-maps'
 import styles from './Styles/MapScreenStyle' 
+import {isEqual} from 'lodash'
 
 export default class MapScreen extends React.Component {
 
@@ -15,8 +16,8 @@ export default class MapScreen extends React.Component {
       longitude: PropTypes.number,
   }
 
-	constructor (props) {
-		super(props);
+	constructor () {
+		super();
 		this.state = {
 			region: {
       latitude: 0,
@@ -27,7 +28,8 @@ export default class MapScreen extends React.Component {
 		}
 	}
 
-  componentWillReceiveProps(nextProps: any){
+  componentDidMount(){
+    console.log(this.props.markers)
   }
 
   render () {
@@ -41,7 +43,15 @@ export default class MapScreen extends React.Component {
           longitudeDelta: 0.01
         }}
         showsUserLocation
-     	/>
+     	>
+      {this.props.markers.map((marker, i) => (
+      <MapView.Marker 
+        coordinate={marker.latlng}
+        title={marker.title}
+        description={marker.description}
+      />
+      ))}
+      </MapView>
   		)
   	}
 }
