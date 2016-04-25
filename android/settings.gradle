@@ -1,5 +1,4 @@
 rootProject.name = 'SmartSOS'
-
 include ':app'
 include ':react-native-vector-icons'
 project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
@@ -12,6 +11,4 @@ project(':RNMaterialKit').projectDir = file('../node_modules/react-native-materi
 //include ':app', ':react-native-code-push'
 //project(':react-native-code-push').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-code-push/android/app')
 include ':react-native-push-notification'
-project(':react-native-push-notification').projectDir = file('../node_modules/react-native-push-notification/RNPushNotificationAndroid')
-//include ':react-native-send-intent', ':app'
-//project(':react-native-send-intent').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-send-intent')
+project(':react-native-push-notification').projectDir = file('../node_modules/react-native-push-notification/android')
