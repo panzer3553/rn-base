@@ -10,7 +10,7 @@ export default combineReducers({
   mapscreen: MapScreenReducer,
   profileData: SaveProfileReducer,
   emergencyData: SaveEmergencyReducer,
-  tokenData: SaveTokenReducer
+  tokenData: SaveTokenReducer,
 })
 
 // Put reducer keys that you do NOT want stored to persistence here
