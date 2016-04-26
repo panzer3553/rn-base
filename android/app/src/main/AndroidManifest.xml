@@ -33,6 +33,17 @@
               <action android:name="com.google.android.c2dm.intent.RECEIVE" />
           </intent-filter>
       </service>
+
+     <intent-filter>
+       <action android:name="android.intent.action.VIEW" />
+       <category android:name="android.intent.category.DEFAULT" />
+       <category android:name="android.intent.category.BROWSABLE" />
+
+       <!-- Accepts URIs that begin with "http://www.facebook.com/react -->
+       <data android:scheme="http"
+          android:host="www.maps.google.com"
+          android:pathPrefix="/maps" />
+     </intent-filter>
         
       <activity
         android:name=".MainActivity"

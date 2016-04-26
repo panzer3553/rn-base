@@ -7,6 +7,9 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import Actions from '../Actions/Creators'
 import Routes from '../Navigation/Routes'
 import I18n from '../I18n/I18n.js'
+import { connect } from 'react-redux'
+import R from 'ramda'
+import Linking from 'Linking'
 import React, {
 	StyleSheet,
 	View, 
@@ -15,6 +18,7 @@ import React, {
 	TouchableHighlight,
 	TouchableOpacity,
 	PropTypes,
+	Platform,
 } from 'react-native'
 
 export default class BubblePopUp extends React.Component {
@@ -123,6 +127,9 @@ export default class BubblePopUp extends React.Component {
 			case 'JSONLocation':
 				this.showJSONInfo()
 				break
+			case 'showMapLinkWithDirection': 
+				this.showMapLinkWithDirection()
+				break
 
 			default: {
 				alert(_itemFuncName)
@@ -137,7 +144,7 @@ export default class BubblePopUp extends React.Component {
 	    navigator.push(route)
 	}
 
-	showUserLocation() {
+	showUserLocation () {
 		//Close popup first
 		if (typeof this.props.onClose === 'function') {
             this.props.onClose()
@@ -147,19 +154,56 @@ export default class BubblePopUp extends React.Component {
 		dispatch(Actions.requestLocation())
 	}
 
-	showJSONInfo() {
+	showJSONInfo () {
 		//Close popup first
 		if (typeof this.props.onClose === 'function') {
             this.props.onClose()
         }
 
         //show JSON info test
+		const { latitude, longitude } = this.props
+	
 		const {dispatch} = this.props
-		const  testLat = 16.089327
-		const  testLong = 108.220243
+		dispatch(Actions.requestJsonByCoords(latitude, longitude))
+		//const json = this.props.json
+
 	}
 
+	showMapLinkWithDirection () {
+		//Close popup first
+		if (typeof this.props.onClose === 'function') {
+            this.props.onClose()
+        }
+        const srcAddress = 'Cupertino'
+        const desAddress = 'San+Francisco'
+        //const srcAddress = '16.061144, 108.227092'
+        //const desAddress = '16.071144, 108.227092'
+        const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=bicycling'
+        //const {dispatch} = this.props
+		//dispatch(Actions.requestDirection(desAddress, srcAddress, mode))
+	    
+	}
+
+	// redirectToMap(desAdress, srcAdress, mode) {
+	// 	const baseUrl = (Platform.OS === 'ios') ? 'http://maps.apple.com/?' : 'http://maps.google.com/maps?'
+	// 	const directionUrl = baseUrl + 'saddr=' + srcAdress + '&daddr=' + desAdress + '&' + mode
+	// 	console.log('URL=' + directionUrl)
+	//     Linking.canOpenURL('http://maps.apple.com/?saddr=Cupertino&daddr=San+Francisco').then(supported => {
+	//         if (supported) {
+	//             Linking.openURL(directionUrl)
+	//         } else {
+	//             console.log('Don\'t know how to go')
+	//         }
+	//     }).catch(err => console.error('An error occurred', err))
+	// }
 }
 
 
+const mapStateToProps = (state) => {
+  return {
+    latitude: state.mapscreen.latitude,
+    longitude: state.mapscreen.longitude,
+  }
+}
 
+export default connect(mapStateToProps)(BubblePopUp)

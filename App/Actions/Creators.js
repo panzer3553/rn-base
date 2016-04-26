@@ -18,12 +18,19 @@ const receiveLocation = (latitude, longitude) =>
 const receiveLocationFailure = (errorCode) =>
   createAction(Types.MAP_LOCATION_FAILURE, {errorCode})
 
-const requestMapJSON = (latitude, longitude, type) =>
-  createAction(Types.MAP_JSON_REQUEST)
-const receiveMapJSON = (json) =>
-  createAction(Types.MAP_JSON_RECEIVE, { latitude, longitude  })
-const receiveMapJSONFailure = (errorCode) =>
+const requestJsonByCoords = (latitude, longitude) =>
+  createAction(Types.MAP_JSON_REQUEST, {latitude, longitude})
+const receiveJsonByCoords = (json) =>
+  createAction(Types.MAP_JSON_RECEIVE, { json })
+const receiveJsonByCoordsFailure = (errorCode) =>
   createAction(Types.MAP_JSON_FAILURE, {errorCode})
+
+const requestDirection = (desAddress, srcAddress, mode) => 
+  createAction(Types.MAP_DIRECTION_REQUEST, { desAddress, srcAddress, mode })
+const receiveDirection = () =>
+  createAction(Types.MAP_DIRECTION_RECEIVE)
+const receiveDirectionFailure = (error) => 
+  createAction(Types.MAP_DIRECTION_FAILURE, { error })
 
 const saveProfile = (profile) => createAction(Types.SAVE_PROFILE, {profile})
 const saveProfileSuccess = (ok) =>
@@ -36,6 +43,7 @@ const saveEmergencySuccess = (ok) =>
   createAction(Types.SAVE_EMERGENCY_SUCCCESS, {ok})
 const saveEmergencyFailure = (error) =>
   createAction(Types.SAVE_EMERGENCY_FAILURE, {error})
+
 const turnOnPushNotifications = () =>
   createAction(Types.TURNED_ON_PUSH_NOTIFICATIONS)
 const storeDeviceToken = (deviceToken) =>
@@ -64,9 +72,12 @@ export default {
   requestLocation,
   receiveLocation,
   receiveLocationFailure,
-  requestMapJSON,
-  receiveMapJSON,
-  receiveMapJSONFailure,
+  requestJsonByCoords,
+  receiveJsonByCoords,
+  receiveJsonByCoordsFailure,
+  requestDirection,
+  receiveDirection,
+  receiveDirectionFailure,
   saveProfile,
   saveProfileSuccess,
   saveProfileFailure,

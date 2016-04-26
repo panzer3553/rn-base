@@ -3,9 +3,9 @@ import { take, call, put } from 'redux-saga/effects'
 import R from 'ramda'
 import Types from '../Actions/Types'
 import Actions from '../Actions/Creators'
-
 import I18n from '../I18n/I18n.js'
 import React from 'react-native'
+import Linking from 'Linking'
 
 
 var API_KEY 	= 'AIzaSyA5tP4bdbtsuyicrzzsZkoZ9gmxRovDiMc';
@@ -39,23 +39,24 @@ export function * getUserLocation() {
   }
 }
 
-export function * getLocationInfo (_latitude, _longitude, _output = OUTPUT_TYPE) {
+export function * getLocationInfo (_latitude, _longitude, _output) {
 
 	const strUrl 		= 'http://maps.googleapis.com/maps/api/geocode/' + 
                      _output + 
                      '?latlng=' + 
                      _latitude + ',' + _longitude + 
                      '&sensor=true;'
-  //console.log(strUrl)
+  console.log(strUrl)
 	const client 	= Client({ baseUrl: strUrl});
 	const response 	= yield call (client.get);
 
 	const { ok, json } = response;
 	if (ok) {
-		alert(JSON.stringify(json))
+    yield put(Actions.receiveJsonByCoords(json.results[0]))   
 	}
 	else {
-		alert('GET JSON FAILURE')
+    const error = 'Please check your internet connection | link!'
+    yield put(Actions.receiveJsonByCoordsFailure(error))
 	}
 
 }
@@ -72,8 +73,10 @@ export function * watchLocationRequest () {
 export function * watchJsonRequest () {
 
   while(true) {
-    const action = yield take(Types.MAP_JSON_REQUEST)
-    const { lattitude,  longtitude} = action
-    yield call(getLocationInfo, lattitude, longtitude, OUTPUT_TYPE)
+    const { latitude,  longitude, type} = yield take(Types.MAP_JSON_REQUEST)
+    yield call(getLocationInfo, latitude, longitude, OUTPUT_TYPE)
   }
 }
+
+
+

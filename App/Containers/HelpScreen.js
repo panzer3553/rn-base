@@ -30,7 +30,6 @@ class HelpScreen extends Component {
   }
 
   render () {
-    const { username, password } = this.state
 
     return (
       <View style={[Styles.container, {height: this.state.visibleHeight}]}>
