@@ -58,37 +58,37 @@ export default class AllComponentsScreen extends React.Component {
   }
 
   render () {
-    const PlainFab = MKButton.plainFab()
+    const Fab = MKButton.plainFab()
     .withStyle({width:Metrics.button.large, height: Metrics.button.large, borderRadius: Metrics.button.large/2, backgroundColor: Colors.snow})
     .build()
 
-    const SmallPlainFab = MKButton.plainFab()
+    const SmallFab = MKButton.plainFab()
     .withStyle({width:Metrics.button.medium, height: Metrics.button.medium, borderRadius: Metrics.button.medium/2, backgroundColor: Colors.snow})
     .build()
 
     const bottomButtons = this.state.isPopupShow ? null : (
         <View style={styles.icons_container}>
-          <PlainFab onPress={this.showConfirmDialog.bind(this, 
+          <Fab onPress={this.showConfirmDialog.bind(this, 
                                                     'Do you want to make this call ?',
                                                     'Only make this call when you are in an emergency situation! ' +
                                                      'Please confirm to make the call to FIRE STATION: ',
                                                      '+84982709185', 'fire' )}>
             <Icon name="fire" size={Metrics.icons.medium} color="red" />
-          </PlainFab>
-          <PlainFab  onPress={this.showConfirmDialog.bind(this, 
+          </Fab>
+          <Fab  onPress={this.showConfirmDialog.bind(this, 
                                                     'Do you want to make this call ?',
                                                     'Only make this call when you are in an emergency situation! ' +
                                                      'Please confirm to make the call to  AMBULANCE: ',
                                                      '+84982709185', 'ambulance' )}>
             <Icon name="ambulance" size={Metrics.icons.medium} color="red" />
-          </PlainFab>
-          <PlainFab  onPress={this.showConfirmDialog.bind(this, 
+          </Fab>
+          <Fab  onPress={this.showConfirmDialog.bind(this, 
                                                     'Do you want to make this call ?',
                                                     'Only make this call when you are in an emergency situation! ' +
                                                      'Please confirm to make the call to POLICE STATION: ',
                                                      '+84982709185', 'police' )}>
             <Icon name="bell" size={Metrics.icons.medium} color="red" />
-          </PlainFab>
+          </Fab>
        </View>   
       )
 
@@ -98,11 +98,12 @@ export default class AllComponentsScreen extends React.Component {
           latitude={this.props.latitude}
           longitude={this.props.longitude}
           isReloadMap={!this.state.isPopupShow}
+          markers={[{latlng:{latitude: 16.070843, longitude: 108.2080}, title:"Fire", description: "Fire time baby"}]}
         />
         <View style={styles.infoIconContainer}>
-          <SmallPlainFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
+          <SmallFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
             <Icon name="info" size={Metrics.icons.small} color="red" />
-          </SmallPlainFab>
+          </SmallFab>
         </View>
         <BubblePopUp  
             items={this.state.items}

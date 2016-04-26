@@ -25,7 +25,7 @@ function showDirectionPromised(url) {
 export function * showDirectionOnMap (desAddress, srcAddress, mode) {
 
 	const baseUrl 		= (Platform.OS === 'ios') ? 'http://maps.apple.com/?' : 'http://maps.google.com/maps?'
-    const directionUrl 	= 'ghfikdd.fsdfdfd'//baseUrl + 'saddr=' + srcAddress + '&daddr=' + desAddress + '&' + mode
+    const directionUrl 	= baseUrl + 'saddr=' + srcAddress + '&daddr=' + desAddress + '&' + mode
 
 	const { showDirection }  = yield call(showDirectionPromised, directionUrl)
 	const { err, supported } = yield call(showDirection)

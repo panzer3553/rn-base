@@ -33,6 +33,7 @@ var options = {
 }
 }
 
+//TODO: Android design later
 export default class ProfileScreen extends React.Component{
 
   onPress() {
