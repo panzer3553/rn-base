@@ -9,6 +9,7 @@ Parse.Cloud.afterSave("Emergency", function(request, response) {
     title: "SmartSOS",
     badge: "Increment", 
     sound: "cheering.caf", 
+    emergency: request.object
   }
 }, {
   success: function() {

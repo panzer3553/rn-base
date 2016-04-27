@@ -52,6 +52,7 @@ const saveTokenSuccess = (ok) =>
 const saveTokenFailure = (error) =>
   createAction(Types.SAVE_TOKEN_FAILURE, {error})
 
+const skipSwiper = () => createAction(Types.SKIP_SWIPER)
 /**
  Makes available all the action creators we've created.
  */
@@ -81,4 +82,5 @@ export default {
   saveToken,
   saveTokenSuccess,
   saveProfileFailure,
+  skipSwiper
 }

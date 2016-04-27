@@ -79,4 +79,12 @@ export default new class Routes {
     }
   }
 
+  get SwiperScreen (){
+    return {
+      title: "Swiper",
+      component: require('../Containers/SwiperScreen').default,
+      customConfiguration: Transitions.modal,
+    }
+  }
+
 }

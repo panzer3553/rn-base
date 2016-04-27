@@ -6,6 +6,7 @@ import ModalPicker from 'react-native-modal-picker'
 import { connect } from 'react-redux'
 import cities from '../Config/CitiesData'
 import styles from './Styles/SwiperStyles.js'
+import Actions from '../Actions/Creators'
 
 class Intro extends Component{
   _onMomentumScrollEnd(e, state, context) {
@@ -41,6 +42,11 @@ class Intro extends Component{
   pressRow(rowData){
     this.setState({city: rowData})
     this.setModalVisible(false)
+  }
+
+  pressSkip(){
+    const {dispatch} = this.props
+    dispatch(Actions.skipSwiper())
   }
 
   render(){
@@ -116,8 +122,8 @@ class Intro extends Component{
           <TouchableHighlight style={[styles.btn,{backgroundColor:"#201437"}]}>
             <Text style={styles.btnText}>LOG IN</Text>
           </TouchableHighlight>
-          <TouchableHighlight style={[styles.btn,{backgroundColor:"#29b859"}]}>
-            <Text style={styles.btnText}>SIGN UP</Text>
+          <TouchableHighlight style={[styles.btn,{backgroundColor:"#29b859"}]} onPress={this.pressSkip.bind(this)}> 
+            <Text style={styles.btnText}>SKIP</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -141,4 +147,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(SwiperScreen, Intro)
+export default connect(mapStateToProps)(Intro)
