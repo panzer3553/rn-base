@@ -21,7 +21,6 @@
 {"name": "Ha Tinh", "cityCode": 8439},
 {"name": "Hai Duong", "cityCode": 84320},
 {"name": "Hai Phong", "cityCode": 8431},
-{"name": "Haiphong", "cityCode": 8431},
 {"name": "Hanoi", "cityCode": 844},
 {"name": "Ho Chi Minh City", "cityCode": 848},
 {"name": "Hoa Binh", "cityCode": 8418},

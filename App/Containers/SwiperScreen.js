@@ -3,6 +3,7 @@ import React,{Component,Animated,Image,ScrollView,StatusBarIOS,StyleSheet,Text,T
 import { Colors, Images, Metrics } from '../Themes'
 import Icon from 'react-native-vector-icons/Ionicons'
 import ModalPicker from 'react-native-modal-picker'
+import { connect } from 'react-redux'
 
 var styles = StyleSheet.create({
     containerModal: {
@@ -196,7 +197,7 @@ class Intro extends Component{
     super(props)
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {userGroups: "Select a group", dataSource: ds.cloneWithRows(cities.map((city) => city.name)), modalVisible: false,
-            city: 'Select a city'}
+            city: 'Select a city', index: 0}
   }
 
   setModalVisible(visible) {
@@ -227,13 +228,13 @@ class Intro extends Component{
     let index = 0;
     const data = [
       { key: index++, section: true, label: 'Users group' },
-      { key: index++, label: 'Police station' },
-      { key: index++, label: 'Fire station' },
-      { key: index++, label: 'Ambulance' },
-      { key: index++, label: 'Medical User' },
-      { key: index++, label: 'Militarian User' },
-      { key: index++, label: 'Volunteer' },
-      { key: index++, label: 'Other' },
+      { key: index++, label: 'Police station', groupId: 'policeStation'},
+      { key: index++, label: 'Fire station', groupId: 'fireStation'},
+      { key: index++, label: 'Ambulance', groupID: 'ambulance' },
+      { key: index++, label: 'Medical User', groupId: 'medicalUser' },
+      { key: index++, label: 'Militarian User', groupId: 'militarianUser' },
+      { key: index++, label: 'Volunteer', groupId: 'volunteer' },
+      { key: index++, label: 'Other', groupId: 'other' },
     ]
     return (
     <View style={styles.backgroundFixed}>
@@ -243,13 +244,13 @@ class Intro extends Component{
           </View>
         </View>
         <View style={styles.sliders}>
-          <Swiper height={Metrics.screenHeight-200} showsButtons={false} autoplay={false}
+          <Swiper height={Metrics.screenHeight-200} showsButtons={false} autoplay={false} index={this.state.index}
+            onMomentumScrollEnd={this._onMomentumScrollEnd.bind(this)}
           dot={<View style={{backgroundColor: 'rgba(255,255,255,0.2)', width: 6, height: 6, borderRadius: 3, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
           activeDot={<View style={{backgroundColor: 'rgba(255,255,255,1)', width: 6, height: 6, borderRadius: 3, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}>
               <View style={styles.slide}>
                 <Text style={styles.slideTextTitle}>Welcome</Text>
-                <Text style={styles.slideText}>Sign up for free music on your phone,tablet</Text>
-                <Text style={styles.slideText}>and computer.</Text>
+                <Text style={styles.slideText}>SmartSOS will help you with emergency situations</Text>
               </View>
               <View style={styles.slide}>
                 <View style={styles.logoIconContainer}>
@@ -259,7 +260,7 @@ class Intro extends Component{
                 <ModalPicker
                     data={data}
                     initValue="Select something yummy!"
-                    onChange={(option)=>{ this.setState({userGroups:option.label})}}>
+                    onChange={(option)=>{ this.setState({userGroups:option.label, index: 1})}}>
                 <View style={styles.pickerContainer}>
                   <Text>{this.state.userGroups}</Text>
                   <Icon name="ios-arrow-down" size={18} color="black" style={styles.dropDownIcon}></Icon>
@@ -282,7 +283,6 @@ class Intro extends Component{
                       dataSource={this.state.dataSource}
                       renderRow={this.renderRow.bind(this)}
                       renderSeparator={(sectionID, rowID) => <View style={styles.separator} />}
-                      renderScrollComponent={props => <RecyclerViewBackedScrollView {...props} />}
                     />
                   </View>
                 </Modal>
@@ -306,7 +306,11 @@ class Intro extends Component{
   }
 }
 
-export default class SwiperScreen extends Component{  
+export default class SwiperScreen extends Component{
+  componentDidMount(){
+    console.log(this.props)
+  }  
+
   render() {
     return(
       <View style={styles.container}>
@@ -316,3 +320,9 @@ export default class SwiperScreen extends Component{
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+  }
+}
+
+export default connect(mapStateToProps)(SwiperScreen, Intro)
