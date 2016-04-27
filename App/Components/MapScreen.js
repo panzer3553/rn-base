@@ -7,6 +7,7 @@ import React, {
 } from 'react-native'
 import MapView from 'react-native-maps'
 import styles from './Styles/MapScreenStyle' 
+import { connect } from 'react-redux'
 
 export default class MapScreen extends React.Component {
 
@@ -45,3 +46,12 @@ export default class MapScreen extends React.Component {
   		)
   	}
 }
+
+const mapStateToProps = (state) => {
+  return {
+    latitude: state.mapscreen.latitude,
+    longitude: state.mapscreen.longitude,
+  }
+}
+
+export default connect(mapStateToProps)(MapScreen)

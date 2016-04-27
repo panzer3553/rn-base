@@ -93,11 +93,7 @@ export default class AllComponentsScreen extends React.Component {
 
         return (
       <View style={styles.screenContainer}>
-        <MapScreen 
-          latitude={this.props.latitude}
-          longitude={this.props.longitude}
-          isReloadMap={!this.state.isPopupShow}
-        />
+        <MapScreen />
         <View style={styles.infoIconContainer}>
           <SmallFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
             <Icon name="info" size={Metrics.icons.small} color="red" />
@@ -142,8 +138,6 @@ export default class AllComponentsScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    latitude: state.mapscreen.latitude,
-    longitude: state.mapscreen.longitude,
   }
 }
 
