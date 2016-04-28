@@ -45,6 +45,7 @@ export default class AllComponentsScreen extends React.Component {
     this.props.navigator.state.tapHamburger = () => {
       this.props.navigator.drawer.toggle()
     }
+    console.log(this.props.latitude)
   }
 
   handleShowPopUp (_items) {
@@ -129,8 +130,11 @@ export default class AllComponentsScreen extends React.Component {
             ]
     )
     this.saveEmergency({
-      latitude: this.props.latitude,
-      longitude: this.props.longitude,
+      location: {
+            __type: 'GeoPoint',
+            latitude: this.props.latitude,
+            longitude: this.props.longitude
+      },
       time: new Date(),
       type: type,
     })
@@ -144,6 +148,8 @@ export default class AllComponentsScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    latitude: state.mapscreen.latitude,
+    longitude: state.mapscreen.longitude,
   }
 }
 
