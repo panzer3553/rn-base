@@ -49,9 +49,9 @@ class AppBadgeController extends React.Component {
         const { dispatch } = this.props
         dispatch(Actions.receivePushNotification(notification))
 
-        //const { latitude, longitude } = notification.data.emergency
-        const desAddress = '16.074424, 108.2028329'//'' + latitude +  ',' + longitude
-        console.log()
+        const { latitude, longitude } = notification.data.emergency
+        const desAddress = '' + latitude +  ',' + longitude //'16.074424, 108.2028329' for test
+
         if ( notification.foreground)
         {
           if (Platform.OS === 'ios'){
