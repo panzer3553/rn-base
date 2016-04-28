@@ -13,7 +13,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
   },
-    container:{
+  container:{
     height:Metrics.screenHeight,
     width:Metrics.screenWidth
   },

@@ -1,4 +1,4 @@
-import React, { View, Text, Navigator, StatusBar, TouchableWithoutFeedback } from 'react-native'
+import React, { View, Text, Navigator, StatusBar, TouchableWithoutFeedback, AsyncStorage } from 'react-native'
 import {Router, Routes, NavigationBar} from './Navigation/'
 import configureStore from './Store/Store'
 import { Provider } from 'react-redux'
@@ -7,6 +7,8 @@ import Drawer from 'react-native-drawer'
 import Swiper from './Containers/SwiperScreen'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Colors, Images, Metrics } from './Themes'
+import { connect } from 'react-redux'
+
 // Styles
 import styles from './Containers/Styles/RootStyle'
 import drawerStyles from './Containers/Styles/DrawerStyle'
@@ -21,6 +23,8 @@ const drawerItems = [
                       ["share", "feedback"], 
                       ["settings", "about"]
                   ]
+
+const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 
 //TODO: Move it to a serperate component accroding F8 app of fb
 PushNotification.configure({
@@ -64,19 +68,33 @@ export default class RNBase extends React.Component {
   constructor() {
     super();
     this.state = {
-      firstLoad : false
+      firstLoad: true
     }
   }
 
-  componentWillMount () {
+  async componentWillMount () {
     const { dispatch } = store
     dispatch(Actions.requestLocation())
-    console.log(store.getState())
   }
 
   componentDidMount () {
-    if(!this.state.firstLoad)
-      this.navigator.drawer = this.drawer
+    this.navigator.drawer = this.drawer
+    this._loadInitialState().done()
+    console.log(this.state)
+  }
+
+  async _loadInitialState() {
+    try {
+      var value = await AsyncStorage.getItem(STORAGE_KEY_FIRST_LOAD);
+      if (value !== null){
+        this.setState({firstLoad: false})
+        console.log(this.state)
+      } else {
+        this.setState({firstLoad: true})
+      }
+    } catch (error) {
+     console.log(error.message)
+    }
   }
 
   _changePath(path){
@@ -134,8 +152,7 @@ export default class RNBase extends React.Component {
   }
 
   renderApp () {
-    var App = this.state.firstLoad ? <Swiper /> :           
-            (<Drawer
+    var App = (<Drawer
               ref={(ref) => { this.drawer = ref }}
               content={this.renderDrawerContent()}
               type="static"
@@ -149,23 +166,21 @@ export default class RNBase extends React.Component {
           >
             <Navigator
               ref={(ref) => { this.navigator = ref }}
-              initialRoute={Routes.AllComponentsScreen}
+              initialRoute={this.state.firstLoad ? Routes.SwiperScreen : Routes.AllComponentsScreen}
               configureScene={Router.configureScene}
               renderScene={Router.renderScene}
-              navigationBar={NavigationBar.render()}
+              navigationBar={this.state.firstLoad ? null : NavigationBar.render()}
               style={styles.container}
             />
           </Drawer>)
 
     return (
-      <Provider store={store}>
         <View style={styles.applicationView}>
           <StatusBar
             barStyle='light-content'
           />
           {App}
         </View>
-      </Provider>
     )
   }
 
@@ -173,3 +188,10 @@ export default class RNBase extends React.Component {
     return this.renderApp()
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+  }
+}
+
+export default connect(mapStateToProps)(RNBase)

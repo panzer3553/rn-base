@@ -19,7 +19,7 @@ const saveToken = (state, action) =>
 const success = (state, action) =>
   state.merge({
   	error:false,
-    objectId: action.ok.objectID,
+    objectId: action.ok.objectId,
     errorCode: null,
   })
 

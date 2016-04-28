@@ -1,42 +1,29 @@
-var F8App = require('F8App');
+import App from './Root.js'
 import { Provider } from 'react-redux'
-import configureStore from './S/configureStore'
+import configureStore from './Store/Store'
+import React from 'react-native'
+import Actions from './Actions/Creators'
+const store = configureStore()
 
-var {serverURL} = require('./env');
-
-function setup(): React.Component {
-  console.disableYellowBox = true;
-  Parse.initialize('oss-f8-app-2016');
-  Parse.serverURL = `${serverURL}/parse`;
-
-  FacebookSDK.init();
-  Parse.FacebookUtils.init();
-  Relay.injectNetworkLayer(
-    new Relay.DefaultNetworkLayer(`${serverURL}/graphql`, {
-      fetchTimeout: 30000,
-      retryDelays: [5000, 10000],
-    })
-  );
-
-  class Root extends React.Component {
+export default class Root extends React.Component {
     constructor() {
-      super();
+      super()
       this.state = {
         isLoading: true,
-        store: configureStore(() => this.setState({isLoading: false})),
-      };
-    }
-    render() {
-      if (this.state.isLoading) {
-        return null;
+        firstLoad: true
       }
+    }
+
+    componentWillMount(){
+      const {dispatch} = store
+      dispatch(Actions.startup())
+    }
+
+    render() {
       return (
-        <Provider store={this.state.store}>
-          <F8App />
+        <Provider store={store}>
+          <App/>
         </Provider>
-      );
+      )
     }
   }
-
-  return Root;
-}

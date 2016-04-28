@@ -5,7 +5,7 @@ import Types from '../Actions/Types'
 import Actions from '../Actions/Creators'
 import config from '../Config/AppSetting'
 
-function * saveToken (token) {
+function * saveToken (token, channels) {
   return fetch(config.url + 'installations', {
       method: 'POST',
       headers: {
@@ -17,6 +17,7 @@ function * saveToken (token) {
       body: JSON.stringify({
         deviceToken: token.token,
         deviceType: token.os,
+        channels: channels
   })
 	}).then(response => response.json())
 }

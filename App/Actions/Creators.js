@@ -46,7 +46,7 @@ const receivePushNotification = (notification) =>
   createAction(Types.RECEIVED_PUSH_NOTIFICATION)
 const markAllNotificationsAsSeen = () =>
   createAction(Types.SEEN_ALL_NOTIFICATIONS)
-const saveToken = (token) => createAction(Types.SAVE_TOKEN, {token})
+const saveToken = (token, channels) => createAction(Types.SAVE_TOKEN, {token, channels})
 const saveTokenSuccess = (ok) =>
   createAction(Types.SAVE_TOKEN_SUCCCESS, {ok})
 const saveTokenFailure = (error) =>
@@ -81,6 +81,7 @@ export default {
   saveEmergencyFailure,
   saveToken,
   saveTokenSuccess,
+  saveTokenFailure,
   saveProfileFailure,
   skipSwiper
 }

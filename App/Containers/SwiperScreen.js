@@ -1,5 +1,6 @@
 import Swiper from 'react-native-swiper'
-import React,{Component,Animated,Image,ScrollView,StatusBarIOS,StyleSheet,Text,TouchableHighlight,View, Picker, Modal, ListView, RecyclerViewBackedScrollView} from 'react-native'
+import React,{Component,Animated,Image,ScrollView,StatusBarIOS,StyleSheet,Text,TouchableHighlight,View, Picker, Modal, ListView, 
+  RecyclerViewBackedScrollView, AsyncStorage} from 'react-native'
 import { Colors, Images, Metrics } from '../Themes'
 import Icon from 'react-native-vector-icons/Ionicons'
 import ModalPicker from 'react-native-modal-picker'
@@ -7,6 +8,8 @@ import { connect } from 'react-redux'
 import cities from '../Config/CitiesData'
 import styles from './Styles/SwiperStyles.js'
 import Actions from '../Actions/Creators'
+import {Router, Routes, NavigationBar} from '../Navigation/'
+const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 
 class Intro extends Component{
   _onMomentumScrollEnd(e, state, context) {
@@ -17,7 +20,7 @@ class Intro extends Component{
     super(props)
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {userGroups: "Select a group", dataSource: ds.cloneWithRows(cities.map((city) => city.name)), modalVisible: false,
-            city: 'Select a city', index: 0}
+            city: 'Select a city', index: 0, groupId: null, cityCode: null, countryCode: null}
   }
 
   setModalVisible(visible) {
@@ -27,7 +30,7 @@ class Intro extends Component{
 
   renderRow(rowData: string, sectionID: number, rowID: number) {
     return (
-      <TouchableHighlight onPress={() => {this.pressRow(rowData)}}>
+      <TouchableHighlight onPress={() => {this.pressRow(rowData, rowID)}}>
         <View>
           <View style={styles.row}>
             <Text style={styles.text}>
@@ -39,14 +42,32 @@ class Intro extends Component{
     )
   }
 
-  pressRow(rowData){
-    this.setState({city: rowData})
+  pressRow(rowData, rowID){
+    this.setState({city: rowData, countryCode: cities[rowID].countryCode})
     this.setModalVisible(false)
   }
 
-  pressSkip(){
+  async pressSkip(){
     const {dispatch} = this.props
     dispatch(Actions.skipSwiper())
+    const {groupId, city, countryCode} = this.state
+    dispatch(Actions.saveProfile({groups: groupId, 
+                                  city: city, 
+                                  country: countryCode,
+                                  installation: {
+                                       __type: 'Pointer',
+                                      className: '_Installation',
+                                      objectId: 'eOlTV4idNk'
+                                  }
+        }))
+    dispatch(Actions.saveToken({token: 'f5dfda2369d9be224a8aaa5d9373312e8963b3e0a92881db10614eb75bbd3896',
+                                os: 'ios'}, [groupId, city, countryCode]))
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY_FIRST_LOAD, 'false')
+      this.props.navigator.push(Routes.AllComponentsScreen)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   render(){
@@ -85,7 +106,7 @@ class Intro extends Component{
                 <ModalPicker
                     data={data}
                     initValue="Select something yummy!"
-                    onChange={(option)=>{ this.setState({userGroups:option.label, index: 1})}}>
+                    onChange={(option)=>{ this.setState({userGroups:option.label, groupId:option.groupId})}}>
                 <View style={styles.pickerContainer}>
                   <Text>{this.state.userGroups}</Text>
                   <Icon name="ios-arrow-down" size={18} color="black" style={styles.dropDownIcon}></Icon>
