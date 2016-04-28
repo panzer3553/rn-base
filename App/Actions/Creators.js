@@ -54,12 +54,13 @@ const receivePushNotification = (notification) =>
   createAction(Types.RECEIVED_PUSH_NOTIFICATION, {notification})
 const markAllNotificationsAsSeen = () =>
   createAction(Types.SEEN_ALL_NOTIFICATIONS)
-const saveToken = (token) => createAction(Types.SAVE_TOKEN, {token})
+const saveToken = (token, channels) => createAction(Types.SAVE_TOKEN, {token, channels})
 const saveTokenSuccess = (ok) =>
   createAction(Types.SAVE_TOKEN_SUCCCESS, {ok})
 const saveTokenFailure = (error) =>
   createAction(Types.SAVE_TOKEN_FAILURE, {error})
 
+const skipSwiper = () => createAction(Types.SKIP_SWIPER)
 /**
  Makes available all the action creators we've created.
  */
@@ -91,5 +92,7 @@ export default {
   saveEmergencyFailure,
   saveToken,
   saveTokenSuccess,
+  saveTokenFailure,
   saveProfileFailure,
+  skipSwiper
 }

@@ -5,10 +5,9 @@ import React, {
 	TouchableHighlight,
 	PropTypes
 } from 'react-native'
-import { connect } from 'react-redux'
 import MapView from 'react-native-maps'
 import styles from './Styles/MapScreenStyle' 
-import {isEqual} from 'lodash'
+import { connect } from 'react-redux'
 
 export default class MapScreen extends React.Component {
 
@@ -17,8 +16,8 @@ export default class MapScreen extends React.Component {
       longitude: PropTypes.number,
   }
 
-	constructor () {
-		super();
+	constructor (props) {
+		super(props)
 		this.state = {
 			region: {
       latitude: 0,
@@ -30,7 +29,11 @@ export default class MapScreen extends React.Component {
 	}
 
   componentDidMount(){
-    console.log(this.props.markers)
+    
+  }
+
+  componentWillReceiveProps(nextProps: any){
+    
   }
 
   render () {
@@ -45,14 +48,6 @@ export default class MapScreen extends React.Component {
         }}
         showsUserLocation
      	>
-      {this.props.markers.map((marker, i) => (
-      <MapView.Marker 
-        key ={i} 
-        coordinate={marker.latlng}
-        title={marker.title}
-        description={marker.description}
-      />
-      ))}
       </MapView>
   		)
   	}
@@ -64,5 +59,6 @@ const mapStateToProps = (state) => {
     longitude: state.mapscreen.longitude,
   }
 }
+
 
 export default connect(mapStateToProps)(MapScreen)

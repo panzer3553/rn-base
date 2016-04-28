@@ -16,7 +16,8 @@ export default new class Routes {
     return {
       title: I18n.t('home'),
       component: require('../Containers/AllComponentsScreen').default,
-      leftButton: 'HAMBURGER'
+      leftButton: 'HAMBURGER',
+      navigationBarHidden: false
     }
   }
 
@@ -26,6 +27,7 @@ export default new class Routes {
       component: require('../Containers/ProfileScreen').default,
       rightButton: 'SAVE',
       leftButton: 'HAMBURGER',
+      navigationBarHidden: false
     }
   }
 
@@ -34,7 +36,8 @@ export default new class Routes {
       title: I18n.t('helpInfo'),
       component: require('../Containers/HelpScreen').default,
       customConfiguration: Transitions.modal,
-      leftButton: 'BACK'
+      leftButton: 'BACK',
+      navigationBarHidden: false
     }
   }
 
@@ -52,6 +55,7 @@ export default new class Routes {
       component: require('../Containers/Developing').default,
       customConfiguration: Transitions.modal,
       leftButton: 'HAMBURGER',
+      navigationBarHidden: false
     }
   }
   get SendScreen () {
@@ -60,6 +64,7 @@ export default new class Routes {
       component: require('../Containers/Developing').default,
       customConfiguration: Transitions.modal,
       leftButton: 'HAMBURGER',
+      navigationBarHidden: false
     }
   }  
   get FeedbackScreen () {
@@ -68,6 +73,7 @@ export default new class Routes {
       component: require('../Containers/Developing').default,
       customConfiguration: Transitions.modal,
       leftButton: 'HAMBURGER',
+      navigationBarHidden: false
     }
   }
   get AboutScreen () {
@@ -76,6 +82,15 @@ export default new class Routes {
       component: require('../Containers/Developing').default,
       customConfiguration: Transitions.modal,
       leftButton: 'HAMBURGER',
+      navigationBarHidden: false
+    }
+  }
+
+  get SwiperScreen (){
+    return {
+      title: "Swiper",
+      component: require('../Containers/SwiperScreen').default,
+      navigationBarHidden: true
     }
   }
 
