@@ -6,7 +6,6 @@ import createReducer from './CreateReducer'
 
 export const INITIAL_STATE = Immutable({
 	desAddress: null,
-	srcAddress: null,
 	fetching:  null,
 	errorCode: null,
 })
@@ -14,7 +13,6 @@ export const INITIAL_STATE = Immutable({
 const directionRequest = (state, action) => 
 	state.merge({
 		desAddress: action.desAddress,
-		srcAddress: action.srcAddress,
 		fetching:  true,
 		errorCode: null,
 	})

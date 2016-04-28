@@ -5,6 +5,7 @@ import React, {
 	TouchableHighlight,
 	PropTypes
 } from 'react-native'
+import { connect } from 'react-redux'
 import MapView from 'react-native-maps'
 import styles from './Styles/MapScreenStyle' 
 import {isEqual} from 'lodash'
@@ -56,3 +57,12 @@ export default class MapScreen extends React.Component {
   		)
   	}
 }
+
+const mapStateToProps = (state) => {
+  return {
+    latitude: state.mapscreen.latitude,
+    longitude: state.mapscreen.longitude,
+  }
+}
+
+export default connect(mapStateToProps)(MapScreen)

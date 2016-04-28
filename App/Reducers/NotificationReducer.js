@@ -1,12 +1,14 @@
 
-import Platform from 'Platform'
+import React, {
+  Platform,
+} from 'react-native'
 import Immutable from 'seamless-immutable'
 import Types from '../Actions/Types'
 import createReducer from './CreateReducer'
 
 export const INITIAL_STATE = Immutable({
   server: [],
-  push: null,
+  notification: null,
   enabled: Platform.OS === 'ios' ? null : true,
   registered: false,
   seen: {},
@@ -14,7 +16,7 @@ export const INITIAL_STATE = Immutable({
       
 const receiveNotification = (state, action) =>
   state.merge({
-    push: action.notification.data.emergency
+    notification: action.notification
   })
 
 const turnOnPushNotifications = (state, action) =>

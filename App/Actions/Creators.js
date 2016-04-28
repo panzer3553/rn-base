@@ -25,8 +25,8 @@ const receiveJsonByCoords = (json) =>
 const receiveJsonByCoordsFailure = (errorCode) =>
   createAction(Types.MAP_JSON_FAILURE, {errorCode})
 
-const requestDirection = (desAddress, srcAddress, mode) => 
-  createAction(Types.MAP_DIRECTION_REQUEST, { desAddress, srcAddress, mode })
+const requestDirection = (desAddress, mode) => 
+  createAction(Types.MAP_DIRECTION_REQUEST, { desAddress, mode })
 const receiveDirection = () =>
   createAction(Types.MAP_DIRECTION_RECEIVE)
 const receiveDirectionFailure = (error) => 
@@ -51,7 +51,7 @@ const storeDeviceToken = (deviceToken) =>
 const skipPushNotifications = () =>
   createAction(Types.SKIPPED_PUSH_NOTIFICATIONS)
 const receivePushNotification = (notification) =>
-  createAction(Types.RECEIVED_PUSH_NOTIFICATION)
+  createAction(Types.RECEIVED_PUSH_NOTIFICATION, {notification})
 const markAllNotificationsAsSeen = () =>
   createAction(Types.SEEN_ALL_NOTIFICATIONS)
 const saveToken = (token) => createAction(Types.SAVE_TOKEN, {token})

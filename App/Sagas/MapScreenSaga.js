@@ -41,11 +41,12 @@ export function * getUserLocation() {
 
 export function * getLocationInfo (_latitude, _longitude, _output) {
 
-	const strUrl 		= 'http://maps.googleapis.com/maps/api/geocode/' + 
+	const strUrl 		= 'http://maps.google.com/maps/api/geocode/' + 
                      _output + 
                      '?latlng=' + 
                      _latitude + ',' + _longitude + 
-                     '&sensor=true;'
+                     '&sensor=true' +
+                     '&language=en;'
   console.log(strUrl)
 	const client 	= Client({ baseUrl: strUrl});
 	const response 	= yield call (client.get);

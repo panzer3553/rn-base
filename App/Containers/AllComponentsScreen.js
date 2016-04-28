@@ -24,7 +24,6 @@ var fireItems = [
      {icon: 'fire', text: 'Show Info Screen', func: 'showHelpScreen'}, 
      {icon: 'fire', text: 'Show Location', func: 'showUserLocation'}, 
      {icon: 'fire', text: 'Location Info', func: 'JSONLocation'}, 
-     {icon: 'fire', text: 'Show Direction', func: 'showMapLinkWithDirection'}, 
     ]
 
 export default class AllComponentsScreen extends React.Component {

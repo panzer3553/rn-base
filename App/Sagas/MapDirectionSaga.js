@@ -22,10 +22,10 @@ function showDirectionPromised(url) {
 	return { showDirection: () => new Promise( supported => direction.on = supported) }
 }
 
-export function * showDirectionOnMap (desAddress, srcAddress, mode) {
+export function * showDirectionOnMap (desAddress, mode) {
 
 	const baseUrl 		= (Platform.OS === 'ios') ? 'http://maps.apple.com/?' : 'http://maps.google.com/maps?'
-    const directionUrl 	= baseUrl + 'saddr=' + srcAddress + '&daddr=' + desAddress + '&' + mode
+    const directionUrl 	= baseUrl  + '&daddr=' + desAddress + '&' + mode
 
 	const { showDirection }  = yield call(showDirectionPromised, directionUrl)
 	const { err, supported } = yield call(showDirection)
@@ -45,7 +45,7 @@ export function * showDirectionOnMap (desAddress, srcAddress, mode) {
 
 export function * watchDirectionRequest () {
 	while (true) {
-		const { desAddress, srcAddress, mode } = yield take(Types.MAP_DIRECTION_REQUEST)
-		yield call(showDirectionOnMap, desAddress, srcAddress, mode)
+		const { desAddress, mode } = yield take(Types.MAP_DIRECTION_REQUEST)
+		yield call(showDirectionOnMap, desAddress, mode)
 	}
 }

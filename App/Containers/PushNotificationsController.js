@@ -1,95 +1,151 @@
 'use strict';
 
-import React from 'react-native'
-import AppState  from 'AppState'
-import Platform ('Platform');
-import unseenNotificationsCount from './tabs/notifications/unseenNotificationsCount'
-import PushNotificationIOS from 'PushNotificationIOS'
-// $FlowIssue
+import React, {
+  Platform,
+  View,
+} from 'react-native'
 import PushNotification from 'react-native-push-notification'
-
 import  { connect } from 'react-redux'
+import Actions from '../Actions/Creators'
+import VibrationIOS from 'VibrationIOS'
+var MessageBarAlert = require('react-native-message-bar').MessageBar;
+var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
-import type {Dispatch} from './actions/types'
-
-const PARSE_CLOUD_GCD_SENDER_ID = '1076345567071';
+const PARSE_CLOUD_GCD_SENDER_ID = '56113279400'
 
 class AppBadgeController extends React.Component {
   props: {
-    tab: string;
-    enabled: boolean;
-    badge: number;
-    dispatch: Dispatch;
+    enabled: boolean,
   };
 
   constructor() {
-    super();
-
-    (this: any).handleAppStateChange = this.handleAppStateChange.bind(this);
-  }
-
-  handleAppStateChange(appState) {
-    if (appState === 'active') {
-      this.updateAppBadge();
-      if (this.props.tab === 'notifications') {
-        this.eventuallyMarkNotificationsAsSeen();
-      }
+    super()
+    this.state = {
     }
   }
 
   componentDidMount() {
-    AppState.addEventListener('change', this.handleAppStateChange);
+    // let isLocationAvailble = true
+    // if (    (!this.props.latitude)
+    //     ||  (!this.props.latitude)
+    // ) 
+    // {
+    //   isLocationAvailble = false
+    // }
 
-    const {dispatch} = this.props;
+
     PushNotification.configure({
-      onRegister: ({token}) => dispatch(storeDeviceToken(token)),
-      onNotification: (notif) => dispatch(receivePushNotification(notif)),
-      senderID: PARSE_CLOUD_GCD_SENDER_ID,
-      requestPermissions: this.props.enabled,
-    });
 
-    this.updateAppBadge();
+      // (optional) Called when Token is generated (iOS and Android)
+      onRegister: (token) => {
+        console.log('TOKEN:', token)
+        const { dispatch } = this.props
+        dispatch(Actions.saveToken(token))
+      },
+
+      // (required) Called when a remote or local notification is opened or received
+      onNotification: (notification) => {
+        console.log('NOTIFICATION:', notification)
+        const { dispatch } = this.props
+        dispatch(Actions.receivePushNotification(notification))
+
+        //const { latitude, longitude } = notification.data.emergency
+        const desAddress = '16.074424, 108.2028329'//'' + latitude +  ',' + longitude
+        console.log()
+        if ( notification.foreground)
+        {
+          if (Platform.OS === 'ios'){
+            VibrationIOS.vibrate()
+          }
+          const title = 'smartSOS'
+          const message = notification.message
+          const duration = 7000
+          const type = 'error'
+          this.showAlertWithCallback(title, message, type, duration, desAddress)      
+        }
+        else { // background
+          const { dispatch } = this.props
+          // const srcAddress = '' + this.props.latitude +  ',' 
+          //                   + this.props.longitude 
+          console.log('DES:' + desAddress) 
+          //console.log('SRC:' + srcAddress)
+          const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=bicycling'
+          dispatch(Actions.requestDirection(desAddress, mode))
+
+        }
+
+      },
+
+      // ANDROID ONLY: (optional) GCM Sender ID.
+      senderID: PARSE_CLOUD_GCD_SENDER_ID,
+
+      // IOS ONLY (optional): default: all - Permissions to register.
+      permissions: {
+        alert: true,
+        badge: true,
+        sound: true
+      },
+
+      // Should the initial notification be popped automatically
+      // default: true
+      popInitialNotification: true,
+
+      /**
+        * IOS ONLY: (optional) default: true
+        * - Specified if permissions will requested or not,
+        * - if not, you must call PushNotificationsHandler.requestPermissions() later
+        */
+      requestPermissions: true
+    })
+
+    MessageBarManager.registerMessageBar(this.refs.alert)
   }
 
   componentWillUnmount() {
-    AppState.removeEventListener('change', this.handleAppStateChange);
+     MessageBarManager.unregisterMessageBar()
   }
 
   componentDidUpdate(prevProps) {
     if (!prevProps.enabled && this.props.enabled) {
       PushNotification.requestPermissions();
     }
-    if (this.props.badge !== prevProps.badge) {
-      this.updateAppBadge();
-    }
-    if (this.props.tab === 'notifications' && prevProps.tab !== 'notifications') {
-      this.eventuallyMarkNotificationsAsSeen();
-    }
   }
 
-  updateAppBadge() {
-    if (this.props.enabled && Platform.OS === 'ios') {
-      PushNotificationIOS.setApplicationIconBadgeNumber(this.props.badge);
-      updateInstallation({badge: this.props.badge});
-    }
+  showAlertWithCallback(title, message, type, duration, desAddress) {
+    // Simple show the alert with the manager
+    MessageBarManager.showAlert({
+      title: title,
+      message: message,
+      avatar: "http://www.icon100.com/up/4250/128/83-circle-error.png",
+      alertType: type,
+      duration: duration,
+      onTapped: this.alertCustomCallBack.bind(this, desAddress),
+    })
   }
 
-  eventuallyMarkNotificationsAsSeen() {
-    const {dispatch} = this.props;
-    setTimeout(() => dispatch(markAllNotificationsAsSeen()), 1000);
+  alertCustomCallBack (desAddress) {
+      const srcAddress = '' + this.props.latitude +  ',' 
+                            + this.props.longitude 
+      console.log('DES:' + desAddress) 
+      console.log('SRC:' + srcAddress)
+      const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=bicycling'
+      const { dispatch } = this.props
+      dispatch(Actions.requestDirection(desAddress, mode))
   }
 
   render() {
-    return null;
+    return (
+      <MessageBarAlert ref="alert" />
+    ) 
   }
 }
 
-function select(store) {
+const mapStateToProps = (state) => {
   return {
-    enabled: store.notifications.enabled === true,
-    badge: unseenNotificationsCount(store) + store.surveys.length,
-    tab: store.navigation.tab,
-  };
+    latitude: state.mapscreen.latitude,
+    longitude: state.mapscreen.longitude,
+
+  }
 }
 
-module.exports = connect(select)(AppBadgeController);
+export default connect(mapStateToProps)(AppBadgeController)

@@ -3,6 +3,9 @@
 import Types from '../Actions/Types'
 import Immutable from 'seamless-immutable'
 import createReducer from './CreateReducer'
+import React, {
+	Alert,
+} from 'react-native'
 
 export const INITIAL_STATE = Immutable({
 	latitude:  null,
@@ -16,8 +19,6 @@ export const INITIAL_STATE = Immutable({
 const request= (state, action) => 
 	state.merge({
 		fetching: true,
-		latitude: action.latitude,
-		longitude: action.longitude,
 	})
 
 const receive = (state, action) =>
@@ -31,8 +32,6 @@ const receive = (state, action) =>
 const failure = (state, action) =>
 	state.merge({
 		fetching: 	false,
-		latitude: 	null,
-		longitude: 	null,
 		errorCode: 	true,
 	})
 
@@ -46,13 +45,19 @@ const jsonRequest= (state, action) =>
 const jsonReceive = (state, action) => {
 
 	for ( let i = 0; i <  action.json.address_components.length; i++) {
-		const type =  action.json.address_components[i].types[0]
-		if (type=="locality") { 
-		  const currentCity = action.json.address_components[i].long_name
-		  alert('Current City' + currentCity)   
-		  state.merge({ city: currentCity })
-		  break;
-		}
+		for (let j = 0; j < action.json.address_components[i].types.length; j++) {
+
+			const type =  action.json.address_components[i].types[j]
+			console.log('TYPE:' + type)
+
+			if (type=="locality" || type=="administrative_area_level_1") { 
+			  const currentCity = action.json.address_components[i].long_name
+			  alert('Current City:' + currentCity)   
+			  state.merge({ city: currentCity })
+			  break;
+			}
+		}	
+			
 	}
 
 	state.merge({
@@ -60,6 +65,7 @@ const jsonReceive = (state, action) => {
 		json: action.json,
 		errorCode: null,
 	})
+
 }
 
 const jsonFailure = (state, action) =>
