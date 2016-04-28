@@ -68,19 +68,26 @@ export default class RNBase extends React.Component {
   constructor() {
     super();
     this.state = {
-      firstLoad: true
+      firstLoad: false
     }
   }
 
-  async componentWillMount () {
+  componentWillMount () {
     const { dispatch } = store
     dispatch(Actions.requestLocation())
+    AsyncStorage.getItem(STORAGE_KEY_FIRST_LOAD).then((value) => {
+      if (value !== null){
+        this.setState({firstLoad: false})
+      } else {
+        this.setState({firstLoad: true})
+        this.navigator.push(Routes.SwiperScreen)
+      }
+    })
+    console.log(this.state)
   }
 
   componentDidMount () {
     this.navigator.drawer = this.drawer
-    this._loadInitialState().done()
-    console.log(this.state)
   }
 
   async _loadInitialState() {
@@ -152,6 +159,7 @@ export default class RNBase extends React.Component {
   }
 
   renderApp () {
+    var bar = this.state.firstLoad ? null : NavigationBar.render()
     var App = (<Drawer
               ref={(ref) => { this.drawer = ref }}
               content={this.renderDrawerContent()}
@@ -166,10 +174,10 @@ export default class RNBase extends React.Component {
           >
             <Navigator
               ref={(ref) => { this.navigator = ref }}
-              initialRoute={this.state.firstLoad ? Routes.SwiperScreen : Routes.AllComponentsScreen}
+              initialRoute={Routes.AllComponentsScreen}
               configureScene={Router.configureScene}
               renderScene={Router.renderScene}
-              navigationBar={this.state.firstLoad ? null : NavigationBar.render()}
+              navigationBar={bar}
               style={styles.container}
             />
           </Drawer>)

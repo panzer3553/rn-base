@@ -15,8 +15,6 @@ export default class Root extends React.Component {
     }
 
     componentWillMount(){
-      const {dispatch} = store
-      dispatch(Actions.startup())
     }
 
     render() {
