@@ -27,6 +27,7 @@ const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 class Intro extends Component{
   _onMomentumScrollEnd(e, state, context) {
     // you can get `state` and `this`(ref to swiper's context) from params
+    this.setState({index: state.index})
   }
 
   constructor(props) {
@@ -67,17 +68,11 @@ class Intro extends Component{
     dispatch(Actions.saveProfile({groups: groupId, 
                                   city: city, 
                                   country: countryCode,
-                                  installation: {
-                                       __type: 'Pointer',
-                                      className: '_Installation',
-                                      objectId: 'eOlTV4idNk'
-                                  }
         }))
-    dispatch(Actions.saveToken({token: 'f5dfda2369d9be224a8aaa5d9373312e8963b3e0a92881db10614eb75bbd3896',
-                                os: 'ios'}, [groupId, city, countryCode]))
     try {
       await AsyncStorage.setItem(STORAGE_KEY_FIRST_LOAD, 'false')
       this.props.navigator.pop()
+      this.forceUpdate()
     } catch (error) {
       console.log(error)
     }
@@ -103,7 +98,7 @@ class Intro extends Component{
           </View>
         </View>
         <View style={styles.sliders}>
-          <Swiper height={Metrics.screenHeight-200} showsButtons={false} autoplay={false} index={this.state.index}
+          <Swiper height={Metrics.screenHeight-200} showsButtons={false} autoplay={false} index={this.state.index} loop={false}
             onMomentumScrollEnd={this._onMomentumScrollEnd.bind(this)}
           dot={<View style={{backgroundColor: 'rgba(255,255,255,0.2)', width: 6, height: 6, borderRadius: 3, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
           activeDot={<View style={{backgroundColor: 'rgba(255,255,255,1)', width: 6, height: 6, borderRadius: 3, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}>
@@ -153,9 +148,6 @@ class Intro extends Component{
           </Swiper>
         </View>
         <View style={styles.btnContainer}>
-          <TouchableHighlight style={[styles.btn,{backgroundColor:"#201437"}]}>
-            <Text style={styles.btnText}>LOG IN</Text>
-          </TouchableHighlight>
           <TouchableHighlight style={[styles.btn,{backgroundColor:"#29b859"}]} onPress={this.pressSkip.bind(this)}> 
             <Text style={styles.btnText}>SKIP</Text>
           </TouchableHighlight>

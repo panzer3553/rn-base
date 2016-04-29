@@ -9,8 +9,6 @@ import React, {
   AsyncStorage,
 } from 'react-native'
 import {Router, Routes, NavigationBar} from './Navigation/'
-import configureStore from './Store/Store'
-import { Provider } from 'react-redux'
 import Actions from './Actions/Creators'
 import Drawer from 'react-native-drawer'
 import Swiper from './Containers/SwiperScreen'
@@ -25,7 +23,6 @@ import I18n from './I18n/I18n.js'
 import PushNotification from 'react-native-push-notification'
 import PushNotificationsController from './Containers/PushNotificationsController'
 
-const store = configureStore()
 const drawerItems = [
                       ["home", 'home'], 
                       ["person", "profile"], 
@@ -47,7 +44,7 @@ export default class RNBase extends React.Component {
   }
 
   componentWillMount () {
-    const { dispatch } = store
+    const {dispatch} = this.props
     dispatch(Actions.requestLocation())
     AsyncStorage.getItem(STORAGE_KEY_FIRST_LOAD).then((value) => {
       if (value !== null){
@@ -62,20 +59,6 @@ export default class RNBase extends React.Component {
 
   componentDidMount () {
     this.navigator.drawer = this.drawer
-  }
-
-  async _loadInitialState() {
-    try {
-      var value = await AsyncStorage.getItem(STORAGE_KEY_FIRST_LOAD);
-      if (value !== null){
-        this.setState({firstLoad: false})
-        console.log(this.state)
-      } else {
-        this.setState({firstLoad: true})
-      }
-    } catch (error) {
-     console.log(error.message)
-    }
   }
 
   _changePath(path){
@@ -133,7 +116,6 @@ export default class RNBase extends React.Component {
   }
 
   renderApp () {
-    var bar = this.state.firstLoad ? null : NavigationBar.render()
     var App = (<Drawer
               ref={(ref) => { this.drawer = ref }}
               content={this.renderDrawerContent()}
@@ -151,18 +133,18 @@ export default class RNBase extends React.Component {
               initialRoute={Routes.AllComponentsScreen}
               configureScene={Router.configureScene}
               renderScene={Router.renderScene}
-              navigationBar={bar}
+              navigationBar={NavigationBar.render()}
               style={styles.container}
             />
           </Drawer>)
 
     return (
-        <View style={styles.applicationView}>
+        <View style={styles.applicationView} key={this.state.firstLoad}>
+          <PushNotificationsController latitude={this.props.latitude} longitude={this.props.longitude} profile={this.props.profileId}/>
           <StatusBar
             barStyle='light-content'
           />
           {App}
-		  <PushNotificationsController dispatch={store} />
         </View>
     )
   }
@@ -174,6 +156,9 @@ export default class RNBase extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    profileId: state.profileData,
+    latitude: state.mapscreen.latitude,
+    longitude: state.mapscreen.longitude,
   }
 }
 

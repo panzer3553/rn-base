@@ -7,7 +7,7 @@ export const INITIAL_STATE = Immutable({
   saved: false,
   error: null,
   errorCode: null,
-  objectId: null,
+  ok: null,
 })
 
 const saveToken = (state, action) =>
@@ -19,7 +19,7 @@ const saveToken = (state, action) =>
 const success = (state, action) =>
   state.merge({
   	error:false,
-    objectId: action.ok,
+    ok: action.ok,
     errorCode: null,
   })
 

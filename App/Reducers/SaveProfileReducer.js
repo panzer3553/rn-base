@@ -6,7 +6,8 @@ export const INITIAL_STATE = Immutable({
   profile: null,
   saved: false,
   error: null,
-  errorCode: null
+  errorCode: null,
+  ok: null
 })
 
 const saveProfile = (state, action) =>
@@ -17,7 +18,8 @@ const saveProfile = (state, action) =>
 
 const success = (state, action) =>
   state.merge({
-  	error:false
+  	error:false,
+    ok: action.ok
   })
 
 const failure = (state, action) =>

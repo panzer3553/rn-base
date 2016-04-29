@@ -13,34 +13,23 @@ var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
 const PARSE_CLOUD_GCD_SENDER_ID = '56113279400'
 
-class AppBadgeController extends React.Component {
+export default class PushNotificationsController extends React.Component {
   props: {
     enabled: boolean,
   };
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
     }
   }
 
   componentDidMount() {
-    // let isLocationAvailble = true
-    // if (    (!this.props.latitude)
-    //     ||  (!this.props.latitude)
-    // ) 
-    // {
-    //   isLocationAvailble = false
-    // }
-
-
     PushNotification.configure({
-
-      // (optional) Called when Token is generated (iOS and Android)
       onRegister: (token) => {
-        console.log('TOKEN:', token)
         const { dispatch } = this.props
-        dispatch(Actions.saveToken(token))
+        const objectId = this.props.profileId ? this.props.profileId.objectId : null
+        dispatch(Actions.saveToken(token, objectId))
       },
 
       // (required) Called when a remote or local notification is opened or received
@@ -75,41 +64,30 @@ class AppBadgeController extends React.Component {
         }
 
       },
-
-      // ANDROID ONLY: (optional) GCM Sender ID.
       senderID: PARSE_CLOUD_GCD_SENDER_ID,
-
-      // IOS ONLY (optional): default: all - Permissions to register.
       permissions: {
         alert: true,
         badge: true,
         sound: true
       },
-
-      // Should the initial notification be popped automatically
-      // default: true
-      popInitialNotification: true,
-
-      /**
-        * IOS ONLY: (optional) default: true
-        * - Specified if permissions will requested or not,
-        * - if not, you must call PushNotificationsHandler.requestPermissions() later
-        */
+      popInitialNotification: false,
       requestPermissions: true
     })
 
     MessageBarManager.registerMessageBar(this.refs.alert)
+    console.log(this.props)
   }
 
   componentWillUnmount() {
      MessageBarManager.unregisterMessageBar()
   }
 
-  componentDidUpdate(prevProps) {
-    if (!prevProps.enabled && this.props.enabled) {
-      PushNotification.requestPermissions();
-    }
-  }
+
+  // componentDidUpdate(prevProps) {
+  //   if (!prevProps.enabled && this.props.enabled) {
+  //     PushNotification.requestPermissions();
+  //   }
+  // }
 
   showAlertWithCallback(title, message, type, duration, desAddress) {
     // Simple show the alert with the manager
@@ -140,12 +118,19 @@ class AppBadgeController extends React.Component {
   }
 }
 
+// const mapStateToProps = (state) => {
+//   return {
+//     latitude: state.mapscreen.latitude,
+//     longitude: state.mapscreen.longitude,
+//     profileId: state.profileData.ok
+//   }
+// }
+
+// export default connect(mapStateToProps)(PushNotificationsController)
+
 const mapStateToProps = (state) => {
   return {
-    latitude: state.mapscreen.latitude,
-    longitude: state.mapscreen.longitude,
-
   }
 }
 
-export default connect(mapStateToProps)(AppBadgeController)
+export default connect(mapStateToProps)(PushNotificationsController)

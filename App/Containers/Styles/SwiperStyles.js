@@ -78,7 +78,6 @@ export default StyleSheet.create({
     bottom: 0,
     left: 0,
     height: 40,
-    flexDirection: "row"
   },
   btn:{
     flex:1,

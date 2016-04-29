@@ -21,12 +21,14 @@ function * saveProfile (profile) {
 }
 
 export function * watchSaveProfile () {
+  while(true){
     const {profile} = yield take(Types.SAVE_PROFILE)
-    const {ok, error} = yield call(saveProfile, profile)
-    if(error){
-    	yield put(Actions.saveProfileFailure(error))
+    const ok = yield call(saveProfile, profile)
+    if(ok){
+   	  yield put(Actions.saveProfileSuccess(ok)) 
+    }else{
+      yield put(Actions.saveProfileFailure())
     }
-    else{
-   		yield put(Actions.saveProfileSuccess(ok)) 
-	}
-}
+	 }
+  }
+

@@ -45,7 +45,6 @@ export default class AllComponentsScreen extends React.Component {
     this.props.navigator.state.tapHamburger = () => {
       this.props.navigator.drawer.toggle()
     }
-    console.log(this.props.latitude)
   }
 
   handleShowPopUp (_items) {
@@ -94,12 +93,6 @@ export default class AllComponentsScreen extends React.Component {
 
         return (
       <View style={styles.screenContainer}>
-        <MapScreen 
-          latitude={this.props.latitude}
-          longitude={this.props.longitude}
-          isReloadMap={!this.state.isPopupShow}
-          markers={[{latlng:{latitude: 16.070843, longitude: 108.2080}, title:"Fire", description: "Fire time baby"}]}
-        />
         <MapScreen />
         <View style={styles.infoIconContainer}>
           <SmallFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
@@ -138,6 +131,7 @@ export default class AllComponentsScreen extends React.Component {
       time: new Date(),
       type: type,
     })
+    console.log(this.props)
   }
 
   saveEmergency(emergency){
