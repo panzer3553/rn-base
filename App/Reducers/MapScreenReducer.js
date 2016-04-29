@@ -53,6 +53,8 @@ const jsonReceive = (state, action) => {
 
 			const type =  action.json.address_components[i].types[j]
 			console.log('TYPE:' + type)
+			
+			if (hasCity) break
 
 			if (type=="locality" || type=="administrative_area_level_1") { 
 				const currentCity = action.json.address_components[i].long_name
@@ -62,7 +64,7 @@ const jsonReceive = (state, action) => {
 				break
 			}
 		}	
-		if (hasCity) break
+		
 	}
 
 	state.merge({

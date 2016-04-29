@@ -93,8 +93,7 @@ export default class AllComponentsScreen extends React.Component {
 
         return (
       <View style={styles.screenContainer}>
-        <MapScreen
-        />
+        <MapScreen />
         <View style={styles.infoIconContainer}>
           <SmallFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
             <Icon name="info" size={Metrics.icons.small} color="red" />
@@ -123,8 +122,20 @@ export default class AllComponentsScreen extends React.Component {
               {text: 'OK', onPress: () =>  Communications.phonecall(_phoneNumber, false)},
             ]
     )
-    const {dispatch} = this.props  
+
+	  const {dispatch} = this.props  
     dispatch(Actions.updateLocationAndSaveEmergency(type))
+    // THE EMERGENCY SAVE HAS MOVED TO MAPSCREENSAGA
+    //this.saveEmergency({
+    //  location: {
+    //        __type: 'GeoPoint',
+    //        latitude: this.props.latitude,
+    //        longitude: this.props.longitude
+    //  },
+    //  time: new Date(),
+    //  type: type,
+    //})
+    //console.log(this.props)
   }
 
   saveEmergency(emergency){
@@ -135,6 +146,8 @@ export default class AllComponentsScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    //latitude: state.mapscreen.latitude,
+    //longitude: state.mapscreen.longitude,
   }
 }
 

@@ -72,10 +72,13 @@ export function * updateLocationAndSaveEmergency (emergencyType) {
   else {
     yield put(Actions.receiveLocation(location.coords.latitude, location.coords.longitude))
     yield put(Actions.saveEmergency(
-       location.coords.latitude,
-       location.coords.longitude,
-       new Date(),
-       emergencyType,      
+            {
+               __type: 'GeoPoint',
+               latitude: location.coords.latitude,
+               longitude: location.coords.longitude,
+            },
+            new Date(),
+            emergencyType,      
     )) 
   }
 

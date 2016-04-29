@@ -5,7 +5,7 @@ import Types from '../Actions/Types'
 import Actions from '../Actions/Creators'
 import config from '../Config/AppSetting'
 
-function * saveToken (token, channels) {
+function * saveToken (token, profileId) {
   return fetch(config.url + 'installations', {
       method: 'POST',
       headers: {
@@ -17,7 +17,11 @@ function * saveToken (token, channels) {
       body: JSON.stringify({
         deviceToken: token.token,
         deviceType: token.os,
-        channels: channels
+        profile: {
+          __type: 'Pointer',
+          className: 'Profile',
+          objectId: profileId
+        }
   })
 	}).then(response => response.json())
 }
@@ -25,12 +29,12 @@ function * saveToken (token, channels) {
 export function * watchSaveToken() {
     while(true){  
       const {token} = yield take(Types.SAVE_TOKEN)
-      const {ok, error} = yield call(saveToken, token)
-      if(error){
-        yield put(Actions.saveTokenFailure(error))
+      const ok = yield call(saveToken, token)
+      if(ok){
+        yield put(Actions.saveTokenSuccess(ok)) 
       }
       else{
-     	  yield put(Actions.saveTokenSuccess(ok)) 
+     	  yield put(Actions.saveTokenFailure())
      }
  }
 }

@@ -17,7 +17,7 @@ export default new class Routes {
       title: I18n.t('home'),
       component: require('../Containers/AllComponentsScreen').default,
       leftButton: 'HAMBURGER',
-      navigationBarHidden: false
+      displayNavBar: true
     }
   }
 
@@ -27,7 +27,7 @@ export default new class Routes {
       component: require('../Containers/ProfileScreen').default,
       rightButton: 'SAVE',
       leftButton: 'HAMBURGER',
-      navigationBarHidden: false
+      displayNavBar: true
     }
   }
 
@@ -37,7 +37,7 @@ export default new class Routes {
       component: require('../Containers/HelpScreen').default,
       customConfiguration: Transitions.modal,
       leftButton: 'BACK',
-      navigationBarHidden: false
+      displayNavBar: true
     }
   }
 
@@ -55,7 +55,7 @@ export default new class Routes {
       component: require('../Containers/Developing').default,
       customConfiguration: Transitions.modal,
       leftButton: 'HAMBURGER',
-      navigationBarHidden: false
+      displayNavBar: true
     }
   }
   get SendScreen () {
@@ -64,7 +64,7 @@ export default new class Routes {
       component: require('../Containers/Developing').default,
       customConfiguration: Transitions.modal,
       leftButton: 'HAMBURGER',
-      navigationBarHidden: false
+      displayNavBar: true
     }
   }  
   get FeedbackScreen () {
@@ -73,7 +73,7 @@ export default new class Routes {
       component: require('../Containers/Developing').default,
       customConfiguration: Transitions.modal,
       leftButton: 'HAMBURGER',
-      navigationBarHidden: false
+      displayNavBar: true
     }
   }
   get AboutScreen () {
@@ -82,7 +82,7 @@ export default new class Routes {
       component: require('../Containers/Developing').default,
       customConfiguration: Transitions.modal,
       leftButton: 'HAMBURGER',
-      navigationBarHidden: false
+      displayNavBar: true
     }
   }
 
@@ -90,7 +90,7 @@ export default new class Routes {
     return {
       title: "Swiper",
       component: require('../Containers/SwiperScreen').default,
-      navigationBarHidden: true
+      displayNavBar: false
     }
   }
 

@@ -33,7 +33,7 @@ class Intro extends Component{
     super(props)
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {userGroups: "Select a group", dataSource: ds.cloneWithRows(cities.map((city) => city.name)), modalVisible: false,
-            city: 'Select a city', index: 0, groupId: null, cityCode: null, countryCode: null}
+            city: null, index: 0, groupId: null, cityCode: null, countryCode: null}
   }
 
   setModalVisible(visible) {
@@ -56,7 +56,7 @@ class Intro extends Component{
   }
 
   pressRow(rowData, rowID){
-    this.setState({city: rowData, countryCode: cities[rowID].countryCode})
+    this.setState({city: rowData, countryCode: cities[rowID].countryCode, index: 2})
     this.setModalVisible(false)
   }
 
@@ -67,17 +67,10 @@ class Intro extends Component{
     dispatch(Actions.saveProfile({groups: groupId, 
                                   city: city, 
                                   country: countryCode,
-                                  installation: {
-                                       __type: 'Pointer',
-                                      className: '_Installation',
-                                      objectId: 'eOlTV4idNk'
-                                  }
         }))
-    dispatch(Actions.saveToken({token: 'f5dfda2369d9be224a8aaa5d9373312e8963b3e0a92881db10614eb75bbd3896',
-                                os: 'ios'}, [groupId, city, countryCode]))
     try {
       await AsyncStorage.setItem(STORAGE_KEY_FIRST_LOAD, 'false')
-      this.props.navigator.pop()
+      this.props.navigator.push(Routes.AllComponentsScreen)
     } catch (error) {
       console.log(error)
     }
@@ -103,7 +96,7 @@ class Intro extends Component{
           </View>
         </View>
         <View style={styles.sliders}>
-          <Swiper height={Metrics.screenHeight-200} showsButtons={false} autoplay={false} index={this.state.index}
+          <Swiper height={Metrics.screenHeight-200} showsButtons={false} autoplay={false} index={this.state.index} loop={false}
             onMomentumScrollEnd={this._onMomentumScrollEnd.bind(this)}
           dot={<View style={{backgroundColor: 'rgba(255,255,255,0.2)', width: 6, height: 6, borderRadius: 3, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
           activeDot={<View style={{backgroundColor: 'rgba(255,255,255,1)', width: 6, height: 6, borderRadius: 3, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}>
@@ -119,7 +112,7 @@ class Intro extends Component{
                 <ModalPicker
                     data={data}
                     initValue="Select something yummy!"
-                    onChange={(option)=>{ this.setState({userGroups:option.label, groupId:option.groupId})}}>
+                    onChange={(option)=>{ this.setState({userGroups:option.label, groupId:option.groupId, index: 1})}}>
                 <View style={styles.pickerContainer}>
                   <Text>{this.state.userGroups}</Text>
                   <Icon name="ios-arrow-down" size={18} color="black" style={styles.dropDownIcon}></Icon>
@@ -146,16 +139,13 @@ class Intro extends Component{
                   </View>
                 </Modal>
                 <View style={styles.pickerContainer} onPress={this.setModalVisible.bind(this, true)}>
-                  <Text onPress={this.setModalVisible.bind(this, true)}>{this.state.city}</Text>
+                  <Text onPress={this.setModalVisible.bind(this, true)}>{this.state.city == null ? "Select a city" : this.state.city}</Text>
                   <Icon name="ios-arrow-down" size={18} color="black" style={styles.dropDownIcon}></Icon>
                 </View>
               </View>
           </Swiper>
         </View>
         <View style={styles.btnContainer}>
-          <TouchableHighlight style={[styles.btn,{backgroundColor:"#201437"}]}>
-            <Text style={styles.btnText}>LOG IN</Text>
-          </TouchableHighlight>
           <TouchableHighlight style={[styles.btn,{backgroundColor:"#29b859"}]} onPress={this.pressSkip.bind(this)}> 
             <Text style={styles.btnText}>SKIP</Text>
           </TouchableHighlight>
