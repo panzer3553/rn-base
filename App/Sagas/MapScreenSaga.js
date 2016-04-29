@@ -19,7 +19,9 @@ function userPositionPromised() {
     navigator.geolocation.getCurrentPosition (
       location  => position.on({location}),
       error     => position.on({error}),
-      { enableHighAccuracy: true }
+      { enableHighAccuracy: true,
+        timeout: 20000,
+      }
     )
   }
 
@@ -72,14 +74,17 @@ export function * updateLocationAndSaveEmergency (emergencyType) {
   else {
     yield put(Actions.receiveLocation(location.coords.latitude, location.coords.longitude))
     yield put(Actions.saveEmergency(
-            {
-               __type: 'GeoPoint',
-               latitude: location.coords.latitude,
-               longitude: location.coords.longitude,
-            },
-            new Date(),
-            emergencyType,      
+      {
+       location: {
+             __type: 'GeoPoint',
+             latitude: location.coords.latitude,
+             longitude: location.coords.longitude,
+       },
+       time: new Date(),
+       type: emergencyType,
+      }    
     )) 
+
   }
 
 }

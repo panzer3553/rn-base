@@ -77,6 +77,7 @@ class PushNotificationsController extends React.Component {
 
   componentWillUnmount() {
      MessageBarManager.unregisterMessageBar()
+     console.log('PROPS:' + this.props)
   }
 
 
@@ -115,19 +116,19 @@ class PushNotificationsController extends React.Component {
   }
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     latitude: state.mapscreen.latitude,
-//     longitude: state.mapscreen.longitude,
-//     profileId: state.profileData.ok
-//   }
-// }
+const mapStateToProps = (state) => {
+  return {
+    latitude: state.mapscreen.latitude,
+    longitude: state.mapscreen.longitude,
+    profileId: state.profileData.ok
+  }
+}
 
 // export default connect(mapStateToProps)(PushNotificationsController)
 
-const mapStateToProps = (state) => {
-  return {
-  }
-}
+// const mapStateToProps = (state) => {
+//   return {
+//   }
+// }
 
 export default connect(mapStateToProps)(PushNotificationsController)
