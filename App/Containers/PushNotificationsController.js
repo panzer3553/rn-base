@@ -10,6 +10,8 @@ import Actions from '../Actions/Creators'
 import VibrationIOS from 'VibrationIOS'
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
+const STORAGE_KEY_PROFILE = "PROFILE_ID"
+import {AsyncStorage} from 'react-native'
 
 const PARSE_CLOUD_GCD_SENDER_ID = '56113279400'
 
@@ -28,9 +30,16 @@ class PushNotificationsController extends React.Component {
     PushNotification.configure({
       onRegister: (token) => {
         const { dispatch } = this.props
-        const objectId = this.props.profileId ? this.props.profileId.objectId : null
-        dispatch(Actions.saveToken(token, objectId))
-      },
+        AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
+            if (value !== null){
+              console.log("value")
+              dispatch(Actions.saveToken(token, value))
+            } else {
+              console.log("failed")
+              dispatch(Actions.saveToken(token))
+            }
+          })
+        },
 
       // (required) Called when a remote or local notification is opened or received
       onNotification: (notification) => {
@@ -72,7 +81,6 @@ class PushNotificationsController extends React.Component {
     })
 
     MessageBarManager.registerMessageBar(this.refs.alert)
-    console.log(this.props)
   }
 
   componentWillUnmount() {
@@ -86,6 +94,10 @@ class PushNotificationsController extends React.Component {
   //     PushNotification.requestPermissions();
   //   }
   // }
+
+  componentWillReceiveProps(){
+    
+  }
 
   showAlertWithCallback(title, message, type, duration, desAddress) {
     // Simple show the alert with the manager
@@ -120,7 +132,8 @@ const mapStateToProps = (state) => {
   return {
     latitude: state.mapscreen.latitude,
     longitude: state.mapscreen.longitude,
-    profileId: state.profileData.ok
+    profileId: state.profileData,
+    token: state.tokenData.token
   }
 }
 

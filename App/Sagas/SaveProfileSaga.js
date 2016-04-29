@@ -4,6 +4,8 @@ import R from 'ramda'
 import Types from '../Actions/Types'
 import Actions from '../Actions/Creators'
 import config from '../Config/AppSetting'
+const STORAGE_KEY_PROFILE = "PROFILE_ID"
+import {AsyncStorage} from 'react-native'
 
 function * saveProfile (profile) {
   return fetch(config.url + 'classes/Profile', {
@@ -25,6 +27,7 @@ export function * watchSaveProfile () {
     const {profile} = yield take(Types.SAVE_PROFILE)
     const ok = yield call(saveProfile, profile)
     if(ok){
+      AsyncStorage.setItem(STORAGE_KEY_PROFILE, ok.objectId)
    	  yield put(Actions.saveProfileSuccess(ok)) 
     }else{
       yield put(Actions.saveProfileFailure())
