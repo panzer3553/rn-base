@@ -25,14 +25,6 @@ class AppBadgeController extends React.Component {
   }
 
   componentDidMount() {
-    // let isLocationAvailble = true
-    // if (    (!this.props.latitude)
-    //     ||  (!this.props.latitude)
-    // ) 
-    // {
-    //   isLocationAvailble = false
-    // }
-
 
     PushNotification.configure({
 
@@ -65,10 +57,7 @@ class AppBadgeController extends React.Component {
         }
         else { // background
           const { dispatch } = this.props
-          // const srcAddress = '' + this.props.latitude +  ',' 
-          //                   + this.props.longitude 
           console.log('DES:' + desAddress) 
-          //console.log('SRC:' + srcAddress)
           const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=bicycling'
           dispatch(Actions.requestDirection(desAddress, mode))
 

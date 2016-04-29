@@ -174,6 +174,7 @@ export default class RNBase extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    
   }
 }
 

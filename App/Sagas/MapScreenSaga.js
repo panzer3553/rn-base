@@ -62,6 +62,25 @@ export function * getLocationInfo (_latitude, _longitude, _output) {
 
 }
 
+export function * updateLocationAndSaveEmergency (emergencyType) {
+  const { getLocation } = yield call(userPositionPromised)
+  const { error, location } = yield call(getLocation)
+
+  if (error) {
+    yield put(Actions.receiveLocationFailure(error))
+  } 
+  else {
+    yield put(Actions.receiveLocation(location.coords.latitude, location.coords.longitude))
+    yield put(Actions.saveEmergency(
+       location.coords.latitude,
+       location.coords.longitude,
+       new Date(),
+       emergencyType,      
+    )) 
+  }
+
+}
+
 
 export function * watchLocationRequest () {
 
@@ -73,10 +92,17 @@ export function * watchLocationRequest () {
 
 export function * watchJsonRequest () {
 
-  while(true) {
+  while (true) {
     const { latitude,  longitude, type} = yield take(Types.MAP_JSON_REQUEST)
     yield call(getLocationInfo, latitude, longitude, OUTPUT_TYPE)
   }
+}
+
+export function * watchUpdateLocationAndSaveEmergengy () {
+  while (true) {
+    const {emergencyType} = yield take(Types.UPDATE_LOCATION_AND_SAVE_EMERGENCY)
+    yield call(updateLocationAndSaveEmergency, emergencyType)
+ }
 }
 
 

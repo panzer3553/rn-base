@@ -14,6 +14,7 @@ export default class MapScreen extends React.Component {
   static propTypes = {
       latitude: PropTypes.number,
       longitude: PropTypes.number,
+      onChangeMap: PropTypes.bool,
   }
 
 	constructor (props) {
@@ -32,11 +33,8 @@ export default class MapScreen extends React.Component {
     
   }
 
-  componentWillReceiveProps(nextProps: any){
-    
-  }
-
   render () {
+    console.log('MAP: ' + this.props.latitude + '__' + this.props.longitude)
   	return (
   		<MapView 
   		  style={styles.map}
@@ -44,9 +42,9 @@ export default class MapScreen extends React.Component {
           latitude: this.props.latitude || 0,
           longitude: this.props.longitude || 0,
           latitudeDelta: 0.01,
-          longitudeDelta: 0.01
+          longitudeDelta: 0.01,
         }}
-        showsUserLocation
+        showsUserLocation={true}
      	>
       </MapView>
   		)
@@ -57,6 +55,7 @@ const mapStateToProps = (state) => {
   return {
     latitude: state.mapscreen.latitude,
     longitude: state.mapscreen.longitude,
+    onChangeMap: state.mapscreen.onChangeMap,
   }
 }
 

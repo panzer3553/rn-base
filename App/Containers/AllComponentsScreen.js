@@ -93,13 +93,8 @@ export default class AllComponentsScreen extends React.Component {
 
         return (
       <View style={styles.screenContainer}>
-        <MapScreen 
-          latitude={this.props.latitude}
-          longitude={this.props.longitude}
-          isReloadMap={!this.state.isPopupShow}
-          markers={[{latlng:{latitude: 16.070843, longitude: 108.2080}, title:"Fire", description: "Fire time baby"}]}
+        <MapScreen
         />
-        <MapScreen />
         <View style={styles.infoIconContainer}>
           <SmallFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
             <Icon name="info" size={Metrics.icons.small} color="red" />
@@ -128,12 +123,8 @@ export default class AllComponentsScreen extends React.Component {
               {text: 'OK', onPress: () =>  Communications.phonecall(_phoneNumber, false)},
             ]
     )
-    this.saveEmergency({
-      latitude: this.props.latitude,
-      longitude: this.props.longitude,
-      time: new Date(),
-      type: type,
-    })
+    const {dispatch} = this.props  
+    dispatch(Actions.updateLocationAndSaveEmergency(type))
   }
 
   saveEmergency(emergency){

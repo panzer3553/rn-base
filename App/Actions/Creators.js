@@ -61,6 +61,9 @@ const saveTokenFailure = (error) =>
   createAction(Types.SAVE_TOKEN_FAILURE, {error})
 
 const skipSwiper = () => createAction(Types.SKIP_SWIPER)
+
+const updateLocationAndSaveEmergency = (emergencyType) =>
+  createAction(Types.UPDATE_LOCATION_AND_SAVE_EMERGENCY, {emergencyType})
 /**
  Makes available all the action creators we've created.
  */
@@ -94,5 +97,6 @@ export default {
   saveTokenSuccess,
   saveTokenFailure,
   saveProfileFailure,
-  skipSwiper
+  skipSwiper,
+  updateLocationAndSaveEmergency,
 }
