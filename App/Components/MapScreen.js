@@ -29,7 +29,6 @@ export default class MapScreen extends React.Component {
 	}
 
   componentDidMount(){
-    console.log(this.props)
   }
 
   componentWillReceiveProps(nextProps: any){

@@ -6,30 +6,46 @@ import Actions from '../Actions/Creators'
 import config from '../Config/AppSetting'
 
 function * saveToken (token, profileId) {
-  return fetch(config.url + 'installations', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-Parse-Application-Id': config.parse_id,
-        'X-Parse-REST-API-Key': config.parse_api_key
-      },
-      body: JSON.stringify({
-        deviceToken: token.token,
-        deviceType: token.os,
-        profile: {
-          __type: 'Pointer',
-          className: 'Profile',
-          objectId: profileId
-        }
-  })
-	}).then(response => response.json())
+  if(profileId == null){
+    return fetch(config.url + 'installations', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-Parse-Application-Id': config.parse_id,
+          'X-Parse-REST-API-Key': config.parse_api_key
+        },
+        body: JSON.stringify({
+          deviceToken: token.token,
+          deviceType: token.os    
+        })
+  	}).then(response => response.json())
+  }else{
+    return fetch(config.url + 'installations', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-Parse-Application-Id': config.parse_id,
+          'X-Parse-REST-API-Key': config.parse_api_key
+        },
+        body: JSON.stringify({
+          deviceToken: token.token,
+          deviceType: token.os,
+          profile: {
+            __type: 'Pointer',
+            className: 'Profile',
+            objectId: profileId
+          }
+    })
+    }).then(response => response.json())
+  }
 }
 
 export function * watchSaveToken() {
     while(true){  
-      const {token} = yield take(Types.SAVE_TOKEN)
-      const ok = yield call(saveToken, token)
+      const {token, profileId} = yield take(Types.SAVE_TOKEN)
+      const ok = yield call(saveToken, token, profileId)
       if(ok){
         yield put(Actions.saveTokenSuccess(ok)) 
       }

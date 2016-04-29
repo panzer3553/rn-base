@@ -54,7 +54,7 @@ const receivePushNotification = (notification) =>
   createAction(Types.RECEIVED_PUSH_NOTIFICATION, {notification})
 const markAllNotificationsAsSeen = () =>
   createAction(Types.SEEN_ALL_NOTIFICATIONS)
-const saveToken = (token, channels) => createAction(Types.SAVE_TOKEN, {token, channels})
+const saveToken = (token, profileId) => createAction(Types.SAVE_TOKEN, {token, profileId})
 const saveTokenSuccess = (ok) =>
   createAction(Types.SAVE_TOKEN_SUCCCESS, {ok})
 const saveTokenFailure = (error) =>

@@ -22,6 +22,7 @@ import cities from '../Config/CitiesData'
 import styles from './Styles/SwiperStyles.js'
 import Actions from '../Actions/Creators'
 import {Router, Routes, NavigationBar} from '../Navigation/'
+import config from '../Config/AppSetting'
 const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 
 class Intro extends Component{
@@ -68,6 +69,29 @@ class Intro extends Component{
                                   city: city, 
                                   country: countryCode,
         }))
+  fetch(config.url + 'classes/Profile', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Parse-Application-Id': config.parse_id,
+        'X-Parse-REST-API-Key': config.parse_api_key
+      },
+      body: JSON.stringify(
+        { 
+          groups: groupId, 
+          city: city, 
+          country: countryCode,
+        }
+      )
+    }).then(response => response.json())
+    .then((responseText) => {
+      console.log(responseText)
+    })
+    .catch((error) => {
+      console.warn(error)
+    })
+
     try {
       await AsyncStorage.setItem(STORAGE_KEY_FIRST_LOAD, 'false')
       this.props.navigator.push(Routes.AllComponentsScreen)
@@ -168,6 +192,7 @@ export default class SwiperScreen extends Component{
 
 const mapStateToProps = (state) => {
   return {
+    token: state.tokenData.ok
   }
 }
 
