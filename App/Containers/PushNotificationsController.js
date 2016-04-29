@@ -13,7 +13,7 @@ var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
 const PARSE_CLOUD_GCD_SENDER_ID = '56113279400'
 
-export default class PushNotificationsController extends React.Component {
+class PushNotificationsController extends React.Component {
   props: {
     enabled: boolean,
   };

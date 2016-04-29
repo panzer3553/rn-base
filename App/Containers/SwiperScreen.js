@@ -27,14 +27,13 @@ const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 class Intro extends Component{
   _onMomentumScrollEnd(e, state, context) {
     // you can get `state` and `this`(ref to swiper's context) from params
-    this.setState({index: state.index})
   }
 
   constructor(props) {
     super(props)
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {userGroups: "Select a group", dataSource: ds.cloneWithRows(cities.map((city) => city.name)), modalVisible: false,
-            city: 'Select a city', index: 0, groupId: null, cityCode: null, countryCode: null}
+            city: null, index: 0, groupId: null, cityCode: null, countryCode: null}
   }
 
   setModalVisible(visible) {
@@ -57,7 +56,7 @@ class Intro extends Component{
   }
 
   pressRow(rowData, rowID){
-    this.setState({city: rowData, countryCode: cities[rowID].countryCode})
+    this.setState({city: rowData, countryCode: cities[rowID].countryCode, index: 2})
     this.setModalVisible(false)
   }
 
@@ -71,8 +70,7 @@ class Intro extends Component{
         }))
     try {
       await AsyncStorage.setItem(STORAGE_KEY_FIRST_LOAD, 'false')
-      this.props.navigator.pop()
-      this.forceUpdate()
+      this.props.navigator.push(Routes.AllComponentsScreen)
     } catch (error) {
       console.log(error)
     }
@@ -114,7 +112,7 @@ class Intro extends Component{
                 <ModalPicker
                     data={data}
                     initValue="Select something yummy!"
-                    onChange={(option)=>{ this.setState({userGroups:option.label, groupId:option.groupId})}}>
+                    onChange={(option)=>{ this.setState({userGroups:option.label, groupId:option.groupId, index: 1})}}>
                 <View style={styles.pickerContainer}>
                   <Text>{this.state.userGroups}</Text>
                   <Icon name="ios-arrow-down" size={18} color="black" style={styles.dropDownIcon}></Icon>
@@ -141,7 +139,7 @@ class Intro extends Component{
                   </View>
                 </Modal>
                 <View style={styles.pickerContainer} onPress={this.setModalVisible.bind(this, true)}>
-                  <Text onPress={this.setModalVisible.bind(this, true)}>{this.state.city}</Text>
+                  <Text onPress={this.setModalVisible.bind(this, true)}>{this.state.city == null ? "Select a city" : this.state.city}</Text>
                   <Icon name="ios-arrow-down" size={18} color="black" style={styles.dropDownIcon}></Icon>
                 </View>
               </View>
