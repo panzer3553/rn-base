@@ -1,4 +1,4 @@
-import React, { View, ScrollView, Text, TouchableOpacity, PropTypes, StyleSheet, Alert} from 'react-native'
+import React, { View, ScrollView, Text, TouchableOpacity, PropTypes, StyleSheet, Alert, AsyncStorage} from 'react-native'
 import { Form, InputField, Separator, SwitchField, LinkField ,PickerField, DatePickerField, KeyboardAwareScrollView} from 'react-native-form-generator';
 import { connect } from 'react-redux'
 import formStyles from './Styles/ProfileStyle.js'
@@ -12,6 +12,8 @@ import Animatable from 'react-native-animatable'
 // I18n
 import I18n from '../I18n/I18n.js'
 import Styles from './Styles/LoginScreenStyle'
+const STORAGE_KEY_PROFILE = "PROFILE_ID"
+
 export default class ProfileScreen extends React.Component {
 
     constructor (props) {
@@ -54,7 +56,13 @@ export default class ProfileScreen extends React.Component {
   tapSaveButton(){
     Alert.alert("Saved")
     const { dispatch } = this.props
-    dispatch(Actions.saveProfile(this.state.profile))
+    AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
+      if (value !== null){
+        dispatch(Actions.saveProfile(this.state.profile, value))
+      } else {
+        dispatch(Actions.saveProfile(this.state.profile))
+      }
+    })
   }
 
   handleFormChange(formData){
