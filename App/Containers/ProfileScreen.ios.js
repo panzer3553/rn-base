@@ -84,13 +84,13 @@ export default class ProfileScreen extends React.Component {
           onChange={this.handleFormChange.bind(this)}
           label="Personal Information">
           <Separator label='BASIC'/>
-          <InputField ref='firstName' placeholder='First Name' value={firstName}
+          <InputField ref='firstName' placeholder='First Name' autoCorrect={false} value={firstName}
           iconLeft={
           <Icon name='ios-person'
             size={Metrics.icons.x_small}
             style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}
           />
-          <InputField ref='lastName' placeholder='Last Name' value={lastName}
+          <InputField ref='lastName' placeholder='Last Name' autoCorrect={false} value={lastName}
           iconLeft={
           <Icon name='ios-person-outline'
             size={Metrics.icons.x_small}
@@ -130,7 +130,7 @@ export default class ProfileScreen extends React.Component {
             style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
             />
           <Separator label='CONTACT'/>
-          <InputField ref='email' placeholder='Email' keyboardType="email-address" value={email}
+          <InputField ref='email' placeholder='Email' keyboardType="email-address" autoCapitalize="none" value={email}
           iconLeft={
           <Icon name='ios-email-outline'
             size={Metrics.icons.x_small}
