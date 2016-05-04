@@ -32,7 +32,7 @@ const receiveDirection = () =>
 const receiveDirectionFailure = (error) => 
   createAction(Types.MAP_DIRECTION_FAILURE, { error })
 
-const saveProfile = (profile) => createAction(Types.SAVE_PROFILE, {profile})
+const saveProfile = (profile, objectId) => createAction(Types.SAVE_PROFILE, {profile, objectId})
 const saveProfileSuccess = (ok) =>
   createAction(Types.SAVE_PROFILE_SUCCCESS, {ok})
 const saveProfileFailure = (error) =>

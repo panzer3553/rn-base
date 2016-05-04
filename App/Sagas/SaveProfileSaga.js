@@ -7,7 +7,21 @@ import config from '../Config/AppSetting'
 const STORAGE_KEY_PROFILE = "PROFILE_ID"
 import {AsyncStorage} from 'react-native'
 
-function * saveProfile (profile) {
+function * saveProfile (profile, objectId) {
+  if(objectId){
+    return fetch(config.url + 'classes/Profile/' + objectId, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Parse-Application-Id': config.parse_id,
+        'X-Parse-REST-API-Key': config.parse_api_key
+      },
+      body: JSON.stringify(
+        profile
+      )
+  }).then(response => response.json())
+  }
   return fetch(config.url + 'classes/Profile', {
       method: 'POST',
       headers: {
@@ -24,9 +38,13 @@ function * saveProfile (profile) {
 
 export function * watchSaveProfile () {
   while(true){
-    const { profile } = yield take(Types.SAVE_PROFILE)
+    const { profile, objectId } = yield take(Types.SAVE_PROFILE)
     try{
-      const ok = yield call(saveProfile, profile)
+      if(objectId){
+        const ok = yield call(saveProfile, profile, objectId)
+      }else{
+        const ok = yield call(saveProfile, profile)
+      }
       AsyncStorage.setItem(STORAGE_KEY_PROFILE, ok.objectId)
    	  yield put(Actions.saveProfileSuccess(ok)) 
     }catch(error){
