@@ -138,7 +138,7 @@ export default class RNBase extends React.Component {
           </Drawer>)
 
     return (
-        <View style={styles.applicationView} key={this.state.firstLoad}>
+        <View style={styles.applicationView}>
           <StatusBar
             barStyle='light-content'
           />

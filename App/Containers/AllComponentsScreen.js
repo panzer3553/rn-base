@@ -131,7 +131,6 @@ export default class AllComponentsScreen extends React.Component {
       time: new Date(),
       type: type,
     })
-    console.log(this.props)
   }
 
   saveEmergency(emergency){

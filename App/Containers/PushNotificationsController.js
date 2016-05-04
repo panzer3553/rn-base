@@ -55,11 +55,10 @@ class PushNotificationsController extends React.Component {
           if (Platform.OS === 'ios'){
             VibrationIOS.vibrate()
           }
-          const title = 'smartSOS'
           const message = notification.message
           const duration = 7000
-          const type = 'error'
-          this.showAlertWithCallback(title, message, type, duration, desAddress)      
+          const type = 'warning'
+          this.showAlertWithCallback(message, type, duration, desAddress)      
         }
         else { // background
           const { dispatch } = this.props
@@ -101,12 +100,10 @@ class PushNotificationsController extends React.Component {
     
   }
 
-  showAlertWithCallback(title, message, type, duration, desAddress) {
+  showAlertWithCallback(message, type, duration, desAddress) {
     // Simple show the alert with the manager
     MessageBarManager.showAlert({
-      title: title,
       message: message,
-      avatar: "http://www.icon100.com/up/4250/128/83-circle-error.png",
       alertType: type,
       duration: duration,
       onTapped: this.alertCustomCallBack.bind(this, desAddress),
@@ -134,8 +131,6 @@ const mapStateToProps = (state) => {
   return {
     latitude: state.mapscreen.latitude,
     longitude: state.mapscreen.longitude,
-    profileId: state.profileData,
-    token: state.tokenData.token
   }
 }
 
