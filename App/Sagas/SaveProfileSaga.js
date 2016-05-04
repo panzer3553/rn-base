@@ -42,11 +42,12 @@ export function * watchSaveProfile () {
     try{
       if(objectId){
         const ok = yield call(saveProfile, profile, objectId)
+        console.log(ok)
       }else{
         const ok = yield call(saveProfile, profile)
+        AsyncStorage.setItem(STORAGE_KEY_PROFILE, ok.objectId)
       }
-      AsyncStorage.setItem(STORAGE_KEY_PROFILE, ok.objectId)
-   	  yield put(Actions.saveProfileSuccess(ok)) 
+   	  yield put(Actions.saveProfileSuccess()) 
     }catch(error){
       yield put(Actions.saveProfileFailure(error.message))
     }
