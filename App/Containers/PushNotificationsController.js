@@ -56,11 +56,10 @@ class PushNotificationsController extends React.Component {
           if (Platform.OS === 'ios'){
             VibrationIOS.vibrate()
           }
-          const title = 'smartSOS'
           const message = notification.message
           const duration = 7000
-          const type = 'error'
-          this.showAlertWithCallback(title, message, type, duration, desAddress)      
+          const type = 'warning'
+          this.showAlertWithCallback(message, type, duration, desAddress)      
         }
         else { // background
           console.log('DES:' + desAddress) 
@@ -77,7 +76,7 @@ class PushNotificationsController extends React.Component {
         sound: true
       },
       popInitialNotification: true,
-      requestPermissions: true,///this.props.registered,
+      requestPermissions: true,
     })
 
     MessageBarManager.registerMessageBar(this.refs.alert)
@@ -88,11 +87,14 @@ class PushNotificationsController extends React.Component {
   }
 
 
- componentDidUpdate(prevProps) {
-    if (!prevProps.registered && this.props.registered) {
-      PushNotification.requestPermissions();
-    }
+  // componentDidUpdate(prevProps) {
+  //   if (!prevProps.enabled && this.props.enabled) {
+  //     PushNotification.requestPermissions();
+  //   }
+  // }
 
+  componentWillReceiveProps(){
+    
   }
 
 
@@ -104,12 +106,14 @@ class PushNotificationsController extends React.Component {
   //   }
   // }
 
-  showAlertWithCallback(title, message, type, duration, desAddress) {
+  componentWillReceiveProps(){
+    
+  }
+
+  showAlertWithCallback(message, type, duration, desAddress) {
     // Simple show the alert with the manager
     MessageBarManager.showAlert({
-      title: title,
       message: message,
-      avatar: "http://www.icon100.com/up/4250/128/83-circle-error.png",
       alertType: type,
       duration: duration,
       onTapped: this.alertCustomCallBack.bind(this, desAddress),
@@ -137,16 +141,8 @@ const mapStateToProps = (state) => {
   return {
     latitude: state.mapscreen.latitude,
     longitude: state.mapscreen.longitude,
-    profileId: state.profileData,
-    token: state.tokenData.token,
   }
 }
 
-// export default connect(mapStateToProps)(PushNotificationsController)
-
-// const mapStateToProps = (state) => {
-//   return {
-//   }
-// }
 
 export default connect(mapStateToProps)(PushNotificationsController)

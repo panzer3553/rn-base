@@ -23,11 +23,11 @@ function * saveEmergency (emergency) {
 export function * watchSaveEmergency() {
     while(true){  
       const {emergency} = yield take(Types.SAVE_EMERGENCY)
-      const ok = yield call(saveEmergency, emergency)
-      if(ok){
-     	  yield put(Actions.saveEmergencySuccess(ok)) 
-      }else{
-        yield put(Actions.saveEmergencyFailure())
+      try{
+        const ok = yield call(saveEmergency, emergency)
+        yield put(Actions.saveEmergencySuccess(ok)) 
+      }catch(e){
+        yield put(Actions.saveEmergencyFailure(e.message))
       }
  }
 }

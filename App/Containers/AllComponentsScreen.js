@@ -122,7 +122,6 @@ export default class AllComponentsScreen extends React.Component {
               {text: 'OK', onPress: () =>  Communications.phonecall(_phoneNumber, false)},
             ]
     )
-
 	  const {dispatch} = this.props  
     dispatch(Actions.updateLocationAndSaveEmergency(type))
     // THE EMERGENCY SAVE HAS MOVED TO MAPSCREENSAGA

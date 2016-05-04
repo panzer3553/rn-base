@@ -108,11 +108,11 @@ export default class ProfileScreen extends React.Component {
             />
             <PickerField ref='groups' placeholder='User Groups' value={groups}
             options={{
-              police: 'Police Station',
-              fire: 'Fire Station',
+              policeStation: 'Police Station',
+              fireStation: 'Fire Station',
               ambulance: 'Ambulance',
-              medical: 'Medical User',
-              militarian: 'Militarian User',
+              medicalUser: 'Medical User',
+              militarianUser: 'Militarian User',
               volunteer: 'Volunteer',
               other: 'Other'
             }}

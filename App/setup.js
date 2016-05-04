@@ -8,13 +8,6 @@ const store = configureStore()
 export default class Root extends React.Component {
     constructor() {
       super()
-      this.state = {
-        isLoading: true,
-        firstLoad: true
-      }
-    }
-
-    componentWillMount(){
     }
 
     render() {
