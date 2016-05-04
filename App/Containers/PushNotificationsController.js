@@ -27,9 +27,10 @@ class PushNotificationsController extends React.Component {
   }
 
   componentDidMount() {
+    const { dispatch } = this.props
+
     PushNotification.configure({
       onRegister: (token) => {
-        const { dispatch } = this.props
         AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
             if (value !== null){
               console.log("value")
@@ -44,7 +45,6 @@ class PushNotificationsController extends React.Component {
       // (required) Called when a remote or local notification is opened or received
       onNotification: (notification) => {
         console.log('NOTIFICATION:', notification)
-        const { dispatch } = this.props
         dispatch(Actions.receivePushNotification(notification))
 
         const { latitude, longitude } = notification.data.emergency.location
@@ -52,6 +52,7 @@ class PushNotificationsController extends React.Component {
 
         if ( notification.foreground)
         {
+          console.log('is foreground')
           if (Platform.OS === 'ios'){
             VibrationIOS.vibrate()
           }
@@ -61,14 +62,10 @@ class PushNotificationsController extends React.Component {
           this.showAlertWithCallback(message, type, duration, desAddress)      
         }
         else { // background
-          const { dispatch } = this.props
-          // const srcAddress = '' + this.props.latitude +  ',' 
-          //                   + this.props.longitude 
           console.log('DES:' + desAddress) 
-          //console.log('SRC:' + srcAddress)
           const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=bicycling'
           dispatch(Actions.requestDirection(desAddress, mode))
-
+          console.log('is background')
         }
 
       },
@@ -78,8 +75,8 @@ class PushNotificationsController extends React.Component {
         badge: true,
         sound: true
       },
-      popInitialNotification: false,
-      requestPermissions: true
+      popInitialNotification: true,
+      requestPermissions: true,
     })
 
     MessageBarManager.registerMessageBar(this.refs.alert)
@@ -88,6 +85,19 @@ class PushNotificationsController extends React.Component {
   componentWillUnmount() {
      MessageBarManager.unregisterMessageBar()
   }
+
+
+  // componentDidUpdate(prevProps) {
+  //   if (!prevProps.enabled && this.props.enabled) {
+  //     PushNotification.requestPermissions();
+  //   }
+  // }
+
+  componentWillReceiveProps(){
+    
+  }
+
+
 
 
   // componentDidUpdate(prevProps) {
@@ -133,5 +143,6 @@ const mapStateToProps = (state) => {
     longitude: state.mapscreen.longitude,
   }
 }
+
 
 export default connect(mapStateToProps)(PushNotificationsController)

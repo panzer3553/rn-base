@@ -4,6 +4,7 @@ import R from 'ramda'
 import Types from '../Actions/Types'
 import Actions from '../Actions/Creators'
 import config from '../Config/AppSetting'
+import {Platform} from 'react-native'
 
 function * saveToken (token, profileId) {
   if(profileId == null){
@@ -32,6 +33,8 @@ function * saveToken (token, profileId) {
         body: JSON.stringify({
           deviceToken: token.token,
           deviceType: token.os,
+          pushType: Platform.OS === 'android' ? 'gcm' : null,
+          GCMSenderId: Platform.OS === 'android' ? '56113279400' : null,
           profile: {
             __type: 'Pointer',
             className: 'Profile',

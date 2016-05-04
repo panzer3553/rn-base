@@ -36,6 +36,7 @@ export default class MapScreen extends React.Component {
   }
 
   render () {
+    console.log('MAP: ' + this.props.latitude + '__' + this.props.longitude)
   	return (
   		<MapView 
   		  style={styles.map}
@@ -43,9 +44,9 @@ export default class MapScreen extends React.Component {
           latitude: this.props.latitude || 0,
           longitude: this.props.longitude || 0,
           latitudeDelta: 0.01,
-          longitudeDelta: 0.01
+          longitudeDelta: 0.01,
         }}
-        showsUserLocation
+        showsUserLocation={true}
      	>
       </MapView>
   		)

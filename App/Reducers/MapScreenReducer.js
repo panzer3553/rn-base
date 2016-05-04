@@ -19,6 +19,8 @@ export const INITIAL_STATE = Immutable({
 const request= (state, action) => 
 	state.merge({
 		fetching: true,
+		latitude: action.latitude, // this trig map redirected to current location
+		longitude: action.longitude, // this trig map redirected to current location
 	})
 
 const receive = (state, action) =>
@@ -44,20 +46,25 @@ const jsonRequest= (state, action) =>
 
 const jsonReceive = (state, action) => {
 
+
 	for ( let i = 0; i <  action.json.address_components.length; i++) {
+		let hasCity = false
 		for (let j = 0; j < action.json.address_components[i].types.length; j++) {
 
 			const type =  action.json.address_components[i].types[j]
 			console.log('TYPE:' + type)
+			
+			if (hasCity) break
 
 			if (type=="locality" || type=="administrative_area_level_1") { 
-			  const currentCity = action.json.address_components[i].long_name
-			  alert('Current City:' + currentCity)   
-			  state.merge({ city: currentCity })
-			  break;
+				const currentCity = action.json.address_components[i].long_name
+				alert('Current City:' + currentCity)   
+				state.merge({ city: currentCity })
+				hasCity = true
+				break
 			}
 		}	
-			
+		
 	}
 
 	state.merge({
@@ -73,16 +80,6 @@ const jsonFailure = (state, action) =>
 		fetching: 	false,
 		json: null,
 		errorCode: 	true,
-	})
-
-const directionRequest = (state, action) => 
-	state.merge({
-
-	})
-
-const directionReceive = (state, action) => 
-	state.merge({
-		
 	})
 
 const ACTION_HANDLERS = {

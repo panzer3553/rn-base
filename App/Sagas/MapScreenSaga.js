@@ -19,7 +19,9 @@ function userPositionPromised() {
     navigator.geolocation.getCurrentPosition (
       location  => position.on({location}),
       error     => position.on({error}),
-      { enableHighAccuracy: true }
+      { enableHighAccuracy: true,
+        timeout: 20000,
+      }
     )
   }
 
@@ -62,6 +64,31 @@ export function * getLocationInfo (_latitude, _longitude, _output) {
 
 }
 
+export function * updateLocationAndSaveEmergency (emergencyType) {
+  const { getLocation } = yield call(userPositionPromised)
+  const { error, location } = yield call(getLocation)
+
+  if (error) {
+    yield put(Actions.receiveLocationFailure(error))
+  } 
+  else {
+    yield put(Actions.receiveLocation(location.coords.latitude, location.coords.longitude))
+    yield put(Actions.saveEmergency(
+      {
+       location: {
+             __type: 'GeoPoint',
+             latitude: location.coords.latitude,
+             longitude: location.coords.longitude,
+       },
+       time: new Date(),
+       type: emergencyType,
+      }    
+    )) 
+
+  }
+
+}
+
 
 export function * watchLocationRequest () {
 
@@ -73,10 +100,17 @@ export function * watchLocationRequest () {
 
 export function * watchJsonRequest () {
 
-  while(true) {
+  while (true) {
     const { latitude,  longitude, type} = yield take(Types.MAP_JSON_REQUEST)
     yield call(getLocationInfo, latitude, longitude, OUTPUT_TYPE)
   }
+}
+
+export function * watchUpdateLocationAndSaveEmergengy () {
+  while (true) {
+    const {emergencyType} = yield take(Types.UPDATE_LOCATION_AND_SAVE_EMERGENCY)
+    yield call(updateLocationAndSaveEmergency, emergencyType)
+ }
 }
 
 
