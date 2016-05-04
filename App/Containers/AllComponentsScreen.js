@@ -124,9 +124,9 @@ export default class AllComponentsScreen extends React.Component {
     )
     this.saveEmergency({
       location: {
-            __type: 'GeoPoint',
-            latitude: this.props.latitude,
-            longitude: this.props.longitude
+        __type: 'GeoPoint',
+        latitude: this.props.latitude,
+        longitude: this.props.longitude
       },
       time: new Date(),
       type: type,

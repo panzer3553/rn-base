@@ -45,12 +45,12 @@ function * saveToken (token, profileId) {
 export function * watchSaveToken() {
     while(true){  
       const {token, profileId} = yield take(Types.SAVE_TOKEN)
-      const ok = yield call(saveToken, token, profileId)
-      if(ok){
+      try{
+        const ok = yield call(saveToken, token, profileId)
         yield put(Actions.saveTokenSuccess(ok)) 
       }
-      else{
-     	  yield put(Actions.saveTokenFailure())
+      catch(error){
+     	  yield put(Actions.saveTokenFailure(error.message))
      }
  }
 }

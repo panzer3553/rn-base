@@ -47,7 +47,7 @@ class PushNotificationsController extends React.Component {
         const { dispatch } = this.props
         dispatch(Actions.receivePushNotification(notification))
 
-        const { latitude, longitude } = notification.data.emergency
+        const { latitude, longitude } = notification.data.emergency.location
         const desAddress = '' + latitude +  ',' + longitude //'16.074424, 108.2028329' for test
 
         if ( notification.foreground)

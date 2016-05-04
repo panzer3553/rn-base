@@ -46,6 +46,10 @@ export default class RNBase extends React.Component {
   componentWillMount () {
     const {dispatch} = this.props
     dispatch(Actions.requestLocation())
+  }
+
+  componentDidMount () {
+    this.navigator.drawer = this.drawer
     AsyncStorage.getItem(STORAGE_KEY_FIRST_LOAD).then((value) => {
       if (value !== null){
         this.setState({firstLoad: false})
@@ -54,11 +58,6 @@ export default class RNBase extends React.Component {
         this.navigator.push(Routes.SwiperScreen)
       }
     })
-    console.log(this.state)
-  }
-
-  componentDidMount () {
-    this.navigator.drawer = this.drawer
   }
 
   _changePath(path){
@@ -140,11 +139,11 @@ export default class RNBase extends React.Component {
 
     return (
         <View style={styles.applicationView} key={this.state.firstLoad}>
-          <PushNotificationsController latitude={this.props.latitude} longitude={this.props.longitude} profile={this.props.profileId}/>
           <StatusBar
             barStyle='light-content'
           />
           {App}
+          <PushNotificationsController />
         </View>
     )
   }
@@ -156,9 +155,6 @@ export default class RNBase extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    profileId: state.profileData,
-    latitude: state.mapscreen.latitude,
-    longitude: state.mapscreen.longitude,
   }
 }
 
