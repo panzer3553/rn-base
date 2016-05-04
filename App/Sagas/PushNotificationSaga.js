@@ -39,7 +39,7 @@ export function * skipPushNotifications () {
 
 export function * receivePushNotification (notification) {
   console.log('NOTIFICATION ' + notification)
-  yield put(Actions.SEEN_ALL_NOTIFICATIONS)
+  yield put(Actions.RECEIVED_PUSH_NOTIFICATION)
 }
 
 

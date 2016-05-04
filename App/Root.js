@@ -140,11 +140,11 @@ export default class RNBase extends React.Component {
 
     return (
         <View style={styles.applicationView} key={this.state.firstLoad}>
-          <PushNotificationsController latitude={this.props.latitude} longitude={this.props.longitude} profile={this.props.profileId}/>
           <StatusBar
             barStyle='light-content'
           />
           {App}
+          <PushNotificationsController />
         </View>
     )
   }
