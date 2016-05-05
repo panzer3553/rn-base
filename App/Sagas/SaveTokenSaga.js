@@ -6,9 +6,7 @@ import Actions from '../Actions/Creators'
 import config from '../Config/AppSetting'
 import {Platform} from 'react-native'
 
-
-
-function * saveToken (token, profileId) {
+export function * saveToken (token, profileId) {
   if(profileId == null){
     return fetch(config.url + 'installations', {
         method: 'POST',
@@ -37,8 +35,6 @@ function * saveToken (token, profileId) {
         body: JSON.stringify({
           deviceType: token.os,
           deviceToken: token.token,
-          pushType: Platform.OS === 'android' ? 'gcm' : null,
-          GCMSenderId: Platform.OS === 'android' ? '395124388701' : null,
           profile: {
             __type: 'Pointer',
             className: 'Profile',

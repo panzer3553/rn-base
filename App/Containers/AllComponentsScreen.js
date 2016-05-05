@@ -4,6 +4,7 @@ import React, {
     Text, 
     PropTypes, 
     Alert,
+    AsyncStorage
 } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/AllComponentsScreenStyle'
@@ -19,6 +20,7 @@ import Communications from 'react-native-communications'
 import PushNotification from 'react-native-push-notification'
 // I18n
 import I18n from '../I18n/I18n.js'
+const STORAGE_KEY_TOKEN = "TOKEN_ID"
 
 var fireItems = [ 
      {icon: 'fire', text: 'Show Info Screen', func: 'showHelpScreen'}, 
@@ -45,6 +47,16 @@ export default class AllComponentsScreen extends React.Component {
     this.props.navigator.state.tapHamburger = () => {
       this.props.navigator.drawer.toggle()
     }
+    try{
+    AsyncStorage.getItem(STORAGE_KEY_TOKEN)
+    .then((result) => {
+      if (result === null) 
+      console.log(result)
+    })
+  }catch(error){
+    console.log(error.message)
+  }
+
   }
 
   handleShowPopUp (_items) {
