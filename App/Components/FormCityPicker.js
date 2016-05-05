@@ -8,12 +8,12 @@ import fuzzy from 'fuzzy'
 export default class CityPicker extends Component {
   
   constructor(props){
-  	super(props)
-  	this.state ={
-  		modalVisible: false,
-  		city: null,
-  		cities: cities.map((city) => city.name)
-  	}
+    super(props)
+    this.state ={
+      modalVisible: false,
+      city: null,
+      cities: cities.map((city) => city.name)
+    }
   }
 
   _renderCity(city, index) {
@@ -30,10 +30,16 @@ export default class CityPicker extends Component {
   _renderCityDetail(city) {
     return (
       <View>
-      	  <Text>
+          <Text>
             {city}
           </Text>
       </View>)
+  }
+
+  componentDidMount () {
+    if(this.props.value){
+      this.setState({city: this.props.value})
+    }
   }
 
   _onSelect(city, index) {
@@ -61,15 +67,18 @@ export default class CityPicker extends Component {
   }
 
   render(){
-  	return(
-  	<View>
-  	  <TouchableOpacity
+    return(
+    <View>
+      <TouchableOpacity
         style={styles.pickerContainer}
-  	    onPress={()=> this.setState({modalVisible: true})}
+        onPress={()=> this.setState({modalVisible: true})}
         activeOpacity={0.7}
       >
-      <Text>{this.state.city || "Select a city"}</Text>
-      <Icon name="ios-arrow-down" size={18} color="black" style={styles.dropDownIcon}></Icon>
+      <Icon name='ios-home-outline'
+          size={Metrics.icons.x_small}
+          style={{color: Colors.formTextColor}}/>
+      <Text style={styles.label}>{this.state.city || "Select a city"}</Text>
+      <Icon name="ios-arrow-right" size={Metrics.icons.x_small} color="black" style={[styles.dropDownIcon, {color: Colors.formTextColor}]}></Icon>
       </TouchableOpacity>      
 
       <Modal
@@ -83,11 +92,11 @@ export default class CityPicker extends Component {
         bounces={false}
         scrollsToTop={true}
         contentOffset={{y:-30}}>
-      	<SearchBar
-	      ref='searchBar'
-	      placeholder='Search'
+        <SearchBar
+        ref='searchBar'
+        placeholder='Search'
         onChangeText={(text)=> this._onChangeText.bind(this, text)}
-      	/>
+        />
         {this.state.cities.map((city, index) => this._renderCity(city, index))}
       </ScrollView>
       </Modal>
@@ -107,16 +116,22 @@ var styles = StyleSheet.create({
     borderBottomWidth: 0.5
   },
   pickerContainer: {
-    marginTop: 16,
-    width: Metrics.screenWidth * 2 / 3,
     backgroundColor: Colors.snow,
-    padding: 4,
-    paddingLeft: 8,
-    flexDirection: "row"
+    paddingLeft: 16,
+    paddingBottom: 8,
+    flexDirection: "row",
+    borderBottomColor:"#999",
+    borderBottomWidth: 1
+
   },
+
   dropDownIcon: {
     position: 'absolute',
     right: 8  
   },
-
+  label: {
+    fontSize: 16,
+    marginTop: 4,
+    marginLeft: 12,
+  }
 });

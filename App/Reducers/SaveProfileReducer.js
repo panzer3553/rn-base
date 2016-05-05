@@ -7,13 +7,15 @@ export const INITIAL_STATE = Immutable({
   saved: false,
   error: null,
   errorCode: null,
-  ok: null
+  ok: null,
+  city: null
 })
 
 const saveProfile = (state, action) =>
   state.merge({
     profile: action.profile,
-    saved: true
+    saved: true,
+    city: action.profile.city
   })
 
 const success = (state, action) =>

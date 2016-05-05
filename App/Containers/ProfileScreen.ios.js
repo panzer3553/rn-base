@@ -1,8 +1,8 @@
 import React, { View, ScrollView, Text, TouchableOpacity, PropTypes, StyleSheet, Alert, AsyncStorage} from 'react-native'
-import { Form, InputField, Separator, SwitchField, LinkField ,PickerField, DatePickerField, KeyboardAwareScrollView} from 'react-native-form-generator';
+import { Form, InputField, Separator, SwitchField, LinkField ,PickerField, DatePickerField, KeyboardAwareScrollView} from 'react-native-form-generator'
 import { connect } from 'react-redux'
+import FormCityPicker from '../Components/FormCityPicker'
 import formStyles from './Styles/ProfileStyle.js'
-import ProgressiveImage from '../Components/ProgressiveImage'
 import { Colors, Images, Metrics } from '../Themes'
 import Actions from '../Actions/Creators'
 import Routes from '../Navigation/Routes'
@@ -27,8 +27,10 @@ export default class ProfileScreen extends React.Component {
         email: null,
         mobile: null,
         groups: null,
-        address: null
+        address: null,
       },
+      city: null,
+      countryCode: null,
       saved: false
     }
   }
@@ -46,6 +48,7 @@ export default class ProfileScreen extends React.Component {
     if(this.props.profileData.saved){
       this.state.profile = this.props.profileData.profile
       this.state.saved = this.props.profileData.saved
+      this.state.city = this.props.profileData.profile.city
     }
   }
 
@@ -58,9 +61,9 @@ export default class ProfileScreen extends React.Component {
     const { dispatch } = this.props
     AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
       if (value !== null){
-        dispatch(Actions.saveProfile(this.state.profile, value))
+        dispatch(Actions.saveProfile({...this.state.profile, city: this.state.city, country: this.state.countryCode}, value))
       } else {
-        dispatch(Actions.saveProfile(this.state.profile))
+        dispatch(Actions.saveProfile({...this.state.profile, city: this.state.city, country: this.state.countryCode}))
       }
     })
   }
@@ -75,6 +78,7 @@ export default class ProfileScreen extends React.Component {
 
   render(){
       const {firstName, lastName, birthday, gender, email, mobile, groups, address} = this.state.profile
+      const {city} = this.state
       return(
       <KeyboardAwareScrollView ref='scroll'>
         <Form
@@ -149,8 +153,8 @@ export default class ProfileScreen extends React.Component {
             size={Metrics.icons.x_small}
             style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}
           />
-          
         </Form>
+        <FormCityPicker value={city} onChange={(value) => this.setState({city: value.name, countryCode: value.country})}/>
       </KeyboardAwareScrollView>
       )
   }
@@ -158,7 +162,7 @@ export default class ProfileScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    profileData: state.profileData
+    profileData: state.profileData,
   }
 }
 
