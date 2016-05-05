@@ -40,7 +40,7 @@ function showDirectionPromised(url) {
 export function * showDirectionOnMap (desAddress, srcAddress, mode) {
 
 	const baseUrl 		= (Platform.OS === 'ios') ? 'http://maps.apple.com/?' : 'http://maps.google.com/maps?'
-    const directionUrl 	= baseUrl  + '&daddr=' + desAddress +  '&srcAddress' + srcAddress +'&' + mode
+    const directionUrl 	= baseUrl  + '&daddr=' + desAddress +  '&saddr=' + srcAddress +'&' + mode
 
 	const { showDirection }  = yield call(showDirectionPromised, directionUrl)
 	const { err, supported } = yield call(showDirection)
@@ -71,15 +71,15 @@ export function * updateLocationAndShowDirection (desAddress, mode) {
     yield put(Actions.receiveLocation(location.coords.latitude, location.coords.longitude))
     const srcAddress 	= location.coords.latitude + ',' + location.coords.longitude
     const baseUrl 		= (Platform.OS === 'ios') ? 'http://maps.apple.com/?' : 'http://maps.google.com/maps?'
-    const directionUrl 	= baseUrl  + '&daddr=' + desAddress +  '&saddr' + srcAddress +'&' + mode
-
+    const directionUrl 	= baseUrl  + '&saddr=' + srcAddress + '&daddr=' + desAddress + mode
+    console.log(directionUrl)
 	const { showDirection }  = yield call(showDirectionPromised, directionUrl)
 	const { err, supported } = yield call(showDirection)
 	console.log('URL:' + directionUrl)
 	//Then show direction on map
     if (supported) {
 		yield put(Actions.receiveDirection())
-		Linking.openURL(directionUrl)
+		Linking.openURL(directionUrl)   
 	} 
 	else if (err) {
 		yield put(Actions.receiveDirectionFailure, error)

@@ -6,6 +6,8 @@ import Actions from '../Actions/Creators'
 import config from '../Config/AppSetting'
 import {Platform} from 'react-native'
 
+
+
 function * saveToken (token, profileId) {
   if(profileId == null){
     return fetch(config.url + 'installations', {
@@ -18,7 +20,9 @@ function * saveToken (token, profileId) {
         },
         body: JSON.stringify({
           deviceToken: token.token,
-          deviceType: token.os    
+          deviceType: token.os,
+          pushType: Platform.OS === 'android' ? 'gcm' : null,
+          GCMSenderId: Platform.OS === 'android' ? '56113279400' : null,
         })
   	}).then(response => response.json())
   }else{
@@ -31,8 +35,8 @@ function * saveToken (token, profileId) {
           'X-Parse-REST-API-Key': config.parse_api_key
         },
         body: JSON.stringify({
-          deviceToken: token.token,
           deviceType: token.os,
+          deviceToken: token.token,
           pushType: Platform.OS === 'android' ? 'gcm' : null,
           GCMSenderId: Platform.OS === 'android' ? '56113279400' : null,
           profile: {
