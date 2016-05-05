@@ -20,13 +20,18 @@ import Communications from 'react-native-communications'
 import PushNotification from 'react-native-push-notification'
 // I18n
 import I18n from '../I18n/I18n.js'
-const STORAGE_KEY_TOKEN = "TOKEN_ID"
-
-var fireItems = [ 
+const fireItems = [ 
      {icon: 'fire', text: 'Show Info Screen', func: 'showHelpScreen'}, 
      {icon: 'fire', text: 'Show Location', func: 'showUserLocation'}, 
      {icon: 'fire', text: 'Location Info', func: 'JSONLocation'}, 
     ]
+const Fab = MKButton.plainFab()
+  .withStyle({width:Metrics.button.large, height: Metrics.button.large, borderRadius: Metrics.button.large/2, backgroundColor: Colors.snow})
+  .build()
+
+const SmallFab = MKButton.plainFab()
+  .withStyle({width:Metrics.button.medium, height: Metrics.button.medium, borderRadius: Metrics.button.medium/2, backgroundColor: Colors.snow})
+  .build()
 
 export default class AllComponentsScreen extends React.Component {
 
@@ -47,16 +52,6 @@ export default class AllComponentsScreen extends React.Component {
     this.props.navigator.state.tapHamburger = () => {
       this.props.navigator.drawer.toggle()
     }
-    try{
-    AsyncStorage.getItem(STORAGE_KEY_TOKEN)
-    .then((result) => {
-      if (result === null) 
-      console.log(result)
-    })
-  }catch(error){
-    console.log(error.message)
-  }
-
   }
 
   handleShowPopUp (_items) {
@@ -69,14 +64,6 @@ export default class AllComponentsScreen extends React.Component {
   }
 
   render () {
-    const Fab = MKButton.plainFab()
-    .withStyle({width:Metrics.button.large, height: Metrics.button.large, borderRadius: Metrics.button.large/2, backgroundColor: Colors.snow})
-    .build()
-
-    const SmallFab = MKButton.plainFab()
-    .withStyle({width:Metrics.button.medium, height: Metrics.button.medium, borderRadius: Metrics.button.medium/2, backgroundColor: Colors.snow})
-    .build()
-
     const bottomButtons = this.state.isPopupShow ? null : (
         <View style={styles.icons_container}>
           <Fab onPress={this.showConfirmDialog.bind(this, 
