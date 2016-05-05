@@ -149,6 +149,7 @@ export default class ProfileScreen extends React.Component {
             size={Metrics.icons.x_small}
             style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}
           />
+          
         </Form>
       </KeyboardAwareScrollView>
       )

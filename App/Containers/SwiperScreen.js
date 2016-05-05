@@ -55,7 +55,6 @@ class Intro extends Component{
   }
 
   render(){
-    console.log(this.state)
     let index = 0;
     const data = [
       { key: index++, section: true, label: 'Users group' },
@@ -110,7 +109,7 @@ class Intro extends Component{
           </Swiper>
         </View>
         <View style={styles.btnContainer}>
-          <TouchableHighlight style={[styles.btn,{backgroundColor:"#29b859"}]} onPress={this.pressSkip.bind(this)}> 
+          <TouchableHighlight style={[styles.btn,{backgroundColor:"#1E72DA"}]} onPress={this.pressSkip.bind(this)}> 
             <Text style={styles.btnText}>NEXT</Text>
           </TouchableHighlight>
         </View>

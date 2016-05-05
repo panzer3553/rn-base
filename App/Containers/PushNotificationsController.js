@@ -11,6 +11,7 @@ import VibrationIOS from 'VibrationIOS'
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 const STORAGE_KEY_PROFILE = "PROFILE_ID"
+const STORAGE_KEY_TOKEN = "TOKEN_ID"
 import {AsyncStorage} from 'react-native'
 
 const PARSE_CLOUD_GCD_SENDER_ID = '56113279400'
@@ -31,6 +32,7 @@ class PushNotificationsController extends React.Component {
 
     PushNotification.configure({
       onRegister: (token) => {
+        AsyncStorage.setItem(STORAGE_KEY_TOKEN, JSON.stringify(token))
         AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
             if (value !== null){
               console.log("value")

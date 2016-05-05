@@ -6,7 +6,7 @@ import Actions from '../Actions/Creators'
 import config from '../Config/AppSetting'
 import {Platform} from 'react-native'
 
-function * saveToken (token, profileId) {
+export function * saveToken (token, profileId) {
   if(profileId == null){
     return fetch(config.url + 'installations', {
         method: 'POST',

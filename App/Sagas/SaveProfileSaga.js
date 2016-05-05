@@ -5,6 +5,7 @@ import Types from '../Actions/Types'
 import Actions from '../Actions/Creators'
 import config from '../Config/AppSetting'
 const STORAGE_KEY_PROFILE = "PROFILE_ID"
+const STORAGE_KEY_TOKEN = "TOKEN_ID"
 import {AsyncStorage} from 'react-native'
 
 function * saveProfile (profile, objectId) {
@@ -36,6 +37,52 @@ function * saveProfile (profile, objectId) {
 	}).then(response => response.json())
 }
 
+export function * saveToken (token, profileId) {
+  if(profileId == null){
+    return fetch(config.url + 'installations', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-Parse-Application-Id': config.parse_id,
+          'X-Parse-REST-API-Key': config.parse_api_key
+        },
+        body: JSON.stringify({
+          deviceToken: token.token,
+          deviceType: token.os    
+        })
+    }).then(response => response.json())
+  }else{
+    return fetch(config.url + 'installations', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-Parse-Application-Id': config.parse_id,
+          'X-Parse-REST-API-Key': config.parse_api_key
+        },
+        body: JSON.stringify({
+          deviceToken: token.token,
+          deviceType: token.os,
+          profile: {
+            __type: 'Pointer',
+            className: 'Profile',
+            objectId: profileId
+          }
+    })
+    }).then(response => response.json())
+  }
+}
+
+export function * getToken() {
+  AsyncStorage.getItem(STORAGE_KEY_TOKEN)
+    .then((result) => {
+      if (result === null) return null
+      return JSON.parse(result)
+    })
+}
+
+
 export function * watchSaveProfile () {
   while(true){
     const { profile, objectId } = yield take(Types.SAVE_PROFILE)
@@ -43,11 +90,18 @@ export function * watchSaveProfile () {
       if(objectId){
         const ok = yield call(saveProfile, profile, objectId)
         console.log(ok)
+        yield put(Actions.saveProfileSuccess()) 
       }else{
         const ok = yield call(saveProfile, profile)
         AsyncStorage.setItem(STORAGE_KEY_PROFILE, ok.objectId)
+        yield put(Actions.saveProfileSuccess()) 
+        const token = yield call(getToken)
+        yield put(Actions.loadTokenSuccess())
+        if(token){
+          const okToken = yield call(saveToken, token, ok.objectId)
+          yield put(Actions.saveTokenSuccess(okToken))
+        }
       }
-   	  yield put(Actions.saveProfileSuccess()) 
     }catch(error){
       yield put(Actions.saveProfileFailure(error.message))
     }
