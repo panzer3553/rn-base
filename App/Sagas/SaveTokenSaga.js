@@ -22,7 +22,7 @@ function * saveToken (token, profileId) {
           deviceToken: token.token,
           deviceType: token.os,
           pushType: Platform.OS === 'android' ? 'gcm' : null,
-          GCMSenderId: Platform.OS === 'android' ? '56113279400' : null,
+          GCMSenderId: Platform.OS === 'android' ? '395124388701' : null,
         })
   	}).then(response => response.json())
   }else{
@@ -38,7 +38,7 @@ function * saveToken (token, profileId) {
           deviceType: token.os,
           deviceToken: token.token,
           pushType: Platform.OS === 'android' ? 'gcm' : null,
-          GCMSenderId: Platform.OS === 'android' ? '56113279400' : null,
+          GCMSenderId: Platform.OS === 'android' ? '395124388701' : null,
           profile: {
             __type: 'Pointer',
             className: 'Profile',

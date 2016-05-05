@@ -13,7 +13,7 @@ var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 const STORAGE_KEY_PROFILE = "PROFILE_ID"
 import {AsyncStorage} from 'react-native'
 
-const PARSE_CLOUD_GCD_SENDER_ID = (Platform.OS === 'android') ? '56113279400' : null//'395124388701' : null
+const PARSE_CLOUD_GCD_SENDER_ID = (Platform.OS === 'android') ? '395124388701' : null//'56113279400' : null
 
 class PushNotificationsController extends React.Component {
   props: {
