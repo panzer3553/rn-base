@@ -33,8 +33,6 @@ function * saveToken (token, profileId) {
         body: JSON.stringify({
           deviceToken: token.token,
           deviceType: token.os,
-          pushType: Platform.OS === 'android' ? 'gcm' : null,
-          GCMSenderId: Platform.OS === 'android' ? '56113279400' : null,
           profile: {
             __type: 'Pointer',
             className: 'Profile',

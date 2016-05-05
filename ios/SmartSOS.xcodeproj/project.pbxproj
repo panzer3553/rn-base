@@ -32,6 +32,7 @@
 		F8661E591CB605B80079A5B2 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8661E511CB605B80079A5B2 /* MaterialIcons.ttf */; };
 		F8661E5A1CB605B80079A5B2 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8661E521CB605B80079A5B2 /* Octicons.ttf */; };
 		F8661E5B1CB605B80079A5B2 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8661E531CB605B80079A5B2 /* Zocial.ttf */; };
+		F86E8A5C1CD9FC950031028A /* libRNSearchBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F86E8A5A1CD9FC840031028A /* libRNSearchBar.a */; };
 		F88953591CC7337400C8A032 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F88953501CC7335E00C8A032 /* libRCTPushNotification.a */; };
 		F8F925BA1CBF594E00D9B10C /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F925AC1CBF592500D9B10C /* libAirMaps.a */; };
 		F8F925FE1CBFA0D800D9B10C /* libRCTMaterialKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8F925F41CBFA0C700D9B10C /* libRCTMaterialKit.a */; };
@@ -136,6 +137,13 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		F86E8A591CD9FC840031028A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F86E8A461CD9FC840031028A /* RNSearchBar.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNSearchBar;
+		};
 		F889534F1CC7335E00C8A032 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F88953441CC7335D00C8A032 /* RCTPushNotification.xcodeproj */;
@@ -191,6 +199,7 @@
 		F8661E511CB605B80079A5B2 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
 		F8661E521CB605B80079A5B2 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		F8661E531CB605B80079A5B2 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		F86E8A461CD9FC840031028A /* RNSearchBar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSearchBar.xcodeproj; path = "../node_modules/react-native-search-bar/RNSearchBar.xcodeproj"; sourceTree = "<group>"; };
 		F88953441CC7335D00C8A032 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		F8F925A71CBF592500D9B10C /* AirMaps.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AirMaps.xcodeproj; path = "../node_modules/react-native-maps/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; };
 		F8F925EA1CBFA0C700D9B10C /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
@@ -211,6 +220,7 @@
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
+				F86E8A5C1CD9FC950031028A /* libRNSearchBar.a in Frameworks */,
 				F88953591CC7337400C8A032 /* libRCTPushNotification.a in Frameworks */,
 				F8F925BA1CBF594E00D9B10C /* libAirMaps.a in Frameworks */,
 				F8F925FE1CBFA0D800D9B10C /* libRCTMaterialKit.a in Frameworks */,
@@ -335,6 +345,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				F86E8A461CD9FC840031028A /* RNSearchBar.xcodeproj */,
 				F88953441CC7335D00C8A032 /* RCTPushNotification.xcodeproj */,
 				F8F925EA1CBFA0C700D9B10C /* RCTMaterialKit.xcodeproj */,
 				F8F925A71CBF592500D9B10C /* AirMaps.xcodeproj */,
@@ -415,6 +426,14 @@
 			);
 			name = Fonts;
 			path = "../node_modules/react-native-vector-icons/Fonts";
+			sourceTree = "<group>";
+		};
+		F86E8A471CD9FC840031028A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F86E8A5A1CD9FC840031028A /* libRNSearchBar.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		F88953451CC7335D00C8A032 /* Products */ = {
@@ -572,6 +591,10 @@
 					ProjectRef = F8661E0B1CB600E90079A5B2 /* RNI18n.xcodeproj */;
 				},
 				{
+					ProductGroup = F86E8A471CD9FC840031028A /* Products */;
+					ProjectRef = F86E8A461CD9FC840031028A /* RNSearchBar.xcodeproj */;
+				},
+				{
 					ProductGroup = F8661E391CB603750079A5B2 /* Products */;
 					ProjectRef = F8661E381CB603750079A5B2 /* RNVectorIcons.xcodeproj */;
 				},
@@ -674,6 +697,13 @@
 			fileType = archive.ar;
 			path = libRNVectorIcons.a;
 			remoteRef = F8661E3C1CB603760079A5B2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F86E8A5A1CD9FC840031028A /* libRNSearchBar.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSearchBar.a;
+			remoteRef = F86E8A591CD9FC840031028A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		F88953501CC7335E00C8A032 /* libRCTPushNotification.a */ = {

@@ -14,18 +14,20 @@ import React,{
   RecyclerViewBackedScrollView, 
   AsyncStorage,
 } from 'react-native'
+import SearchBar from 'react-native-search-bar'
 import { Colors, Images, Metrics } from '../Themes'
 import Icon from 'react-native-vector-icons/Ionicons'
 import ModalPicker from 'react-native-modal-picker'
 import { connect } from 'react-redux'
-import cities from '../Config/CitiesData'
 import styles from './Styles/SwiperStyles.js'
 import Actions from '../Actions/Creators'
 import {Router, Routes, NavigationBar} from '../Navigation/'
 import config from '../Config/AppSetting'
+import CityPicker from '../Components/CityPicker'
 const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 
 class Intro extends Component{
+
   _onMomentumScrollEnd(e, state, context) {
     // you can get `state` and `this`(ref to swiper's context) from params
   }
@@ -33,34 +35,9 @@ class Intro extends Component{
   constructor(props) {
     super(props)
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-    this.state = {userGroups: "Select a group", dataSource: ds.cloneWithRows(cities.map((city) => city.name)), modalVisible: false,
-            city: null, index: 0, groupId: null, cityCode: null, countryCode: null}
-  }
-
-  setModalVisible(visible) {
-    this.setState({modalVisible: visible})
+    this.state = {userGroups: null, city: null, index: 0, groupId: null, countryCode: null}
   }
   
-
-  renderRow(rowData: string, sectionID: number, rowID: number) {
-    return (
-      <TouchableHighlight onPress={() => {this.pressRow(rowData, rowID)}}>
-        <View>
-          <View style={styles.row}>
-            <Text style={styles.text}>
-              {rowData}
-            </Text>
-          </View>
-        </View>
-      </TouchableHighlight>
-    )
-  }
-
-  pressRow(rowData, rowID){
-    this.setState({city: rowData, countryCode: cities[rowID].countryCode, index: 2})
-    this.setModalVisible(false)
-  }
-
   async pressSkip(){
     const {dispatch} = this.props
     dispatch(Actions.skipSwiper())
@@ -78,6 +55,7 @@ class Intro extends Component{
   }
 
   render(){
+    console.log(this.state)
     let index = 0;
     const data = [
       { key: index++, section: true, label: 'Users group' },
@@ -115,7 +93,7 @@ class Intro extends Component{
                     initValue="Select something yummy!"
                     onChange={(option)=>{ this.setState({userGroups:option.label, groupId:option.groupId, index: 1})}}>
                 <View style={styles.pickerContainer}>
-                  <Text>{this.state.userGroups}</Text>
+                  <Text>{this.state.userGroups || "Select a group"} </Text>
                   <Icon name="ios-arrow-down" size={18} color="black" style={styles.dropDownIcon}></Icon>
                 </View>
                 </ModalPicker>
@@ -125,30 +103,15 @@ class Intro extends Component{
                   <Icon name="android-pin" size={100} color="white"></Icon>
                 </View>
                 <Text style={styles.slideText}>Please select a city where you would receive emergencies notifications</Text>
-              <Modal
-                  animated={true}
-                  transparent={false}
-                  visible={this.state.modalVisible}
-                  onRequestClose={() => {this.setModalVisible(false)}}
-                  >
-                  <View style={styles.containerModal}>
-                    <ListView
-                      dataSource={this.state.dataSource}
-                      renderRow={this.renderRow.bind(this)}
-                      renderSeparator={(sectionID, rowID) => <View style={styles.separator} />}
-                    />
-                  </View>
-                </Modal>
-                <View style={styles.pickerContainer} onPress={this.setModalVisible.bind(this, true)}>
-                  <Text onPress={this.setModalVisible.bind(this, true)}>{this.state.city == null ? "Select a city" : this.state.city}</Text>
-                  <Icon name="ios-arrow-down" size={18} color="black" style={styles.dropDownIcon}></Icon>
-                </View>
+                <CityPicker
+                  onChange={(value) => this.setState({city: value.name, countryCode: value.country, index: 2})}
+                 />
               </View>
           </Swiper>
         </View>
         <View style={styles.btnContainer}>
           <TouchableHighlight style={[styles.btn,{backgroundColor:"#29b859"}]} onPress={this.pressSkip.bind(this)}> 
-            <Text style={styles.btnText}>SKIP</Text>
+            <Text style={styles.btnText}>NEXT</Text>
           </TouchableHighlight>
         </View>
       </View>

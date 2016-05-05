@@ -28,13 +28,6 @@ export default class MapScreen extends React.Component {
 		}
 	}
 
-  componentDidMount(){
-  }
-
-  componentWillReceiveProps(nextProps: any){
-    
-  }
-
   render () {
     console.log('MAP: ' + this.props.latitude + '__' + this.props.longitude)
   	return (
