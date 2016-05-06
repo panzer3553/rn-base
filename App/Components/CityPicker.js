@@ -14,6 +14,7 @@ export default class CityPicker extends Component {
   		city: null,
   		cities: cities.map((city) => city.name)
   	}
+    this._onChangeText = this._onChangeText.bind(this)
   }
 
   _renderCity(city, index) {
@@ -52,9 +53,8 @@ export default class CityPicker extends Component {
   }
 
   onChangeText(text) {
-    let results = fuzzy.filter(text, this.states.cities)
+    let results = fuzzy.filter(text, cities.map((city) => city.name))
     let matches = results.map(function(el) { return el.string; })
-    console.log(text)
     this.setState({
       cities: matches,
     })
