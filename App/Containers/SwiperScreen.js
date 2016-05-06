@@ -60,7 +60,7 @@ class Intro extends Component{
       { key: index++, section: true, label: 'Users group' },
       { key: index++, label: 'Police station', groupId: 'policeStation'},
       { key: index++, label: 'Fire station', groupId: 'fireStation'},
-      { key: index++, label: 'Ambulance', groupID: 'ambulance' },
+      { key: index++, label: 'Ambulance', groupId: 'ambulance' },
       { key: index++, label: 'Medical User', groupId: 'medicalUser' },
       { key: index++, label: 'Militarian User', groupId: 'militarianUser' },
       { key: index++, label: 'Volunteer', groupId: 'volunteer' },

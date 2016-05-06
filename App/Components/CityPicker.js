@@ -52,7 +52,7 @@ export default class CityPicker extends Component {
     }
   }
 
-  onChangeText(text) {
+  _onChangeText(text) {
     let results = fuzzy.filter(text, cities.map((city) => city.name))
     let matches = results.map(function(el) { return el.string; })
     this.setState({
@@ -86,7 +86,7 @@ export default class CityPicker extends Component {
       	<SearchBar
 	      ref='searchBar'
 	      placeholder='Search'
-        onChangeText={(text) => {this.onChangeText(text)}}
+        onChangeText={(text) => {this._onChangeText(text)}}
       	/>
         {this.state.cities.map((city, index) => this._renderCity(city, index))}
       </ScrollView>
