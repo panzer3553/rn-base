@@ -12,6 +12,7 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import com.imagepicker.ImagePickerPackage;
 import android.provider.Settings;
 
 public class MainActivity extends ReactActivity {
@@ -50,6 +51,7 @@ public class MainActivity extends ReactActivity {
             new ReactNativeI18n(),
             new AirPackage(),
             new ReactMaterialKitPackage(),
+            new ImagePickerPackage(),
             mReactNativePushNotificationPackage
         );
     }

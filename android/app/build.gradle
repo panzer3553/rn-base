@@ -132,4 +132,5 @@ dependencies {
    compile project(':RNMaterialKit')
    compile project(':react-native-push-notification')
    //compile project(':react-native-send-intent')
+   compile project(':react-native-image-picker')
 }

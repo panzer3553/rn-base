@@ -85,12 +85,4 @@ export default new class Routes {
       displayNavBar: true
     }
   }
-
-  get SwiperScreen (){
-    return {
-      title: "Swiper",
-      component: require('../Containers/SwiperScreen').default,
-      displayNavBar: false
-    }
-  }
 }
