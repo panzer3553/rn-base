@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   innerContainer: {
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   container:{
     height:Metrics.screenHeight,
@@ -29,7 +29,7 @@ export default StyleSheet.create({
     position: 'absolute',
     width: Metrics.screenWidth,
     bottom: 70,
-    left:0
+    left: 0
   },
   slide: {
     flex: 1,
@@ -37,17 +37,17 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingBottom:50
   },
-  slideText:{
+  slideText: {
     color: "#fff",
-    textAlign:"center"
+    textAlign: "center"
   },
-  slideTextTitle:{
+  slideTextTitle: {
     color: "#fff",
-    textAlign:"center",
-    fontWeight:"700",
-    marginTop: 50,
+    textAlign: "center",
+    fontWeight: "700",
+    marginTop: 50
   },
-  logo:{
+  logo: {
     alignItems:"center",
     position:"absolute",
     width: Metrics.screenWidth,
@@ -57,35 +57,35 @@ export default StyleSheet.create({
     alignItems:"center",
     justifyContent:"center"
   },
-  logoText:{
+  logoText: {
     color:"#fff",
     textAlign:"left",
     fontSize: 35,
     fontWeight:"700",
     backgroundColor:"transparent",
   },
-  logoIconContainer:{
+  logoIconContainer: {
     backgroundColor:"transparent",
-    paddingRight:5,
-    marginTop:10,
-    marginBottom: 5,
+    paddingRight: 5,
+    marginTop: 10,
+    marginBottom: 5
   },
-  logoTextContainer:{
+  logoTextContainer: {
     backgroundColor:"transparent"
   },
-  btnContainer:{
+  btnContainer: {
     position:"absolute",
     width: Metrics.screenWidth,
     bottom: 0,
     left: 0,
-    height: 40,
+    height: 40
   },
-  btn:{
+  btn: {
     flex:1,
     alignItems:"center",
     justifyContent:"center"
   },
-  btnText:{
+  btnText: {
     color:"#fff",
     fontWeight:"500",
     fontSize:14
@@ -102,21 +102,21 @@ export default StyleSheet.create({
     position: 'absolute',
     right: 8  
   },
-    modalButton: {
-    marginTop: 10,
+  modalButton: {
+    marginTop: 10
   },
-    separator: {
+  separator: {
     height: 1,
-    backgroundColor: '#CCCCCC',
+    backgroundColor: '#CCCCCC'
   },
-    row: {
+  row: {
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: '#F6F6F6'
   },
   text: {
-    flex: 1,
+    flex: 1
   },
   checkboxRow: {
     marginTop: 1,
@@ -124,14 +124,14 @@ export default StyleSheet.create({
     backgroundColor: Colors.snow,
     paddingLeft: 8,
     flexDirection: "row",
-    alignItems:"center",
+    alignItems: "center"
   },
   checkboxText:{
     color: "#000",
-    textAlign:"center",
-    fontSize:14,
+    textAlign: "center",
+    fontSize: 14,
   }, 
   checkbox: {
 
-  },
+  }
 })

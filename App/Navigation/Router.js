@@ -18,5 +18,4 @@ export default {
   configureScene (route) {
     return route.customConfiguration || Transitions.default
   }
-
 }

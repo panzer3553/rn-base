@@ -7,27 +7,27 @@ import config from '../Config/AppSetting'
 
 function * saveEmergency (emergency) {
   return fetch(config.url + 'classes/Emergency', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-Parse-Application-Id': config.parse_id,
-        'X-Parse-REST-API-Key': config.parse_api_key
-      },
-      body: JSON.stringify(
-        emergency
-      )
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'X-Parse-Application-Id': config.parse_id,
+      'X-Parse-REST-API-Key': config.parse_api_key
+    },
+    body: JSON.stringify(
+      emergency
+    )
 	}).then(response => response.json())
 }
 
 export function * watchSaveEmergency() {
-    while(true){  
-      const {emergency} = yield take(Types.SAVE_EMERGENCY)
-      try{
-        const ok = yield call(saveEmergency, emergency)
-        yield put(Actions.saveEmergencySuccess(ok)) 
-      }catch(e){
-        yield put(Actions.saveEmergencyFailure(e.message))
-      }
- }
+  while(true){  
+    const {emergency} = yield take(Types.SAVE_EMERGENCY)
+    try{
+      const ok = yield call(saveEmergency, emergency)
+      yield put(Actions.saveEmergencySuccess(ok)) 
+    }catch(e){
+      yield put(Actions.saveEmergencyFailure(e.message))
+    }
+  }
 }

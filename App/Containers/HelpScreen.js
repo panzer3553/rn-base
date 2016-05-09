@@ -14,7 +14,6 @@ import React, {
   LayoutAnimation,
   Alert
 } from 'react-native'
-
 // I18n
 import I18n from '../I18n/I18n.js'
 
@@ -26,25 +25,16 @@ class HelpScreen extends Component {
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
-    
   }
 
   render () {
-
     return (
       <View style={[Styles.container, {height: this.state.visibleHeight}]}>
         <View style={Styles.form}>
         </View>
       </View>
     )
-
   }
-
-}
-
-HelpScreen.propTypes = {
-  dispatch: PropTypes.func,
-  navigator: PropTypes.object,
 }
 
 const mapStateToProps = (state) => {

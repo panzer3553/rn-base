@@ -65,8 +65,8 @@ const loadTokenSuccess = () =>
 
 const skipSwiper = () => createAction(Types.SKIP_SWIPER)
 
-const updateLocationAndSaveEmergency = (emergencyType) =>
-  createAction(Types.UPDATE_LOCATION_AND_SAVE_EMERGENCY, {emergencyType})
+const updateLocationAndSaveEmergency = (emergencyType, profileId) =>
+  createAction(Types.UPDATE_LOCATION_AND_SAVE_EMERGENCY, {emergencyType, profileId})
 /**
  Makes available all the action creators we've created.
  */

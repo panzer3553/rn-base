@@ -10,22 +10,17 @@ import React, {
 import VibrationIOS from 'VibrationIOS'
 
 function normalizeData(str: string | Object) {
-  if (str && typeof str === 'object') {
-    return str
-  }
-
+  if (str && typeof str === 'object') return str
   try {
     return JSON.parse(str);
   } 
   catch (e) {
-    return { }
   }
 }
 
 export function * storeDeviceToken(deviceToken: string)  {
   console.log('Got device token', deviceToken)
   //const pushType = Platform.OS === 'android' ? 'gcm' : undefine
-
   yield put(Actions.REGISTERED_PUSH_NOTIFICATIONS)
 }
 
@@ -44,7 +39,6 @@ export function * receivePushNotification (notification) {
 
 
 export function * watchNotificationRequest () {
-
 }
 
 export function * watchReceiveNotification () {
@@ -52,5 +46,4 @@ export function * watchReceiveNotification () {
     const { notification } = yield take(Types.RECEIVED_PUSH_NOTIFICATION)
     yield call(receivePushNotification, notification)
   }
-
 }

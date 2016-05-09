@@ -32,7 +32,11 @@ class PushNotificationsController extends React.Component {
 
     PushNotification.configure({
       onRegister: (token) => {
-        AsyncStorage.setItem(STORAGE_KEY_TOKEN, JSON.stringify(token))
+        try{
+          AsyncStorage.setItem(STORAGE_KEY_TOKEN, JSON.stringify(token))
+        }catch(error){
+          console.error("Save token error")
+        }
         AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
             if (value !== null){
               console.log("value")
@@ -118,8 +122,8 @@ class PushNotificationsController extends React.Component {
       message: message,
       alertType: type,
       duration: duration,
+      //viewTopInset : 15,
       onTapped: this.alertCustomCallBack.bind(this, desAddress),
-      viewTopInset : 15,
     })
   }
 

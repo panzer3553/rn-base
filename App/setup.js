@@ -6,15 +6,11 @@ import Actions from './Actions/Creators'
 const store = configureStore()
 
 export default class Root extends React.Component {
-    constructor() {
-      super()
-    }
-
-    render() {
-      return (
-        <Provider store={store}>
-          <App/>
-        </Provider>
-      )
-    }
+  render() {
+    return (
+      <Provider store={store}>
+        <App/>
+      </Provider>
+    )
   }
+}

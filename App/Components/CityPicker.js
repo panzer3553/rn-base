@@ -14,6 +14,7 @@ export default class CityPicker extends Component {
   		city: null,
   		cities: cities.map((city) => city.name)
   	}
+    this._onChangeText = this._onChangeText.bind(this)
   }
 
   _renderCity(city, index) {
@@ -30,14 +31,12 @@ export default class CityPicker extends Component {
   _renderCityDetail(city) {
     return (
       <View>
-      	  <Text>
-            {city}
-          </Text>
-      </View>)
+      	<Text>{city}</Text>
+      </View>
+    )
   }
 
   _onSelect(city, index) {
-
     this.setState({
       modalVisible: false,
       city: city
@@ -47,14 +46,13 @@ export default class CityPicker extends Component {
       this.props.onChange({
         name: city,
         country: cities[index].countryCode
-      });
+      })
     }
   }
 
-  onChangeText(text) {
-    let results = fuzzy.filter(text, this.states.cities)
+  _onChangeText(text) {
+    let results = fuzzy.filter(text, cities.map((city) => city.name))
     let matches = results.map(function(el) { return el.string; })
-    console.log(text)
     this.setState({
       cities: matches,
     })
@@ -86,13 +84,14 @@ export default class CityPicker extends Component {
       	<SearchBar
 	      ref='searchBar'
 	      placeholder='Search'
-        onChangeText={(text) => {this.onChangeText(text)}}
+        onChangeText={(text) => {this._onChangeText(text)}}
       	/>
         {this.state.cities.map((city, index) => this._renderCity(city, index))}
       </ScrollView>
       </Modal>
       </View>
-    )}
+    )
+  }
 }
 
 var styles = StyleSheet.create({
@@ -117,6 +116,5 @@ var styles = StyleSheet.create({
   dropDownIcon: {
     position: 'absolute',
     right: 8  
-  },
-
+  }
 });

@@ -1,14 +1,4 @@
-import React, { 
-  View, 
-  ScrollView, 
-  Text, 
-  TouchableHighlight,
-  TouchableOpacity, 
-  PropTypes, 
-  StyleSheet, 
-  Alert, 
-  AsyncStorage
-} from 'react-native'
+import React, { View, ScrollView, Text, TouchableOpacity, PropTypes, StyleSheet, Alert, AsyncStorage} from 'react-native'
 import { Form, InputField, Separator, SwitchField, LinkField ,PickerField, DatePickerField, KeyboardAwareScrollView} from 'react-native-form-generator'
 import { connect } from 'react-redux'
 import FormCityPicker from '../Components/FormCityPicker'
@@ -27,7 +17,12 @@ const STORAGE_KEY_PROFILE = "PROFILE_ID"
 
 export default class ProfileScreen extends React.Component {
 
-    constructor (props) {
+  static propTypes = {
+    navigator: PropTypes.object.isRequired,
+    dispatch: PropTypes.func
+  }
+
+  constructor (props) {
     super(props)
     this.state = {
       profile: {
@@ -46,11 +41,6 @@ export default class ProfileScreen extends React.Component {
       editUserGroup: false,
     }
   }
-
-    static propTypes = {
-    navigator: PropTypes.object.isRequired,
-    dispatch: PropTypes.func,
-  };
   
   componentWillMount () {
     this.props.navigator.state.tapHamburger = () => {
@@ -64,25 +54,22 @@ export default class ProfileScreen extends React.Component {
     }
   }
 
-   handleFormFocus(event, reactNode){
+   handleFormFocus (event, reactNode) {
    this.refs.scroll.scrollToFocusedInput(event, reactNode)
   }
 
   tapSaveButton(){
-    console.log('GROUP ' + this.state.groups)
-
     Alert.alert("Saved")
     const { dispatch } = this.props
     AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
-      if (value !== null){
+      if (value !== null)
         dispatch(Actions.saveProfile({...this.state.profile, city: this.state.city, country: this.state.countryCode}, value))
-      } else {
+      else 
         dispatch(Actions.saveProfile({...this.state.profile, city: this.state.city, country: this.state.countryCode}))
-      }
     })
   }
 
-  handleFormChange(formData){
+  handleFormChange (formData) {
     //formData will be a json object that will contain
     // refs of every field
     //formData.first_name
@@ -101,7 +88,6 @@ export default class ProfileScreen extends React.Component {
     let i = this.indexOfGroupId(groups, item.groupId)
 
     if (i > -1) {
-      console.log('UN CHECK ')
       this.setState({
         profile: {
           firstName: null,
@@ -116,7 +102,6 @@ export default class ProfileScreen extends React.Component {
       })
     }
     else {
-      console.log('CHECK ')
       this.setState({
         profile: {
           firstName: null,
@@ -161,11 +146,10 @@ export default class ProfileScreen extends React.Component {
       { label: 'Volunteer', groupId: 'volunteer' },
       { label: 'Normal', groupId: 'Normal' }
     ]
-
     const renderUserGroupView = !this.state.editUserGroup ? null : (
         <View>
           { groupData.map((item, i) =>
-             <TouchableOpacity key ={i} onPress={ () => this.onCheckedItem(item)}>
+             <TouchableOpacity key ={i} onPress={() => this.onCheckedItem(item)}>
                 <View style={formStyles.checkboxRow}>
                   <MKCheckbox 
                     checked={this.isAvailbleInGroup(groups, item.groupId)} 
@@ -179,7 +163,7 @@ export default class ProfileScreen extends React.Component {
         </View>
     )
 
-      return(
+    return(
       <KeyboardAwareScrollView ref='scroll'>
         <Form
           style={formStyles.form}
@@ -244,30 +228,30 @@ export default class ProfileScreen extends React.Component {
             onFocus={this.handleFormFocus.bind(this)}
             onChange={this.handleFormChange.bind(this)}
             label='CONTACT'>
+          <InputField ref='email' placeholder='Email' keyboardType="email-address" autoCapitalize="none" value={email}
+          iconLeft={
+          <Icon name='ios-email-outline'
+            size={Metrics.icons.x_small}
+            style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}   
+          />
+          <InputField ref='mobile' placeholder='Mobile' keyboardType="phone-pad" value={mobile}
+          iconLeft={
+          <Icon name='ios-telephone-outline'
+            size={Metrics.icons.x_small}
+            style={[formStyles.alignLeft, , {color: Colors.formTextColor}]}/>}   
+          />
+          <Separator label='ADDRESS'/>
+          <InputField ref='address' placeholder='Add new address' value={address}
+          iconLeft={
+          <Icon name='ios-home-outline'
+            size={Metrics.icons.x_small}
+            style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}
+          />
+        </Form>
 
-            <InputField ref='email' placeholder='Email' keyboardType="email-address" autoCapitalize="none" value={email}
-            iconLeft={
-            <Icon name='ios-email-outline'
-              size={Metrics.icons.x_small}
-              style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}   
-            />
-            <InputField ref='mobile' placeholder='Mobile' keyboardType="phone-pad" value={mobile}
-            iconLeft={
-            <Icon name='ios-telephone-outline'
-              size={Metrics.icons.x_small}
-              style={[formStyles.alignLeft, , {color: Colors.formTextColor}]}/>}   
-            />
-            <Separator label='ADDRESS'/>
-            <InputField ref='address' placeholder='Add new address' value={address}
-            iconLeft={
-            <Icon name='ios-home-outline'
-              size={Metrics.icons.x_small}
-              style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}
-            />
-          </Form>   
         <FormCityPicker value={city} onChange={(value) => this.setState({city: value.name, countryCode: value.country})}/>
       </KeyboardAwareScrollView>
-      )
+    )
   }
 }
 
