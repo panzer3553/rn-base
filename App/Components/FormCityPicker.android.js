@@ -4,6 +4,7 @@ import SearchBar from 'react-native-search-bar'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Colors, Metrics, Base } from '../Themes/'
 import fuzzy from 'fuzzy'
+import IconF from 'react-native-vector-icons/FontAwesome'
 
 export default class CityPicker extends Component {
   
@@ -71,11 +72,11 @@ export default class CityPicker extends Component {
         onPress={()=> this.setState({modalVisible: true})}
         activeOpacity={0.7}
       >
-      <Icon name='ios-home-outline'
+      <Icon name='ios-location-outline'
           size={Metrics.icons.x_small}
-          style={{color: Colors.formTextColor}}/>
+          style={[{color: Colors.formTextColor}, styles.alignLeft]}/>
       <Text style={styles.label}>{this.state.city || "Select a city"}</Text>
-      <Icon name="ios-arrow-right" size={Metrics.icons.x_small} color="black" style={[styles.dropDownIcon, {color: Colors.formTextColor}]}></Icon>
+      <IconF name="angle-right" size={Metrics.icons.x_small} color="black" style={[styles.dropDownIcon, {color: Colors.formTextColor}]}/>
       </TouchableOpacity>      
 
       <Modal
@@ -115,17 +116,24 @@ var styles = StyleSheet.create({
     paddingBottom: 8,
     flexDirection: "row",
     borderBottomColor:"#999",
-    borderBottomWidth: 1
-
+    borderBottomWidth: 1,
+    height: 48,
   },
 
   dropDownIcon: {
-    position: 'absolute',
-    right: 8  
+    marginTop: 8, 
+    position:'absolute', 
+    right: 10
   },
   label: {
     fontSize: 16,
-    marginTop: 4,
-    marginLeft: 12,
+    marginTop: 12,
+    fontSize: 17,
+    marginLeft: 28,
+  },
+  alignLeft:{
+    marginTop: 9,
+    position:'absolute',
+    left: 14
   }
 });

@@ -25,6 +25,7 @@
     "react-native": "^0.24.1",
     "react-native-animatable": "^0.5.2",
     "react-native-communications": "^1.0.1",
+    "react-native-dialogs": "0.0.15",
     "react-native-drawer": "^2.0.0",
     "react-native-form-generator": "^0.7.2",
     "react-native-i18n": "0.0.8",
@@ -43,8 +44,7 @@
     "redux-logger": "^2.4.0",
     "redux-persist": "^2.0.1",
     "redux-saga": "^0.9.3",
-    "seamless-immutable": "^5.0.1",
-    "tcomb-form-native": "^0.4.2"
+    "seamless-immutable": "^5.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0",

@@ -1,4 +1,4 @@
-import React, {Modal, ScrollView, View, TouchableOpacity, Text, StyleSheet, Component} from 'react-native'
+import React, {Modal, ScrollView, View, TouchableOpacity, Text, StyleSheet, Component, Platform, TextInput} from 'react-native'
 import cities from '../Config/CitiesData'
 import SearchBar from 'react-native-search-bar'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -58,6 +58,20 @@ export default class CityPicker extends Component {
     })
   }
 
+  renderSearchBar () {
+    Platform.OS === 'android' ? 
+      ( <TextInput
+        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={(text) => this._onChangeText(text)}
+        value={this.state.text}
+        />
+      ) : (<SearchBar
+        ref='searchBar'
+        placeholder='Search'
+        onChangeText={(text) => {this._onChangeText(text)}}
+        />)
+  }
+
   render(){
   	return(
   	<View>
@@ -73,7 +87,10 @@ export default class CityPicker extends Component {
       <Modal
         animated={true}
         transparent={false}
-        visible={this.state.modalVisible}>
+        visible={this.state.modalVisible}
+        onRequestClose={() => this.setState({modalVisible: true})}
+        >
+      {this.renderSearchBar()}
       <ScrollView
         ref={(scrollView) => { this._scrollView = scrollView; }}
         contentContainerStyle={styles.contentContainer}
@@ -81,11 +98,6 @@ export default class CityPicker extends Component {
         bounces={false}
         scrollsToTop={true}
         contentOffset={{y:-30}}>
-      	<SearchBar
-	      ref='searchBar'
-	      placeholder='Search'
-        onChangeText={(text) => {this._onChangeText(text)}}
-      	/>
         {this.state.cities.map((city, index) => this._renderCity(city, index))}
       </ScrollView>
       </Modal>

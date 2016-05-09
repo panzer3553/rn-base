@@ -18,6 +18,7 @@ export default StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     marginRight:10,
+    marginTop: 3,
     color: '#C7C7CC'
   },
   fieldText:{
@@ -39,7 +40,8 @@ export default StyleSheet.create({
     marginTop: 7,
     position:'absolute',
     left: 10
-  },  alignRight:{
+  },  
+  alignRight:{
     marginTop: 7, 
     position:'absolute', 
     right: 10

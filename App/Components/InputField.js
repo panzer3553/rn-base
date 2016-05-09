@@ -2,6 +2,7 @@ import React from 'react'
 import { TouchableOpacity, Text,View, StyleSheet, PropTypes, TextInput } from 'react-native'
 import formStyles from './Styles/FieldStyle'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { Colors, Metrics } from '../Themes'
 
 export default class PickerField extends React.Component {
   
@@ -23,7 +24,7 @@ export default class PickerField extends React.Component {
   render () {
     return (
       <View style={formStyles.inputContainer}>
-        <Icon name={this.props.icon} size={30} color="#4F8EF7" style={formStyles.iconTextInput}/>
+        <Icon name={this.props.icon} size={30} color={Colors.drawerColor} style={formStyles.iconTextInput}/>
         <TextInput placeholder={this.props.placeholder} underlineColorAndroid="white" placeholderTextColor='#C8C7CC'
          style={formStyles.textInput} value={this.state.value} onChange={this._onChangeText}/>
       </View>
