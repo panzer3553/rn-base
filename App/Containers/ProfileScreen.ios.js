@@ -203,14 +203,15 @@ export default class ProfileScreen extends React.Component {
             style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
             />     
         </Form>
-        <View style={formStyles.form_div_1}>
+        <View>
           <TouchableOpacity 
+            style={formStyles.form_div_1}
             onPress={()=> this.handleEditUserGroup()}
           >
             <View style={formStyles.pickerContainer}>
                <Icon name='ios-people-outline'
                 size={Metrics.icons.x_small}
-                style={[formStyles.alignLeft, {color: Colors.formTextColor}]}
+                style={[formStyles.alignLeft1, {color: Colors.formTextColor}]}
               />
               <Text style={formStyles.label}>Choose User Groups</Text>
               <Icon 
@@ -248,7 +249,6 @@ export default class ProfileScreen extends React.Component {
             style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}
           />
         </Form>
-
         <FormCityPicker value={city} onChange={(value) => this.setState({city: value.name, countryCode: value.country})}/>
       </KeyboardAwareScrollView>
     )

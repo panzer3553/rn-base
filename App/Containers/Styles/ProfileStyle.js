@@ -12,6 +12,11 @@ export default StyleSheet.create({
     marginRight: 4, 
     marginLeft: 8
   },
+  alignLeft1:{
+    marginTop: 4, 
+    marginRight: 4, 
+    marginLeft: 8
+  },
   form: {
     marginTop: 40,
     backgroundColor: "white",
@@ -19,11 +24,11 @@ export default StyleSheet.create({
   },
   form_div_1: {
     backgroundColor: "white",
-    padding: 8
+    borderBottomColor: "white",
+    borderBottomWidth: 0.5
   },
   checkboxRow: {
     marginTop: 1,
-    width: Metrics.screenWidth * 2 / 3,
     backgroundColor: Colors.snow,
     paddingLeft: 8,
     flexDirection: "row",
@@ -48,11 +53,11 @@ export default StyleSheet.create({
   dropDownIcon: {
     position: 'absolute',
     right: 8,  
-    marginTop: 8
+    marginTop: 4
   },
   label: {
     fontSize: 16,
-    marginTop: 8,
+    marginTop: 4,
     marginLeft: 12
   }
 })
