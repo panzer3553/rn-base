@@ -1,5 +1,5 @@
 // An All Components Screen is a great way to dev and quick-test components
-import React, { View, Text, PropTypes, Alert, AsyncStorage } from 'react-native'
+import React, { View, Text, PropTypes, Alert, AsyncStorage, Image } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/AllComponentsScreenStyle'
 import { Colors, Images, Metrics } from '../Themes'
@@ -10,7 +10,7 @@ import BubblePopUp from './BubblePopUp.js'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {MKButton,MKColor} from 'react-native-material-kit'
 import Communications from 'react-native-communications'
-import PushNotification from 'react-native-push-notification'
+var ImagePickerManager = require('NativeModules').ImagePickerManager;
 import I18n from '../I18n/I18n.js'
 
 const fireItems = [ 
@@ -18,6 +18,29 @@ const fireItems = [
   {icon: 'fire', text: 'Show Location', func: 'showUserLocation'}, 
   {icon: 'fire', text: 'Location Info', func: 'JSONLocation'}, 
 ]
+
+const options = {
+  title: 'Select Image', // specify null or empty string to remove the title
+  cancelButtonTitle: 'Cancel',
+  takePhotoButtonTitle: 'Take Photo', // specify null or empty string to remove this button
+  chooseFromLibraryButtonTitle: 'Choose from Library', // specify null or empty string to remove this button
+  cameraType: 'back', // 'front' or 'back'
+  mediaType: 'photo', // 'photo' or 'video'
+  videoQuality: 'medium', // 'low', 'medium', or 'high'
+  durationLimit: 10, // video recording max time in seconds
+  maxWidth: 100, // photos only
+  maxHeight: 100, // photos only
+  aspectX: 2, // android only - aspectX:aspectY, the cropping image's ratio of width to height
+  aspectY: 1, // android only - aspectX:aspectY, the cropping image's ratio of width to height
+  quality: 0.2, // 0 to 1, photos only
+  angle: 0, // android only, photos only
+  allowsEditing: false, // Built in functionality to resize/reposition the image after selection
+  noData: false, // photos only - disables the base64 `data` field from being generated (greatly improves performance on large photos)
+  storageOptions: { // if this key is provided, the image will get saved in the documents directory on ios, and the pictures directory on android (rather than a temporary directory)
+    skipBackup: true, // ios only - image will NOT be backed up to icloud
+    path: 'images' // ios only - will save image at /Documents/images rather than the root
+  }
+}
 
 const Fab = MKButton.plainFab()
   .withStyle({width:Metrics.button.large, height: Metrics.button.large, borderRadius: Metrics.button.large/2, backgroundColor: Colors.snow})
@@ -39,6 +62,7 @@ export default class AllComponentsScreen extends React.Component {
     this.state = {
       isPopupShow: false,
       items: [],
+      image: null
     }
   }
 
@@ -49,8 +73,23 @@ export default class AllComponentsScreen extends React.Component {
   }
 
   handleShowPopUp (_items) {
-    this.setState({items: _items})
-    this.setState({isPopupShow: true})
+    ImagePickerManager.showImagePicker(options, (response) => {
+        console.log('Response = ', response);
+
+        if (response.didCancel) {
+          console.log('User cancelled image picker');
+        }
+        else if (response.error) {
+          console.log('ImagePickerManager Error: ', response.error);
+        }
+        else if (response.customButton) {
+          console.log('User tapped custom button: ', response.customButton);
+        }
+        else {
+          const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true}
+              this.setState({image: source});
+        }
+      });
   }
 
   handleClosePopUp () {
@@ -119,6 +158,7 @@ export default class AllComponentsScreen extends React.Component {
     return (
       <View style={styles.screenContainer}>
         <MapScreen />
+        <Image source={this.state.image} style={{width: 64, height: 64}} />
         <View style={styles.infoIconContainer}>
           <SmallFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
             <Icon name="info" size={Metrics.icons.small} color="red" />
