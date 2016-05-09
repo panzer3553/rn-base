@@ -31,14 +31,12 @@ export default class CityPicker extends Component {
   _renderCityDetail(city) {
     return (
       <View>
-      	  <Text>
-            {city}
-          </Text>
-      </View>)
+      	<Text>{city}</Text>
+      </View>
+    )
   }
 
   _onSelect(city, index) {
-
     this.setState({
       modalVisible: false,
       city: city
@@ -48,7 +46,7 @@ export default class CityPicker extends Component {
       this.props.onChange({
         name: city,
         country: cities[index].countryCode
-      });
+      })
     }
   }
 
