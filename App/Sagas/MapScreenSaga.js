@@ -6,33 +6,27 @@ import Actions from '../Actions/Creators'
 import I18n from '../I18n/I18n.js'
 import React from 'react-native'
 import Linking from 'Linking'
-
-
-var API_KEY 	= 'AIzaSyA5tP4bdbtsuyicrzzsZkoZ9gmxRovDiMc';
-var OUTPUT_TYPE = 'json'; // 'xml';
-var DEBUG_TAG 	= 'MAP_SCREEN_SAGA';
+var API_KEY 	= 'AIzaSyA5tP4bdbtsuyicrzzsZkoZ9gmxRovDiMc'
+var OUTPUT_TYPE = 'json' // 'xml';
+var DEBUG_TAG 	= 'MAP_SCREEN_SAGA'
 
 function userPositionPromised() {
-
   const position = {}
-  if (navigator.geolocation) {
+  if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition (
-      location  => position.on({location}),
-      error     => position.on({error}),
+      location => position.on({location}),
+      error => position.on({error}),
       { enableHighAccuracy: true,
         timeout: 20000,
       }
     )
   }
-
   return { getLocation: () => new Promise(location => position.on = location) }
 }
 
 export function * getUserLocation() {
-
   const { getLocation } = yield call(userPositionPromised)
   const { error, location } = yield call(getLocation)
-
   if (error) {
     yield put(Actions.receiveLocationFailure(error))
   } 
@@ -42,7 +36,6 @@ export function * getUserLocation() {
 }
 
 export function * getLocationInfo (_latitude, _longitude, _output) {
-
 	const strUrl 		= 'http://maps.google.com/maps/api/geocode/' + 
                      _output + 
                      '?latlng=' + 
@@ -52,7 +45,6 @@ export function * getLocationInfo (_latitude, _longitude, _output) {
   console.log(strUrl)
 	const client 	= Client({ baseUrl: strUrl});
 	const response 	= yield call (client.get);
-
 	const { ok, json } = response;
 	if (ok) {
     yield put(Actions.receiveJsonByCoords(json.results[0]))   
@@ -61,13 +53,11 @@ export function * getLocationInfo (_latitude, _longitude, _output) {
     const error = 'Please check your internet connection | link!'
     yield put(Actions.receiveJsonByCoordsFailure(error))
 	}
-
 }
 
 export function * updateLocationAndSaveEmergency (emergencyType) {
   const { getLocation } = yield call(userPositionPromised)
   const { error, location } = yield call(getLocation)
-
   if (error) {
     yield put(Actions.receiveLocationFailure(error))
   } 
@@ -76,22 +66,19 @@ export function * updateLocationAndSaveEmergency (emergencyType) {
     yield put(Actions.saveEmergency(
       {
        location: {
-             __type: 'GeoPoint',
-             latitude: location.coords.latitude,
-             longitude: location.coords.longitude,
+          __type: 'GeoPoint',
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
        },
        time: new Date(),
        type: emergencyType,
       }    
-    )) 
-
+    )
+  ) 
   }
-
 }
 
-
 export function * watchLocationRequest () {
-
 	while (true) {
 		const action = yield take (Types.MAP_LOCATION_REQUEST)
 		yield call(getUserLocation)
@@ -99,7 +86,6 @@ export function * watchLocationRequest () {
 }
 
 export function * watchJsonRequest () {
-
   while (true) {
     const { latitude,  longitude, type} = yield take(Types.MAP_JSON_REQUEST)
     yield call(getLocationInfo, latitude, longitude, OUTPUT_TYPE)

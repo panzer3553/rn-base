@@ -37,21 +37,21 @@ export function * saveToken (token, profileId) {
             __type: 'Pointer',
             className: 'Profile',
             objectId: profileId
-          }
-    })
+        }
+      })
     }).then(response => response.json())
   }
 }
 
 export function * watchSaveToken() {
-    while(true){  
-      const {token, profileId} = yield take(Types.SAVE_TOKEN)
-      try{
-        const ok = yield call(saveToken, token, profileId)
-        yield put(Actions.saveTokenSuccess(ok)) 
-      }
-      catch(error){
-     	  yield put(Actions.saveTokenFailure(error.message))
-     }
- }
+  while(true){  
+    const {token, profileId} = yield take(Types.SAVE_TOKEN)
+    try{
+      const ok = yield call(saveToken, token, profileId)
+      yield put(Actions.saveTokenSuccess(ok)) 
+    }
+    catch(error){
+     	yield put(Actions.saveTokenFailure(error.message))
+    }
+  }
 }

@@ -32,10 +32,10 @@ const NavigationStyle = React.StyleSheet.create({
   },
   navButtonLeft: {
     marginLeft: 15,
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   navigationBar: {
-    backgroundColor: Colors.drawerColor,  
+    backgroundColor: Colors.drawerColor
   }
 })
 

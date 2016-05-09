@@ -16,7 +16,12 @@ const STORAGE_KEY_PROFILE = "PROFILE_ID"
 
 export default class ProfileScreen extends React.Component {
 
-    constructor (props) {
+  static propTypes = {
+    navigator: PropTypes.object.isRequired,
+    dispatch: PropTypes.func
+  }
+
+  constructor (props) {
     super(props)
     this.state = {
       profile: {
@@ -34,11 +39,6 @@ export default class ProfileScreen extends React.Component {
       saved: false
     }
   }
-
-    static propTypes = {
-    navigator: PropTypes.object.isRequired,
-    dispatch: PropTypes.func,
-  };
   
   componentWillMount () {
     this.props.navigator.state.tapHamburger = () => {
@@ -52,7 +52,7 @@ export default class ProfileScreen extends React.Component {
     }
   }
 
-   handleFormFocus(event, reactNode){
+   handleFormFocus (event, reactNode) {
    this.refs.scroll.scrollToFocusedInput(event, reactNode)
   }
 
@@ -60,15 +60,15 @@ export default class ProfileScreen extends React.Component {
     Alert.alert("Saved")
     const { dispatch } = this.props
     AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
-      if (value !== null){
+      if (value !== null)
         dispatch(Actions.saveProfile({...this.state.profile, city: this.state.city, country: this.state.countryCode}, value))
-      } else {
+      else 
         dispatch(Actions.saveProfile({...this.state.profile, city: this.state.city, country: this.state.countryCode}))
-      }
-    })
+     }
+    )
   }
 
-  handleFormChange(formData){
+  handleFormChange (formData) {
     //formData will be a json object that will contain
     // refs of every field
     //formData.first_name
@@ -76,10 +76,10 @@ export default class ProfileScreen extends React.Component {
     this.setState({profile: formData})
   }
 
-  render(){
-      const {firstName, lastName, birthday, gender, email, mobile, groups, address} = this.state.profile
-      const {city} = this.state
-      return(
+  render () {
+    const {firstName, lastName, birthday, gender, email, mobile, groups, address} = this.state.profile
+    const {city} = this.state
+    return(
       <KeyboardAwareScrollView ref='scroll'>
         <Form
           style={formStyles.form}
@@ -156,7 +156,7 @@ export default class ProfileScreen extends React.Component {
         </Form>
         <FormCityPicker value={city} onChange={(value) => this.setState({city: value.name, countryCode: value.country})}/>
       </KeyboardAwareScrollView>
-      )
+    )
   }
 }
 

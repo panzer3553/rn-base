@@ -37,16 +37,16 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingBottom:50
   },
-  slideText:{
+  slideText: {
     color: "#fff",
     textAlign:"center"
   },
-  slideTextTitle:{
+  slideTextTitle: {
     color: "#fff",
     textAlign:"center",
     fontWeight:"700"
   },
-  logo:{
+  logo: {
     alignItems:"center",
     position:"absolute",
     width: Metrics.screenWidth,
@@ -56,35 +56,35 @@ export default StyleSheet.create({
     alignItems:"center",
     justifyContent:"center"
   },
-  logoText:{
+  logoText: {
     color:"#fff",
     textAlign:"left",
     fontSize: 35,
     fontWeight:"700",
     backgroundColor:"transparent",
   },
-  logoIconContainer:{
+  logoIconContainer: {
     backgroundColor:"transparent",
     paddingRight:5,
     marginTop:5,
     marginBottom: 40
   },
-  logoTextContainer:{
+  logoTextContainer: {
     backgroundColor:"transparent"
   },
-  btnContainer:{
+  btnContainer: {
     position:"absolute",
     width: Metrics.screenWidth,
     bottom: 0,
     left: 0,
-    height: 40,
+    height: 40
   },
-  btn:{
+  btn: {
     flex:1,
     alignItems:"center",
     justifyContent:"center"
   },
-  btnText:{
+  btnText: {
     color:"#fff",
     fontWeight:"500",
     fontSize:14
@@ -101,20 +101,20 @@ export default StyleSheet.create({
     position: 'absolute',
     right: 8  
   },
-    modalButton: {
+  modalButton: {
     marginTop: 10,
   },
-    separator: {
+  separator: {
     height: 1,
-    backgroundColor: '#CCCCCC',
+    backgroundColor: '#CCCCCC'
   },
-    row: {
+  row: {
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#F6F6F6',
+    backgroundColor: '#F6F6F6'
   },
-    text: {
-      flex: 1,
-    }
+  text: {
+    flex: 1
+  }
 })

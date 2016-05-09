@@ -6,7 +6,7 @@ import React, {
   TouchableWithoutFeedback,
   Platform,
   Alert,
-  AsyncStorage,
+  AsyncStorage
 } from 'react-native'
 import {Router, Routes, NavigationBar} from './Navigation/'
 import Actions from './Actions/Creators'
@@ -15,7 +15,6 @@ import Swiper from './Containers/SwiperScreen'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Colors, Images, Metrics } from './Themes'
 import { connect } from 'react-redux'
-
 // Styles
 import styles from './Containers/Styles/RootStyle'
 import drawerStyles from './Containers/Styles/DrawerStyle'
@@ -24,13 +23,13 @@ import PushNotification from 'react-native-push-notification'
 import PushNotificationsController from './Containers/PushNotificationsController'
 
 const drawerItems = [
-                      ["home", 'home'], 
-                      ["person", "profile"], 
-                      ["local-hospital", "emergency"], 
-                      ["email", "recommend"], 
-                      ["share", "feedback"], 
-                      ["settings", "about"]
-                  ]
+  ["home", 'home'], 
+  ["person", "profile"], 
+  ["local-hospital", "emergency"], 
+  ["email", "recommend"], 
+  ["share", "feedback"], 
+  ["settings", "about"]
+]
 
 const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 

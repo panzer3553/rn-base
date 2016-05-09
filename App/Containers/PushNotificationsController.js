@@ -122,6 +122,7 @@ class PushNotificationsController extends React.Component {
       message: message,
       alertType: type,
       duration: duration,
+      //viewTopInset : 15,
       onTapped: this.alertCustomCallBack.bind(this, desAddress),
     })
   }

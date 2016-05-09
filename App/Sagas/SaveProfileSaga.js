@@ -68,8 +68,8 @@ export function saveToken (token, profileId) {
             __type: 'Pointer',
             className: 'Profile',
             objectId: profileId
-          }
-    })
+        }
+      })
     }).then(response => response.json())
   }
 }
@@ -87,16 +87,15 @@ export function * watchSaveProfile () {
         AsyncStorage.setItem(STORAGE_KEY_PROFILE, ok.objectId)
         yield put(Actions.saveProfileSuccess()) 
         AsyncStorage.getItem(STORAGE_KEY_TOKEN).then((value) => {
-            if (value !== null){
-              saveToken(JSON.parse(value), ok.objectId)
-            } else {
+          if (value !== null)
+            saveToken(JSON.parse(value), ok.objectId)
+          else 
               console.log("failed")
-            }
-          })
+        })
       }
     }catch(error){
       yield put(Actions.saveProfileFailure(error.message))
     }
-	 }
-  }
+	}
+}
 

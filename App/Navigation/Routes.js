@@ -93,5 +93,4 @@ export default new class Routes {
       displayNavBar: false
     }
   }
-
 }

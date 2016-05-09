@@ -92,7 +92,8 @@ export default class CityPicker extends Component {
       </ScrollView>
       </Modal>
       </View>
-    )}
+    )
+  }
 }
 
 var styles = StyleSheet.create({
@@ -117,6 +118,5 @@ var styles = StyleSheet.create({
   dropDownIcon: {
     position: 'absolute',
     right: 8  
-  },
-
+  }
 });
