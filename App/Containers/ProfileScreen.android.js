@@ -7,6 +7,7 @@ import InputField from '../Components/InputField'
 import PickerField from '../Components/PickerField'
 import DateField from '../Components/DateField'
 import Separator from '../Components/Separator'
+import FormCityPicker from '../Components/FormCityPicker'
 import Icon from 'react-native-vector-icons/FontAwesome'
 // Components to show examples (only real point of merge conflict)
 // I18n
@@ -21,7 +22,7 @@ export default class ProfileScreen extends React.Component {
 
   constructor (props) {
     super(props)
-    this.state = {date: null}
+    this.state = {firstName: null}
   }
 
   render () {
@@ -29,7 +30,7 @@ export default class ProfileScreen extends React.Component {
     return (
       <ScrollView style={[styles.screenContainer, {backgroundColor: '#FAFAFA'}]}>
         <Separator label="Basic"/>
-        <InputField icon="ios-person" placeholder="First Name"/>
+        <InputField icon="ios-person" placeholder="First Name" value="Hoang" onValueChange={(value) => this.setState({firstName: value})}/>
         <InputField icon="ios-person-outline" placeholder="Last Name"/>
         <DateField placeholder="Date of birth" icon="birthday-cake"/>
         <PickerField placeholder="Gender" icon="intersex" 
@@ -43,7 +44,7 @@ export default class ProfileScreen extends React.Component {
         <InputField icon="ios-telephone-outline" placeholder="Mobile"/>
         <Separator label="Address"/>
         <InputField icon="ios-home-outline" placeholder="Add a new address"/>
-        <PickerField placeholder="City" icon="map-marker"/>
+        <FormCityPicker/>
       </ScrollView>
     )
   }

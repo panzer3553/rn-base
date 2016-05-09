@@ -81,6 +81,11 @@ export default class CityPicker extends Component {
         bounces={false}
         scrollsToTop={true}
         contentOffset={{y:-30}}>
+      	<SearchBar
+	      ref='searchBar'
+	      placeholder='Search'
+        onChangeText={(text) => {this._onChangeText(text)}}
+      	/>
         {this.state.cities.map((city, index) => this._renderCity(city, index))}
       </ScrollView>
       </Modal>
