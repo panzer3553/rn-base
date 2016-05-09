@@ -1,98 +1,52 @@
-import React from 'react-native'
-import t from 'tcomb-form-native'
-var { AppRegistry, StyleSheet, Text, View, TouchableHighlight, ScrollView, Alert } = React;
+// An All Components Screen is a great way to dev and quick-test components
+import React from 'react'
+import { View, ScrollView, Text, TextInput, PropTypes } from 'react-native'
 import { connect } from 'react-redux'
+import styles from './Styles/AllComponentsScreenStyle'
+import InputField from '../Components/InputField'
+import PickerField from '../Components/PickerField'
+import DateField from '../Components/DateField'
+import Separator from '../Components/Separator'
+import Icon from 'react-native-vector-icons/FontAwesome'
+// Components to show examples (only real point of merge conflict)
+// I18n
+import I18n from '../I18n/I18n.js'
 
-import Actions from '../Actions/Creators'
+export default class ProfileScreen extends React.Component {
 
-var Form = t.form.Form
-
-// here we are: define your domain model
-var Person = t.struct({
-  firstName: t.String,              // a required string
-  lastName: t.String,  // an optional string
-  birthday: t.Date,
-  email: t.String,
-  mobile: t.Number,
-  address: t.String                // a required number
-})
-
-var options = {
-    fields: {
-    name: {
-      // name field configuration here..
-    },
-    surname: {
-      // surname field configuration here..
-    },
-    birthday: {
-      config: {
-        format: (date) =>  new Date(date).toISOString().slice(0, 10)
-    }
-  }
-}
-}
-
-//TODO: Android design later
-export default class ProfileScreen extends React.Component{
-
-  onPress() {
-    // call getValue() to get the values of the form
-    var value = this.refs.form.getValue()
-    console.log(value)
-    const { dispatch } = this.props
-    dispatch(Actions.saveProfile(value))
+  static propTypes = {
+    navigator: PropTypes.object.isRequired,
+    dispatch: PropTypes.func
   }
 
-  render(){
+  constructor (props) {
+    super(props)
+    this.state = {date: null}
+  }
+
+  render () {
+    console.log(this.state)
     return (
-      <ScrollView style={styles.container}>
-        <Form
-          ref="form"
-          type={Person}
-          options={options}
-          value={this.props.profileData.profile}
-        />
-        <TouchableHighlight style={styles.button} onPress={this.onPress.bind(this)} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Save</Text>
-        </TouchableHighlight>
+      <ScrollView style={[styles.screenContainer, {backgroundColor: '#FAFAFA'}]}>
+        <Separator label="Basic"/>
+        <InputField icon="ios-person" placeholder="First Name"/>
+        <InputField icon="ios-person-outline" placeholder="Last Name"/>
+        <DateField placeholder="Date of birth" icon="birthday-cake"/>
+        <PickerField placeholder="Gender" icon="intersex" 
+          options={{
+            male: 'Male',
+            female: 'Female'
+          }} 
+          value="male"/>
+        <Separator label="Contact"/>
+        <InputField icon="ios-email-outline" placeholder="Email"/>
+        <InputField icon="ios-telephone-outline" placeholder="Mobile"/>
+        <Separator label="Address"/>
+        <InputField icon="ios-home-outline" placeholder="Add a new address"/>
+        <PickerField placeholder="City" icon="map-marker"/>
       </ScrollView>
     )
   }
 }
 
-var styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-    padding: 20,
-    backgroundColor: '#ffffff',
-  },
-  title: {
-    fontSize: 30,
-    alignSelf: 'center',
-    marginBottom: 30
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  }
-})
-
-const mapStateToProps = (state) => {
-  return {
-    profileData: state.profileData
-  }
-}
-
-export default connect(mapStateToProps)(ProfileScreen)
+export default connect()(ProfileScreen)
