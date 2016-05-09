@@ -36,7 +36,7 @@ I18n.translations = {
     urgentCallTitle: 'Do you want to make this call ?',
     urgentFireCallMessage:  'Only make this call when you are in an emergency situation! Please confirm to make the call to  FIRESTATION: ',
     urgentAmbulanceCallMessage:'Only make this call when you are in an emergency situation! Please confirm to make the call to  AMBULANCE: ',
-    urgentPoliceCallMessage: 'Only make this call when you are in an emergency situation! Please confirm to make the call to  POLICESTATION: ',
+    urgentPoliceCallMessage: 'Only make this call when you are in an emergency situation! Please confirm to make the call to  POLICESTATION: '
   },
 
   fr: {
@@ -66,7 +66,7 @@ I18n.translations = {
     emergency: 'Emergency Instruction',
     recommend: 'Recommend SmartSOS',
     feedback: 'Send Feedback',
-    about: 'About',
+    about: 'About'
   }
 }
 

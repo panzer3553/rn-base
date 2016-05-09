@@ -35,8 +35,8 @@ const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 
 export default class RNBase extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props)
     this.state = {
       firstLoad: false
     }
@@ -50,9 +50,9 @@ export default class RNBase extends React.Component {
   componentDidMount () {
     this.navigator.drawer = this.drawer
     AsyncStorage.getItem(STORAGE_KEY_FIRST_LOAD).then((value) => {
-      if (value !== null){
+      if(value !== null){
         this.setState({firstLoad: false})
-      } else {
+      }else {
         this.setState({firstLoad: true})
         this.navigator.push(Routes.SwiperScreen)
       }
@@ -110,7 +110,6 @@ export default class RNBase extends React.Component {
         }
       </View>
     )
-
   }
 
   renderApp () {

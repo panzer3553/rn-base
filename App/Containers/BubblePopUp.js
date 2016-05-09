@@ -35,7 +35,7 @@ export default class BubblePopUp extends React.Component {
 	}
   }
 
-  handlePressItem(_itemFuncName) {
+  handlePressItem (_itemFuncName) {
 	switch (_itemFuncName) {
 	  case 'showHelpScreen': 
 		this.showHelpScreen()
