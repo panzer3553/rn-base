@@ -33,7 +33,7 @@ export default StyleSheet.create({
   },
   slide: {
     flex: 1,
-    height: Metrics.screenHeight -200,
+    height: Metrics.screenHeight -125,
     alignItems: 'center',
     paddingBottom:50
   },
@@ -44,13 +44,14 @@ export default StyleSheet.create({
   slideTextTitle:{
     color: "#fff",
     textAlign:"center",
-    fontWeight:"700"
+    fontWeight:"700",
+    marginTop: 50,
   },
   logo:{
     alignItems:"center",
     position:"absolute",
     width: Metrics.screenWidth,
-    top: 50,
+    marginTop: 30,
     left: 0,
     flexDirection:"row",
     alignItems:"center",
@@ -66,8 +67,8 @@ export default StyleSheet.create({
   logoIconContainer:{
     backgroundColor:"transparent",
     paddingRight:5,
-    marginTop:5,
-    marginBottom: 40
+    marginTop:10,
+    marginBottom: 5,
   },
   logoTextContainer:{
     backgroundColor:"transparent"
@@ -114,7 +115,23 @@ export default StyleSheet.create({
     padding: 10,
     backgroundColor: '#F6F6F6',
   },
-    text: {
-      flex: 1,
-    }
+  text: {
+    flex: 1,
+  },
+  checkboxRow: {
+    marginTop: 1,
+    width: Metrics.screenWidth * 2 / 3,
+    backgroundColor: Colors.snow,
+    paddingLeft: 8,
+    flexDirection: "row",
+    alignItems:"center",
+  },
+  checkboxText:{
+    color: "#000",
+    textAlign:"center",
+    fontSize:14,
+  }, 
+  checkbox: {
+
+  },
 })

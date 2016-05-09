@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import Colors from '../../Themes/Colors'
+import {Colors, Metrics} from '../../Themes'
 
 export default StyleSheet.create({
 
@@ -20,4 +20,50 @@ export default StyleSheet.create({
       backgroundColor: "white",
       padding: 8
     },
+
+    form_div_1: {
+      backgroundColor: "white",
+      padding: 8
+    },
+
+    checkboxRow: {
+      marginTop: 1,
+      width: Metrics.screenWidth * 2 / 3,
+      backgroundColor: Colors.snow,
+      paddingLeft: 8,
+      flexDirection: "row",
+      alignItems:"center",
+    },
+
+    checkboxText:{
+      color: "#000",
+      textAlign:"center",
+      fontSize:14,
+    }, 
+
+    checkbox: {
+
+    },
+
+    pickerContainer: {
+      backgroundColor: Colors.snow,
+      paddingLeft: 8,
+      paddingBottom: 8,
+      flexDirection: "row",
+      borderBottomColor:"#999",
+      borderBottomWidth: 1,
+      //alignItems: 'center',
+    },
+
+    dropDownIcon: {
+      position: 'absolute',
+      right: 8,  
+      marginTop: 8,
+    },
+
+    label: {
+      fontSize: 16,
+      marginTop: 8,
+      marginLeft: 12,
+    }
 })
