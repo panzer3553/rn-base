@@ -22,6 +22,8 @@ export default {
         return NavButtons.forgotPasswordButton(navigator.state.tapForgotPassword)
       case 'HAMBURGER':
         return NavButtons.hamburgerButton(navigator.state.tapHamburger)
+      case 'DONE':
+        return NavButtons.doneButton(navigator.state.tapDone)
       default:
         return (<Text>Needs Button</Text>)
     }

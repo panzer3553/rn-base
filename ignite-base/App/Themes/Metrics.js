@@ -16,6 +16,7 @@ const metrics = {
   icons: {
     tiny: 15,
     small: 20,
+    android_icon: 24,
     medium: 30,
     large: 45,
     xl: 60

@@ -46,4 +46,24 @@ export default new class Routes {
     }
   }
 
+  get CityPickerScreen () {
+    return {
+      title: 'Select a city',
+      component: require('../Components/CityPicker').default,
+      customConfiguration: Transitions.modal,
+      rightButton: 'DONE',
+      leftButton: 'BACK'
+    }
+  }
+
+  get ProfileScreen () {
+    return {
+      title: 'Profile',
+      component: require('../Containers/ProfileScreen').default,
+      customConfiguration: Transitions.modal,
+      rightButton: 'DONE',
+      leftButton: 'HAMBURGER'
+    }
+  }
+
 }

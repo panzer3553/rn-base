@@ -62,7 +62,7 @@ export default class RNBase extends React.Component {
     return (
       <View style={{marginTop: 30, padding: 10}}>
         <Text>
-          Drawer Content Goes Here!
+          Drawer Content Goes Here! ???
         </Text>
       </View>
     )
@@ -70,31 +70,29 @@ export default class RNBase extends React.Component {
 
   renderApp () {
     return (
-      <Provider store={store}>
-        <View style={styles.applicationView}>
-          <StatusBar
-            barStyle='light-content'
-          />
+      <View style={styles.applicationView}>
+        <StatusBar
+          barStyle='light-content'
+        />
 
-          <Drawer
-            ref={(ref) => { this.drawer = ref }}
-            content={this.renderDrawerContent()}
-            style={styles.drawer}
-            openDrawerOffset={100}
-            type='static'
-            tapToClose
-          >
-            <Navigator
-              ref={(ref) => { this.navigator = ref }}
-              initialRoute={Routes.PresentationScreen}
-              configureScene={Router.configureScene}
-              renderScene={Router.renderScene}
-              navigationBar={NavigationBar.render()}
-              style={styles.container}
-            />
-          </Drawer>
-        </View>
-      </Provider>
+        <Drawer
+          ref={(ref) => { this.drawer = ref }}
+          content={this.renderDrawerContent()}
+          style={styles.drawer}
+          openDrawerOffset={100}
+          type='static'
+          tapToClose
+        >
+          <Navigator
+            ref={(ref) => { this.navigator = ref }}
+            initialRoute={Routes.PresentationScreen}
+            configureScene={Router.configureScene}
+            renderScene={Router.renderScene}
+            navigationBar={NavigationBar.render()}
+            style={styles.container}
+          />
+        </Drawer>
+      </View>
     )
   }
 

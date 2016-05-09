@@ -11,10 +11,11 @@ const NavigationStyle = StyleSheet.create({
   },
   navTitle: {
     color: Colors.snow,
-    fontSize: Fonts.size.regular,
+    fontSize: 20,
     fontFamily: Fonts.bold,
     justifyContent: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginTop: 5
   },
   navSubtitle: {
     flex: 1,
@@ -30,8 +31,16 @@ const NavigationStyle = StyleSheet.create({
     fontFamily: Fonts.bold,
     padding: Metrics.baseMargin
   },
+  navButtonTextAndroid: {
+    marginTop: 18,
+    fontSize: 16
+  },
   navButtonLeft: {
-    margin: Metrics.baseMargin
+    margin: Metrics.baseMargin,
+  },
+  navButtonLeftAndroid: {
+    marginTop: 18,
+    marginLeft: 16
   },
   navigationBar: {
     backgroundColor: Colors.ocean

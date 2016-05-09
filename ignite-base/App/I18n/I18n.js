@@ -16,6 +16,7 @@ I18n.translations = {
     loginWithFacebook: 'Login with Facebook',
     rnAnimatable: 'RN Animatable',
     forgotPassword: 'Forgot Password',
+    done: 'Done',
     username: 'Username',
     password: 'Password',
     cancel: 'Cancel',
