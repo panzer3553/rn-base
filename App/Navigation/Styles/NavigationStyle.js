@@ -11,7 +11,7 @@ const NavigationStyle = React.StyleSheet.create({
   },
   navTitle: {
     color: Colors.snow,
-    fontSize: 24,
+    fontSize: 30,
     fontSize: Metrics.fonts.regular,
     fontFamily: Fonts.bold,
     justifyContent: 'center',
@@ -41,7 +41,7 @@ const NavigationStyle = React.StyleSheet.create({
   },
   navButtonTextAndroid: {
     marginTop: 18,
-    fontSize: 16
+    fontSize: 18
   },
   navButtonLeft: {
     margin: Metrics.baseMargin,

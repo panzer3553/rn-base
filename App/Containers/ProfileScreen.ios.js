@@ -154,7 +154,7 @@ export default class ProfileScreen extends React.Component {
             style={[formStyles.alignLeft, {color: Colors.formTextColor}]}/>}
           />
         </Form>
-        <FormCityPicker value={city} onChange={(value) => this.setState({city: value.name, countryCode: value.country})}/>
+        <FormCityPicker value={city} onChange={(value) => this.setState({city: value.name, country: value.country})}/>
       </KeyboardAwareScrollView>
     )
   }

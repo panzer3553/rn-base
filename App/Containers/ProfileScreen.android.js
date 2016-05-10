@@ -33,6 +33,8 @@ export default class ProfileScreen extends React.Component {
       mobile: null,
       groups: null,
       address: null,
+      city: null,
+      country: null
     }
   }
 
@@ -56,7 +58,6 @@ export default class ProfileScreen extends React.Component {
   }
 
   render () {
-    console.log(this.state)
     return (
       <ScrollView style={[styles.screenContainer, {backgroundColor: '#FAFAFA'}]}>
         <Separator label="Basic"/>
@@ -88,11 +89,16 @@ export default class ProfileScreen extends React.Component {
         <InputField icon="ios-telephone-outline" placeholder="Mobile" onValueChange={(value) => this.setState({mobile: value})}/>
         <Separator label="Address"/>
         <InputField icon="ios-home-outline" placeholder="Add a new address" onValueChange={(value) => this.setState({address: value})}/>
-        <FormCityPicker/>
+        <FormCityPicker onChange={(value)=> this.setState({city: value.name, country: value.country})}/>
         <Separator/>
       </ScrollView>
     )
   }
 }
 
-export default connect()(ProfileScreen)
+const mapStateToProps = (state) => {
+  return {
+    profileData: state.profileData,
+  }
+}
+export default connect(mapStateToProps)(ProfileScreen)
