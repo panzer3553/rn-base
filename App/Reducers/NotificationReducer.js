@@ -1,7 +1,5 @@
 
-import React, {
-  Platform,
-} from 'react-native'
+import React, { Platform } from 'react-native'
 import Immutable from 'seamless-immutable'
 import Types from '../Actions/Types'
 import createReducer from './CreateReducer'

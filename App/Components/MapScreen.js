@@ -14,10 +14,10 @@ export default class MapScreen extends React.Component {
 		super(props)
 		this.state = {
 			region: {
-      latitude: 0,
-      longitude: 0,
-      latitudeDelta: 0.01,
-      longitudeDelta: 0.01
+        latitude: 0,
+        longitude: 0,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01
 			}
 		}
 	}
@@ -32,8 +32,7 @@ export default class MapScreen extends React.Component {
           latitudeDelta: 0.01,
           longitudeDelta: 0.01
         }}
-        showsUserLocation={true}
-     	>
+        showsUserLocation={true}>
       </MapView>
   		)
   	}

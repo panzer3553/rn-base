@@ -10,26 +10,26 @@ import {AsyncStorage} from 'react-native'
 
 function * saveProfile (profile, objectId) {
   if(objectId){
-    return fetch(config.url + 'classes/Profile/' + objectId, {
+    return fetch(config.URL + 'classes/Profile/' + objectId, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-Parse-Application-Id': config.parse_id,
-        'X-Parse-REST-API-Key': config.parse_api_key
+        'X-Parse-Application-Id': config.PARSE_ID,
+        'X-Parse-REST-API-Key': config.PARSE_API_KEY
       },
       body: JSON.stringify(
         profile
       )
   }).then(response => response.json())
   }
-  return fetch(config.url + 'classes/Profile', {
+  return fetch(config.URL + 'classes/Profile', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'X-Parse-Application-Id': config.parse_id,
-      'X-Parse-REST-API-Key': config.parse_api_key
+      'X-Parse-Application-Id': config.PARSE_ID,
+      'X-Parse-REST-API-Key': config.PARSE_API_KEY
     },
     body: JSON.stringify(
       profile
@@ -39,13 +39,13 @@ function * saveProfile (profile, objectId) {
 
 export function saveToken (token, profileId) {
   if(profileId == null){
-    return fetch(config.url + 'installations', {
+    return fetch(config.URL + 'installations', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-Parse-Application-Id': config.parse_id,
-        'X-Parse-REST-API-Key': config.parse_api_key
+        'X-Parse-Application-Id': config.PARSE_ID,
+        'X-Parse-REST-API-Key': config.PARSE_API_KEY
       },
       body: JSON.stringify({
         deviceToken: token.token,
@@ -53,13 +53,13 @@ export function saveToken (token, profileId) {
       })
     }).then(response => response.json())
   }else{
-    return fetch(config.url + 'installations', {
+    return fetch(config.URL + 'installations', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'X-Parse-Application-Id': config.parse_id,
-        'X-Parse-REST-API-Key': config.parse_api_key
+        'X-Parse-Application-Id': config.PARSE_ID,
+        'X-Parse-REST-API-Key': config.PARSE_API_KEY
       },
       body: JSON.stringify({
         deviceToken: token.token,

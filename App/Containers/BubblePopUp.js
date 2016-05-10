@@ -23,8 +23,8 @@ import React, {
 export default class BubblePopUp extends React.Component {
 
   static propTypes = {
-    isVisible: PropTypes.bool,
-	onClose: PropTypes.func,
+   isVisible: PropTypes.bool,
+   onClose: PropTypes.func,
   }
   
   constructor (props) {
@@ -33,6 +33,115 @@ export default class BubblePopUp extends React.Component {
 	  isVisible: false,
 	  itemFuncName: null,
 	}
+  }
+
+  renderSeparator () {
+  	return (<View style={styles.separator}/>)
+  }
+
+  renderTriangle (height) {
+    return (
+	  <View style={styles.triangleContainer}>
+	    <Triangle 
+	     style={styles.triangleRight}
+		 size={30}
+		 color={'white'}
+		 left={5}
+		 top={height} 
+	    />
+	  </View>
+    )
+  }
+
+  renderCancelButton (height) {
+  	return (
+	  <View height={height}> 
+	    <TouchableOpacity style={styles.closeButtonWraper} onPress={this.props.onClose}>
+	      <View style={styles.closeButton} height={height}>
+	        <Text style={styles.closeText}>{I18n.t('cancel')}</Text>
+	      </View>
+	    </TouchableOpacity>
+	  </View>
+  	)
+  }
+
+  renderTitle(height) {
+  	return (
+	  <View 
+		style={styles.headerContainer}
+		elementHeight = {height}>
+		<Text style={styles.headerText}>Instruction</Text>
+	  </View>
+  	)
+  }
+
+  renderRow (item, height) {
+  	return (
+		<View 
+		  style={styles.rowContainer} 
+		  height={height}>
+		  <Icon      
+			name={item.icon}	      		
+			size={Metrics.icons.small}
+			color={'blue'}
+		  />
+		  <View  style={styles.textContainer}>
+		  	<Text style={styles.title}>{item.text}</Text>
+			<Text style={styles.description} numberOfLines={1}>{item.func}</Text>
+		  </View>
+	  	</View>
+  	)
+  }
+
+  renderList (width, elementHeight) {
+  	return (
+	  this.props.items.map((item, i) => 	
+		<TouchableHighlight  
+		  key={i} 
+		  width={width}
+		  height={elementHeight}
+		  onPress ={this.handlePressItem.bind(this, item.func)}
+		>
+		  <View>
+		    { this.renderRow(item, elementHeight) }
+		    { this.renderSeparator() }
+		  </View>
+		</TouchableHighlight>)
+  	)
+  }
+
+  render () {
+    const width  = this.props.elementWidth
+    const minimumElementHeight = Metrics.fonts.medium + Metrics.fonts.small // row: title + description
+    const elementHeight = (this.props.elementHeight > minimumElementHeight) ? this.props.elementHeight : minimumElementHeight
+    const elementCounts = this.props.items.length
+    const titleHeight = elementHeight
+    const talkBubbleHeight = elementHeight * (elementCounts + 2) + 0.5 * (elementCounts - 2) + elementCounts
+
+	if(this.props.isVisible) {
+	  return (
+		  <View style={styles.screenContainer}>
+			<View 
+			  style={styles.bubbleContainer}
+			  width={width}
+			  marginLeft={10}
+			  marginTop={10}
+			 >
+			  <View 
+			    style={styles.squareContainer} 
+				height={talkBubbleHeight}
+			  >
+				{ this.renderTitle((elementHeight > Metrics.fonts.large) ? elementHeight : Metrics.fonts.large) }
+				{ this.renderList() }
+				{ this.renderCancelButton(elementHeight) }
+			  </View>
+			  { this.renderTriangle(elementHeight) }
+			</View>
+		  </View>
+	)
+	}
+	  
+	return (null)
   }
 
   handlePressItem (_itemFuncName) {
@@ -46,6 +155,7 @@ export default class BubblePopUp extends React.Component {
 	  case 'JSONLocation':
 		this.showJSONInfo()
 		break
+		
 	  default:
 		alert(_itemFuncName)
 		break
@@ -59,10 +169,11 @@ export default class BubblePopUp extends React.Component {
   }
 
   showUserLocation () {
-    if (typeof this.props.onClose === 'function') 
+    if (typeof this.props.onClose === 'function') {
       this.props.onClose()
-    // move to current location
-	const {dispatch} = this.props
+    }
+
+	const { dispatch } = this.props
 	dispatch(Actions.requestLocation())
   }
 
@@ -70,87 +181,18 @@ export default class BubblePopUp extends React.Component {
 	if (typeof this.props.onClose === 'function') {
        this.props.onClose()
     }
-    //show JSON info test
+
 	const { latitude, longitude } = this.props
-	const {dispatch} = this.props
+	const { dispatch } = this.props
 	dispatch(Actions.requestJsonByCoords(latitude, longitude))
   }
 
-  render () {
-	const elementWidth  = this.props.elementWidth
-	const elementHeight = this.props.elementHeight
-	const elementCounts = this.props.items.length
-	const talkBubbleHeight = elementHeight * (elementCounts) + Metrics.fonts.large + elementHeight + elementCounts * 2
 
-	if (this.props.isVisible){
-	  return (
-		<View style={styles.screenContainer}>
-	      <View style={styles.bubbleContainer}
-	        width={elementWidth}
-	        marginLeft={10}
-	        marginTop={10}>
-			  <View style={styles.squareContainer} 
-				width={elementWidth}
-				height={talkBubbleHeight}>
-			  <View 
-				style={styles.headerContainer}
-				elementHeight = {elementHeight}>
-				<Text style={styles.headerText} height={elementHeight}>Instruction</Text>
-			  </View>
-				{this.props.items.map((item, i) => 	
-				  <TouchableHighlight  
-					key={i} 
-					width={elementWidth}
-					height={elementHeight}
-					onPress ={this.handlePressItem.bind(this, item.func)}
-					key={i}>
-					<View>
-					  <View 
-					    style={styles.rowContainer} 
-						height={elementHeight}>
-						<Icon      
-						  name={item.icon}	      		
-						  size={Metrics.icons.small}
-						  color={'blue'}
-						 />
-					  <View  style={styles.textContainer}>
-						<Text style={styles.title}>{item.text}</Text>
-						<Text style={styles.description} numberOfLines={1}>{item.func}</Text>
-					  </View>
-				    </View>
-				    <View style={styles.separator}/></View>
-				  </TouchableHighlight>)}
-		    	    <View height={elementHeight}> 
-			    	  <TouchableOpacity style={styles.closeButtonWraper} onPress={this.props.onClose}>
-			            <View style={styles.closeButton} height={elementHeight}>
-			              <Text style={styles.closeText}>{I18n.t('cancel')}</Text>
-			            </View>
-			          </TouchableOpacity>
-    			   	</View>
-				  </View>
-				<View style={styles.triangleContainer}>
-    			  <Triangle 
-    			    style={styles.triangleRight}
-	          	    size={30}
-					color={'white'}
-					left={5}
-					top={elementHeight} 
-				  />
-				</View>
-			  </View>
-		    </View>
-		  )
-		}
-	return (
-	  null
-	)
-  }
 }
 
 const mapStateToProps = (state) => {
   return {
-    latitude: state.mapscreen.latitude,
-    longitude: state.mapscreen.longitude,
+	///
   }
 }
 

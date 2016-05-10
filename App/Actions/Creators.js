@@ -32,13 +32,15 @@ const receiveDirection = () =>
 const receiveDirectionFailure = (error) => 
   createAction(Types.MAP_DIRECTION_FAILURE, { error })
 
-const saveProfile = (profile, objectId) => createAction(Types.SAVE_PROFILE, {profile, objectId})
+const saveProfile = (profile, objectId) =>
+  createAction(Types.SAVE_PROFILE, {profile, objectId})
 const saveProfileSuccess = (ok) =>
   createAction(Types.SAVE_PROFILE_SUCCCESS, {ok})
 const saveProfileFailure = (error) =>
   createAction(Types.SAVE_PROFILE_FAILURE, {error})
 
-const saveEmergency= (emergency) => createAction(Types.SAVE_EMERGENCY, {emergency})
+const saveEmergency= (emergency) => 
+  createAction(Types.SAVE_EMERGENCY, {emergency})
 const saveEmergencySuccess = (ok) =>
   createAction(Types.SAVE_EMERGENCY_SUCCCESS, {ok})
 const saveEmergencyFailure = (error) =>
@@ -54,7 +56,8 @@ const receivePushNotification = (notification) =>
   createAction(Types.RECEIVED_PUSH_NOTIFICATION, {notification})
 const markAllNotificationsAsSeen = () =>
   createAction(Types.SEEN_ALL_NOTIFICATIONS)
-const saveToken = (token, profileId) => createAction(Types.SAVE_TOKEN, {token, profileId})
+const saveToken = (token, profileId) => 
+  createAction(Types.SAVE_TOKEN, {token, profileId})
 const saveTokenSuccess = (ok) =>
   createAction(Types.SAVE_TOKEN_SUCCCESS, {ok})
 const saveTokenFailure = (error) =>
@@ -62,11 +65,12 @@ const saveTokenFailure = (error) =>
 const loadTokenSuccess = () =>
   createAction(Types.LOAD_TOKEN_SUCCESS)
 
-
-const skipSwiper = () => createAction(Types.SKIP_SWIPER)
+const skipSwiper = () => 
+  createAction(Types.SKIP_SWIPER)
 
 const updateLocationAndSaveEmergency = (emergencyType, profileId) =>
   createAction(Types.UPDATE_LOCATION_AND_SAVE_EMERGENCY, {emergencyType, profileId})
+
 /**
  Makes available all the action creators we've created.
  */
@@ -88,11 +92,6 @@ export default {
   saveProfile,
   saveProfileSuccess,
   saveProfileFailure,
-  turnOnPushNotifications,
-  storeDeviceToken,
-  skipPushNotifications,
-  receivePushNotification,
-  markAllNotificationsAsSeen,
   saveEmergency,
   saveEmergencySuccess,
   saveEmergencyFailure,
@@ -100,6 +99,11 @@ export default {
   saveTokenSuccess,
   saveTokenFailure,
   saveProfileFailure,
+  turnOnPushNotifications,
+  storeDeviceToken,
+  skipPushNotifications,
+  receivePushNotification,
+  markAllNotificationsAsSeen,
   loadTokenSuccess,
   skipSwiper,
   updateLocationAndSaveEmergency,

@@ -6,6 +6,7 @@ import SaveEmergencyReducer from './SaveEmergencyReducer'
 import SaveTokenReducer from './SaveTokenReducer'
 import NotificationReducer from './NotificationReducer'
 import MapDirectionReducer  from './MapDirectionReducer'
+
 // glue all the reducers together into 1 root reducer
 export default combineReducers({
   login: LoginReducer,

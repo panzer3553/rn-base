@@ -1,4 +1,3 @@
-import Swiper from 'react-native-swiper'
 import React, {
   Component,
   Animated,
@@ -14,29 +13,31 @@ import React, {
   RecyclerViewBackedScrollView, 
   AsyncStorage
 } from 'react-native'
-import SearchBar from 'react-native-search-bar'
 import { Colors, Images, Metrics } from '../Themes'
+import {Router, Routes, NavigationBar} from '../Navigation/'
+import {MKCheckbox, MKColor} from 'react-native-material-kit'
+import SearchBar from 'react-native-search-bar'
 import Icon from 'react-native-vector-icons/Ionicons'
 import ModalPicker from 'react-native-modal-picker'
 import { connect } from 'react-redux'
 import styles from './Styles/SwiperStyles.js'
 import Actions from '../Actions/Creators'
-import {Router, Routes, NavigationBar} from '../Navigation/'
-import config from '../Config/AppSetting'
+import config, { userGroupListData } from '../Config/AppSetting'
 import CityPicker from '../Components/CityPicker'
-import {MKCheckbox, MKColor} from 'react-native-material-kit' 
+import Swiper from 'react-native-swiper'
+
 const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 
 class Intro extends Component {
-
-  _onMomentumScrollEnd (e, state, context) {
-    // you can get `state` and `this`(ref to swiper's context) from params
-  }
 
   constructor (props) {
     super(props)
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
     this.state = {userGroups: [], city: null, index: 0, groupIds: [], countryCode: null}
+  }
+
+  _onMomentumScrollEnd (e, state, context) {
+    // you can get `state` and `this`(ref to swiper's context) from params
   }
   
   async pressSkip () {
@@ -46,7 +47,7 @@ class Intro extends Component {
     dispatch(Actions.saveProfile({groups: groupIds, city: city, country: countryCode}))
     try {
       await AsyncStorage.setItem(STORAGE_KEY_FIRST_LOAD, 'false')
-      this.props.navigator.push(Routes.AllComponentsScreen)
+      this.props.navigator.push(Routes.HomeScreen)
     } catch (error) {
       console.log(error)
     }
@@ -74,7 +75,6 @@ class Intro extends Component {
   }
 
   indexOfGroupId (groups, groupId) {
-
     for (let i = 0; i < groups.length; i++) {
       if (groups[i] == groupId) {
           return i
@@ -93,16 +93,7 @@ class Intro extends Component {
 
   render () {
     let index = 0
-    const data = [
-      //{ key: index++, section: true, label: 'Users group' },
-      { key: index++, label: 'Police station', groupId: 'policeStation' },
-      { key: index++, label: 'Fire station', groupId: 'fireStation' },
-      { key: index++, label: 'Ambulance', groupId: 'ambulance' },
-      { key: index++, label: 'Medical User', groupId: 'medicalUser' },
-      { key: index++, label: 'Militarian User', groupId: 'militarianUser' },
-      { key: index++, label: 'Volunteer', groupId: 'volunteer' },
-      { key: index++, label: 'Normal', groupId: 'normal' },
-    ]
+
     const {groups} = this.state
 
     return (
@@ -114,7 +105,7 @@ class Intro extends Component {
         </View>
       <View style={styles.sliders}>
         <Swiper 
-          height={Metrics.screenHeight-125} 
+          height={Metrics.screenHeight - 125} 
           showsButtons={false} autoplay={false} 
           index={this.state.index} 
           loop={false}
@@ -134,11 +125,11 @@ class Intro extends Component {
             </View>
             <View>
             { 
-              data.map((item, i) =>
+              userGroupListData.map((item, i) =>
               <TouchableHighlight key ={i} onPress={() => this.onCheckedItem(item)} >
                 <View style={styles.checkboxRow}>
                   <MKCheckbox
-                     checked={this.isAvailbleInGroup(groups, item.groupId)}
+                     checked={this.isAvailbleInGroup(groups ? [...groups] : [] , item.groupId)}
                      style={styles.checkbox}
                      onCheckedChange={(event) => this.onCheckedItem(item)}
                   />
@@ -167,12 +158,12 @@ class Intro extends Component {
   }
 }
 
-export default class SwiperScreen extends Component{
+export default class SwiperScreen extends Component {
 
   render () {
     return(
       <View style={styles.container}>
-        <Intro></Intro>
+        <Intro/>
       </View>
     )
   }
@@ -180,6 +171,7 @@ export default class SwiperScreen extends Component{
 
 const mapStateToProps = (state) => {
   return {
+    ////
   }
 }
 

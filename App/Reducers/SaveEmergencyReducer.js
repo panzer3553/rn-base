@@ -10,7 +10,7 @@ export const INITIAL_STATE = Immutable({
   ok: null
 })
 
-const saveEmergency = (state, action) =>
+const save = (state, action) =>
   state.merge({
     emergency: action.emergency,
     saved: true
@@ -29,8 +29,8 @@ const failure = (state, action) =>
   	errorCode: action.error
   })
   
- const ACTION_HANDLERS = {
-  [Types.SAVE_EMERGENCY]: saveEmergency,
+const ACTION_HANDLERS = {
+  [Types.SAVE_EMERGENCY]: save,
   [Types.SAVE_EMERGENCY_SUCCCESS]: success,
   [Types.SAVE_EMERGENCY_FAILURE]: failure
 }

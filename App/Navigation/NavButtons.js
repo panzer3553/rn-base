@@ -2,8 +2,6 @@ import React, { TouchableOpacity, Text } from 'react-native'
 import styles from './Styles/NavigationStyle'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Colors, Metrics } from '../Themes'
-
-// I18n
 import I18n from '../I18n/I18n.js'
 
 export default {
@@ -23,7 +21,8 @@ export default {
   hamburgerButton (onPressFunction) {
     return (
       <TouchableOpacity onPress={onPressFunction}>
-        <Icon name='navicon'
+        <Icon 
+          name='navicon'
           size={Metrics.icons.large}
           color={Colors.snow}
           style={styles.navButtonLeft}

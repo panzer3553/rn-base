@@ -21,15 +21,7 @@ import drawerStyles from './Containers/Styles/DrawerStyle'
 import I18n from './I18n/I18n.js'
 import PushNotification from 'react-native-push-notification'
 import PushNotificationsController from './Containers/PushNotificationsController'
-
-const drawerItems = [
-  ["home", 'home'], 
-  ["person", "profile"], 
-  ["local-hospital", "emergency"], 
-  ["email", "recommend"], 
-  ["share", "feedback"], 
-  ["settings", "about"]
-]
+import config, { drawerItems } from './Config/AppSetting'
 
 const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 
@@ -66,8 +58,8 @@ export default class RNBase extends React.Component {
         this.navigator.push(Profile)
         break
       case 'home':
-        const AllComponentsScreen = Routes.AllComponentsScreen
-        this.navigator.push(AllComponentsScreen)
+        const HomeScreen = Routes.HomeScreen
+        this.navigator.push(HomeScreen)
         break
       case 'emergency':
         const Emergency = Routes.EmergencyScreen
@@ -112,42 +104,55 @@ export default class RNBase extends React.Component {
     )
   }
 
-  renderApp () {
-    var App = (<Drawer
-              ref={(ref) => { this.drawer = ref }}
-              content={this.renderDrawerContent()}
-              type="static"
-              tapToClose={true}
-              openDrawerOffset={0.2} // 20% gap on the right side of drawer
-              closedDrawerOffset={-3}
-              styles={{
-                drawer: {backgroundColor:Colors.drawerColor},
-              }}
-              tweenHandler={Drawer.tweenPresets.parallax}
-          >
-            <Navigator
-              ref={(ref) => { this.navigator = ref }}
-              initialRoute={Routes.AllComponentsScreen}
-              configureScene={Router.configureScene}
-              renderScene={Router.renderScene}
-              navigationBar={NavigationBar.render()}
-              style={styles.container}
-            />
-          </Drawer>)
-
+  renderDrawerWithNavigator () {
+    return  (
+      <Drawer
+        ref={(ref) => { this.drawer = ref }}
+        content={this.renderDrawerContent()}
+        type='static'
+        tapToClose={true}
+        openDrawerOffset={0.2} // 20% gap on the right side of drawer
+        closedDrawerOffset={-3}
+        styles={{
+          drawer: {backgroundColor:Colors.drawerColor},
+        }}
+        tweenHandler={Drawer.tweenPresets.parallax}
+      >
+        <Navigator
+          ref={(ref) => { this.navigator = ref }}
+          initialRoute={Routes.HomeScreen}
+          configureScene={Router.configureScene}
+          renderScene={Router.renderScene}
+          navigationBar={NavigationBar.render()}
+          style={styles.container}
+        />
+      </Drawer>
+    )
+  }
+  
+  renderStatusBar () {
     return (
-        <View style={styles.applicationView}>
-          <StatusBar
-            barStyle='light-content'
-          />
-          {App}
-          <PushNotificationsController />
-        </View>
+      <StatusBar
+        barStyle='light-content'
+      />
+    )
+  }  
+
+  // this func must be on the top of app for showing alert :)
+  renderNotificationAlertOnForeGround () {
+    return (
+      <PushNotificationsController/>
     )
   }
 
   render () {
-    return this.renderApp()
+    return (
+      <View style={styles.applicationView}>
+        { this.renderDrawerWithNavigator() }
+        { this.renderStatusBar() }
+        { this.renderNotificationAlertOnForeGround() }
+      </View>
+    )
   }
 }
 

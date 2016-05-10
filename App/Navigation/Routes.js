@@ -1,6 +1,4 @@
 import { Transitions } from '../Themes/'
-
-// I18n
 import I18n from '../I18n/I18n.js'
 
 export default new class Routes {
@@ -12,16 +10,16 @@ export default new class Routes {
   // they're lazily evaluated to prevent recursion
   // when the screens themselves use this Routes file.
 
-  get AllComponentsScreen () {
+  get HomeScreen () {
     return {
       title: I18n.t('home'),
-      component: require('../Containers/AllComponentsScreen').default,
+      component: require('../Containers/HomeScreen').default,
       leftButton: 'HAMBURGER',
       displayNavBar: true
     }
   }
 
-    get ProfileScreen () {
+  get ProfileScreen () {
     return {
       title: I18n.t('profile'),
       component: require('../Containers/ProfileScreen').default,
@@ -49,6 +47,7 @@ export default new class Routes {
       leftButton: 'HAMBURGER',
     }
   }
+
   get RecommendScreen () {
     return {
       title: I18n.t('recommend'),
@@ -58,6 +57,7 @@ export default new class Routes {
       displayNavBar: true
     }
   }
+
   get SendScreen () {
     return {
       title: I18n.t('emergency'),
@@ -67,6 +67,7 @@ export default new class Routes {
       displayNavBar: true
     }
   }  
+
   get FeedbackScreen () {
     return {
       title: I18n.t('feedback'),
@@ -76,6 +77,7 @@ export default new class Routes {
       displayNavBar: true
     }
   }
+
   get AboutScreen () {
     return {
       title: I18n.t('about'),
@@ -93,4 +95,5 @@ export default new class Routes {
       displayNavBar: false
     }
   }
+  
 }

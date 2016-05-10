@@ -13,7 +13,7 @@ import Animatable from 'react-native-animatable'
 import I18n from '../I18n/I18n.js'
 import Styles from './Styles/LoginScreenStyle'
 import {MKCheckbox, MKColor} from 'react-native-material-kit' 
-const STORAGE_KEY_PROFILE = "PROFILE_ID"
+import config, { userGroupListData } from '../Config/AppSetting'
 
 export default class ProfileScreen extends React.Component {
 
@@ -59,9 +59,9 @@ export default class ProfileScreen extends React.Component {
   }
 
   tapSaveButton(){
-    Alert.alert("Saved")
+    Alert.alert('Saved')
     const { dispatch } = this.props
-    AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
+    AsyncStorage.getItem(config.STORAGE_KEY_PROFILE).then((value) => {
       if (value !== null)
         dispatch(Actions.saveProfile({...this.state.profile, city: this.state.city, country: this.state.countryCode}, value))
       else 
@@ -137,18 +137,9 @@ export default class ProfileScreen extends React.Component {
   render () {
     const {firstName, lastName, birthday, gender, email, mobile, groups, address} = this.state.profile
     const {city} = this.state
-    const groupData = [
-      { label: 'Police station', groupId: 'policeStation' },
-      { label: 'Fire station', groupId: 'fireStation' },
-      { label: 'Ambulance', groupId: 'ambulance' },
-      { label: 'Medical User', groupId: 'medicalUser' },
-      { label: 'Militarian User', groupId: 'militarianUser' },
-      { label: 'Volunteer', groupId: 'volunteer' },
-      { label: 'Normal', groupId: 'Normal' }
-    ]
     const renderUserGroupView = !this.state.editUserGroup ? null : (
         <View>
-          { groupData.map((item, i) =>
+          { userGroupListData.map((item, i) =>
              <TouchableOpacity key ={i} onPress={() => this.onCheckedItem(item)}>
                 <View style={formStyles.checkboxRow}>
                   <MKCheckbox 
@@ -215,7 +206,7 @@ export default class ProfileScreen extends React.Component {
               />
               <Text style={formStyles.label}>Choose User Groups</Text>
               <Icon 
-                  name="ios-arrow-right" 
+                  name='ios-arrow-right'
                   size={Metrics.icons.x_small} 
                   color="black" style={[formStyles.dropDownIcon, {color: Colors.formTextColor}]}>
               </Icon>

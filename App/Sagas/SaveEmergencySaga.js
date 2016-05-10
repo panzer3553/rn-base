@@ -6,13 +6,13 @@ import Actions from '../Actions/Creators'
 import config from '../Config/AppSetting'
 
 function * saveEmergency (emergency) {
-  return fetch(config.url + 'classes/Emergency', {
+  return fetch(config.URL + 'classes/Emergency', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'X-Parse-Application-Id': config.parse_id,
-      'X-Parse-REST-API-Key': config.parse_api_key
+      'X-Parse-Application-Id': config.PARSE_ID,
+      'X-Parse-REST-API-Key': config.PARSE_API_KEY
     },
     body: JSON.stringify(
       emergency
