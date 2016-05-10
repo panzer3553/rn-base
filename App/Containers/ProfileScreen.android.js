@@ -33,6 +33,8 @@ export default class ProfileScreen extends React.Component {
       mobile: null,
       groups: null,
       address: null,
+      city: null,
+      country: null
     }
   }
 
@@ -41,6 +43,21 @@ export default class ProfileScreen extends React.Component {
       this.props.navigator.drawer.toggle()
     }
     this.props.navigator.state.tapSaveButton = this.tapSaveButton.bind(this)
+    if(this.props.profileData.saved){
+      const {firstName, lastName, birthday, gender, email, mobile, groups, address, city, country} = this.props.profileData.profile
+      this.setState({
+        firstName: firstName,
+        lastName: lastName,
+        birthday: birthday,
+        gender: gender,
+        email: email,
+        mobile: mobile,
+        groups: groups,
+        address: address,
+        city: city,
+        country: country,
+      })
+    }
   }
 
   tapSaveButton(){
@@ -56,19 +73,21 @@ export default class ProfileScreen extends React.Component {
   }
 
   render () {
-    console.log(this.state)
+    console.log(this.props.profileData.profile)
+    const {firstName, lastName, birthday, gender, email, mobile, groups, address, city} = this.state
     return (
       <ScrollView style={[styles.screenContainer, {backgroundColor: '#FAFAFA'}]}>
         <Separator label="Basic"/>
-        <InputField icon="ios-person" placeholder="First Name" onValueChange={(value) => this.setState({firstName: value})}/>
-        <InputField icon="ios-person-outline" placeholder="Last Name" onValueChange={(value) => this.setState({lastName: value})}/>
-        <DateField placeholder="Date of birth" icon="birthday-cake" onValueChange={(value) => this.setState({date: value})}/>
+        <InputField icon="ios-person" placeholder="First Name" value={firstName} onValueChange={(value) => this.setState({firstName: value})}/>
+        <InputField icon="ios-person-outline" placeholder="Last Name" value={lastName} onValueChange={(value) => this.setState({lastName: value})}/>
+        <DateField placeholder="Date of birth" icon="birthday-cake" value={birthday} onValueChange={(value) => this.setState({birthday: value})}/>
         <PickerField placeholder="Gender" icon="intersex" 
           options={{
             male: 'Male',
             female: 'Female'
           }}
           title='Select a gender'
+          value={gender}
           onValueChange={(value) => this.setState({gender: value})}/>
         <PickerField placeholder="User groups" icon="users" 
           options={{
@@ -80,19 +99,26 @@ export default class ProfileScreen extends React.Component {
               volunteer: 'Volunteer',
               other: 'Other'
           }}
+          value={groups}
           title='Select a user groups'
           onValueChange={(value) => this.setState({groups: value})}
         />
         <Separator label="Contact"/>
-        <InputField icon="ios-email-outline" placeholder="Email" onValueChange={(value) => this.setState({email: value})}/>
-        <InputField icon="ios-telephone-outline" placeholder="Mobile" onValueChange={(value) => this.setState({mobile: value})}/>
+        <InputField icon="ios-email-outline" placeholder="Email" value={email} onValueChange={(value) => this.setState({email: value})}/>
+        <InputField icon="ios-telephone-outline" placeholder="Mobile" value={mobile} onValueChange={(value) => this.setState({mobile: value})}/>
         <Separator label="Address"/>
-        <InputField icon="ios-home-outline" placeholder="Add a new address" onValueChange={(value) => this.setState({address: value})}/>
-        <FormCityPicker/>
+        <InputField icon="ios-home-outline" placeholder="Add a new address" value={address} onValueChange={(value) => this.setState({address: value})}/>
+        <FormCityPicker value={city} onChange={(value)=> this.setState({city: value.name, country: value.country})}/>
         <Separator/>
       </ScrollView>
     )
   }
 }
 
-export default connect()(ProfileScreen)
+const mapStateToProps = (state) => {
+  return {
+    profileData: state.profileData,
+  }
+}
+
+export default connect(mapStateToProps)(ProfileScreen)

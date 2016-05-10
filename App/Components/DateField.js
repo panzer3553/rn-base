@@ -20,8 +20,7 @@ export default class DateField extends React.Component {
       if (action !== DatePickerAndroid.dismissedAction) {
         // Selected year, month (0-11), day
         let date = new Date(year, month, day)
-        let str = date.toLocaleDateString()
-        this.setState({value: str})
+        this.setState({value: date})
         if(this.props.onValueChange){
           this.props.onValueChange(date)
         }
@@ -37,7 +36,7 @@ export default class DateField extends React.Component {
         <Icon name={this.props.icon} size={20} color={Colors.drawerColor} style={[formStyles.alignLeft, {marginTop: 9}]}/>
         <Text style={formStyles.fieldText}>{this.props.placeholder}</Text>
         <View style={[formStyles.alignRight, formStyles.horizontalContainer]}>
-          <Text style={formStyles.fieldValue}>{this.state.value || ""}</Text>
+          <Text style={formStyles.fieldValue}>{this.state.value ? this.state.value.toLocaleDateString() : ""}</Text>
         </View>
         <Icon name="angle-right" size={24} color={Colors.drawerColor} style={formStyles.alignRight}/>
       </TouchableOpacity>

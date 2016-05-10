@@ -14,7 +14,7 @@ const STORAGE_KEY_PROFILE = "PROFILE_ID"
 const STORAGE_KEY_TOKEN = "TOKEN_ID"
 import {AsyncStorage} from 'react-native'
 
-const PARSE_CLOUD_GCD_SENDER_ID = '56113279400'
+const PARSE_CLOUD_GCD_SENDER_ID = '395124388701'
 
 class PushNotificationsController extends React.Component {
   props: {
