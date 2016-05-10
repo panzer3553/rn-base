@@ -1,5 +1,5 @@
 // An All Components Screen is a great way to dev and quick-test components
-import React, { View, Text, PropTypes, Alert, AsyncStorage } from 'react-native'
+import React, { View, Text, PropTypes, Alert, AsyncStorage, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/AllComponentsScreenStyle'
 import { Colors, Images, Metrics } from '../Themes'
@@ -12,6 +12,7 @@ import {MKButton,MKColor} from 'react-native-material-kit'
 import Communications from 'react-native-communications'
 import PushNotification from 'react-native-push-notification'
 import I18n from '../I18n/I18n.js'
+import SendIntentAndroid from 'react-native-send-intent'
 
 const fireItems = [ 
   {icon: 'fire', text: 'Show Info Screen', func: 'showHelpScreen'}, 
@@ -63,7 +64,7 @@ export default class AllComponentsScreen extends React.Component {
       _message + _phoneNumber,
       [
         {text: 'Cancel', onPress: () => console.log('Cancel')},
-        {text: 'OK', onPress: () =>  Communications.phonecall(_phoneNumber, false)},
+        {text: 'OK', onPress: () =>  this.makePhoneCall(_phoneNumber)},
       ]
     )
     const {dispatch} = this.props  
@@ -79,6 +80,14 @@ export default class AllComponentsScreen extends React.Component {
     //  type: type,
     //})
     //console.log(this.props)
+  }
+
+  makePhoneCall (_phoneNumber) {
+    if(Platform.OS === 'android'){
+      SendIntentAndroid.sendPhoneCall(_phoneNumber)
+    }
+    else
+      Communications.phonecall(_phoneNumber, false)
   }
 
   saveEmergency(emergency){

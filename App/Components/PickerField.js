@@ -3,19 +3,8 @@ import { TouchableOpacity, Text,View, StyleSheet, Alert, ToastAndroid, PropTypes
 import formStyles from './Styles/FieldStyle'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Colors, Metrics } from '../Themes'
-var _ = require('lodash')
-var DialogAndroid = require('react-native-dialogs');
-
-var options = {
-  "items": [
-    "Twitter",
-    "Google+",
-    "Instagram",
-    "Facebook"
-  ],
-  "positiveText": "Choose",
-  itemsCallbackMultiChoice: (id, text) => ToastAndroid.show(id + ": " + text, ToastAndroid.SHORT)
-}
+import _ from 'lodash'
+import DialogAndroid from 'react-native-dialogs'
 
 export default class PickerField extends React.Component {
 

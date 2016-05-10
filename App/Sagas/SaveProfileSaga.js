@@ -84,7 +84,6 @@ export function * watchSaveProfile () {
     try{
       if(objectId){
         const ok = yield call(saveProfile, profile, objectId)
-        console.log(ok)
         yield put(Actions.saveProfileSuccess()) 
       }else{
         const ok = yield call(saveProfile, profile)
