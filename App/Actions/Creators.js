@@ -67,6 +67,13 @@ const skipSwiper = () => createAction(Types.SKIP_SWIPER)
 
 const updateLocationAndSaveEmergency = (emergencyType, profileId) =>
   createAction(Types.UPDATE_LOCATION_AND_SAVE_EMERGENCY, {emergencyType, profileId})
+
+const uploadImage = (data) =>
+  createAction(Types.UPLOAD_IMAGE, {data})
+const uploadImageSuccess = () =>
+  createAction(Types.UPLOAD_IMAGE_SUCCESS)
+const uploadImageFailure = (error) =>
+  createAction(Types.UPLOAD_IMAGE_FAILURE, {error})
 /**
  Makes available all the action creators we've created.
  */
@@ -103,4 +110,7 @@ export default {
   loadTokenSuccess,
   skipSwiper,
   updateLocationAndSaveEmergency,
+  uploadImage,
+  uploadImageSuccess,
+  uploadImageFailure,
 }

@@ -14,7 +14,7 @@ const STORAGE_KEY_PROFILE = "PROFILE_ID"
 const STORAGE_KEY_TOKEN = "TOKEN_ID"
 import {AsyncStorage} from 'react-native'
 
-const PARSE_CLOUD_GCD_SENDER_ID = '56113279400'
+const PARSE_CLOUD_GCD_SENDER_ID = (Platform.OS === 'android') ? '395124388701' : null//'56113279400' : null
 
 class PushNotificationsController extends React.Component {
   props: {
@@ -69,7 +69,7 @@ class PushNotificationsController extends React.Component {
         }
         else { // background
           console.log('DES:' + desAddress) 
-          const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=bicycling'
+          const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=driving'
           dispatch(Actions.requestDirection(desAddress, mode))
           console.log('is background')
         }
@@ -132,7 +132,7 @@ class PushNotificationsController extends React.Component {
                             + this.props.longitude 
       console.log('DES:' + desAddress) 
       console.log('SRC:' + srcAddress)
-      const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=bicycling'
+      const mode = (Platform.OS === 'ios') ? '&dirflg=d' : '&mode=bicycling'
       const { dispatch } = this.props
       dispatch(Actions.requestDirection(desAddress, mode))
   }

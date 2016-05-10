@@ -10,6 +10,7 @@ import { watchSaveEmergency} from './SaveEmergencySaga'
 import { watchSaveToken } from './SaveTokenSaga'
 import { watchDirectionRequest } from './MapDirectionSaga'
 import { watchReceiveNotification } from './PushNotificationSaga'
+import { watchUploadImage } from './UploadImageSaga'
 
 // start the daemons
 export default [
@@ -22,4 +23,5 @@ export default [
   watchDirectionRequest,
   watchReceiveNotification,
   watchUpdateLocationAndSaveEmergengy,
+  watchUploadImage,
 ]

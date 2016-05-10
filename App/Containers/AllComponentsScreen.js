@@ -120,10 +120,23 @@ export default class AllComponentsScreen extends React.Component {
     //console.log(this.props)
   }
 
+  uploadImage (img) {
+    console.log('imgData:' + img)
+    const {dispatch} = this.props
+    dispatch(Actions.uploadImage({data: img}))
+  }
+
   saveEmergency(emergency){
     const {dispatch} = this.props
     dispatch(Actions.saveEmergency(emergency))
   }
+
+  // <Fab  onPress={this.showConfirmDialog.bind(this, 
+  // 'Do you want to make this call ?',
+  // 'Only make this call when you are in an emergency situation! ' +
+  // 'Please confirm to make the call to POLICE STATION: ',
+  // '+84982709185', 
+  // 'police' )}>
 
   render () {
     const bottomButtons = this.state.isPopupShow ? null : (
@@ -144,12 +157,7 @@ export default class AllComponentsScreen extends React.Component {
              'ambulance')}>
             <Icon name="ambulance" size={Metrics.icons.medium} color="red" />
           </Fab>
-          <Fab  onPress={this.showConfirmDialog.bind(this, 
-            'Do you want to make this call ?',
-            'Only make this call when you are in an emergency situation! ' +
-            'Please confirm to make the call to POLICE STATION: ',
-            '+84982709185', 
-            'police' )}>
+          <Fab  onPress={this.uploadImage.bind(this, this.state.image)}>
             <Icon name="bell" size={Metrics.icons.medium} color="red" />
           </Fab>
        </View>   

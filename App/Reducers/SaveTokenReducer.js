@@ -31,7 +31,7 @@ const failure = (state, action) =>
   	errorCode: action.error
   })
   
- const ACTION_HANDLERS = {
+const ACTION_HANDLERS = {
   [Types.SAVE_TOKEN]: saveToken,
   [Types.SAVE_TOKEN_SUCCCESS]: success,
   [Types.SAVE_TOKEN_FAILURE]: failure
