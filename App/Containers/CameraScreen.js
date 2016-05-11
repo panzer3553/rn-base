@@ -8,8 +8,26 @@ import React, {
   Alert
 } from 'react-native';
 import Camera from 'react-native-camera';
+import TimerMixin from 'react-timer-mixin';
 
 export default class CameraScreen extends Component {
+
+  componentDidMount () {
+    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture()}, 1000);
+    this.clearTimer = TimerMixin.setTimeout(() => {TimerMixin.clearInterval(this.intervalTimer)}, 10000);
+  }
+
+  takePicture () {
+    this.camera.capture()
+      .then(console.log("has taken"))
+      .catch(err => console.error(err));
+  }
+
+  componentWillUnmount() {
+    TimerMixin.clearInterval(this.intervalTimer)
+    TimerMixin.clearTimeout(this.clearTimer);
+  }
+
 
   render() {
     return (
@@ -24,12 +42,6 @@ export default class CameraScreen extends Component {
         </Camera>
       </View>
     );
-  }
-
-  takePicture () {
-    this.camera.capture()
-      .then(Alert.alert("Photo has been taken"))
-      .catch(err => console.error(err));
   }
 }
 
