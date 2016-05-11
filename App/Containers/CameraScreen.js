@@ -5,12 +5,19 @@ import React, {
   Text,
   TouchableHighlight,
   View,
-  Alert
+  ToastAndroid
 } from 'react-native';
 import Camera from 'react-native-camera';
 import TimerMixin from 'react-timer-mixin';
 
 export default class CameraScreen extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      imageList: []
+    }
+  }
 
   componentDidMount () {
     this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture()}, 2000);
@@ -19,17 +26,19 @@ export default class CameraScreen extends Component {
 
   takePicture () {
     this.camera.capture()
-      .then((data) => console.log(data.path))
-      .catch(err => console.error(err));
+      .then((data) => {this.setState({
+        imageList: this.state.imageList.concat([data.path])
+      });
+      ToastAndroid.show('Photo has been taken', ToastAndroid.SHORT)
+    }).catch(err => console.error(err));
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     TimerMixin.clearInterval(this.intervalTimer)
     TimerMixin.clearTimeout(this.clearTimer);
   }
 
-
-  render() {
+  render () {
     return (
       <View style={styles.container}>
         <Camera
