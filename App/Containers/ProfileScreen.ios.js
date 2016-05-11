@@ -86,7 +86,7 @@ export default class ProfileScreen extends React.Component {
 
   onCheckedItem (item) {
     const {firstName, lastName, birthday, gender, email, mobile, groups, address} = this.state.profile
-    let i = this.indexOfGroupId(groups, item.groupId)
+    let i = this.indexOfGroupId(groups ? [...groups] : [], item.groupId)
 
     if (i > -1) {
       this.setState({
@@ -144,7 +144,7 @@ export default class ProfileScreen extends React.Component {
              <TouchableOpacity key ={i} onPress={() => this.onCheckedItem(item)}>
                 <View style={formStyles.checkboxRow}>
                   <MKCheckbox 
-                    checked={this.isAvailbleInGroup(groups, item.groupId)} 
+                    checked={this.isAvailbleInGroup(groups ? [...groups] : [], item.groupId)} 
                     style={formStyles.checkbox}
                     onCheckedChange={(event) => this.onCheckedItem(item)}
                   />
