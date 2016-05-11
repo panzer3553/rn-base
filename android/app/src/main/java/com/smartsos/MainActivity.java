@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.imagepicker.ImagePickerPackage;
+import com.lwansbrough.RCTCamera.*;
 import android.provider.Settings;
 
 public class MainActivity extends ReactActivity {
@@ -52,6 +53,7 @@ public class MainActivity extends ReactActivity {
             new AirPackage(),
             new ReactMaterialKitPackage(),
             new ImagePickerPackage(),
+            new RCTCameraPackage(),
             mReactNativePushNotificationPackage
         );
     }

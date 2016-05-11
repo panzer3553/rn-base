@@ -73,23 +73,7 @@ export default class AllComponentsScreen extends React.Component {
   }
 
   handleShowPopUp (_items) {
-    ImagePickerManager.showImagePicker(options, (response) => {
-        console.log('Response = ', response);
-
-        if (response.didCancel) {
-          console.log('User cancelled image picker');
-        }
-        else if (response.error) {
-          console.log('ImagePickerManager Error: ', response.error);
-        }
-        else if (response.customButton) {
-          console.log('User tapped custom button: ', response.customButton);
-        }
-        else {
-          const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true}
-              this.setState({image: source});
-        }
-      });
+    this.props.navigator.push(Routes.CameraScreen)
   }
 
   handleClosePopUp () {
@@ -158,7 +142,6 @@ export default class AllComponentsScreen extends React.Component {
     return (
       <View style={styles.screenContainer}>
         <MapScreen />
-        <Image source={this.state.image} style={{width: 64, height: 64}} />
         <View style={styles.infoIconContainer}>
           <SmallFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
             <Icon name="info" size={Metrics.icons.small} color="red" />

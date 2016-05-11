@@ -85,4 +85,21 @@ export default new class Routes {
       displayNavBar: true
     }
   }
+  get SwiperScreen () {
+    return {
+      title: I18n.t('about'),
+      component: require('../Containers/SwiperScreen').default,
+      customConfiguration: Transitions.modal,
+      displayNavBar: false
+    }
+  }
+    get CameraScreen () {
+    return {
+      title: I18n.t('camera'),
+      customConfiguration: Transitions.modal,
+      component: require('../Containers/CameraScreen').default,
+      leftButton: 'BACK',
+      displayNavBar: true
+    }
+  }
 }
