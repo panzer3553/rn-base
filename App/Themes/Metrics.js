@@ -1,6 +1,7 @@
-import React from 'react-native'
+import React, {Platform} from 'react-native'
 
 const { width, height } = React.Dimensions.get('window')
+const navBarHeight = Platform.OS === 'android' ? 56 : 64
 
 // Used via Metrics.baseMargin
 // or Metrics.fonts.tiny
@@ -12,7 +13,7 @@ const metrics = {
   horizontalLineHeight: 1,
   screenWidth: width + 3,// React.Dimensions.get('window') width is wrong , padding -3 pixel -> so plus 3 
   screenHeight: height,
-  navBarHeight: 64,
+  navBarHeight: navBarHeight,
   buttonRadius: 4,
   icons: {
     tiny: 15,

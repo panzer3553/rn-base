@@ -113,7 +113,9 @@ class Intro extends Component {
           dot={<View style={{backgroundColor: 'rgba(255,255,255,0.2)', width: 6, height: 6, borderRadius: 3, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
           activeDot={<View style={{backgroundColor: 'rgba(255,255,255,1)', width: 6, height: 6, borderRadius: 3, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}>
           <View style={styles.slide}>
-            <Text style={styles.slideTextTitle}>Welcome</Text>
+            <View style={styles.logoIconContainer}>
+              <Icon name="medkit" size={100} color="white"></Icon>
+            </View>
             <Text style={styles.slideText}>SmartSOS will help you with emergency situations</Text>
           </View>
           <View style={styles.slide}>

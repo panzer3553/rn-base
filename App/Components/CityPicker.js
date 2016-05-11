@@ -1,4 +1,4 @@
-import React, { Modal, ScrollView, View, TouchableOpacity, Text, StyleSheet, Component } from 'react-native'
+import React, {Modal, ScrollView, View, TouchableOpacity, Text, StyleSheet, Component, Platform, TextInput} from 'react-native'
 import cities from '../Config/CitiesData'
 import SearchBar from 'react-native-search-bar'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -58,35 +58,47 @@ export default class CityPicker extends Component {
     })
   }
 
-  render () {
+  renderSearchBar () {
+    Platform.OS === 'android' ? 
+      ( <TextInput
+        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={(text) => this._onChangeText(text)}
+        value={this.state.text}
+        />
+      ) : (<SearchBar
+        ref='searchBar'
+        placeholder='Search'
+        onChangeText={(text) => {this._onChangeText(text)}}
+        />)
+  }
+
+  render(){
   	return(
     	<View>
     	  <TouchableOpacity
           style={styles.pickerContainer}
     	    onPress={() => this.setState({modalVisible: true})}
           activeOpacity={0.7}>
-          <Text>{this.state.city || "Select a city"}</Text>
+          <Text>{this.state.city || 'Select a city'}</Text>
           <Icon name="ios-arrow-down" size={18} color="black" style={styles.dropDownIcon}></Icon>
         </TouchableOpacity> 
 
         <Modal
           animated={true}
           transparent={false}
-          visible={this.state.modalVisible}>
-          <ScrollView
-            ref={(scrollView) => { this._scrollView = scrollView; }}
-            contentContainerStyle={styles.contentContainer}
-            showsVerticalScrollIndicator={false}
-            bounces={false}
-            scrollsToTop={true}
-            contentOffset={{y:-30}}>
-          	<SearchBar
-      	      ref='searchBar'
-      	      placeholder='Search'
-              onChangeText={(text) => {this._onChangeText(text)}}
-            />
-            { this.state.cities.map((city, index) => this._renderCity(city, index)) }
-          </ScrollView>
+          visible={this.state.modalVisible}
+          onRequestClose={() => this.setState({modalVisible: true})}
+          >
+        {this.renderSearchBar()}
+        <ScrollView
+          ref={(scrollView) => { this._scrollView = scrollView; }}
+          contentContainerStyle={styles.contentContainer}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+          scrollsToTop={true}
+          contentOffset={{y:-30}}>
+          {this.state.cities.map((city, index) => this._renderCity(city, index))}
+        </ScrollView>
         </Modal>
       </View>
     )

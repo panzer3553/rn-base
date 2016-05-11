@@ -4,7 +4,8 @@ export default config = {
   URL: 'https://api.parse.com/1/',
   PARSE_CLOUD_GCD_SENDER_ID: '395124388701',
   STORAGE_KEY_PROFILE: 'PROFILE_ID',
-  STORAGE_KEY_TOKEN: 'TOKEN_ID'
+  STORAGE_KEY_TOKEN: 'TOKEN_ID',
+  PUSH_TYPE: 'gcm'
 }
 
 export const userGroupListData = [

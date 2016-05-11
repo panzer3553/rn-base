@@ -1,15 +1,16 @@
-import React, { Modal, ScrollView, View, TouchableOpacity, Text, StyleSheet, Component } from 'react-native'
-import { Colors, Metrics, Base } from '../Themes/'
+import React, {Modal, ScrollView, View, TouchableOpacity, Text, StyleSheet, Component} from 'react-native'
 import cities from '../Config/CitiesData'
 import SearchBar from 'react-native-search-bar'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { Colors, Metrics, Base } from '../Themes/'
 import fuzzy from 'fuzzy'
+import IconF from 'react-native-vector-icons/FontAwesome'
 
 export default class CityPicker extends Component {
   
-  constructor (props) {
+  constructor(props){
     super(props)
-    this.state = {
+    this.state ={
       modalVisible: false,
       city: null,
       cities: cities.map((city) => city.name)
@@ -17,33 +18,31 @@ export default class CityPicker extends Component {
     this._onChangeText = this._onChangeText.bind(this)
   }
 
-  componentDidMount () {
-    if(this.props.value) {
-      this.setState({
-        city: this.props.value
-      })
-    }
-  }
-
-  _renderCity (city, index) {
+  _renderCity(city, index) {
     return (
       <TouchableOpacity
         key={index}
         style={styles.list}
-        onPress={() => this._onSelect(city, index)}
+        onPress={()=> this._onSelect(city, index)}
         activeOpacity={0.99}>
-        { this._renderCityDetail(city) }
-      </TouchableOpacity>)
+        {this._renderCityDetail(city)}
+    </TouchableOpacity>);
   }
 
-  _renderCityDetail (city) {
+  _renderCityDetail(city) {
     return (
       <View>
         <Text>{city}</Text>
       </View>)
   }
 
-  _onSelect (city, index) {
+  componentDidMount () {
+    if(this.props.value){
+      this.setState({city: this.props.value})
+    }
+  }
+
+  _onSelect(city, index) {
     this.setState({
       modalVisible: false,
       city: city
@@ -59,7 +58,7 @@ export default class CityPicker extends Component {
 
   _onChangeText(text) {
     let results = fuzzy.filter(text, cities.map((city) => city.name))
-    let matches = results.map(function(el) { return el.string })
+    let matches = results.map(function(el) { return el.string; })
     this.setState({
       cities: matches,
     })
@@ -71,17 +70,13 @@ export default class CityPicker extends Component {
       <TouchableOpacity
         style={styles.pickerContainer}
         onPress={()=> this.setState({modalVisible: true})}
-        activeOpacity={0.7}>
-        <Icon name='ios-home-outline'
-            size={Metrics.icons.x_small}
-            style={{color: Colors.formTextColor}}/>
-        <Text style={styles.label}>{ this.state.city || 'Select a city' }</Text>
-        <Icon 
-          name='ios-arrow-right' 
-          size={Metrics.icons.x_small} 
-          color='black' 
-          style={[styles.dropDownIcon, {color: Colors.formTextColor}]}>
-        </Icon>
+        activeOpacity={0.7}
+      >
+      <Icon name='ios-location-outline'
+          size={Metrics.icons.x_small}
+          style={[{color: Colors.formTextColor}, styles.alignLeft]}/>
+      <Text style={styles.label}>{this.state.city || "Select a city"}</Text>
+      <IconF name="angle-right" size={Metrics.icons.x_small} color="black" style={[styles.dropDownIcon, {color: Colors.formTextColor}]}/>
       </TouchableOpacity>      
 
       <Modal
@@ -109,28 +104,36 @@ var styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   list:{
-    height: 40,
-    paddingLeft: 20,
-    justifyContent: 'center',
-    borderBottomColor: '#aaa',
+    height:40,
+    paddingLeft:20,
+    justifyContent:"center",
+    borderBottomColor:"#aaa",
     borderBottomWidth: 0.5
   },
   pickerContainer: {
     backgroundColor: Colors.snow,
     paddingLeft: 16,
     paddingBottom: 8,
-    flexDirection: 'row',
-    borderBottomColor: '#999',
-    borderBottomWidth: 1
-
+    flexDirection: "row",
+    borderBottomColor:"#999",
+    borderBottomWidth: 1,
+    height: 48,
   },
+
   dropDownIcon: {
-    position: 'absolute',
-    right: 8  
+    marginTop: 8, 
+    position:'absolute', 
+    right: 10
   },
   label: {
     fontSize: 16,
-    marginTop: 4,
-    marginLeft: 12,
+    marginTop: 12,
+    fontSize: 17,
+    marginLeft: 28,
+  },
+  alignLeft:{
+    marginTop: 9,
+    position:'absolute',
+    left: 14
   }
 });

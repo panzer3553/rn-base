@@ -1,5 +1,5 @@
 // An All Components Screen is a great way to dev and quick-test components
-import React, { View, Text, PropTypes, Alert, AsyncStorage } from 'react-native'
+import React, { View, Text, PropTypes, Alert, AsyncStorage, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/HomeScreenStyle'
 import { Colors, Images, Metrics } from '../Themes'
@@ -13,6 +13,7 @@ import Communications from 'react-native-communications'
 import PushNotification from 'react-native-push-notification'
 import I18n from '../I18n/I18n.js'
 import config, { homeInfoListData } from '../Config/AppSetting'
+import SendIntentAndroid from 'react-native-send-intent'
 
 export default class HomeScreen extends React.Component {
 
@@ -52,12 +53,22 @@ export default class HomeScreen extends React.Component {
       _message + _phoneNumber,
       [
         {text: 'Cancel', onPress: () => console.log('Cancel')},
-        {text: 'OK', onPress: () =>  Communications.phonecall(_phoneNumber, false)},
+        {text: 'OK', onPress: () =>  this.makePhoneCall(_phoneNumber)},
       ]
     )
     const {dispatch} = this.props  
     dispatch(Actions.updateLocationAndSaveEmergency(type))
   }
+
+  makePhoneCall (_phoneNumber) {
+    if(Platform.OS === 'android'){
+      SendIntentAndroid.sendPhoneCall(_phoneNumber)
+    }
+    else
+      Communications.phonecall(_phoneNumber, false)
+  }
+
+
 
   renderMapScreen () {
     return (<MapScreen />)

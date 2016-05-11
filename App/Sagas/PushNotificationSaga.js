@@ -19,7 +19,6 @@ function normalizeData(str: string | Object) {
 }
 
 export function * storeDeviceToken(deviceToken: string)  {
-  console.log('Got device token', deviceToken)
   //const pushType = Platform.OS === 'android' ? 'gcm' : undefine
   yield put(Actions.REGISTERED_PUSH_NOTIFICATIONS)
 }
@@ -33,7 +32,6 @@ export function * skipPushNotifications () {
 }
 
 export function * receivePushNotification (notification) {
-  console.log('NOTIFICATION ' + notification)
   yield put(Actions.RECEIVED_PUSH_NOTIFICATION)
 }
 
