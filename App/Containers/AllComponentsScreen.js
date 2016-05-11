@@ -73,7 +73,8 @@ export default class AllComponentsScreen extends React.Component {
   }
 
   handleShowPopUp (_items) {
-    this.props.navigator.push(Routes.CameraScreen)
+    this.setState({isPopupShow: true})
+    this.setState({items: _items})
   }
 
   handleClosePopUp () {
@@ -107,6 +108,12 @@ export default class AllComponentsScreen extends React.Component {
   saveEmergency(emergency){
     const {dispatch} = this.props
     dispatch(Actions.saveEmergency(emergency))
+  }
+
+  sendExtremeEmergency () {
+    const {dispatch} = this.props  
+    dispatch(Actions.updateLocationAndSaveEmergency("alarm"))
+    this.props.navigator.push(Routes.CameraScreen)
   }
 
   render () {
@@ -145,6 +152,11 @@ export default class AllComponentsScreen extends React.Component {
         <View style={styles.infoIconContainer}>
           <SmallFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
             <Icon name="info" size={Metrics.icons.small} color="red" />
+          </SmallFab>
+        </View>
+        <View style={styles.extremeIconContainer}>
+          <SmallFab onPress={this.sendExtremeEmergency.bind(this)}>
+            <Icon name="warning" size={Metrics.icons.small} color="red" />
           </SmallFab>
         </View>
         <BubblePopUp  
