@@ -13,13 +13,13 @@ import TimerMixin from 'react-timer-mixin';
 export default class CameraScreen extends Component {
 
   componentDidMount () {
-    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture()}, 1000);
+    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture()}, 2000);
     this.clearTimer = TimerMixin.setTimeout(() => {TimerMixin.clearInterval(this.intervalTimer)}, 10000);
   }
 
   takePicture () {
     this.camera.capture()
-      .then(console.log("has taken"))
+      .then((data) => console.log(data.path))
       .catch(err => console.error(err));
   }
 
@@ -36,9 +36,9 @@ export default class CameraScreen extends Component {
           ref={(cam) => {
             this.camera = cam;
           }}
+          captureTarget={Camera.constants.CaptureTarget.disk}
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}>
-          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
         </Camera>
       </View>
     );
