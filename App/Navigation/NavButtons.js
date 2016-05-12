@@ -1,4 +1,4 @@
-import React, { TouchableOpacity, Text } from 'react-native'
+import React, { TouchableOpacity, Text, Platform } from 'react-native'
 import styles from './Styles/NavigationStyle'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Colors, Metrics } from '../Themes'
@@ -11,10 +11,10 @@ export default {
   backButton (onPressFunction) {
     return (
       <TouchableOpacity onPress={onPressFunction}>
-        <Icon name='ios-arrow-back'
-          size={Metrics.icons.large}
+        <Icon name={Platform.OS === 'android' ? 'android-arrow-back' : 'ios-arrow-back'}
+          size={30}
           color={Colors.snow}
-          style={styles.navButtonLeft}
+          style={[styles.navButtonLeft, styles.backButton]}
         />
       </TouchableOpacity>
     )

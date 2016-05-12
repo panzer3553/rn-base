@@ -73,25 +73,8 @@ export default class AllComponentsScreen extends React.Component {
   }
 
   handleShowPopUp (_items) {
-    ImagePickerManager.showImagePicker(options, (response) => {
-  console.log('Response = ', response);
-
-  if (response.didCancel) {
-    console.log('User cancelled image picker');
-  }
-  else if (response.error) {
-    console.log('ImagePickerManager Error: ', response.error);
-  }
-  else if (response.customButton) {
-    console.log('User tapped custom button: ', response.customButton);
-  }
-  else {
-    // You can display the image using either data:
-    const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-  
-  }
-});
-
+    this.setState({isPopupShow: true})
+    this.setState({items: _items})
   }
 
   handleClosePopUp () {

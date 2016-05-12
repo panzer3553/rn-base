@@ -4,7 +4,7 @@ import NavigationBarRouteMapper from './NavigationBarRouteMapper'
 // Stylesheet
 import styles from './Styles/NavigationStyle'
 
-const { Navigator } = React
+const { Navigator, Platform } = React
 
 class NavigationBar extends Navigator.NavigationBar {
   render() {
@@ -23,7 +23,7 @@ export default {
   render () {
     return (
       <NavigationBar
-      	navigationStyles={Navigator.NavigationBar.StylesIOS}
+      	navigationStyles={Platform.OS === 'android' ? Navigator.NavigationBar.StylesAndroid : Navigator.NavigationBar.StylesIOS}
         routeMapper={NavigationBarRouteMapper}
         style={styles.navigationBar}
       />

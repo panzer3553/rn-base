@@ -1,4 +1,4 @@
-import React from 'react-native'
+import React, { Platform } from 'react-native'
 import { Fonts, Metrics, Colors } from '../../Themes/'
 
 const NavigationStyle = React.StyleSheet.create({
@@ -27,15 +27,19 @@ const NavigationStyle = React.StyleSheet.create({
     color: Colors.snow,
     justifyContent: 'center',
     marginLeft: 8,
-    fontFamily: Fonts.bold,
+    marginTop: (Platform.OS === 'android') ? 16 : 0,
     padding: Metrics.baseMargin
   },
   navButtonLeft: {
-    marginLeft: 15,
+    marginLeft: 16,
+    marginTop: (Platform.OS === 'android') ? 8 : 0,
     justifyContent: 'center'
   },
   navigationBar: {
     backgroundColor: Colors.drawerColor
+  },
+  backButton : {
+    marginTop: (Platform.OS === 'android') ? 12 : 4
   }
 })
 
