@@ -1,5 +1,5 @@
 // An All Components Screen is a great way to dev and quick-test components
-import React, { View, Text, PropTypes, Alert, AsyncStorage, Image } from 'react-native'
+import React, { View, Text, PropTypes, Alert, AsyncStorage, Image, InteractionManager } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/AllComponentsScreenStyle'
 import { Colors, Images, Metrics } from '../Themes'
@@ -111,9 +111,11 @@ export default class AllComponentsScreen extends React.Component {
   }
 
   sendExtremeEmergency () {
-    const {dispatch} = this.props  
-    dispatch(Actions.updateLocationAndSaveEmergency("alarm"))
-    this.props.navigator.push(Routes.CameraScreen)
+    InteractionManager.runAfterInteractions(() => {
+      const {dispatch} = this.props  
+      dispatch(Actions.updateLocationAndSaveEmergency("alarm"))
+      this.props.navigator.push(Routes.CameraScreen)
+    })
   }
 
   render () {

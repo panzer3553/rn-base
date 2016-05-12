@@ -5,7 +5,8 @@ import React, {
   Text,
   TouchableHighlight,
   View,
-  ToastAndroid
+  ToastAndroid,
+  Platform
 } from 'react-native';
 import Camera from 'react-native-camera';
 import TimerMixin from 'react-timer-mixin';
@@ -15,21 +16,19 @@ export default class CameraScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      imageList: []
+      imageList: [],
+      isAuto: true
     }
   }
 
   componentDidMount () {
-    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture()}, 2000);
-    this.clearTimer = TimerMixin.setTimeout(() => {TimerMixin.clearInterval(this.intervalTimer)}, 10000);
+    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture()}, 1500);
+    this.clearTimer = TimerMixin.setTimeout(() => {TimerMixin.clearInterval(this.intervalTimer);this.setState({isAuto: false})}, 10000);
   }
 
   takePicture () {
     this.camera.capture()
-      .then((data) => {this.setState({
-        imageList: this.state.imageList.concat([data.path])
-      });
-      ToastAndroid.show('Photo has been taken', ToastAndroid.SHORT)
+      .then((data) => {console.log(data)
     }).catch(err => console.error(err));
   }
 
@@ -39,16 +38,20 @@ export default class CameraScreen extends Component {
   }
 
   render () {
+    const text = this.state.isAuto ? <Text style={styles.capture}>Automatic take picture</Text> : null
     return (
       <View style={styles.container}>
         <Camera
           ref={(cam) => {
             this.camera = cam;
           }}
-          captureTarget={Camera.constants.CaptureTarget.disk}
+          captureTarget={Platform.OS === 'android' ? Camera.constants.CaptureTarget.disk : Camera.constants.CaptureTarget.cameraRoll}
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}>
         </Camera>
+        <View >
+        {text}
+        </View>
       </View>
     );
   }
@@ -63,14 +66,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width
+    width: Dimensions.get('window').width + 3
   },
   capture: {
     flex: 0,
     backgroundColor: '#fff',
     borderRadius: 5,
+    alignSelf: 'center',
     color: '#000',
     padding: 10,
-    margin: 40
+    margin: 10
   }
 });

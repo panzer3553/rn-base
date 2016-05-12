@@ -5,7 +5,7 @@ const colors = {
             (Math.floor(Math.random() * 256)) + ')',
   background: 'white',
   snow: 'white',
-  drawerColor: '#E36F34',
+  drawerColor: '#FF5722',
   clear: 'rgba(0,0,0,0)',
   ocean: '#415572',
   deepOcean: '#32435c',

@@ -19,7 +19,6 @@ import { connect } from 'react-redux'
 import styles from './Containers/Styles/RootStyle'
 import drawerStyles from './Containers/Styles/DrawerStyle'
 import I18n from './I18n/I18n.js'
-import PushNotification from 'react-native-push-notification'
 import PushNotificationsController from './Containers/PushNotificationsController'
 
 const drawerItems = [
@@ -63,6 +62,7 @@ export default class RNBase extends React.Component {
     switch(path){
       case 'profile':
         const Profile = Routes.ProfileScreen
+        console.log(this.navigator.currentRoute)
         this.navigator.push(Profile)
         break
       case 'home':

@@ -31,7 +31,9 @@ const NavigationStyle = React.StyleSheet.create({
     padding: Metrics.baseMargin
   },
   navButtonLeft: {
-    marginLeft: 16,
+    paddingLeft: 16,
+    paddingRight: 16,
+    marginLeft: (Platform.OS === 'android') ? 16 : 0,
     marginTop: (Platform.OS === 'android') ? 8 : 0,
     justifyContent: 'center'
   },
