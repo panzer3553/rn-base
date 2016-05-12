@@ -39,7 +39,9 @@ export default StyleSheet.create({
   },
   slideText: {
     color: "#fff",
-    textAlign:"center"
+    textAlign:"center",
+    fontSize: 18,
+    margin: 16
   },
   slideTextTitle: {
     color: "#fff",

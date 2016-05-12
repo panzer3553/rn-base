@@ -23,7 +23,7 @@ export default {
   render () {
     return (
       <NavigationBar
-      	navigationStyles={Platform.OS === 'android' ? Navigator.NavigationBar.StylesAndroid : Navigator.NavigationBar.StylesIOS}
+      	navigationStyles={Platform.OS === 'android' ? Navigator.NavigationBar.StylesAndroid :Navigator.NavigationBar.StylesIOS}
         routeMapper={NavigationBarRouteMapper}
         style={styles.navigationBar}
       />

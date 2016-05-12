@@ -13,7 +13,7 @@ const NavigationStyle = React.StyleSheet.create({
     color: Colors.snow,
     fontSize: 17,
     letterSpacing: 0.5,
-    fontWeight: '500',
+    fontWeight: '500'
   },
   navSubtitle: {
     flex: 1,
@@ -43,7 +43,15 @@ const NavigationStyle = React.StyleSheet.create({
   },
   backButton : {
     marginTop: (Platform.OS === 'android') ? 12 : 4
-  }
+  },
+  navButtonTextAndroid: {
+    marginTop: 18,
+    fontSize: 16
+  },
+  navButtonLeftAndroid: {
+    marginTop: 18,
+    marginLeft: 16
+  },
 })
 
 export default NavigationStyle

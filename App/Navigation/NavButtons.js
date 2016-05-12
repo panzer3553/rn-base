@@ -2,9 +2,8 @@ import React, { TouchableOpacity, Text, Platform } from 'react-native'
 import styles from './Styles/NavigationStyle'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Colors, Metrics } from '../Themes'
-
-// I18n
 import I18n from '../I18n/I18n.js'
+const isAndroid = Platform.OS === 'android'
 
 export default {
 
@@ -23,7 +22,7 @@ export default {
   hamburgerButton (onPressFunction) {
     return (
       <TouchableOpacity onPress={onPressFunction}>
-        <Icon name='navicon'
+        <Icon name={'navicon'}
           size={Metrics.icons.large}
           color={Colors.snow}
           style={styles.navButtonLeft}
@@ -43,7 +42,7 @@ export default {
   saveButton (onPressFunction) {
     return (
       <TouchableOpacity onPress={onPressFunction}>
-        <Text style={styles.navButtonText}>{I18n.t('save')}</Text>
+        <Text style={[styles.navButtonText, isAndroid && styles.navButtonTextAndroid]}>{I18n.t('save')}</Text>
       </TouchableOpacity>
     )
   }

@@ -1,5 +1,9 @@
 // An All Components Screen is a great way to dev and quick-test components
+<<<<<<< HEAD
 import React, { View, Text, PropTypes, Alert, AsyncStorage, Image, InteractionManager } from 'react-native'
+=======
+import React, { View, Text, PropTypes, Alert, AsyncStorage, Platform } from 'react-native'
+>>>>>>> AndroidFix
 import { connect } from 'react-redux'
 import styles from './Styles/AllComponentsScreenStyle'
 import { Colors, Images, Metrics } from '../Themes'

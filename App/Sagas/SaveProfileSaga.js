@@ -6,7 +6,7 @@ import Actions from '../Actions/Creators'
 import config from '../Config/AppSetting'
 const STORAGE_KEY_PROFILE = "PROFILE_ID"
 const STORAGE_KEY_TOKEN = "TOKEN_ID"
-import {AsyncStorage} from 'react-native'
+import {AsyncStorage, Platform} from 'react-native'
 
 function * saveProfile (profile, objectId) {
   if(objectId){
@@ -49,7 +49,9 @@ export function saveToken (token, profileId) {
       },
       body: JSON.stringify({
         deviceToken: token.token,
-        deviceType: token.os    
+        deviceType: token.os,
+        pushType: Platform.OS === 'android' ? 'gcm' : null,
+        GCMSenderId: Platform.OS === 'android' ? '395124388701' : null        
       })
     }).then(response => response.json())
   }else{
@@ -64,6 +66,8 @@ export function saveToken (token, profileId) {
       body: JSON.stringify({
         deviceToken: token.token,
         deviceType: token.os,
+        pushType: Platform.OS === 'android' ? 'gcm' : null,
+        GCMSenderId: Platform.OS === 'android' ? '395124388701' : null,      
         profile: {
           __type: 'Pointer',
           className: 'Profile',
@@ -80,7 +84,6 @@ export function * watchSaveProfile () {
     try{
       if(objectId){
         const ok = yield call(saveProfile, profile, objectId)
-        console.log(ok)
         yield put(Actions.saveProfileSuccess()) 
       }else{
         const ok = yield call(saveProfile, profile)
