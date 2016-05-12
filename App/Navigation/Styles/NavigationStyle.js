@@ -11,10 +11,9 @@ const NavigationStyle = React.StyleSheet.create({
   },
   navTitle: {
     color: Colors.snow,
-    fontSize: Metrics.fonts.regular,
-    fontFamily: Fonts.bold,
-    justifyContent: 'center',
-    alignSelf: 'center'
+    fontSize: 17,
+    letterSpacing: 0.5,
+    fontWeight: '500',
   },
   navSubtitle: {
     flex: 1,
@@ -38,7 +37,9 @@ const NavigationStyle = React.StyleSheet.create({
     justifyContent: 'center'
   },
   navigationBar: {
-    backgroundColor: Colors.drawerColor
+    backgroundColor: Colors.drawerColor,
+    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+    borderBottomWidth: 1,
   },
   backButton : {
     marginTop: (Platform.OS === 'android') ? 12 : 4

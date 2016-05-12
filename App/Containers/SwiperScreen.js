@@ -44,8 +44,8 @@ class Intro extends Component {
     const {groupId, city, countryCode} = this.state
     dispatch(Actions.saveProfile({groups: groupId, city: city, country: countryCode}))
     try {
-      await AsyncStorage.setItem(STORAGE_KEY_FIRST_LOAD, 'false')
-      this.props.navigator.push(Routes.AllComponentsScreen)
+        await AsyncStorage.setItem(STORAGE_KEY_FIRST_LOAD, 'false')
+        this.props.navigator.push(Routes.AllComponentsScreen)
     } catch (error) {
       console.log(error)
     }

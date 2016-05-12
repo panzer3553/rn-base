@@ -19,35 +19,14 @@ const fireItems = [
   {icon: 'fire', text: 'Location Info', func: 'JSONLocation'}, 
 ]
 
-const options = {
-  title: 'Select Image', // specify null or empty string to remove the title
-  cancelButtonTitle: 'Cancel',
-  takePhotoButtonTitle: 'Take Photo', // specify null or empty string to remove this button
-  chooseFromLibraryButtonTitle: 'Choose from Library', // specify null or empty string to remove this button
-  cameraType: 'back', // 'front' or 'back'
-  mediaType: 'photo', // 'photo' or 'video'
-  videoQuality: 'medium', // 'low', 'medium', or 'high'
-  durationLimit: 10, // video recording max time in seconds
-  maxWidth: 100, // photos only
-  maxHeight: 100, // photos only
-  aspectX: 2, // android only - aspectX:aspectY, the cropping image's ratio of width to height
-  aspectY: 1, // android only - aspectX:aspectY, the cropping image's ratio of width to height
-  quality: 0.2, // 0 to 1, photos only
-  angle: 0, // android only, photos only
-  allowsEditing: false, // Built in functionality to resize/reposition the image after selection
-  noData: false, // photos only - disables the base64 `data` field from being generated (greatly improves performance on large photos)
-  storageOptions: { // if this key is provided, the image will get saved in the documents directory on ios, and the pictures directory on android (rather than a temporary directory)
-    skipBackup: true, // ios only - image will NOT be backed up to icloud
-    path: 'images' // ios only - will save image at /Documents/images rather than the root
-  }
-}
-
 const Fab = MKButton.plainFab()
-  .withStyle({width:Metrics.button.large, height: Metrics.button.large, borderRadius: Metrics.button.large/2, backgroundColor: Colors.snow})
+  .withStyle({width:Metrics.button.large, height: Metrics.button.large, borderRadius: Metrics.button.large/2})
+  .withBackgroundColor(Colors.snow)
   .build()
 
 const SmallFab = MKButton.plainFab()
-  .withStyle({width:Metrics.button.medium, height: Metrics.button.medium, borderRadius: Metrics.button.medium/2, backgroundColor: Colors.snow})
+  .withStyle({width:Metrics.button.medium, height: Metrics.button.medium, borderRadius: Metrics.button.medium/2})
+  .withBackgroundColor(Colors.snow)
   .build()
 
 export default class AllComponentsScreen extends React.Component {
@@ -127,7 +106,7 @@ export default class AllComponentsScreen extends React.Component {
             'Please confirm to make the call to FIRE STATION: ',
             '+84982709185', 
             'fire')}>
-            <Icon name="fire" size={Metrics.icons.medium} color="red" />
+            <Icon name="fire" size={27} color="red" />
           </Fab>
           <Fab  onPress={this.showConfirmDialog.bind(this, 
             'Do you want to make this call ?',
@@ -135,7 +114,7 @@ export default class AllComponentsScreen extends React.Component {
             'Please confirm to make the call to  AMBULANCE: ',
             '+84982709185',
              'ambulance')}>
-            <Icon name="ambulance" size={Metrics.icons.medium} color="red" />
+            <Icon name="ambulance" size={27} color="red" />
           </Fab>
           <Fab  onPress={this.showConfirmDialog.bind(this, 
             'Do you want to make this call ?',
@@ -143,7 +122,7 @@ export default class AllComponentsScreen extends React.Component {
             'Please confirm to make the call to POLICE STATION: ',
             '+84982709185', 
             'police' )}>
-            <Icon name="bell" size={Metrics.icons.medium} color="red" />
+            <Icon name="bell" size={27} color="red" />
           </Fab>
        </View>   
     )

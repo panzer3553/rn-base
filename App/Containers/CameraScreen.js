@@ -10,6 +10,7 @@ import React, {
 } from 'react-native';
 import Camera from 'react-native-camera';
 import TimerMixin from 'react-timer-mixin';
+import Icon from 'react-native-vector-icons/Ionicons'
 
 export default class CameraScreen extends Component {
 
@@ -22,7 +23,7 @@ export default class CameraScreen extends Component {
   }
 
   componentDidMount () {
-    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture()}, 1500);
+    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture()}, 1000);
     this.clearTimer = TimerMixin.setTimeout(() => {TimerMixin.clearInterval(this.intervalTimer);this.setState({isAuto: false})}, 10000);
   }
 
@@ -38,7 +39,7 @@ export default class CameraScreen extends Component {
   }
 
   render () {
-    const text = this.state.isAuto ? <Text style={styles.capture}>Automatic take picture</Text> : null
+    const text = this.state.isAuto ? <Text style={styles.capture}>Automatic take picture</Text> : <Icon name="ios-camera" size={48} color="white" />
     return (
       <View style={styles.container}>
         <Camera
@@ -49,7 +50,7 @@ export default class CameraScreen extends Component {
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}>
         </Camera>
-        <View >
+        <View style={styles.bottomView}>
         {text}
         </View>
       </View>
@@ -69,12 +70,17 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width + 3
   },
   capture: {
-    flex: 0,
     backgroundColor: '#fff',
-    borderRadius: 5,
-    alignSelf: 'center',
+    borderRadius: 10,
     color: '#000',
-    padding: 10,
-    margin: 10
+    padding: 10
+  },
+  bottomView: {
+    position: 'absolute',
+    flex: 0,
+    left: 0,
+    bottom: 30,
+    alignItems: 'center', 
+    width: Dimensions.get('window').width + 3
   }
 });
