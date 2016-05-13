@@ -7,34 +7,38 @@ import config from '../Config/AppSetting'
 import {Platform} from 'react-native'
 
 export function * saveToken (token, profileId) {
-  if(profileId == null){
-    return fetch(config.url + 'installations', {
+  if(profileId == null) {
+    return fetch(config.URL + 'installations', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'X-Parse-Application-Id': config.parse_id,
-          'X-Parse-REST-API-Key': config.parse_api_key
+          'X-Parse-Application-Id': config.PARSE_ID,
+          'X-Parse-REST-API-Key': config.PARSE_API_KEY
         },
         body: JSON.stringify({
           deviceToken: token.token,
           deviceType: token.os,
           pushType: Platform.OS === 'android' ? 'gcm' : null,
-          GCMSenderId: Platform.OS === 'android' ? '395124388701' : null,
+          GCMSenderId: Platform.OS === 'android' ? config.PARSE_CLOUD_GCD_SENDER_ID : null          
         })
   	}).then(response => response.json())
-  }else{
+  }
+  else {
     return fetch(config.url + 'installations', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'X-Parse-Application-Id': config.parse_id,
-          'X-Parse-REST-API-Key': config.parse_api_key
+          'X-Parse-Application-Id': config.PARSE_ID,
+          'X-Parse-REST-API-Key': config.PARSE_API_KEY
         },
         body: JSON.stringify({
           deviceType: token.os,
           deviceToken: token.token,
+          deviceType: token.os,
+          pushType: Platform.OS === 'android' ? 'gcm' : null,
+          GCMSenderId: Platform.OS === 'android' ? config.PARSE_CLOUD_GCD_SENDER_ID : null,      
           profile: {
             __type: 'Pointer',
             className: 'Profile',
@@ -46,13 +50,13 @@ export function * saveToken (token, profileId) {
 }
 
 export function * watchSaveToken() {
-  while(true){  
+  while(true) {  
     const {token, profileId} = yield take(Types.SAVE_TOKEN)
-    try{
+    try {
       const ok = yield call(saveToken, token, profileId)
       yield put(Actions.saveTokenSuccess(ok)) 
     }
-    catch(error){
+    catch(error) {
      	yield put(Actions.saveTokenFailure(error.message))
     }
   }

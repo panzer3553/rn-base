@@ -14,7 +14,6 @@ const upload = (state, action) =>
 
 const success = (state, action) =>
 	state.merge({
-		error: null
 	})
 
 const failure = (state, action) =>

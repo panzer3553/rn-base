@@ -1,7 +1,8 @@
+import {Images, Metrics} from '../Themes'
 import { connect } from 'react-redux'
 import Styles from './Styles/HelpScreenStyle'
 import Actions from '../Actions/Creators'
-import {Images, Metrics} from '../Themes'
+import I18n from '../I18n/I18n.js'
 import React, {
   Component,
   PropTypes,
@@ -14,8 +15,6 @@ import React, {
   LayoutAnimation,
   Alert
 } from 'react-native'
-// I18n
-import I18n from '../I18n/I18n.js'
 
 class HelpScreen extends Component {
 
@@ -30,8 +29,7 @@ class HelpScreen extends Component {
   render () {
     return (
       <View style={[Styles.container, {height: this.state.visibleHeight}]}>
-        <View style={Styles.form}>
-        </View>
+        <View style={Styles.form}></View>
       </View>
     )
   }
@@ -39,6 +37,7 @@ class HelpScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    ////
   }
 }
 

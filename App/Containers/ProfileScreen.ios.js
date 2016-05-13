@@ -1,3 +1,4 @@
+
 import React, { View, ScrollView, Text, TouchableOpacity, PropTypes, StyleSheet, Alert, AsyncStorage} from 'react-native'
 import { Form, InputField, Separator, SwitchField, LinkField ,PickerField, DatePickerField, KeyboardAwareScrollView} from 'react-native-form-generator'
 import { connect } from 'react-redux'
@@ -13,7 +14,7 @@ import Animatable from 'react-native-animatable'
 import I18n from '../I18n/I18n.js'
 import Styles from './Styles/LoginScreenStyle'
 import {MKCheckbox, MKColor} from 'react-native-material-kit' 
-const STORAGE_KEY_PROFILE = "PROFILE_ID"
+import config, { userGroupListData } from '../Config/AppSetting'
 
 export default class ProfileScreen extends React.Component {
 
@@ -59,9 +60,9 @@ export default class ProfileScreen extends React.Component {
   }
 
   tapSaveButton(){
-    Alert.alert("Saved")
+    Alert.alert('Saved')
     const { dispatch } = this.props
-    AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
+    AsyncStorage.getItem(config.STORAGE_KEY_PROFILE).then((value) => {
       if (value !== null)
         dispatch(Actions.saveProfile({...this.state.profile, city: this.state.city, country: this.state.countryCode}, value))
       else 
@@ -85,7 +86,7 @@ export default class ProfileScreen extends React.Component {
 
   onCheckedItem (item) {
     const {firstName, lastName, birthday, gender, email, mobile, groups, address} = this.state.profile
-    let i = this.indexOfGroupId(groups, item.groupId)
+    let i = this.indexOfGroupId(groups ? [...groups] : [], item.groupId)
 
     if (i > -1) {
       this.setState({
@@ -137,22 +138,13 @@ export default class ProfileScreen extends React.Component {
   render () {
     const {firstName, lastName, birthday, gender, email, mobile, groups, address} = this.state.profile
     const {city} = this.state
-    const groupData = [
-      { label: 'Police station', groupId: 'policeStation' },
-      { label: 'Fire station', groupId: 'fireStation' },
-      { label: 'Ambulance', groupId: 'ambulance' },
-      { label: 'Medical User', groupId: 'medicalUser' },
-      { label: 'Militarian User', groupId: 'militarianUser' },
-      { label: 'Volunteer', groupId: 'volunteer' },
-      { label: 'Normal', groupId: 'Normal' }
-    ]
     const renderUserGroupView = !this.state.editUserGroup ? null : (
         <View>
-          { groupData.map((item, i) =>
+          { userGroupListData.map((item, i) =>
              <TouchableOpacity key ={i} onPress={() => this.onCheckedItem(item)}>
                 <View style={formStyles.checkboxRow}>
                   <MKCheckbox 
-                    checked={this.isAvailbleInGroup(groups, item.groupId)} 
+                    checked={this.isAvailbleInGroup(groups ? [...groups] : [], item.groupId)} 
                     style={formStyles.checkbox}
                     onCheckedChange={(event) => this.onCheckedItem(item)}
                   />
@@ -215,7 +207,7 @@ export default class ProfileScreen extends React.Component {
               />
               <Text style={formStyles.label}>Choose User Groups</Text>
               <Icon 
-                  name="ios-arrow-right" 
+                  name='ios-arrow-right'
                   size={Metrics.icons.x_small} 
                   color="black" style={[formStyles.dropDownIcon, {color: Colors.formTextColor}]}>
               </Icon>

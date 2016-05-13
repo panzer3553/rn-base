@@ -3,7 +3,6 @@ import { Text, View } from 'react-native'
 // For some reason using this causes a crash: Investigate
 // import { MapButton } from '../Components/Buttons/MapButton'
 import NavButtons from './NavButtons'
-// Stylesheet
 import styles from './Styles/NavigationStyle'
 
 export default {
@@ -24,6 +23,7 @@ export default {
         return NavButtons.saveButton(navigator.state.tapSaveButton)
       case 'HAMBURGER':
         return NavButtons.hamburgerButton(navigator.state.tapHamburger)
+
       default:
         return (<Text>Needs Button</Text>)
     }
@@ -33,7 +33,9 @@ export default {
   // We don't want it to do an additional back if back was
   // already pressed.   Checking the transition state fixes this.
   BackButton (navigator) {
-    if (navigator.state.activeGesture === null && navigator.state.pendingGestureProgress === null) {
+    if (  (navigator.state.activeGesture === null)
+      &&  (navigator.state.pendingGestureProgress === null) 
+    ) {
       navigator.pop()
     }
   },
@@ -42,7 +44,8 @@ export default {
   LeftButton (route, navigator, index, navState) {
     if (navState.leftButton) {
       return navState.leftButton
-    } else if (route.leftButton) {
+    }
+    else if (route.leftButton) {
       return this.CreateButton(route.leftButton, navigator)
     }
 
@@ -52,7 +55,8 @@ export default {
   RightButton (route, navigator, index, navState) {
     if (navState.rightButton) {
       return navState.rightButton
-    } else if (route.rightButton) {
+    } 
+    else if (route.rightButton) {
       return this.CreateButton(route.rightButton, navigator)
     }
   },
@@ -62,7 +66,7 @@ export default {
       return (
         <View>
           <Text allowFontScaling={false} style={styles.navSubtitle}>
-            {sub || routeSub}
+            { sub || routeSub }
           </Text>
         </View>
       )
@@ -75,7 +79,7 @@ export default {
         <Text allowFontScaling={false} style={styles.navTitle}>
           {navState.title || route.title}
         </Text>
-        {this.renderSubtitle(navState.subtitle, route.subtitle)}
+        { this.renderSubtitle(navState.subtitle, route.subtitle) }
       </View>
     )
   }

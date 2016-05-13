@@ -14,8 +14,6 @@ import { connect } from 'react-redux'
 import Styles from './Styles/LoginScreenStyle'
 import Actions from '../Actions/Creators'
 import {Images, Metrics} from '../Themes'
-
-// I18n
 import I18n from '../I18n/I18n.js'
 
 class LoginScreen extends Component {

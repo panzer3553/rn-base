@@ -1,33 +1,54 @@
-import { take, put, select } from 'redux-saga/effects'
+import { take, call, put, select } from 'redux-saga/effects'
 import Types from '../Actions/Types'
 import Actions from '../Actions/Creators'
 import config from '../Config/AppSetting'
 
-export function * uploadImage (data) {
-	return fetch(config.url + 'classes/Image/', {
-		method: 'POST',
-		headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'image/png',
-			'X-Parse-Application-Id': config.parse_id,
-			'X-Parse-REST-API-Key': config.parse_api_key,
-		},
-		body: JSON.stringify({ data: data })
-	}).then(response => response.json())
+export function * uploadImage (img) {
+  return fetch(config.URL + 'files/' + 'picture.jpg', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'Image/jpeg',
+      'X-Parse-Application-Id': config.PARSE_ID,
+      'X-Parse-REST-API-Key': config.PARSE_API_KEY,
+    },
+    body: JSON.stringify({ base64: img.data })
+  }).then(response => response.json())
+}
+
+export function * saveImageLink (fileName) {
+  return fetch(config.URL + 'classes/Image', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'X-Parse-Application-Id': config.PARSE_ID,
+      'X-Parse-REST-API-Key': config.PARSE_API_KEY,
+    },
+    body: JSON.stringify({  
+      isStatic: true,
+      file: {
+        '__type': 'File',
+        'name': fileName
+      }
+    })
+  }).then(response => response.json())
 }
 
 export function * watchUploadImage () {
   while (true) {
   	const {data} = yield take(Types.UPLOAD_IMAGE)
-  	console.log('Data:' + data)
-  	try {
-  		const ok =  yield call(uploadImage, data)
+    yield call(uploadImage, data)
+   	try {
+  		const ok = yield call(uploadImage, data)
   		if (ok) {
-  			yield put(Types.UPLOAD_IMAGE_SUCCESS)
+        console.log('OK' + JSON.stringify(ok))
+        yield call(saveImageLink, ok.name)
+  			yield put(Actions.UPLOAD_IMAGE_SUCCESS)
   		}
   	}
   	catch (error) {
-		yield put(Types.UPLOAD_IMAGE_FAILURE, error)
+		  yield put(Actions.UPLOAD_IMAGE_FAILURE, error)
   	}
   }
 }

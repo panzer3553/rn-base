@@ -1,12 +1,16 @@
 package com.smartsos;
 
 import com.facebook.react.ReactActivity;
+import com.farmisen.react_native_file_uploader.RCTFileUploaderPackage;
+import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n; 
 import com.AirMaps.AirPackage; // <--- This!
 import com.github.xinthink.rnmk.ReactMaterialKitPackage;
+import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
+import com.burnweb.rnsendintent.RNSendIntentPackage;  // <--- import
 import java.util.Arrays;
 import java.util.List;
 import android.content.Intent;
@@ -47,11 +51,14 @@ public class MainActivity extends ReactActivity {
         mReactNativePushNotificationPackage = new ReactNativePushNotificationPackage(this); 
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new RCTFileUploaderPackage(),
+            new ReactMaterialKitPackage(),
             new VectorIconsPackage(),
             new ReactNativeI18n(),
             new AirPackage(),
             new ReactMaterialKitPackage(),
-            new ImagePickerPackage(),
+            new ReactNativeDialogsPackage(),
+            new RNSendIntentPackage(), // add this manager
             mReactNativePushNotificationPackage
         );
     }

@@ -5,19 +5,20 @@ import React, { StyleSheet, View, Component, TouchableHighlight } from 'react-na
 export default class CircleIcon extends React.Component {
 
   constructor (props) {
-	super(props)
-	this.state = {}
+  	super(props)
+  	this.state = {}
   }
 
   render () {
     return (
-      <TouchableHighlight style={styles.icon_background_circle}
+      <TouchableHighlight 
+        style={styles.icon_background_circle}
         onPress={this.props.onPress}>
         <Icon
           name={this.props.name}
           style={styles.icon_circle}
           size={this.props.size}
-	      color={this.props.color}>
+          color={this.props.color}>
         </Icon>
       </TouchableHighlight>  
 	)
