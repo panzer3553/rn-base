@@ -1,11 +1,8 @@
 import { Colors, Images, Metrics } from '../Themes'
 import Actions from '../Actions/Creators'
 import Routes from '../Navigation/Routes'
-// external libs
 import Icon from 'react-native-vector-icons/Ionicons'
-// I18n
 import I18n from '../I18n/I18n.js'
-
 import React, { 
   View, 
   ScrollView, 
@@ -30,9 +27,18 @@ export default class ProfileScreen extends React.Component {
 
   render () {
   	return(
-	  	<View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+	  	<View style={styles.container}>
 	  		<Text>In development</Text>
 	  	</View>
   	)
   }
+  
 }
+
+var styles = StyleSheet.create({
+  container: {
+    flex:1, 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  }
+});

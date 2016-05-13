@@ -144,9 +144,10 @@ dependencies {
    compile project(':react-native-maps')
    compile project(':RNMaterialKit')
    compile project(':react-native-push-notification')
+   compile project(':RNSendIntentModule')
+   compile project(':react-native-dialogs')
    //compile project(':react-native-send-intent')
    compile project(':react-native-image-picker')
    compile project(':react-native-camera')
-   compile project(':RNSendIntentModule')
-   compile project(':react-native-dialogs')
+
 }

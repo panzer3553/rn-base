@@ -20,7 +20,7 @@ const colors = {
   charcoal: '#595959',
   coal: '#2d2d2d',
   iconColor: '#A4A4A4',
-  formTextColor: '#F4511E',
+  formTextColor: '#F4511E'
 }
 
 export default colors

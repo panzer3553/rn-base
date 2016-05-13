@@ -1,30 +1,23 @@
 'use strict';
 
-import React, {
-  Platform,
-  View,
-} from 'react-native'
+import React, { Platform, View } from 'react-native'
 import PushNotification from 'react-native-push-notification'
-import  { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import Actions from '../Actions/Creators'
 import VibrationIOS from 'VibrationIOS'
+import { AsyncStorage } from 'react-native'
+import config from '../Config/AppSetting'
+
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
-const STORAGE_KEY_PROFILE = "PROFILE_ID"
-const STORAGE_KEY_TOKEN = "TOKEN_ID"
-import {AsyncStorage} from 'react-native'
 
-const PARSE_CLOUD_GCD_SENDER_ID = '395124388701'
+const PARSE_CLOUD_GCD_SENDER_ID = (Platform.OS === 'android') ? config.PARSE_CLOUD_GCD_SENDER_ID : null
 
 class PushNotificationsController extends React.Component {
-  props: {
-    enabled: boolean,
-  };
 
   constructor(props) {
     super(props)
-    this.state = {
-    }
+    this.state = {}
   }
 
   componentDidMount() {
@@ -33,16 +26,16 @@ class PushNotificationsController extends React.Component {
     PushNotification.configure({
       onRegister: (token) => {
         try{
-          AsyncStorage.setItem(STORAGE_KEY_TOKEN, JSON.stringify(token))
+          AsyncStorage.setItem(config.STORAGE_KEY_TOKEN, JSON.stringify(token))
         }catch(error){
           console.error("Save token error")
         }
-        AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
+        AsyncStorage.getItem(config.STORAGE_KEY_PROFILE).then((value) => {
             if (value !== null){
-              console.log("value")
+              console.log('value')
               dispatch(Actions.saveToken(token, value))
             } else {
-              console.log("failed")
+              console.log('failed')
               dispatch(Actions.saveToken(token))
             }
           })
@@ -56,24 +49,23 @@ class PushNotificationsController extends React.Component {
         const { latitude, longitude } = notification.data.emergency.location
         const desAddress = '' + latitude +  ',' + longitude //'16.074424, 108.2028329' for test
 
-        if ( notification.foreground)
-        {
-          console.log('is foreground')
-          if (Platform.OS === 'ios'){
+        if ( notification.foreground) {
+          //console.log('is foreground')
+          if (Platform.OS === 'ios') {
             VibrationIOS.vibrate()
           }
+
           const message = notification.message
           const duration = 7000
           const type = 'warning'
           this.showAlertWithCallback(message, type, duration, desAddress)      
         }
-        else { // background
+        else { 
+          //console.log('is background')
           console.log('DES:' + desAddress) 
-          const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=bicycling'
+          const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=driving'
           dispatch(Actions.requestDirection(desAddress, mode))
-          console.log('is background')
         }
-
       },
       senderID: PARSE_CLOUD_GCD_SENDER_ID,
       permissions: {
@@ -82,38 +74,20 @@ class PushNotificationsController extends React.Component {
         sound: true
       },
       popInitialNotification: true,
-      requestPermissions: true,
+      requestPermissions: true
     })
 
     MessageBarManager.registerMessageBar(this.refs.alert)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
      MessageBarManager.unregisterMessageBar()
   }
 
-
-  // componentDidUpdate(prevProps) {
-  //   if (!prevProps.enabled && this.props.enabled) {
-  //     PushNotification.requestPermissions();
-  //   }
-  // }
-
-  componentWillReceiveProps(){
-    
-  }
-
-
-
-
-  // componentDidUpdate(prevProps) {
-  //   if (!prevProps.enabled && this.props.enabled) {
-  //     PushNotification.requestPermissions();
-  //   }
-  // }
-
-  componentWillReceiveProps(){
-    
+  render() {
+    return (
+      <MessageBarAlert ref='alert' />
+    ) 
   }
 
   showAlertWithCallback(message, type, duration, desAddress) {
@@ -130,18 +104,13 @@ class PushNotificationsController extends React.Component {
   alertCustomCallBack (desAddress) {
       const srcAddress = '' + this.props.latitude +  ',' 
                             + this.props.longitude 
-      console.log('DES:' + desAddress) 
-      console.log('SRC:' + srcAddress)
-      const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=bicycling'
+      //console.log('DES:' + desAddress) 
+      //console.log('SRC:' + srcAddress)
+      const mode = (Platform.OS === 'ios') ? '&dirflg=d' : '&mode=bicycling'
       const { dispatch } = this.props
       dispatch(Actions.requestDirection(desAddress, mode))
   }
 
-  render() {
-    return (
-      <MessageBarAlert ref="alert" />
-    ) 
-  }
 }
 
 const mapStateToProps = (state) => {
@@ -150,6 +119,5 @@ const mapStateToProps = (state) => {
     longitude: state.mapscreen.longitude,
   }
 }
-
 
 export default connect(mapStateToProps)(PushNotificationsController)

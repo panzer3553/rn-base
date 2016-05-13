@@ -54,10 +54,10 @@ public class MainActivity extends ReactActivity {
             new ReactNativeI18n(),
             new AirPackage(),
             new ReactMaterialKitPackage(),
-            new ImagePickerPackage(),
-            new RCTCameraPackage(),
             new ReactNativeDialogsPackage(),
             new RNSendIntentPackage(), // add this manager
+            new ImagePickerPackage(),
+            new RCTCameraPackage(),
             mReactNativePushNotificationPackage
         );
     }

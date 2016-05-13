@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   innerContainer: {
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   container:{
     height:Metrics.screenHeight,
@@ -29,66 +29,67 @@ export default StyleSheet.create({
     position: 'absolute',
     width: Metrics.screenWidth,
     bottom: 70,
-    left:0
+    left: 0
   },
   slide: {
     flex: 1,
-    height: Metrics.screenHeight -200,
+    height: Metrics.screenHeight -125,
     alignItems: 'center',
     paddingBottom:50
   },
   slideText: {
-    color: "#fff",
-    textAlign:"center",
+    color: '#fff',
+    textAlign: 'center',
     fontSize: 18,
     margin: 16
   },
   slideTextTitle: {
-    color: "#fff",
-    textAlign:"center",
-    fontWeight:"700"
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: '700',
+    marginTop: 50
   },
   logo: {
-    alignItems:"center",
-    position:"absolute",
+    alignItems: 'center',
+    position: 'absolute',
     width: Metrics.screenWidth,
-    top: 50,
+    marginTop: 30,
     left: 0,
-    flexDirection:"row",
-    alignItems:"center",
-    justifyContent:"center"
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   logoText: {
-    color:"#fff",
-    textAlign:"left",
+    color: '#fff',
+    textAlign: 'left',
     fontSize: 35,
-    fontWeight:"700",
-    backgroundColor:"transparent",
+    fontWeight: '700',
+    backgroundColor: 'transparent',
   },
   logoIconContainer: {
-    backgroundColor:"transparent",
-    paddingRight:5,
-    marginTop:5,
-    marginBottom: 40
+    backgroundColor: 'transparent',
+    paddingRight: 5,
+    marginTop: 10,
+    marginBottom: 5
   },
   logoTextContainer: {
-    backgroundColor:"transparent"
+    backgroundColor: 'transparent'
   },
   btnContainer: {
-    position:"absolute",
-    width: Metrics.screenWidth,
+    position: 'absolute',
+	width: Metrics.screenWidth,
     bottom: 0,
     left: 0,
     height: 40
   },
   btn: {
     flex:1,
-    alignItems:"center",
-    justifyContent:"center"
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   btnText: {
-    color:"#fff",
-    fontWeight:"500",
+    color: '#fff',
+    fontWeight: '500',
     fontSize:14
   },
   pickerContainer: {
@@ -97,14 +98,14 @@ export default StyleSheet.create({
     backgroundColor: Colors.snow,
     padding: 4,
     paddingLeft: 8,
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   dropDownIcon: {
     position: 'absolute',
     right: 8  
   },
   modalButton: {
-    marginTop: 10,
+    marginTop: 10
   },
   separator: {
     height: 1,
@@ -118,5 +119,21 @@ export default StyleSheet.create({
   },
   text: {
     flex: 1
+  },
+  checkboxRow: {
+    marginTop: 1,
+    width: Metrics.screenWidth * 2 / 3,
+    backgroundColor: Colors.snow,
+    paddingLeft: 8,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  checkboxText:{
+    color: '#000',
+    textAlign: 'center',
+    fontSize: 14,
+  }, 
+  checkbox: {
+
   }
 })

@@ -3,6 +3,7 @@ import styles from './Styles/NavigationStyle'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Colors, Metrics } from '../Themes'
 import I18n from '../I18n/I18n.js'
+
 const isAndroid = Platform.OS === 'android'
 
 export default {
