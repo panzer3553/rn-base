@@ -6,11 +6,14 @@ import React, {
   TouchableHighlight,
   View,
   ToastAndroid,
-  Platform
+  Platform,
+  Alert
 } from 'react-native';
 import Camera from 'react-native-camera';
 import TimerMixin from 'react-timer-mixin';
 import Icon from 'react-native-vector-icons/Ionicons'
+var MessageBarAlert = require('react-native-message-bar').MessageBar;
+var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
 export default class CameraScreen extends Component {
 
@@ -23,23 +26,40 @@ export default class CameraScreen extends Component {
   }
 
   componentDidMount () {
-    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture()}, 1000);
+    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture()}, 1500);
     this.clearTimer = TimerMixin.setTimeout(() => {TimerMixin.clearInterval(this.intervalTimer);this.setState({isAuto: false})}, 10000);
+    MessageBarManager.registerMessageBar(this.refs.alert);
   }
 
   takePicture () {
-    this.camera.capture()
-      .then((data) => {console.log(data)
-    }).catch(err => console.error(err));
+    this.camera.capture().catch(err => console.error(err));
   }
 
   componentWillUnmount () {
     TimerMixin.clearInterval(this.intervalTimer)
     TimerMixin.clearTimeout(this.clearTimer);
+    MessageBarManager.unregisterMessageBar();
+  }
+
+  pressTakeButton () {
+    this.showMessage()
+    this.camera.capture().catch(err => console.error(err));
+  }
+
+  showMessage () {
+    MessageBarManager.showAlert({
+      message: 'Take picture successful',
+      alertType: 'info',
+      // See Properties section for full customization
+      // Or check `index.ios.js` or `index.android.js` for a complete example
+      viewTopOffset: 60,
+      duration: 2000,
+      messageStyle: { color: 'white', fontSize: 16 }
+    });
   }
 
   render () {
-    const text = this.state.isAuto ? <Text style={styles.capture}>Automatic take picture</Text> : <Icon name="ios-camera" size={48} color="white" />
+    const text = this.state.isAuto ? <Text style={styles.capture}>Automatic take picture</Text> : <Icon onPress={() => this.pressTakeButton()} name="ios-camera" size={48} color="white" />
     return (
       <View style={styles.container}>
         <Camera
@@ -53,6 +73,7 @@ export default class CameraScreen extends Component {
         <View style={styles.bottomView}>
         {text}
         </View>
+        <MessageBarAlert ref="alert" />
       </View>
     );
   }
@@ -71,7 +92,6 @@ const styles = StyleSheet.create({
   },
   capture: {
     backgroundColor: '#fff',
-    borderRadius: 10,
     color: '#000',
     padding: 10
   },
@@ -81,6 +101,6 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 30,
     alignItems: 'center', 
-    width: Dimensions.get('window').width + 3
+    width: Dimensions.get('window').width + 3 
   }
 });
