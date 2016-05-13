@@ -1,8 +1,6 @@
 package com.smartsos;
 
 import com.facebook.react.ReactActivity;
-import com.farmisen.react_native_file_uploader.RCTFileUploaderPackage;
-import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -51,14 +49,13 @@ public class MainActivity extends ReactActivity {
         mReactNativePushNotificationPackage = new ReactNativePushNotificationPackage(this); 
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
-            new RCTFileUploaderPackage(),
-            new ReactMaterialKitPackage(),
             new VectorIconsPackage(),
             new ReactNativeI18n(),
             new AirPackage(),
             new ReactMaterialKitPackage(),
             new ReactNativeDialogsPackage(),
             new RNSendIntentPackage(), // add this manager
+            new ImagePickerPackage(),
             mReactNativePushNotificationPackage
         );
     }
