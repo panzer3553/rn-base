@@ -33,6 +33,8 @@ To view the generated example project, just pull down the code and run ignite-ba
 
 ## :arrow_up: How to Setup
 
+Make sure you're setup for [React Native](https://facebook.github.io/react-native/docs/getting-started.html#content)
+
 *Install*
 
 `npm install -g react-native-ignite`
@@ -46,10 +48,10 @@ To view the generated example project, just pull down the code and run ignite-ba
 1. cd to the repo
 2. Run Build for either OS
   * for iOS
-    * run `react-native run-ios`
+    * run the command `react-native run-ios`
   * for Android
     * Run Genymotion
-    * run `react-native run-android`
+    * run the command `react-native run-android`
 
 ## :iphone: iOS/Android/XDE support
 Code is geared towards tested and cross platform functionality. [XDE](https://exponentjs.com/) is disabled by default, but see `index.js` for enabling.
