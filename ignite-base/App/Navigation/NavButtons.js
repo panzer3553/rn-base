@@ -1,10 +1,7 @@
-import React from 'react'
-import { TouchableOpacity, Text } from 'react-native'
+import React, { TouchableOpacity, Text, Platform } from 'react-native'
 import styles from './Styles/NavigationStyle'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { Colors, Metrics } from '../Themes'
-
-// I18n
 import I18n from '../I18n/I18n.js'
 
 export default {
@@ -12,10 +9,10 @@ export default {
   backButton (onPressFunction) {
     return (
       <TouchableOpacity onPress={onPressFunction}>
-        <Icon name='angle-left'
-          size={Metrics.icons.medium}
+        <Icon name={Platform.OS === 'android' ? 'android-arrow-back' : 'ios-arrow-back'}
+          size={30}
           color={Colors.snow}
-          style={styles.navButtonLeft}
+          style={[styles.navButtonLeft, styles.backButton]}
         />
       </TouchableOpacity>
     )
@@ -24,8 +21,8 @@ export default {
   hamburgerButton (onPressFunction) {
     return (
       <TouchableOpacity onPress={onPressFunction}>
-        <Icon name='bars'
-          size={Metrics.icons.medium}
+        <Icon name={'navicon'}
+          size={Metrics.icons.large}
           color={Colors.snow}
           style={styles.navButtonLeft}
         />
@@ -40,5 +37,5 @@ export default {
       </TouchableOpacity>
     )
   }
-
+  
 }

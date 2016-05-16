@@ -46,4 +46,13 @@ export default new class Routes {
     }
   }
 
+  get TabViewScreen () {
+    return {
+      title: I18n.t('welcome'),
+      component: require('../Containers/TabsView').default,
+      customConfiguration: Transitions.modal,
+      displayNavBar: true
+    }
+  }
+
 }

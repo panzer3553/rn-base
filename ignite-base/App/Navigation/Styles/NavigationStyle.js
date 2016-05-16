@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native'
+import React, { Platform } from 'react-native'
 import { Fonts, Metrics, Colors } from '../../Themes/'
 
-const NavigationStyle = StyleSheet.create({
+const NavigationStyle = React.StyleSheet.create({
   titleWrapper: {
     flex: 1,
     padding: Metrics.baseMargin,
@@ -11,31 +11,47 @@ const NavigationStyle = StyleSheet.create({
   },
   navTitle: {
     color: Colors.snow,
-    fontSize: Fonts.size.regular,
-    fontFamily: Fonts.bold,
-    justifyContent: 'center',
-    alignSelf: 'center'
+    fontSize: 17,
+    letterSpacing: 0.5,
+    fontWeight: '500'
   },
   navSubtitle: {
     flex: 1,
     color: Colors.snow,
-    fontSize: Fonts.size.medium,
+    fontSize: Metrics.fonts.medium,
     fontFamily: Fonts.base,
     alignSelf: 'center'
   },
   navButtonText: {
     color: Colors.snow,
-    marginTop: 8,
+    justifyContent: 'center',
     marginLeft: 8,
-    fontFamily: Fonts.bold,
+    marginTop: (Platform.OS === 'android') ? 16 : 0,
     padding: Metrics.baseMargin
   },
   navButtonLeft: {
-    margin: Metrics.baseMargin
+    paddingLeft: 16,
+    paddingRight: 16,
+    marginLeft: (Platform.OS === 'android') ? 16 : 0,
+    marginTop: (Platform.OS === 'android') ? 8 : 0,
+    justifyContent: 'center'
   },
   navigationBar: {
-    backgroundColor: Colors.ocean
-  }
+    backgroundColor: Colors.drawerColor,
+    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+    borderBottomWidth: 1,
+  },
+  backButton : {
+    marginTop: (Platform.OS === 'android') ? 12 : 4
+  },
+  navButtonTextAndroid: {
+    marginTop: 18,
+    fontSize: 16
+  },
+  navButtonLeftAndroid: {
+    marginTop: 18,
+    marginLeft: 16
+  },
 })
 
 export default NavigationStyle

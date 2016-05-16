@@ -4,7 +4,6 @@ import {Router, Routes, NavigationBar} from './Navigation/'
 import configureStore from './Store/Store'
 import { Provider } from 'react-redux'
 import Actions from './Actions/Creators'
-import Drawer from 'react-native-drawer'
 import PushNotification from 'react-native-push-notification'
 
 // Styles
@@ -13,39 +12,6 @@ import styles from './Containers/Styles/RootStyle'
 const store = configureStore()
 
 // https://github.com/zo0r/react-native-push-notification
-PushNotification.configure({
-
-  // (optional) Called when Token is generated (iOS and Android)
-  onRegister: (token) => {
-    if (__DEV__) console.log('TOKEN:', token)
-  },
-
-  // (required) Called when a remote or local notification is opened or received
-  onNotification: (notification) => {
-    if (__DEV__) console.log('NOTIFICATION:', notification)
-  },
-
-  // ANDROID ONLY: (optional) GCM Sender ID.
-  senderID: 'YOUR GCM SENDER ID',
-
-  // IOS ONLY (optional): default: all - Permissions to register.
-  permissions: {
-    alert: true,
-    badge: true,
-    sound: true
-  },
-
-  // Should the initial notification be popped automatically
-  // default: true
-  popInitialNotification: false,
-
-  /**
-    * IOS ONLY: (optional) default: true
-    * - Specified if permissions will requested or not,
-    * - if not, you must call PushNotificationsHandler.requestPermissions() later
-    */
-  requestPermissions: false
-})
 
 export default class RNBase extends React.Component {
 
@@ -54,47 +20,20 @@ export default class RNBase extends React.Component {
     dispatch(Actions.startup())
   }
 
-  componentDidMount () {
-    this.navigator.drawer = this.drawer
-  }
-
-  renderDrawerContent () {
-    return (
-      <View style={{marginTop: 30, padding: 10}}>
-        <Text>
-          Drawer Content Goes Here!
-        </Text>
-      </View>
-    )
-  }
-
   renderApp () {
     return (
-      <Provider store={store}>
-        <View style={styles.applicationView}>
-          <StatusBar
-            barStyle='light-content'
-          />
-
-          <Drawer
-            ref={(ref) => { this.drawer = ref }}
-            content={this.renderDrawerContent()}
-            style={styles.drawer}
-            openDrawerOffset={100}
-            type='static'
-            tapToClose
-          >
-            <Navigator
-              ref={(ref) => { this.navigator = ref }}
-              initialRoute={Routes.PresentationScreen}
-              configureScene={Router.configureScene}
-              renderScene={Router.renderScene}
-              navigationBar={NavigationBar.render()}
-              style={styles.container}
-            />
-          </Drawer>
-        </View>
-      </Provider>
+      <View style={styles.applicationView}>
+        <StatusBar
+          barStyle='light-content'
+        />
+      <Navigator
+        ref={(ref) => { this.navigator = ref }}
+        initialRoute={Routes.TabViewScreen}
+        configureScene={Router.configureScene}
+        renderScene={Router.renderScene}
+        style={styles.container}
+      />
+      </View>
     )
   }
 
