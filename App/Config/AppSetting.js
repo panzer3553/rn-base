@@ -9,13 +9,13 @@ export default config = {
 }
 
 export const userGroupListData = [
-      { label: 'Police station', groupId: 'policeStation' },
-      { label: 'Fire station', groupId: 'fireStation' },
-      { label: 'Ambulance', groupId: 'ambulance' },
-      { label: 'Medical User', groupId: 'medicalUser' },
-      { label: 'Militarian User', groupId: 'militarianUser' },
-      { label: 'Volunteer', groupId: 'volunteer' },
-      { label: 'Normal', groupId: 'normal' },
+      { value: 0, label: 'Police station', groupId: 'policeStation' },
+      { value: 1, label: 'Fire station', groupId: 'fireStation' },
+      { value: 2, label: 'Ambulance', groupId: 'ambulance' },
+      { value: 3, label: 'Medical User', groupId: 'medicalUser' },
+      { value: 4, label: 'Militarian User', groupId: 'militarianUser' },
+      { value: 5, label: 'Volunteer', groupId: 'volunteer' },
+      { value: 6, label: 'Normal', groupId: 'normal' },
 ]
 
 export const homeInfoListData = [

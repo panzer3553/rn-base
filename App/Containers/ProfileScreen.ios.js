@@ -13,8 +13,8 @@ import Animatable from 'react-native-animatable'
 // I18n
 import I18n from '../I18n/I18n.js'
 import Styles from './Styles/LoginScreenStyle'
-import {MKCheckbox, MKColor} from 'react-native-material-kit' 
 import config, { userGroupListData } from '../Config/AppSetting'
+import CheckboxGroups from '../Components/CheckboxGroups'
 
 export default class ProfileScreen extends React.Component {
 
@@ -33,7 +33,7 @@ export default class ProfileScreen extends React.Component {
         gender: null,
         email: null,
         mobile: null,
-        groups: [],
+        userGroups: [],
         address: null,
       },
       city: null,
@@ -85,8 +85,8 @@ export default class ProfileScreen extends React.Component {
   }
 
   onCheckedItem (item) {
-    const {firstName, lastName, birthday, gender, email, mobile, groups, address} = this.state.profile
-    let i = this.indexOfGroupId(groups, item.groupId)
+    const {firstName, lastName, birthday, gender, email, mobile, userGroups, address} = this.state.profile
+    let i = this.indexOfGroupId(userGroups ? [...userGroups] : [], item.groupId)
 
     if (i > -1) {
       this.setState({
@@ -97,7 +97,7 @@ export default class ProfileScreen extends React.Component {
           gender: null,
           email: null,
           mobile: null,
-          groups: [...groups.filter((_, idx) => idx !== i)],
+          userGroups: [...userGroups.filter((_, idx) => idx !== i)],
           address: null
         }
       })
@@ -111,7 +111,7 @@ export default class ProfileScreen extends React.Component {
           gender: null,
           email: null,
           mobile: null,
-          groups: [...groups, item.groupId],
+          userGroups: userGroups ? [...userGroups, item.groupId] : [item.groupId],
           address: null
         }
       })
@@ -136,23 +136,14 @@ export default class ProfileScreen extends React.Component {
   }
 
   render () {
-    const {firstName, lastName, birthday, gender, email, mobile, groups, address} = this.state.profile
+    const {firstName, lastName, birthday, gender, email, mobile, userGroups, address} = this.state.profile
     const {city} = this.state
     const renderUserGroupView = !this.state.editUserGroup ? null : (
-        <View>
-          { userGroupListData.map((item, i) =>
-             <TouchableOpacity key ={i} onPress={() => this.onCheckedItem(item)}>
-                <View style={formStyles.checkboxRow}>
-                  <MKCheckbox 
-                    checked={this.isAvailbleInGroup(groups, item.groupId)} 
-                    style={formStyles.checkbox}
-                    onCheckedChange={(event) => this.onCheckedItem(item)}
-                  />
-                  <Text numberOfLines={1} style={formStyles.checkboxText}>{item.label}</Text>
-                </View>
-             </TouchableOpacity>)
-          }
-        </View>
+      <CheckboxGroups 
+        items={userGroupListData}
+        labelColor={'black'}
+        iconColor={'blue'}
+      />
     )
 
     return(

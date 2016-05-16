@@ -6,6 +6,7 @@ import React, {
   StatusBarIOS,
   StyleSheet,Text,
   TouchableHighlight,
+  TouchableOpacity,
   View, 
   Picker, 
   Modal, 
@@ -25,6 +26,7 @@ import Actions from '../Actions/Creators'
 import config, { userGroupListData } from '../Config/AppSetting'
 import CityPicker from '../Components/CityPicker'
 import Swiper from 'react-native-swiper'
+import CheckboxGroups from '../Components/CheckboxGroups'
 
 const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 
@@ -54,22 +56,19 @@ class Intro extends Component {
   }
 
   onCheckedItem (item) {
-    let tempUserGroups  = [...this.state.userGroups]
-    let tempGroupIds    = [...this.state.groupIds]
-    let i = this.indexOfGroupId(tempGroupIds, item.groupId)
+    const { groupIds } = this.state
+    let i = this.indexOfGroupId(groupIds ? [...groupIds] : [], item.groupId)
 
     if (i > -1) {
       this.setState({
-        userGroups: [...tempUserGroups.filter((_, idx) => idx !== i)],
-        groupIds: [...tempGroupIds.filter((_, idx) => idx !== i)],
-        index: 1,
+          groupIds: [...groupIds.filter((_, idx) => idx !== i)],
+          index: 1
       })
     }
     else {
       this.setState({
-        userGroups: [...tempUserGroups, item.label],
-        groupIds: [...tempGroupIds, item.groupId],
-        index: 1,
+          groupIds: groupIds ? [...groupIds, item.groupId] : [item.groupId],
+          index: 1
       })
     }
   }
@@ -94,7 +93,7 @@ class Intro extends Component {
   render () {
     let index = 0
 
-    const {groups} = this.state
+    const {groupIds} = this.state
 
     return (
       <View style={styles.backgroundFixed}>
@@ -125,21 +124,7 @@ class Intro extends Component {
             <View>
               <Text style={styles.slideText}>Looks like you haven't selected a User Group. Please select one.</Text>
             </View>
-            <View>
-            { 
-              userGroupListData.map((item, i) =>
-              <TouchableHighlight key ={i} onPress={() => this.onCheckedItem(item)} >
-                <View style={styles.checkboxRow}>
-                  <MKCheckbox
-                     checked={this.isAvailbleInGroup(groups ? [...groups] : [] , item.groupId)}
-                     style={styles.checkbox}
-                     onCheckedChange={(event) => this.onCheckedItem(item)}
-                  />
-                  <Text numberOfLines={1} style={styles.checkboxText}>{item.label}</Text>
-                </View>
-              </TouchableHighlight>)
-            }
-            </View>
+            <CheckboxGroups items={userGroupListData} ßßß/>
           </View>
           <View style={styles.slide}>
             <View style={styles.logoIconContainer}>
