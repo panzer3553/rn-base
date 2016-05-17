@@ -93,11 +93,20 @@ export default new class Routes {
       displayNavBar: false
     }
   }
-    get CameraScreen () {
+  get CameraScreen () {
     return {
       title: I18n.t('camera'),
       customConfiguration: Transitions.modal,
       component: require('../Containers/CameraScreen').default,
+      leftButton: 'BACK',
+      displayNavBar: true
+    }
+  }
+  get GalleryScreen () {
+    return {
+      title: I18n.t('camera'),
+      customConfiguration: Transitions.modal,
+      component: require('../Containers/CameraGallery').default,
       leftButton: 'BACK',
       displayNavBar: true
     }

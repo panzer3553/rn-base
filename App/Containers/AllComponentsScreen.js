@@ -73,8 +73,7 @@ export default class AllComponentsScreen extends React.Component {
   }
 
   handleShowPopUp (_items) {
-    this.setState({isPopupShow: true})
-    this.setState({items: _items})
+    this.props.navigator.push(Routes.GalleryScreen)
   }
 
   handleClosePopUp () {

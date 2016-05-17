@@ -141,7 +141,7 @@ export default class RNBase extends React.Component {
             barStyle='light-content'
           />
           {App}
-          <PushNotificationsController />
+          <PushNotificationsController/>
         </View>
     )
   }
