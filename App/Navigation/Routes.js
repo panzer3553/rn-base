@@ -99,6 +99,7 @@ export default new class Routes {
       customConfiguration: Transitions.modal,
       component: require('../Containers/CameraScreen').default,
       leftButton: 'BACK',
+      rightButton: 'SAVE',
       displayNavBar: true
     }
   }

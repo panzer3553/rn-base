@@ -12,6 +12,7 @@ import {MKButton,MKColor} from 'react-native-material-kit'
 import Communications from 'react-native-communications'
 var ImagePickerManager = require('NativeModules').ImagePickerManager;
 import I18n from '../I18n/I18n.js'
+const STORAGE_KEY_PROFILE = 'PROFILE_ID'
 
 const fireItems = [ 
   {icon: 'fire', text: 'Show Info Screen', func: 'showHelpScreen'}, 
@@ -90,7 +91,11 @@ export default class AllComponentsScreen extends React.Component {
       ]
     )
     const {dispatch} = this.props  
-    dispatch(Actions.updateLocationAndSaveEmergency(type))
+    AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
+      if (value !== null){
+        dispatch(Actions.updateLocationAndSaveEmergency(type, value))
+      }
+    })
     // THE EMERGENCY SAVE HAS MOVED TO MAPSCREENSAGA
     //this.saveEmergency({
     //  location: {
@@ -106,8 +111,8 @@ export default class AllComponentsScreen extends React.Component {
 
   saveEmergency(emergency){
     const {dispatch} = this.props
-    dispatch(Actions.saveEmergency(emergency))
-  }
+    dispatch(Actions.saveEmergency(emergency, value))
+  } 
 
   sendExtremeEmergency () {
     InteractionManager.runAfterInteractions(() => {
