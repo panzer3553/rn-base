@@ -84,7 +84,7 @@ class PushNotificationsController extends React.Component {
       popInitialNotification: true,
       requestPermissions: true,
     })
-
+    PushNotification.setApplicationIconBadgeNumber(0)
     MessageBarManager.registerMessageBar(this.refs.alert)
   }
 

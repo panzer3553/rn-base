@@ -17,19 +17,20 @@ export default class CameraScreen extends Component {
     super(props)
     this.state = {
       imageList: [],
-      isAuto: true
+      isAuto: true,
+      numberofPicture: 0
     }
   }
 
   componentDidMount () {
-    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture()}, 1500);
+    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture(); this.setState({numberofPicture: this.state.numberofPicture + 1})}, 1000);
     this.clearTimer = TimerMixin.setTimeout(() => {TimerMixin.clearInterval(this.intervalTimer);this.setState({isAuto: false})}, 10000);
   }
 
   takePicture () {
     this.camera.capture()
-      .then((data) => {console.log(data)
-    }).catch(err => console.error(err));
+      .then((data) => {this.setState({imageList: this.state.imageList.concat(data)})})
+      .catch(err => console.error(err));
   }
 
   componentWillUnmount () {
@@ -38,14 +39,13 @@ export default class CameraScreen extends Component {
   }
 
   render () {
-    const text = this.state.isAuto ? <Text style={styles.capture}>Automatic take picture</Text> : null
+    const text = this.state.isAuto ? <Text style={styles.capture}>Automatic take picture ({this.state.numberofPicture})</Text> : null
     return (
       <View style={styles.container}>
         <Camera
           ref={(cam) => {
             this.camera = cam;
           }}
-          captureTarget={Platform.OS === 'android' ? Camera.constants.CaptureTarget.disk : Camera.constants.CaptureTarget.cameraRoll}
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}>
         </Camera>
