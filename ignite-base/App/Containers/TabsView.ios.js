@@ -10,6 +10,7 @@ import AllComponentsScreen from './AllComponentsScreen'
 import LoginScreen from './LoginScreen'
 import PresentationScreen from './PresentationScreen'
 import ExampleView from './ExampleView'
+import ImageCamera from './ImageCamera'
 import Actions from '../Actions/Creators'
 import { connect } from 'react-redux'
 
@@ -50,7 +51,7 @@ export default class TabBarExample extends React.Component{
           title="More"
           selected={this.props.tab === 'map'}
           onPress={() => this.onTabSelect('map')}>
-          <PresentationScreen navigator={this.props.navigator}/>
+          <ImageCamera navigator={this.props.navigator}/>
         </TabBarIOS.Item>
       </TabBarIOS>
     )
