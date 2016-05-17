@@ -107,7 +107,7 @@ export default new class Routes {
     return {
       title: I18n.t('camera'),
       customConfiguration: Transitions.modal,
-      component: require('../Containers/CameraGallery').default,
+      component: require('../Containers/EmergencyScreen').default,
       leftButton: 'BACK',
       displayNavBar: true
     }
