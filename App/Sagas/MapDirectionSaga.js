@@ -69,10 +69,10 @@ export function * updateLocationAndShowDirection (desAddress, mode) {
     const baseUrl 		= (Platform.OS === 'ios') ? 'http://maps.apple.com/?' : 'http://maps.google.com/maps?'
     const directionUrl 	= baseUrl  + '&saddr=' + srcAddress + '&daddr=' + desAddress + mode
     console.log(directionUrl)
-	const { showDirection }  = yield call(showDirectionPromised, directionUrl)
-	const { err, supported } = yield call(showDirection)
-	console.log('URL:' + directionUrl)
-	//Then show direction on map
+  	const { showDirection }  = yield call(showDirectionPromised, directionUrl)
+  	const { err, supported } = yield call(showDirection)
+  	console.log('URL:' + directionUrl)
+	  //Then show direction on map
     if (supported) {
 		yield put(Actions.receiveDirection())
 		Linking.openURL(directionUrl)   

@@ -46,7 +46,7 @@ class Intro extends Component {
     const {dispatch} = this.props
     dispatch(Actions.skipSwiper())
     const {groupIds, city, countryCode} = this.state
-    dispatch(Actions.saveProfile({groups: groupIds, city: city, country: countryCode}))
+    dispatch(Actions.saveProfile({userGroups: groupIds, city: city, country: countryCode}))
     try {
       await AsyncStorage.setItem(STORAGE_KEY_FIRST_LOAD, 'false')
       this.props.navigator.push(Routes.HomeScreen)
@@ -55,39 +55,14 @@ class Intro extends Component {
     }
   }
 
-  onCheckedItem (item) {
+  onCheckedItem (value) {
     const { groupIds } = this.state
-    let i = this.indexOfGroupId(groupIds ? [...groupIds] : [], item.groupId)
+    console.log('onCheckedItem')
 
-    if (i > -1) {
-      this.setState({
-          groupIds: [...groupIds.filter((_, idx) => idx !== i)],
-          index: 1
-      })
-    }
-    else {
-      this.setState({
-          groupIds: groupIds ? [...groupIds, item.groupId] : [item.groupId],
-          index: 1
-      })
-    }
-  }
-
-  indexOfGroupId (groups, groupId) {
-    for (let i = 0; i < groups.length; i++) {
-      if (groups[i] == groupId) {
-          return i
-      }
-    }    
-    return -1
-  }
-
-  isAvailbleInGroup (groups, groupId) {
-    let index = this.indexOfGroupId(groups, groupId)
-    if(index > -1) {
-      return true
-    }
-    return false
+    this.setState({
+        groupIds: [...value],
+        index: 1
+    })
   }
 
   render () {
@@ -124,7 +99,13 @@ class Intro extends Component {
             <View>
               <Text style={styles.slideText}>Looks like you haven't selected a User Group. Please select one.</Text>
             </View>
-            <CheckboxGroups items={userGroupListData} ßßß/>
+            <CheckboxGroups 
+              items={userGroupListData} 
+              onSelect={(value) => this.onCheckedItem(value)}
+              checked={groupIds}
+              labelColor={'black'}
+              iconColor={'black'}
+            />
           </View>
           <View style={styles.slide}>
             <View style={styles.logoIconContainer}>

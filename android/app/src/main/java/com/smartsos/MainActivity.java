@@ -1,7 +1,6 @@
 package com.smartsos;
 
 import com.facebook.react.ReactActivity;
-import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -15,6 +14,8 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.lwansbrough.RCTCamera.*;
 import android.provider.Settings;
 
 public class MainActivity extends ReactActivity {
@@ -49,13 +50,14 @@ public class MainActivity extends ReactActivity {
         mReactNativePushNotificationPackage = new ReactNativePushNotificationPackage(this); 
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
-            new ReactMaterialKitPackage(),
             new VectorIconsPackage(),
             new ReactNativeI18n(),
             new AirPackage(),
             new ReactMaterialKitPackage(),
             new ReactNativeDialogsPackage(),
             new RNSendIntentPackage(), // add this manager
+            new ImagePickerPackage(),
+            new RCTCameraPackage(),
             mReactNativePushNotificationPackage
         );
     }

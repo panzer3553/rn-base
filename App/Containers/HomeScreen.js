@@ -1,5 +1,5 @@
 // An All Components Screen is a great way to dev and quick-test components
-import React, { View, Text, PropTypes, Alert, AsyncStorage, Platform } from 'react-native'
+import React, { View, Text, PropTypes, Alert, AsyncStorage, Platform, InteractionManager } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/HomeScreenStyle'
 import { Colors, Images, Metrics } from '../Themes'
@@ -68,7 +68,13 @@ export default class HomeScreen extends React.Component {
       Communications.phonecall(_phoneNumber, false)
   }
 
-
+  sendExtremeEmergency () {
+    InteractionManager.runAfterInteractions(() => {
+      const {dispatch} = this.props  
+      dispatch(Actions.updateLocationAndSaveEmergency('alarm'))
+      this.props.navigator.push(Routes.CameraScreen)
+    })
+  }
 
   renderMapScreen () {
     return (<MapScreen />)
@@ -149,11 +155,31 @@ export default class HomeScreen extends React.Component {
     )
   }
 
+  renderExtremeButton () {
+    const SmallFab = MKButton.plainFab()
+      .withStyle({
+        width:Metrics.button.medium, 
+        height: Metrics.button.medium, 
+        borderRadius: Metrics.button.medium/2, 
+        backgroundColor: Colors.snow
+      })
+      .build()
+
+    return (
+      <View style={styles.extremeIconContainer}>
+        <SmallFab onPress={this.sendExtremeEmergency.bind(this)}>
+          <Icon name="warning" size={Metrics.icons.small} color="red" />
+        </SmallFab>
+      </View>
+    )
+  }
+
   render () {
     return (
       <View style={styles.screenContainer}>
         { this.renderMapScreen() }
         { this.renderInfoButton() }
+        { this.renderExtremeButton() }
         { this.renderBubblePopUp() }
         { this.renderBottomButtons() }
       </View>

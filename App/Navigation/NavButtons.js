@@ -11,10 +11,10 @@ export default {
   backButton (onPressFunction) {
     return (
       <TouchableOpacity onPress={onPressFunction}>
-        <Icon name={isAndroid ? 'android-arrow-back' : 'ios-arrow-back'}
-          size={isAndroid ? Metrics.icons.x_small : Metrics.icons.medium}
+        <Icon name={Platform.OS === 'android' ? 'android-arrow-back' : 'ios-arrow-back'}
+          size={30}
           color={Colors.snow}
-          style={[styles.navButtonLeft, isAndroid && styles.navButtonLeftAndroid]}
+          style={[styles.navButtonLeft, styles.backButton]}
         />
       </TouchableOpacity>
     )
@@ -23,10 +23,10 @@ export default {
   hamburgerButton (onPressFunction) {
     return (
       <TouchableOpacity onPress={onPressFunction}>
-        <Icon name={isAndroid ? 'android-menu' : 'navicon'}
-          size={isAndroid ? Metrics.icons.x_small : Metrics.icons.medium}
+        <Icon name={'navicon'}
+          size={Metrics.icons.large}
           color={Colors.snow}
-          style={[styles.navButtonLeft, isAndroid && styles.navButtonLeftAndroid]}
+          style={styles.navButtonLeft}
         />
       </TouchableOpacity>
     )

@@ -16,7 +16,7 @@ function * saveEmergency (emergency) {
     },
     body: JSON.stringify(
       emergency
-    )
+    ),
 	}).then(response => response.json())
 }
 

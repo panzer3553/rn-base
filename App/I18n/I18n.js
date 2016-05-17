@@ -33,6 +33,7 @@ I18n.translations = {
     recommend: 'Recommend',
     feedback: 'Send Feedback',
     about: 'About',
+    camera: 'Camera',
     urgentCallTitle: 'Do you want to make this call ?',
     urgentFireCallMessage:  'Only make this call when you are in an emergency situation! Please confirm to make the call to  FIRESTATION: ',
     urgentAmbulanceCallMessage:'Only make this call when you are in an emergency situation! Please confirm to make the call to  AMBULANCE: ',

@@ -6,6 +6,7 @@ import SaveEmergencyReducer from './SaveEmergencyReducer'
 import SaveTokenReducer from './SaveTokenReducer'
 import NotificationReducer from './NotificationReducer'
 import MapDirectionReducer  from './MapDirectionReducer'
+import UploadImageReducer from './UploadImageReducer'
 
 // glue all the reducers together into 1 root reducer
 export default combineReducers({
@@ -16,6 +17,7 @@ export default combineReducers({
   tokenData: SaveTokenReducer,
   notificationData: NotificationReducer,
   direction: MapDirectionReducer,
+  uploadImage: UploadImageReducer, 
 })
 
 // Put reducer keys that you do NOT want stored to persistence here

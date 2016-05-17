@@ -3,8 +3,8 @@ import Colors from '../../Themes/Colors'
 
 export default StyleSheet.create({
   section: {
-    marginTop: 16,
-	flexDirection: 'row',
+    padding: 8,
+	  flexDirection: 'row',
   },
   icon: {
     marginRight: 18,

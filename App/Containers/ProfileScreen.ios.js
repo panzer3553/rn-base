@@ -33,8 +33,9 @@ export default class ProfileScreen extends React.Component {
         gender: null,
         email: null,
         mobile: null,
-        userGroups: [],
+        groups: [],
         address: null,
+        userGroups: []
       },
       city: null,
       countryCode: null,
@@ -84,55 +85,21 @@ export default class ProfileScreen extends React.Component {
     })
   }
 
-  onCheckedItem (item) {
-    const {firstName, lastName, birthday, gender, email, mobile, userGroups, address} = this.state.profile
-    let i = this.indexOfGroupId(userGroups ? [...userGroups] : [], item.groupId)
-
-    if (i > -1) {
-      this.setState({
-        profile: {
-          firstName: null,
-          lastName: null,
-          birthday: null,
-          gender: null,
-          email: null,
-          mobile: null,
-          userGroups: [...userGroups.filter((_, idx) => idx !== i)],
-          address: null
-        }
-      })
-    }
-    else {
-      this.setState({
-        profile: {
-          firstName: null,
-          lastName: null,
-          birthday: null,
-          gender: null,
-          email: null,
-          mobile: null,
-          userGroups: userGroups ? [...userGroups, item.groupId] : [item.groupId],
-          address: null
-        }
-      })
-    }
-  }
-
-  indexOfGroupId (groups, groupId) {
-    for (let i = 0; i < groups.length; i++) {
-      if (groups[i] == groupId) {
-          return i
+  onCheckedItem (value) {
+    const {firstName, lastName, birthday, gender, email, mobile, groups, address, userGroups} = this.state.profile
+    this.setState({
+      profile: {
+        firstName: null,
+        lastName: null,
+        birthday: null,
+        gender: null,
+        email: null,
+        mobile: null,
+        groups: null,
+        userGroups: [...value],
+        address: null
       }
-    }    
-    return -1
-  }
-
-  isAvailbleInGroup (groups, groupId) {
-    let index = this.indexOfGroupId(groups, groupId)
-    if(index > -1) {
-      return true
-    }
-    return false
+    })
   }
 
   render () {
@@ -141,6 +108,8 @@ export default class ProfileScreen extends React.Component {
     const renderUserGroupView = !this.state.editUserGroup ? null : (
       <CheckboxGroups 
         items={userGroupListData}
+		    onSelect={(value) => this.onCheckedItem(value)}
+        checked={userGroups}
         labelColor={'black'}
         iconColor={'blue'}
       />

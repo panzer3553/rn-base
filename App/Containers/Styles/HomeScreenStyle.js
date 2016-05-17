@@ -11,6 +11,10 @@ export default StyleSheet.create({
     top: 10,
     left: Metrics.screenWidth - 80
   },
+  extremeIconContainer: {
+    top: 30,
+    left: Metrics.screenWidth - 80
+  },
   icons_container: {
     flexDirection: 'row',
     justifyContent: 'space-around',

@@ -8,6 +8,7 @@ export default class CheckboxGroup extends Component {
         this.state = {
             selected: []
         };
+        this._onChange = this._onChange.bind(this)
     }
 
     static propTypes = {
@@ -17,7 +18,7 @@ export default class CheckboxGroup extends Component {
             value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
             label: PropTypes.string,
             disabled: PropTypes.bool
-        }))
+        })),
     };
 
     static defaultProps = {
@@ -61,7 +62,7 @@ export default class CheckboxGroup extends Component {
 
     _onChange = (checked, value) => {
         const { selected } = this.state;
-
+        console.log('_' + checked + '_' + value)
         if (checked) {
             this.setState({
                 selected: [...selected, value]

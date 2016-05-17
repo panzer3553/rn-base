@@ -9,6 +9,7 @@ import I18n from '../I18n/I18n.js'
 import { connect } from 'react-redux'
 import R from 'ramda'
 import Linking from 'Linking'
+import config, { homeInfoListData, imageUploadOptions } from '../Config/AppSetting'
 import React, {
   StyleSheet,
   View, 
@@ -19,6 +20,7 @@ import React, {
   PropTypes,
   Platform
 } from 'react-native'
+var ImagePickerManager = require('NativeModules').ImagePickerManager;
 
 export default class BubblePopUp extends React.Component {
 
@@ -125,12 +127,11 @@ export default class BubblePopUp extends React.Component {
 			  style={styles.bubbleContainer}
 			  width={width}
 			  marginLeft={10}
-			  marginTop={10}
-			 >
+			  marginTop={10}>
 			  <View 
 			    style={styles.squareContainer} 
 				height={talkBubbleHeight}
-			  >
+				img={this.props.img}>
 				{ this.renderTitle((elementHeight > Metrics.fonts.large) ? elementHeight : Metrics.fonts.large) }
 				{ this.renderList() }
 				{ this.renderCancelButton(elementHeight) }
@@ -138,7 +139,7 @@ export default class BubblePopUp extends React.Component {
 			  { this.renderTriangle(elementHeight) }
 			</View>
 		  </View>
-	)
+	  )
 	}
 	  
 	return (null)
@@ -154,6 +155,9 @@ export default class BubblePopUp extends React.Component {
 		break
 	  case 'JSONLocation':
 		this.showJSONInfo()
+		break
+	  case 'uploadImage':
+		this.uploadImage()
 		break
 		
 	  default:
@@ -187,6 +191,37 @@ export default class BubblePopUp extends React.Component {
 	dispatch(Actions.requestJsonByCoords(latitude, longitude))
   }
 
+
+  uploadImage () {
+    if (typeof this.props.onClose === 'function') {
+      this.props.onClose()
+    }
+
+	ImagePickerManager.showImagePicker(imageUploadOptions, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker')
+      }
+      else if (response.error) {
+        console.log('ImagePickerManager Error: ', response.error)
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton)
+      }
+      else {
+        // const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true}
+        const {dispatch} = this.props
+        const emergencyObjectId = ''
+      	dispatch(Actions.uploadImage(response, 'L6hyfERXEl'))
+      }
+    })
+
+    if (this.state.image) {
+
+    }
+
+  }
 
 }
 

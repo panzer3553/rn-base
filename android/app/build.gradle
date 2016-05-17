@@ -133,7 +133,6 @@ repositories {
 }
 
 dependencies {
-    compile project(':react-native-material-kit')
    compile 'com.google.android.gms:play-services-gcm:8.4.0'
    compile 'com.google.android.gms:play-services-analytics:8.4.0'
    compile 'com.google.android.gms:play-services-location:8.4.0'
@@ -147,4 +146,8 @@ dependencies {
    compile project(':react-native-push-notification')
    compile project(':RNSendIntentModule')
    compile project(':react-native-dialogs')
+   //compile project(':react-native-send-intent')
+   compile project(':react-native-image-picker')
+   compile project(':react-native-camera')
+
 }

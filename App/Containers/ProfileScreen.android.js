@@ -2,7 +2,7 @@
 import React from 'react'
 import { View, ScrollView, Text, TextInput, PropTypes, Alert, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
-import styles from './Styles/AllComponentsScreenStyle'
+import styles from './Styles/HomeScreenStyle'
 import InputField from '../Components/InputField'
 import PickerField from '../Components/PickerField'
 import DateField from '../Components/DateField'
