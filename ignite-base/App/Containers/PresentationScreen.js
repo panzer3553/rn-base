@@ -15,12 +15,6 @@ export default class PresentationScreen extends React.Component {
     navigator: PropTypes.object.isRequired
   }
 
-  componentWillMount () {
-    this.props.navigator.state.tapHamburger = () => {
-      this.props.navigator.drawer.toggle()
-    }
-  }
-
   render () {
     return (
       <ScrollView style={styles.container}>

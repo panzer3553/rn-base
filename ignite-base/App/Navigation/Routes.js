@@ -66,4 +66,12 @@ export default new class Routes {
     }
   }
 
+  get TabsViewScreen () {
+    return {
+      title: 'Home',
+      component: require('../Containers/TabsView').default,
+      customConfiguration: Transitions.modal
+    }
+  }
+
 }
