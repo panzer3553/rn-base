@@ -3,7 +3,7 @@ var _ = require('underscore');
 Parse.Cloud.afterSave("Emergency", function(request, response) {
     var emergencyData = request.object.toJSON();
     console.log(emergencyData);
-    if (request.object.existed()) return;
+    if (request.object.existed() || !emergencyData.profile) return;
 
     var query = new Parse.Query("Profile");
     query.get(emergencyData.profile.objectId).then(function(profile) {
@@ -18,7 +18,7 @@ Parse.Cloud.afterSave("Emergency", function(request, response) {
         var profileQuery = new Parse.Query("Profile");
         profileQuery.containedIn("city", [locationInfo.administrative_area_level_1, locationInfo.locality, locationInfo.sublocality_level_1]);
         profileQuery.containedIn("userGroups", getGroupsFromEmergencyType(emergencyData.type));
-        profileQuery.notEqualTo("objectId", emergencyData.profile.objectId);
+        // profileQuery.notEqualTo("objectId", emergencyData.profile.objectId);
         // profileQuery.containedIn("groups", getGroupsFromEmergencyType(emergencyData.type));
         // profileQuery.equalTo("country", locationInfo.country);
 
@@ -26,6 +26,7 @@ Parse.Cloud.afterSave("Emergency", function(request, response) {
         pushQuery.matchesQuery('profile', profileQuery);
 
         var pushMessageAddress = locationInfo && locationInfo.formatted_address ? locationInfo.formatted_address : emergencyData.location.longitude + ", " + emergencyData.location.latitude;
+        emergencyData.address = pushMessageAddress;
 
         Parse.Push.send({
             where: pushQuery,
