@@ -65,6 +65,7 @@ export default class ImageCamera extends React.Component{
   }
 
   render() {
+    console.log(this.state.images)
     const {active,selected} = this.state;
     const leftItem={layout: 'icon', title: 'Back', icon: 'ios-arrow-back', onPress: this.dismiss}
     return (
@@ -103,7 +104,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F5FCFF',
-        marginTop: 64
     },
     imageGrid: {
         flex: 1,
