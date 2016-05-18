@@ -74,16 +74,16 @@ export function * updateLocationAndShowDirection (desAddress, mode) {
   	console.log('URL:' + directionUrl)
 	  //Then show direction on map
     if (supported) {
-		yield put(Actions.receiveDirection())
-		Linking.openURL(directionUrl)   
-	} 
-	else if (err) {
-		yield put(Actions.receiveDirectionFailure, error)
-	}
-	else {
-		const formatError = 'Don\'t know how to go'
-		yield put(Actions.receiveDirectionFailure, formatError)
-	}
+  		yield put(Actions.receiveDirection())
+  		Linking.openURL(directionUrl)   
+  	} 
+  	else if (err) {
+  		yield put(Actions.receiveDirectionFailure, error)
+  	}
+  	else {
+  		const formatError = 'Don\'t know how to go'
+  		yield put(Actions.receiveDirectionFailure, formatError)
+  	}
   }
 }
 

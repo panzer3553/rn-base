@@ -24,7 +24,6 @@ export const homeInfoListData = [
   { icon: 'fire', text: 'Show Location', func: 'showUserLocation' }, 
   { icon: 'fire', text: 'Location Info', func: 'JSONLocation' }, 
   { icon: 'fire', text: 'UploadImage', func: 'uploadImage' }, 
-
 ]
 
 export const drawerItems = [
@@ -45,8 +44,8 @@ export const imageUploadOptions = {
   mediaType: 'photo', // 'photo' or 'video'
   videoQuality: 'low', // 'low', 'medium', or 'high'
   durationLimit: 10, // video recording max time in seconds
-  maxWidth: 4, // photos only
-  maxHeight: 4, // photos only
+  maxWidth: 32, // photos only
+  maxHeight: 32, // photos only
   aspectX: 2, // android only - aspectX:aspectY, the cropping image's ratio of width to height
   aspectY: 1, // android only - aspectX:aspectY, the cropping image's ratio of width to height
   quality: 0.1, // 0 to 1, photos only
