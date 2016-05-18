@@ -14,16 +14,18 @@ export default StyleSheet.create({
     backgroundColor: Colors.windowTint
   },
   bubbleContainer: {
+    position: 'relative',
     backgroundColor: Colors.transparent,
     flex: 1,
     flexDirection: 'row'
   },
   squareContainer: {
     position: 'relative',
-    flex:3,
+    flex:4,
     flexDirection: 'column',
     backgroundColor: 'white',
-    borderRadius: 10
+    borderRadius: 10,
+    borderWidth: 0
   },
   triangleContainer: {
     flex: 1,
@@ -67,7 +69,7 @@ export default StyleSheet.create({
   },
   closeButton: {
     flex: 1,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: 'rgba(77, 148, 255, 0.8)',
     backgroundColor: 'rgba(128, 179, 255, 0.5)',
     padding: 6,
@@ -75,11 +77,11 @@ export default StyleSheet.create({
   },
   closeText: {
     textAlign: 'center',
-    color: Colors.silver
+    color: 'black'
   },
-    separator: {
+  separator: {
     height: 1,
-    backgroundColor: '#dddddd'
+    backgroundColor: '#aaa'
   },
   title: {
     fontSize: Metrics.fonts.medium,
@@ -93,9 +95,9 @@ export default StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
-    padding: 5,
     alignItems: 'center' ,
-    borderRadius: 10
+    borderRadius: 10,
+    borderWidth: 0
   },
   icon: {
     width: Metrics.icons.small,
@@ -103,6 +105,6 @@ export default StyleSheet.create({
     marginRight: 10
   },
   textContainer: {
-    flex: 1
+    flexDirection: 'column',
   }
 })

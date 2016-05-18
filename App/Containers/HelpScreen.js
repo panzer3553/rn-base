@@ -1,7 +1,9 @@
+import {Images, Metrics, Colors} from '../Themes'
 import { connect } from 'react-redux'
 import Styles from './Styles/HelpScreenStyle'
 import Actions from '../Actions/Creators'
-import {Images, Metrics} from '../Themes'
+import I18n from '../I18n/I18n.js'
+import NavigationBar from '../Components/NavigationBar'
 import React, {
   Component,
   PropTypes,
@@ -14,8 +16,6 @@ import React, {
   LayoutAnimation,
   Alert
 } from 'react-native'
-// I18n
-import I18n from '../I18n/I18n.js'
 
 class HelpScreen extends Component {
 
@@ -25,13 +25,22 @@ class HelpScreen extends Component {
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth }
     }
+    this.dismiss = this.dismiss.bind(this)
+  }
+
+  dismiss () {
+    this.props.navigator.pop()
   }
 
   render () {
+    const leftItem={layout: 'icon', title: 'Back', icon: 'ios-arrow-back', onPress: this.dismiss}
     return (
-      <View style={[Styles.container, {height: this.state.visibleHeight}]}>
-        <View style={Styles.form}>
-        </View>
+      <View style={{flex: 1}}>
+        <NavigationBar
+          title='Help'
+          style={{backgroundColor: Colors.drawerColor}}
+          leftItem={leftItem}
+        />
       </View>
     )
   }
@@ -39,6 +48,7 @@ class HelpScreen extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    ////
   }
 }
 

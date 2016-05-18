@@ -11,7 +11,7 @@ export const INITIAL_STATE = Immutable({
   city: null
 })
 
-const saveProfile = (state, action) =>
+const save = (state, action) =>
   state.merge({
     profile: action.profile,
     saved: true,
@@ -31,7 +31,7 @@ const failure = (state, action) =>
   })
   
  const ACTION_HANDLERS = {
-  [Types.SAVE_PROFILE]: saveProfile,
+  [Types.SAVE_PROFILE]: save,
   [Types.SAVE_PROFILE_FAILURE]: failure,
   [Types.SAVE_PROFILE_SUCCCESS]: success
 }

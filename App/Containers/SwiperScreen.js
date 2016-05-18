@@ -1,4 +1,3 @@
-import Swiper from 'react-native-swiper'
 import React, {
   Component,
   Animated,
@@ -7,6 +6,7 @@ import React, {
   StatusBarIOS,
   StyleSheet,Text,
   TouchableHighlight,
+  TouchableOpacity,
   View, 
   Picker, 
   Modal, 
@@ -14,35 +14,39 @@ import React, {
   RecyclerViewBackedScrollView, 
   AsyncStorage
 } from 'react-native'
-import SearchBar from 'react-native-search-bar'
 import { Colors, Images, Metrics } from '../Themes'
+import {Router, Routes, NavigationBar} from '../Navigation/'
+import {MKCheckbox, MKColor} from 'react-native-material-kit'
+import SearchBar from 'react-native-search-bar'
 import Icon from 'react-native-vector-icons/Ionicons'
 import ModalPicker from 'react-native-modal-picker'
 import { connect } from 'react-redux'
 import styles from './Styles/SwiperStyles.js'
 import Actions from '../Actions/Creators'
-import {Router, Routes, NavigationBar} from '../Navigation/'
-import config from '../Config/AppSetting'
+import config, { userGroupListData } from '../Config/AppSetting'
 import CityPicker from '../Components/CityPicker'
+import Swiper from 'react-native-swiper'
+import CheckboxGroups from '../Components/CheckboxGroups'
+
 const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 
 class Intro extends Component {
 
-  _onMomentumScrollEnd (e, state, context) {
-    // you can get `state` and `this`(ref to swiper's context) from params
-  }
-
   constructor (props) {
     super(props)
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-    this.state = {userGroups: null, city: null, index: 0, groupId: null, countryCode: null}
+    this.state = {userGroups: [], city: null, index: 0, groupIds: [], countryCode: null}
+  }
+
+  _onMomentumScrollEnd (e, state, context) {
+    // you can get `state` and `this`(ref to swiper's context) from params
   }
   
   async pressSkip () {
     const {dispatch} = this.props
     dispatch(Actions.skipSwiper())
-    const {groupId, city, countryCode} = this.state
-    dispatch(Actions.saveProfile({groups: groupId, city: city, country: countryCode}))
+    const {groupIds, city, countryCode} = this.state
+    dispatch(Actions.saveProfile({userGroups: groupIds, city: city, country: countryCode}))
     try {
       await AsyncStorage.setItem(STORAGE_KEY_FIRST_LOAD, 'false')
       this.props.navigator.push(Routes.TabScreen)
@@ -51,18 +55,20 @@ class Intro extends Component {
     }
   }
 
+  onCheckedItem (value) {
+    const { groupIds } = this.state
+    console.log('onCheckedItem')
+
+    this.setState({
+        groupIds: [...value],
+        index: 1
+    })
+  }
+
   render () {
     let index = 0
-    const data = [
-      { key: index++, section: true, label: 'Users group' },
-      { key: index++, label: 'Police station', groupId: 'policeStation'},
-      { key: index++, label: 'Fire station', groupId: 'fireStation'},
-      { key: index++, label: 'Ambulance', groupId: 'ambulance' },
-      { key: index++, label: 'Medical User', groupId: 'medicalUser' },
-      { key: index++, label: 'Militarian User', groupId: 'militarianUser' },
-      { key: index++, label: 'Volunteer', groupId: 'volunteer' },
-      { key: index++, label: 'Other', groupId: 'other' },
-    ]
+
+    const {groupIds} = this.state
 
     return (
       <View style={styles.backgroundFixed}>
@@ -73,7 +79,7 @@ class Intro extends Component {
         </View>
       <View style={styles.sliders}>
         <Swiper 
-          height={Metrics.screenHeight-200} 
+          height={Metrics.screenHeight - 125} 
           showsButtons={false} autoplay={false} 
           index={this.state.index} 
           loop={false}
@@ -81,23 +87,25 @@ class Intro extends Component {
           dot={<View style={{backgroundColor: 'rgba(255,255,255,0.2)', width: 6, height: 6, borderRadius: 3, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}
           activeDot={<View style={{backgroundColor: 'rgba(255,255,255,1)', width: 6, height: 6, borderRadius: 3, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3,}} />}>
           <View style={styles.slide}>
-            <Text style={styles.slideTextTitle}>Welcome</Text>
+            <View style={styles.logoIconContainer}>
+              <Icon name="medkit" size={100} color="white"></Icon>
+            </View>
             <Text style={styles.slideText}>SmartSOS will help you with emergency situations</Text>
           </View>
           <View style={styles.slide}>
             <View style={styles.logoIconContainer}>
               <Icon name="android-contacts" size={100} color="white"></Icon>
             </View>
-            <Text style={styles.slideText}>Looks like you haven't selected a User Group. Please select one.</Text>
-            <ModalPicker
-              data={data}
-              initValue="Select something yummy!"
-              onChange={(option)=>{ this.setState({userGroups:option.label, groupId:option.groupId, index: 1})}}>
-              <View style={styles.pickerContainer}>
-                <Text>{this.state.userGroups || "Select a group"} </Text>
-                <Icon name="ios-arrow-down" size={18} color="black" style={styles.dropDownIcon}></Icon>
-              </View>
-            </ModalPicker>
+            <View>
+              <Text style={styles.slideText}>Looks like you haven't selected a User Group. Please select one.</Text>
+            </View>
+            <CheckboxGroups 
+              items={userGroupListData} 
+              onSelect={(value) => this.onCheckedItem(value)}
+              checked={groupIds}
+              labelColor={'black'}
+              iconColor={'black'}
+            />
           </View>
           <View style={styles.slide}>
             <View style={styles.logoIconContainer}>
@@ -118,12 +126,12 @@ class Intro extends Component {
   }
 }
 
-export default class SwiperScreen extends Component{
+export default class SwiperScreen extends Component {
 
   render () {
     return(
       <View style={styles.container}>
-        <Intro></Intro>
+        <Intro/>
       </View>
     )
   }
@@ -131,6 +139,7 @@ export default class SwiperScreen extends Component{
 
 const mapStateToProps = (state) => {
   return {
+    ////
   }
 }
 

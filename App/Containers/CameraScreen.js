@@ -6,7 +6,8 @@ import React, {
   TouchableHighlight,
   View,
   ToastAndroid,
-  Platform
+  Platform,
+  Alert
 } from 'react-native';
 import Camera from 'react-native-camera';
 import TimerMixin from 'react-timer-mixin';
@@ -14,6 +15,9 @@ import NavigationBar from '../Components/NavigationBar'
 import I18n from '../I18n/I18n.js'
 import { Colors } from '../Themes'
 import Routes from '../Navigation/Routes'
+
+var MessageBarAlert = require('react-native-message-bar').MessageBar;
+var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
 export default class CameraScreen extends Component {
 
@@ -31,6 +35,7 @@ export default class CameraScreen extends Component {
   componentDidMount () {
     this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture(); this.setState({numberofPicture: this.state.numberofPicture + 1})}, 1000);
     this.clearTimer = TimerMixin.setTimeout(() => {TimerMixin.clearInterval(this.intervalTimer);this.setState({isAuto: false})}, 10000);
+    MessageBarManager.registerMessageBar(this.refs.alert);
   }
 
   takePicture () {
@@ -42,6 +47,7 @@ export default class CameraScreen extends Component {
   componentWillUnmount () {
     TimerMixin.clearInterval(this.intervalTimer)
     TimerMixin.clearTimeout(this.clearTimer);
+    MessageBarManager.unregisterMessageBar();
   }
 
   dismiss () {
@@ -71,9 +77,10 @@ export default class CameraScreen extends Component {
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}>
         </Camera>
-        <View >
+        <View style={styles.bottomView}>
         {text}
         </View>
+        <MessageBarAlert ref="alert" />
       </View>
       </View>
     );
@@ -92,12 +99,16 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width + 3
   },
   capture: {
-    flex: 0,
     backgroundColor: '#fff',
-    borderRadius: 5,
-    alignSelf: 'center',
     color: '#000',
-    padding: 10,
-    margin: 10
+    padding: 10
+  },
+  bottomView: {
+    position: 'absolute',
+    flex: 0,
+    left: 0,
+    bottom: 30,
+    alignItems: 'center', 
+    width: Dimensions.get('window').width + 3 
   }
 });

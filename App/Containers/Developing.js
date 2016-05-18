@@ -3,7 +3,6 @@ import Actions from '../Actions/Creators'
 import Routes from '../Navigation/Routes'
 import I18n from '../I18n/I18n.js'
 import NavigationBar from '../Components/NavigationBar' 
-
 import React, { 
   View, 
   ScrollView, 

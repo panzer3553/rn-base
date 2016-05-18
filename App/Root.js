@@ -19,6 +19,7 @@ import styles from './Containers/Styles/RootStyle'
 import drawerStyles from './Containers/Styles/DrawerStyle'
 import I18n from './I18n/I18n.js'
 import PushNotificationsController from './Containers/PushNotificationsController'
+import config, { drawerItems } from './Config/AppSetting'
 
 const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 
@@ -49,29 +50,39 @@ export default class RNBase extends React.Component {
   }
 
 
-  renderApp () {
-    var App = 
-            <Navigator
-              ref={(ref) => { this.navigator = ref }}
-              initialRoute={Routes.TabScreen}
-              configureScene={Router.configureScene}
-              renderScene={Router.renderScene}
-              style={styles.container}
-            />
-
-    return (
-        <View style={styles.applicationView}>
-          <StatusBar
-            barStyle='light-content'
-          />
-          {App}
-          <PushNotificationsController navigator={this.navigator}/>
-        </View>
+  renderNavigator () {
+    return  (
+      <Navigator
+        ref={(ref) => { this.navigator = ref }}
+        initialRoute={Routes.TabScreen}
+        configureScene={Router.configureScene}
+        renderScene={Router.renderScene}
+        style={styles.container}
+      />
     )
+  }
+  
+  renderStatusBar () {
+    return (
+      <StatusBar
+        barStyle='light-content'
+      />
+    )
+  }  
+
+  // this func must be on the top of app for showing alert :)
+  renderNotificationAlertOnForeGround () {
+    return (<PushNotificationsController navigator={this.navigator}/>)
   }
 
   render () {
-    return this.renderApp()
+    return (
+      <View style={styles.applicationView}>
+        { this.renderNavigator() }
+        { this.renderStatusBar() }
+        { this.renderNotificationAlertOnForeGround() }
+      </View>
+    )
   }
 }
 

@@ -9,7 +9,7 @@ import React, {
   AsyncStorage
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import AllComponentsScreen from './AllComponentsScreen'
+import HomeScreen from './HomeScreen'
 import ProfileScreen from './ProfileScreen'
 import Developing from './Developing'
 import EmergencyScreen from './EmergencyScreen'
@@ -54,7 +54,7 @@ export default class TabsView extends React.Component{
   renderContent () {
     switch (this.props.tab) {
       case 'home':
-        return <AllComponentsScreen navigator={this.props.navigator}/>
+        return <HomeScreen navigator={this.props.navigator}/>
       case 'profile':
         return <ProfileScreen navigator={this.props.navigator}/>
       case 'instruction':

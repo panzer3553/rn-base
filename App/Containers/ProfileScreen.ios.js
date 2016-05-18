@@ -1,3 +1,4 @@
+
 import React, { View, ScrollView, Text, TouchableOpacity, PropTypes, StyleSheet, Alert, AsyncStorage} from 'react-native'
 import { Form, InputField, Separator, SwitchField, LinkField ,PickerField, DatePickerField, KeyboardAwareScrollView} from 'react-native-form-generator'
 import { connect } from 'react-redux'
@@ -13,7 +14,8 @@ import Animatable from 'react-native-animatable'
 // I18n
 import I18n from '../I18n/I18n.js'
 import Styles from './Styles/LoginScreenStyle'
-const STORAGE_KEY_PROFILE = "PROFILE_ID"
+import config, { userGroupListData } from '../Config/AppSetting'
+import CheckboxGroups from '../Components/CheckboxGroups'
 
 export default class ProfileScreen extends React.Component {
 
@@ -32,12 +34,14 @@ export default class ProfileScreen extends React.Component {
         gender: null,
         email: null,
         mobile: null,
-        groups: null,
+        groups: [],
         address: null,
+        userGroups: []
       },
       city: null,
       countryCode: null,
-      saved: false
+      saved: false,
+      editUserGroup: false,
     }
     this.tapSaveButton = this.tapSaveButton.bind(this)
   }
@@ -55,15 +59,14 @@ export default class ProfileScreen extends React.Component {
   }
 
   tapSaveButton(){
-    Alert.alert("Saved")
+    Alert.alert('Saved')
     const { dispatch } = this.props
-    AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
+    AsyncStorage.getItem(config.STORAGE_KEY_PROFILE).then((value) => {
       if (value !== null)
         dispatch(Actions.saveProfile({...this.state.profile, city: this.state.city, country: this.state.countryCode}, value))
       else 
         dispatch(Actions.saveProfile({...this.state.profile, city: this.state.city, country: this.state.countryCode}))
-     }
-    )
+    })
   }
 
   handleFormChange (formData) {
@@ -74,11 +77,43 @@ export default class ProfileScreen extends React.Component {
     this.setState({profile: formData})
   }
 
+  handleEditUserGroup () {
+    this.setState({
+      editUserGroup: !this.state.editUserGroup,
+    })
+  }
+
+  onCheckedItem (value) {
+    const {firstName, lastName, birthday, gender, email, mobile, groups, address, userGroups} = this.state.profile
+    this.setState({
+      profile: {
+        firstName: null,
+        lastName: null,
+        birthday: null,
+        gender: null,
+        email: null,
+        mobile: null,
+        groups: null,
+        userGroups: [...value],
+        address: null
+      }
+    })
+  }
+
   render () {
-    const {firstName, lastName, birthday, gender, email, mobile, groups, address} = this.state.profile
+    const {firstName, lastName, birthday, gender, email, mobile, userGroups, address} = this.state.profile
     const {city} = this.state
     const leftItem={layout: 'icon', icon: 'android-menu', onPress: this.context.openDrawer}
     const rightItem={layout: 'title', title: 'Save', onPress: this.tapSaveButton}
+    const renderUserGroupView = !this.state.editUserGroup ? null : (
+      <CheckboxGroups 
+        items={userGroupListData}
+		    onSelect={(value) => this.onCheckedItem(value)}
+        checked={userGroups}
+        labelColor={'black'}
+        iconColor={'blue'}
+      />
+    )
     return(
       <View style={{flex: 1}}>
       <NavigationBar
@@ -124,23 +159,34 @@ export default class ProfileScreen extends React.Component {
           <Icon name='ios-arrow-right'
             size={Metrics.icons.x_small}
             style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
-            />
-            <PickerField ref='groups' placeholder='User Groups' value={groups}
-            options={{
-              policeStation: 'Police Station',
-              fireStation: 'Fire Station',
-              ambulance: 'Ambulance',
-              medicalUser: 'Medical User',
-              militarianUser: 'Militarian User',
-              volunteer: 'Volunteer',
-              other: 'Other'
-            }}
-          iconRight={
-          <Icon name='ios-arrow-right'
-            size={Metrics.icons.x_small}
-            style={[formStyles.alignRight, {color: Colors.formTextColor}]}/> }
-            />
-          <Separator label='CONTACT'/>
+            />     
+        </Form>
+        <View>
+          <TouchableOpacity 
+            style={formStyles.form_div_1}
+            onPress={()=> this.handleEditUserGroup()}
+          >
+            <View style={formStyles.pickerContainer}>
+               <Icon name='ios-people-outline'
+                size={Metrics.icons.x_small}
+                style={[formStyles.alignLeft1, {color: Colors.formTextColor}]}
+              />
+              <Text style={formStyles.label}>Choose User Groups</Text>
+              <Icon 
+                  name='ios-arrow-right'
+                  size={Metrics.icons.x_small} 
+                  color="black" style={[formStyles.dropDownIcon, {color: Colors.formTextColor}]}>
+              </Icon>
+            </View>
+          </TouchableOpacity>
+          {renderUserGroupView}
+        </View>
+        <Form
+            style={formStyles.form_div_1}
+            ref='registrationForm'
+            onFocus={this.handleFormFocus.bind(this)}
+            onChange={this.handleFormChange.bind(this)}
+            label='CONTACT'>
           <InputField ref='email' placeholder='Email' keyboardType="email-address" autoCapitalize="none" value={email}
           iconLeft={
           <Icon name='ios-email-outline'
@@ -172,6 +218,7 @@ export default class ProfileScreen extends React.Component {
 ProfileScreen.contextTypes = {
   openDrawer: React.PropTypes.func,
 };
+
 
 const mapStateToProps = (state) => {
   return {

@@ -1,97 +1,122 @@
-import React from 'react-native'
-import t from 'tcomb-form-native'
-var { AppRegistry, StyleSheet, Text, View, TouchableHighlight, ScrollView, Alert } = React;
+// An All Components Screen is a great way to dev and quick-test components
+import React from 'react'
+import { View, ScrollView, Text, TextInput, PropTypes, Alert, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
-
+import styles from './Styles/HomeScreenStyle'
+import InputField from '../Components/InputField'
+import PickerField from '../Components/PickerField'
+import DateField from '../Components/DateField'
+import Separator from '../Components/Separator'
+import FormCityPicker from '../Components/FormCityPicker'
+import Icon from 'react-native-vector-icons/FontAwesome'
+// Components to show examples (only real point of merge conflict)
+// I18n
+import I18n from '../I18n/I18n.js'
+const STORAGE_KEY_PROFILE = "PROFILE_ID"
 import Actions from '../Actions/Creators'
 
-var Form = t.form.Form
+export default class ProfileScreen extends React.Component {
 
-// here we are: define your domain model
-var Person = t.struct({
-  firstName: t.String,              // a required string
-  lastName: t.String,  // an optional string
-  birthday: t.Date,
-  email: t.String,
-  mobile: t.Number,
-  address: t.String                // a required number
-})
+  static propTypes = {
+    navigator: PropTypes.object.isRequired,
+    dispatch: PropTypes.func
+  }
 
-var options = {
-    fields: {
-    name: {
-      // name field configuration here..
-    },
-    surname: {
-      // surname field configuration here..
-    },
-    birthday: {
-      config: {
-        format: (date) =>  new Date(date).toISOString().slice(0, 10)
+  constructor (props) {
+    super(props)
+    this.state = {
+      firstName: null,
+      lastName: null,
+      birthday: null,
+      gender: null,
+      email: null,      
+      mobile: null,
+      groups: null,
+      address: null,
+      city: null,
+      country: null
     }
   }
-}
-}
 
-//TODO: Android design later
-export default class ProfileScreen extends React.Component{
-
-  onPress() {
-    // call getValue() to get the values of the form
-    var value = this.refs.form.getValue()
-    console.log(value)
-    const { dispatch } = this.props
-    dispatch(Actions.saveProfile(value))
+    componentWillMount () {
+    this.props.navigator.state.tapHamburger = () => {
+      this.props.navigator.drawer.toggle()
+    }
+    this.props.navigator.state.tapSaveButton = this.tapSaveButton.bind(this)
+    if(this.props.profileData.saved){
+      const {firstName, lastName, birthday, gender, email, mobile, groups, address, city, country} = this.props.profileData.profile
+      this.setState({
+        firstName: firstName,
+        lastName: lastName,
+        birthday: birthday,
+        gender: gender,
+        email: email,
+        mobile: mobile,
+        groups: groups,
+        address: address,
+        city: city,
+        country: country,
+      })
+    }
   }
 
-  render(){
+  tapSaveButton(){
+    Alert.alert("Saved")
+    const { dispatch } = this.props
+    AsyncStorage.getItem(STORAGE_KEY_PROFILE).then((value) => {
+      if (value !== null)
+        dispatch(Actions.saveProfile(this.state, value))
+      else 
+        dispatch(Actions.saveProfile(this.state.profile))
+     }
+    )
+  }
+
+  render () {
+    const {firstName, lastName, birthday, gender, email, mobile, groups, address, city} = this.state
     return (
-      <ScrollView style={styles.container}>
-        <Form
-          ref="form"
-          type={Person}
-          options={options}
-          value={this.props.profileData.profile}
+      <ScrollView style={[styles.screenContainer, {backgroundColor: '#FAFAFA'}]}>
+        <Separator label="Basic"/>
+        <InputField icon="ios-person" placeholder="First Name" value={firstName} onValueChange={(value) => this.setState({firstName: value})}/>
+        <InputField icon="ios-person-outline" placeholder="Last Name" value={lastName} onValueChange={(value) => this.setState({lastName: value})}/>
+        <DateField placeholder="Date of birth" icon="birthday-cake" value={birthday} onValueChange={(value) => this.setState({birthday: value})}/>
+        <PickerField placeholder="Gender" icon="intersex" 
+          options={{
+            male: 'Male',
+            female: 'Female'
+          }}
+          title='Select a gender'
+          value={gender}
+          onValueChange={(value) => this.setState({gender: value})}/>
+        <PickerField placeholder="User groups" icon="users" 
+          options={{
+              policeStation: 'Police Station',
+              fireStation: 'Fire Station',
+              ambulance: 'Ambulance',
+              medicalUser: 'Medical User',
+              militarianUser: 'Militarian User',
+              volunteer: 'Volunteer',
+              other: 'Other'
+          }}
+          value={groups}
+          title='Select a user groups'
+          onValueChange={(value) => this.setState({groups: value})}
         />
-        <TouchableHighlight style={styles.button} onPress={this.onPress.bind(this)} underlayColor='#99d9f4'>
-          <Text style={styles.buttonText}>Save</Text>
-        </TouchableHighlight>
+        <Separator label="Contact"/>
+        <InputField icon="ios-email-outline" placeholder="Email" value={email} onValueChange={(value) => this.setState({email: value})}/>
+        <InputField icon="ios-telephone-outline" placeholder="Mobile" value={mobile} onValueChange={(value) => this.setState({mobile: value})}/>
+        <Separator label="Address"/>
+        <InputField icon="ios-home-outline" placeholder="Add a new address" value={address} onValueChange={(value) => this.setState({address: value})}/>
+        <FormCityPicker value={city} onChange={(value)=> this.setState({city: value.name, country: value.country})}/>
+        <View style={{height: 40}}></View>
       </ScrollView>
     )
   }
 }
 
-var styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-    padding: 20,
-    backgroundColor: '#ffffff',
-  },
-  title: {
-    fontSize: 30,
-    alignSelf: 'center',
-    marginBottom: 30
-  },
-  buttonText: {
-    fontSize: 18,
-    color: 'white',
-    alignSelf: 'center'
-  },
-  button: {
-    height: 36,
-    backgroundColor: '#48BBEC',
-    borderColor: '#48BBEC',
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 10,
-    alignSelf: 'stretch',
-    justifyContent: 'center'
-  }
-})
-
 const mapStateToProps = (state) => {
   return {
-    profileData: state.profileData
+    profileData: state.profileData,
   }
 }
 

@@ -90,6 +90,14 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            storeFile file(MYAPP_RELEASE_STORE_FILE)
+            storePassword MYAPP_RELEASE_STORE_PASSWORD
+            keyAlias MYAPP_RELEASE_KEY_ALIAS
+            keyPassword MYAPP_RELEASE_KEY_PASSWORD
+        }
+    }
     splits {
         abi {
             reset()
@@ -102,6 +110,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
@@ -119,6 +128,10 @@ android {
     }
 }
 
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
 dependencies {
    compile 'com.google.android.gms:play-services-gcm:8.4.0'
    compile 'com.google.android.gms:play-services-analytics:8.4.0'
@@ -131,7 +144,10 @@ dependencies {
    compile project(':react-native-maps')
    compile project(':RNMaterialKit')
    compile project(':react-native-push-notification')
+   compile project(':RNSendIntentModule')
+   compile project(':react-native-dialogs')
    //compile project(':react-native-send-intent')
    compile project(':react-native-image-picker')
    compile project(':react-native-camera')
+
 }

@@ -7,6 +7,8 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.i18n.reactnativei18n.ReactNativeI18n; 
 import com.AirMaps.AirPackage; // <--- This!
 import com.github.xinthink.rnmk.ReactMaterialKitPackage;
+import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
+import com.burnweb.rnsendintent.RNSendIntentPackage;  // <--- import
 import java.util.Arrays;
 import java.util.List;
 import android.content.Intent;
@@ -52,6 +54,8 @@ public class MainActivity extends ReactActivity {
             new ReactNativeI18n(),
             new AirPackage(),
             new ReactMaterialKitPackage(),
+            new ReactNativeDialogsPackage(),
+            new RNSendIntentPackage(), // add this manager
             new ImagePickerPackage(),
             new RCTCameraPackage(),
             mReactNativePushNotificationPackage

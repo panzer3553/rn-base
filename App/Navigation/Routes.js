@@ -1,6 +1,4 @@
 import { Transitions } from '../Themes/'
-
-// I18n
 import I18n from '../I18n/I18n.js'
 import { Navigator } from 'react-native'
 export default new class Routes {
@@ -14,7 +12,6 @@ export default new class Routes {
 
   get SwiperScreen () {
     return {
-      title: I18n.t('about'),
       component: require('../Containers/SwiperScreen').default,
       customConfiguration: Transitions.modal,
       displayNavBar: false
@@ -22,7 +19,6 @@ export default new class Routes {
   }
   get CameraScreen () {
     return {
-      title: I18n.t('camera'),
       customConfiguration: Navigator.SceneConfigs.PushFromRight ,
       component: require('../Containers/CameraScreen').default,
       leftButton: 'BACK',
@@ -32,7 +28,6 @@ export default new class Routes {
   }
   get GalleryScreen () {
     return {
-      title: I18n.t('camera'),
       customConfiguration: Navigator.SceneConfigs.PushFromRight ,
       component: require('../Containers/CameraGallery').default,
       leftButton: 'BACK',
@@ -42,9 +37,27 @@ export default new class Routes {
 
   get TabScreen () {
     return {
-      title: I18n.t('camera'),
       customConfiguration: Transitions.modal,
       component: require('../Containers/TabView').default,
     }
   }
+
+  get HelpScreen () {
+    return {
+      customConfiguration: Navigator.SceneConfigs.PushFromRight ,
+      component: require('../Containers/HelpScreen').default,
+      leftButton: 'BACK',
+      displayNavBar: true
+    }
+  }
+
+  get ImageCollectionScreen () {
+    return {
+      customConfiguration: Navigator.SceneConfigs.PushFromRight ,
+      component: require('../Containers/ImageCollectionScreen').default,
+      leftButton: 'BACK',
+      displayNavBar: true
+    }
+  }
+  
 }
