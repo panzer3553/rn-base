@@ -12,7 +12,7 @@ import {MKButton,MKColor} from 'react-native-material-kit'
 import Communications from 'react-native-communications'
 import PushNotification from 'react-native-push-notification'
 import I18n from '../I18n/I18n.js'
-import S, { homeInfoListData } from '../Config/AppSetting'
+import config, { homeInfoListData } from '../Config/AppSetting'
 import SendIntentAndroid from 'react-native-send-intent'
 import NavigationBar from '../Components/NavigationBar'
 
