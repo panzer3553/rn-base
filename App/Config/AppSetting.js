@@ -10,13 +10,13 @@ export default config = {
 }
 
 export const userGroupListData = [
-      { value: 'policeStation', label: 'Police station' },
-      { value: 'fireStation', label: 'Fire station' },
-      { value: 'ambulance', label: 'Ambulance' },
-      { value: 'medicalUser', label: 'Medical User' },
-      { value: 'militarianUser', label: 'Militarian User' },
-      { value: 'volunteer', label: 'Volunteer' },
-      { value: 'normal', label: 'Normal'},
+      { value: 'policeGroup', label: 'Police' },
+      { value: 'fireGroup', label: 'Fire' },
+      { value: 'ambulanceGroup', label: 'Ambulance' },
+      { value: 'medicalGroup', label: 'Medical' },
+      { value: 'militarianGroup', label: 'Militarian' },
+      { value: 'volunteerGroup', label: 'Volunteer' },
+      { value: 'normalGroup', label: 'Normal'},
 ]
 
 export const homeInfoListData = [
@@ -24,6 +24,7 @@ export const homeInfoListData = [
   { icon: 'fire', text: 'Show Location', func: 'showUserLocation' }, 
   { icon: 'fire', text: 'Location Info', func: 'JSONLocation' }, 
   { icon: 'fire', text: 'UploadImage', func: 'uploadImage' }, 
+  { icon: 'fire', text: 'ShowImageList', func: 'showImageCollection' }, 
 ]
 
 export const drawerItems = [
@@ -44,11 +45,11 @@ export const imageUploadOptions = {
   mediaType: 'photo', // 'photo' or 'video'
   videoQuality: 'low', // 'low', 'medium', or 'high'
   durationLimit: 10, // video recording max time in seconds
-  maxWidth: 32, // photos only
-  maxHeight: 32, // photos only
+  maxWidth: 128, // photos only
+  maxHeight: 128, // photos only
   aspectX: 2, // android only - aspectX:aspectY, the cropping image's ratio of width to height
   aspectY: 1, // android only - aspectX:aspectY, the cropping image's ratio of width to height
-  quality: 0.1, // 0 to 1, photos only
+  quality: 0.3, // 0 to 1, photos only
   angle: 0, // android only, photos only
   allowsEditing: false, // Built in functionality to resize/reposition the image after selection
   noData: false, // photos only - disables the base64 `data` field from being generated (greatly improves performance on large photos)

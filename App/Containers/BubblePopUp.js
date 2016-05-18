@@ -159,6 +159,9 @@ export default class BubblePopUp extends React.Component {
 	  case 'uploadImage':
 		this.uploadImage()
 		break
+	  case 'showImageCollection':
+	  	this.showImageCollectionScreen()
+	  	break
 		
 	  default:
 		alert(_itemFuncName)
@@ -167,9 +170,22 @@ export default class BubblePopUp extends React.Component {
   }
 
   showHelpScreen () {
+    if (typeof this.props.onClose === 'function') {
+      this.props.onClose()
+    }
 	const { navigator } = this.props
 	const route = Routes.HelpScreen
 	navigator.push(route)
+  }
+
+  showImageCollectionScreen () {
+  	if (typeof this.props.onClose === 'function') {
+      this.props.onClose()
+    }
+
+	const { navigator } = this.props
+	const route = Routes.ImageCollectionScreen
+	navigator.push(route)  	
   }
 
   showUserLocation () {

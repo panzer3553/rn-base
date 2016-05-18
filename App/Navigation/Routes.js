@@ -105,5 +105,15 @@ export default new class Routes {
       displayNavBar: true
     }
   }
+
+  get ImageCollectionScreen () {
+     return {
+      title: 'Image Collection',
+      component: require('../Containers/ImageCollectionScreen').default,
+      customConfiguration: Transitions.modal,
+      leftButton: 'BACK',
+      displayNavBar: true
+    }   
+  }
   
 }
