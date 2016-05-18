@@ -18,12 +18,13 @@ export default class ExampleView extends React.Component {
     this.hello = this.hello.bind(this)
   }
 
+  context
   hello () {
     Alert.alert("hello")
   }
 
   render () {
-    let leftItem={layout: 'icon', title: 'Save', icon: 'android-arrow-back', onPress: this.hello}
+    let leftItem={layout: 'icon', title: 'Save', icon: 'android-menu', onPress: this.context.openDrawer}
     return (
       <View style={styles.container}>
         <NavigationBar
@@ -35,6 +36,10 @@ export default class ExampleView extends React.Component {
     )
   }
 }
+
+ExampleView.contextTypes = {
+  openDrawer: React.PropTypes.func,
+};
 
 const styles = StyleSheet.create({
   container: {

@@ -1,8 +1,25 @@
-import React from 'react'
-import { View, DrawerLayoutAndroid, Text, ToolbarAndroid } from 'react-native'
+import React, { PropTypes } from 'react'
+import { View, DrawerLayoutAndroid, Text, ToolbarAndroid, StyleSheet } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import ExampleView from './ExampleView'
+import Drawer from 'react-native-drawer'
 
 export default class TabsView extends React.Component{
+
+  constructor (props) {
+    super(props)
+    this.openDrawer = this.openDrawer.bind(this)
+  }
+
+  getChildContext () {
+    return{
+      openDrawer: this.openDrawer
+    }
+  }
+
+  openDrawer () {
+    this.refs.drawer.toggle()
+  }
 
   render () {
     var navigationView = (
@@ -10,22 +27,22 @@ export default class TabsView extends React.Component{
         <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I'm in the Drawer!</Text>
       </View>
     );
+
     return (
-      <DrawerLayoutAndroid
-        drawerWidth={300}
-        drawerPosition={DrawerLayoutAndroid.positions.Left}
-        renderNavigationView={() => navigationView}>
-        <View style={{flex: 1}}>
-        <Ionicons.ToolbarAndroid
-          actions={[]}
-          navIconName="android-menu"
-          style={{backgroundColor: '#a9a9a9', height: 56}}
-          titleColor="white"
-          title="Fuck yeah" />
-          <Text style={{margin: 10, fontSize: 15, textAlign: 'right'}}>Hello</Text>
-          <Text style={{margin: 10, fontSize: 15, textAlign: 'right'}}>World!</Text>
-        </View>
-      </DrawerLayoutAndroid>
+      <Drawer
+        ref='drawer'
+        type="static"
+        content={() => navigationView}
+        openDrawerOffset={100}
+        tapToClose={true}
+        tweenHandler={Drawer.tweenPresets.parallax}
+        >
+          <ExampleView navigator={this.props.navigator}/>
+      </Drawer>
     );
   }
 }
+
+TabsView.childContextTypes = {
+  openDrawer: React.PropTypes.func,
+};

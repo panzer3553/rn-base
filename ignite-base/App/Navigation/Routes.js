@@ -46,7 +46,6 @@ export default new class Routes {
     }
   }
 
-<<<<<<< HEAD
   get CityPickerScreen () {
     return {
       title: 'Select a city',
@@ -67,19 +66,11 @@ export default new class Routes {
     }
   }
 
-  get TabsViewScreen () {
-    return {
-      title: 'Home',
-      component: require('../Containers/TabsView').default,
-      customConfiguration: Transitions.modal
-=======
   get TabViewScreen () {
     return {
       title: I18n.t('welcome'),
       component: require('../Containers/TabsView').default,
       customConfiguration: Transitions.modal,
-      displayNavBar: true
->>>>>>> 3713b55e22ddbab60a1b1b6a28851ca06c445d65
     }
   }
 

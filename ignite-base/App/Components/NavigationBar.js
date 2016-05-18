@@ -24,7 +24,7 @@ class F8HeaderAndroid extends React.Component {
 
     return (
         <Ionicons.ToolbarAndroid
-          navIconName={leftItem && leftItem.icon}
+          navIconName={leftItem.icon}
           onIconClicked={leftItem && leftItem.onPress}
           title={this.props.title}
           actions={actions}

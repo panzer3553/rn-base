@@ -1,5 +1,5 @@
-import React from 'react'
-import { ScrollView, Text, PropTypes, Image, View } from 'react-native'
+import React, {PropTypes} from 'react'
+import { ScrollView, Text, Image, View } from 'react-native'
 import { Images } from '../Themes'
 import { connect } from 'react-redux'
 import Routes from '../Navigation/Routes'
