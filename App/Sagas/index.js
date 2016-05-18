@@ -12,6 +12,7 @@ import { watchSaveToken } from './SaveTokenSaga'
 import { watchDirectionRequest } from './MapDirectionSaga'
 import { watchReceiveNotification } from './PushNotificationSaga'
 import { watchUploadImage } from './UploadImageSaga'
+import { watchGetEmergencyById } from './GetEmergencyByIdSaga'
 
 // start the daemons
 export default function * root() {
@@ -24,5 +25,6 @@ export default function * root() {
   yield fork(watchDirectionRequest),
   yield fork(watchReceiveNotification),
   yield fork(watchUpdateLocationAndSaveEmergengy),
-  yield fork(watchUploadImage)
+  yield fork(watchUploadImage),
+  yield fork(watchGetEmergencyById)
 }

@@ -18,10 +18,10 @@ export function * saveToServer (path, _method, _body) {
 
 }
 
-export function * getFromServer (path, _method) {
+export function * getFromServer (path) {
   return fetch(config.URL + path, 
   {
-    method: _method,
+    method: 'GET',
     headers: {
         'X-Parse-Application-Id': config.PARSE_ID,
         'X-Parse-REST-API-Key': config.PARSE_API_KEY
@@ -32,25 +32,24 @@ export function * getFromServer (path, _method) {
 
 export function * watchUploadImage () {
   while (true) {
-  	const {data, emergencyObjectId} = yield take(Types.UPLOAD_IMAGE)
+  	const {data, emergencyId} = yield take(Types.UPLOAD_IMAGE)
    	try {
         const uploadBody = {base64: data.data}
         const ok = yield call(saveToServer, 'files/' + 'picture.jpg', 'POST', uploadBody)
         if (ok) {
-          //console.log('OK' + JSON.stringify(ok))
           const imageCollectionBody = {
             emergencyId: {
                 __type: "Pointer",
                 className: "Emergency",
-                objectId: emergencyObjectId
+                objectId: emergencyId
             },
             url: {
               __type: 'File',
               name: ok.name 
             }
           }
+
           const resSaveUrl = yield call(saveToServer, 'classes/ImageCollection', 'POST', imageCollectionBody)
-          //console.log(resSaveUrl.objectId)
           if (resSaveUrl) {
             const updateEmergencyBody = {
               images: {
@@ -64,17 +63,22 @@ export function * watchUploadImage () {
                   ]
               }
             }
-            const resUpdateEmergency = yield call( saveToServer, 'classes/Emergency/' + emergencyObjectId,'PUT', updateEmergencyBody)
-            //console.log(resUpdateEmergency)
-            const resGetImageCollectionId = yield call(getFromServer, 'classes/Emergency/' + emergencyObjectId, 'GET') 
-            console.log('TEST:' + JSON.stringify(resGetImageCollectionId))
+
+            const resUpdateEmergency = yield call( saveToServer, 'classes/Emergency/' + emergencyId,'PUT', updateEmergencyBody)
+            //const resGetImageCollectionId = yield call(getFromServer, 'classes/Emergency/' + emergencyId) 
+            // if (resGetImageCollectionId) {
+            //   console.log(resGetImageCollectionId.images[0])
+            //   const resGetImage = yield call(getFromServer, 'classes/ImageCollection/' + resGetImageCollectionId.images[0].objectId, 'GET')
+            //   console.log('URL:' + resGetImage.url.url)
+            // }
           }
         } 
   	}
   	catch (error) {
-		  yield put(Actions.UPLOAD_IMAGE_FAILURE, error)
+		  yield put(Actions.UPLOAD_IMAGE_FAILUREe, error)
   	}
     
-    
   }
+
+
 }

@@ -71,12 +71,18 @@ const skipSwiper = () =>
 const updateLocationAndSaveEmergency = (emergencyType, profileId) =>
   createAction(Types.UPDATE_LOCATION_AND_SAVE_EMERGENCY, {emergencyType, profileId})
 
-const uploadImage = (data, emergencyObjectId) =>
-  createAction(Types.UPLOAD_IMAGE, {data, emergencyObjectId})
+const uploadImage = (data, emergencyId) =>
+  createAction(Types.UPLOAD_IMAGE, {data, emergencyId})
 const uploadImageSuccess = () =>
   createAction(Types.UPLOAD_IMAGE_SUCCESS)
 const uploadImageFailure = (error) =>
   createAction(Types.UPLOAD_IMAGE_FAILURE, {error})
+const getEmergencyById = (emergencyId) =>
+  createAction(Types.GET_EMERGENCY_BY_ID, {emergencyId})
+const getEmergencyByIdSuccess = (imagesInfo) =>
+  createAction(Types.GET_EMERGENCY_BY_ID_SUCCESS, {imagesInfo})
+const getEmergencyByIdFailure = (error) => 
+  createAction(Types.GET_EMERGENCY_BY_ID_FAILURE, {error})
 
 
 /**
@@ -118,4 +124,7 @@ export default {
   uploadImage,
   uploadImageSuccess,
   uploadImageFailure,
+  getEmergencyById,
+  getEmergencyByIdSuccess,
+  getEmergencyByIdFailure,
 }
