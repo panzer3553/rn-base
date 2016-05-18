@@ -3,6 +3,7 @@ var _ = require('underscore');
 Parse.Cloud.afterSave("Emergency", function(request, response) {
     var emergencyData = request.object.toJSON();
     console.log(emergencyData);
+    if (request.object.existed()) return;
 
     var query = new Parse.Query("Profile");
     query.get(emergencyData.profile.objectId).then(function(profile) {
