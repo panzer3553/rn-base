@@ -10,6 +10,7 @@ import BubblePopUp from './BubblePopUp.js'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {MKButton,MKColor} from 'react-native-material-kit'
 import Communications from 'react-native-communications'
+import NavigationBar from '../Components/NavigationBar' 
 var ImagePickerManager = require('NativeModules').ImagePickerManager;
 import I18n from '../I18n/I18n.js'
 const STORAGE_KEY_PROFILE = 'PROFILE_ID'
@@ -68,9 +69,7 @@ export default class AllComponentsScreen extends React.Component {
   }
 
   componentWillMount () {
-    this.props.navigator.state.tapHamburger = () => {
-      this.props.navigator.drawer.toggle()
-    }
+
   }
 
   handleShowPopUp (_items) {
@@ -151,9 +150,14 @@ export default class AllComponentsScreen extends React.Component {
           </Fab>
        </View>   
     )
-
+    const leftItem={layout: 'icon', title: 'Save', icon: 'android-menu', onPress: this.context.openDrawer}
     return (
       <View style={styles.screenContainer}>
+        <NavigationBar
+          title= {I18n.t('home')}
+          style={{backgroundColor: Colors.drawerColor}}
+          leftItem={leftItem}/>
+        <View style={{flex: 1}}>
         <MapScreen />
         <View style={styles.infoIconContainer}>
           <SmallFab onPress={this.handleShowPopUp.bind(this, fireItems)}>
@@ -175,10 +179,15 @@ export default class AllComponentsScreen extends React.Component {
           dispatch={this.props.dispatch}
         />
       {bottomButtons}
+      </View>
      </View>
     )
   }
 }
+
+AllComponentsScreen.contextTypes = {
+  openDrawer: React.PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
   return {

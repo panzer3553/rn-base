@@ -10,7 +10,6 @@ import React, {
 } from 'react-native'
 import {Router, Routes, NavigationBar} from './Navigation/'
 import Actions from './Actions/Creators'
-import Drawer from 'react-native-drawer'
 import Swiper from './Containers/SwiperScreen'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Colors, Images, Metrics } from './Themes'
@@ -20,15 +19,6 @@ import styles from './Containers/Styles/RootStyle'
 import drawerStyles from './Containers/Styles/DrawerStyle'
 import I18n from './I18n/I18n.js'
 import PushNotificationsController from './Containers/PushNotificationsController'
-
-const drawerItems = [
-  ["home", 'home'], 
-  ["person", "profile"], 
-  ["local-hospital", "emergency"], 
-  ["email", "recommend"], 
-  ["share", "feedback"], 
-  ["settings", "about"]
-]
 
 const STORAGE_KEY_FIRST_LOAD = "FIRST_LOAD"
 
@@ -58,37 +48,6 @@ export default class RNBase extends React.Component {
     })
   }
 
-  _changePath(path){
-    switch(path){
-      case 'profile':
-        const Profile = Routes.ProfileScreen
-        console.log(this.navigator.currentRoute)
-        this.navigator.push(Profile)
-        break
-      case 'home':
-        const AllComponentsScreen = Routes.AllComponentsScreen
-        this.navigator.push(AllComponentsScreen)
-        break
-      case 'emergency':
-        const Emergency = Routes.EmergencyScreen
-        this.navigator.push(Emergency)
-        break
-      case 'recommend':
-        const Recommend = Routes.RecommendScreen
-        this.navigator.push(Recommend)
-        break
-      case 'feedback':
-        const Feedback = Routes.FeedbackScreen
-        this.navigator.push(Feedback)
-        break
-      case 'about':
-        const About = Routes.AboutScreen
-        this.navigator.push(About)
-        break
-    }
-    this.drawer.close()
-}
-
   renderDrawerContent () {
   // I tried this but it don't work. The renderDrawerContent run before the main render run so i can't pass this.navigator to navigator. 
   // It give me unidentified value >_<
@@ -113,27 +72,14 @@ export default class RNBase extends React.Component {
   }
 
   renderApp () {
-    var App = (<Drawer
-              ref={(ref) => { this.drawer = ref }}
-              content={this.renderDrawerContent()}
-              type="static"
-              tapToClose={true}
-              openDrawerOffset={0.2} // 20% gap on the right side of drawer
-              closedDrawerOffset={-3}
-              styles={{
-                drawer: {backgroundColor:Colors.drawerColor},
-              }}
-              tweenHandler={Drawer.tweenPresets.parallax}
-          >
+    var App = 
             <Navigator
               ref={(ref) => { this.navigator = ref }}
-              initialRoute={Routes.AllComponentsScreen}
+              initialRoute={Routes.TabScreen}
               configureScene={Router.configureScene}
               renderScene={Router.renderScene}
-              navigationBar={NavigationBar.render()}
               style={styles.container}
             />
-          </Drawer>)
 
     return (
         <View style={styles.applicationView}>

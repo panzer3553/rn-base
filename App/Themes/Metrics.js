@@ -10,7 +10,7 @@ const metrics = {
   baseMargin: 10,
   smallMargin: 5,
   horizontalLineHeight: 1,
-  screenWidth: width + 3,// React.Dimensions.get('window') width is wrong , padding -3 pixel -> so plus 3 
+  screenWidth: width,// React.Dimensions.get('window') width is wrong , padding -3 pixel -> so plus 3 
   screenHeight: height,
   navBarHeight: Platform.OS === 'android' ? 56 : 64,
   buttonRadius: 4,

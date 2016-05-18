@@ -67,6 +67,9 @@ const skipSwiper = () => createAction(Types.SKIP_SWIPER)
 
 const updateLocationAndSaveEmergency = (emergencyType, profileId) =>
   createAction(Types.UPDATE_LOCATION_AND_SAVE_EMERGENCY, {emergencyType, profileId})
+
+const navigate = (tab) => createAction(Types.NAVIGATION, {tab})
+
 /**
  Makes available all the action creators we've created.
  */
@@ -103,4 +106,5 @@ export default {
   loadTokenSuccess,
   skipSwiper,
   updateLocationAndSaveEmergency,
+  navigate
 }

@@ -4,7 +4,6 @@ import { Colors, Metrics, Base } from '../../Themes/'
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
-    marginTop: Metrics.navBarHeight,
     backgroundColor: Colors.background
   },
   infoIconContainer: {
