@@ -2,7 +2,7 @@ import { Transitions } from '../Themes/'
 
 // I18n
 import I18n from '../I18n/I18n.js'
-
+import { Navigator } from 'react-native'
 export default new class Routes {
 
   // Here are the "Containers" in our app (e.g. Screens).
@@ -23,7 +23,7 @@ export default new class Routes {
   get CameraScreen () {
     return {
       title: I18n.t('camera'),
-      customConfiguration: Transitions.modal,
+      customConfiguration: Navigator.SceneConfigs.PushFromRight ,
       component: require('../Containers/CameraScreen').default,
       leftButton: 'BACK',
       rightButton: 'SAVE',
@@ -33,8 +33,8 @@ export default new class Routes {
   get GalleryScreen () {
     return {
       title: I18n.t('camera'),
-      customConfiguration: Transitions.modal,
-      component: require('../Containers/EmergencyScreen').default,
+      customConfiguration: Navigator.SceneConfigs.PushFromRight ,
+      component: require('../Containers/CameraGallery').default,
       leftButton: 'BACK',
       displayNavBar: true
     }

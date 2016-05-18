@@ -12,7 +12,9 @@ import {
   Dimensions
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import NavigationBar from '../Components/NavigationBar' 
 var {height, width} = Dimensions.get('window');
+import { Colors } from '../Themes'
 
 export default class ImageCamera extends React.Component{
   constructor() {
@@ -22,6 +24,7 @@ export default class ImageCamera extends React.Component{
       active: false,
       selected: [],
     };
+    this.dismiss = this.dismiss.bind(this)
   }
 
   componentDidMount() {
@@ -57,9 +60,19 @@ export default class ImageCamera extends React.Component{
     });
   }
 
+  dismiss () {
+    this.props.navigator.pop()
+  }
+
   render() {
     const {active,selected} = this.state;
-    return(
+    const leftItem={layout: 'icon', title: 'Back', icon: 'ios-arrow-back', onPress: this.dismiss}
+    return (
+      <View style={{flex: 1}}>
+      <NavigationBar
+          title= 'Gallery'
+          style={{backgroundColor: Colors.drawerColor}}
+          leftItem={leftItem}/>
       <ScrollView style={styles.container}>
         <View style={styles.imageGrid}>
         { this.state.images.map((image,index) => {
@@ -81,6 +94,7 @@ export default class ImageCamera extends React.Component{
         }
         </View>
       </ScrollView>
+    </View>
     )
   }
 }

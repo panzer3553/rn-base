@@ -10,6 +10,10 @@ import React, {
 } from 'react-native';
 import Camera from 'react-native-camera';
 import TimerMixin from 'react-timer-mixin';
+import NavigationBar from '../Components/NavigationBar' 
+import I18n from '../I18n/I18n.js'
+import { Colors } from '../Themes'
+import Routes from '../Navigation/Routes'
 
 export default class CameraScreen extends Component {
 
@@ -20,6 +24,8 @@ export default class CameraScreen extends Component {
       isAuto: true,
       numberofPicture: 0
     }
+    this.dismiss = this.dismiss.bind(this)
+    this.goToGallery = this.goToGallery.bind(this)
   }
 
   componentDidMount () {
@@ -38,9 +44,25 @@ export default class CameraScreen extends Component {
     TimerMixin.clearTimeout(this.clearTimer);
   }
 
+  dismiss () {
+    this.props.navigator.pop()
+  }
+
+  goToGallery () {
+    this.props.navigator.push(Routes.GalleryScreen)
+  }
+
   render () {
+    const leftItem={layout: 'icon', title: 'Back', icon: 'ios-arrow-back', onPress: this.dismiss}
+    const rightItem={layout: 'title', title: 'Done', onPress: this.goToGallery}
     const text = this.state.isAuto ? <Text style={styles.capture}>Automatic take picture ({this.state.numberofPicture})</Text> : null
     return (
+      <View style={{flex: 1}}>
+      <NavigationBar
+          title= 'Camera'
+          style={{backgroundColor: Colors.drawerColor}}
+          leftItem={leftItem}
+          rightItem={rightItem}/>
       <View style={styles.container}>
         <Camera
           ref={(cam) => {
@@ -52,6 +74,7 @@ export default class CameraScreen extends Component {
         <View >
         {text}
         </View>
+      </View>
       </View>
     );
   }
