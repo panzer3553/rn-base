@@ -49,7 +49,7 @@ class Intro extends Component {
     dispatch(Actions.saveProfile({userGroups: groupIds, city: city, country: countryCode}))
     try {
       await AsyncStorage.setItem(STORAGE_KEY_FIRST_LOAD, 'false')
-      this.props.navigator.push(Routes.HomeScreen)
+      this.props.navigator.push(Routes.TabScreen)
     } catch (error) {
       console.log(error)
     }

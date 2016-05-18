@@ -18,7 +18,6 @@ export default StyleSheet.create({
     marginLeft: 8
   },
   form: {
-    marginTop: 40,
     backgroundColor: "white",
     padding: 8
   },

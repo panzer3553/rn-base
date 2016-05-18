@@ -6,7 +6,6 @@ export default config = {
   STORAGE_KEY_PROFILE: 'PROFILE_ID',
   STORAGE_KEY_TOKEN: 'TOKEN_ID',
   PUSH_TYPE: 'gcm',
-  DROP_BOX_TOKEN: 'ZuhvfDLen_wAAAAAAAAEBGQKLhPOnJywCUisR9zXhlIH-WgvOWvr977cmuHVRnPn'
 }
 
 export const userGroupListData = [
@@ -24,7 +23,7 @@ export const homeInfoListData = [
   { icon: 'fire', text: 'Show Location', func: 'showUserLocation' }, 
   { icon: 'fire', text: 'Location Info', func: 'JSONLocation' }, 
   { icon: 'fire', text: 'UploadImage', func: 'uploadImage' }, 
-  { icon: 'fire', text: 'ShowImageList', func: 'showImageCollection' }, 
+  // { icon: 'fire', text: 'ShowImageList', func: 'showImageCollection' }, 
 ]
 
 export const drawerItems = [

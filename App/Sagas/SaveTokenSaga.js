@@ -25,7 +25,7 @@ export function * saveToken (token, profileId) {
   	}).then(response => response.json())
   }
   else {
-    return fetch(config.url + 'installations', {
+    return fetch(config.URL + 'installations', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',

@@ -4,16 +4,17 @@ import { Colors, Metrics, Base } from '../../Themes/'
 export default StyleSheet.create({
   screenContainer: {
     flex: 1,
-    marginTop: Metrics.navBarHeight,
     backgroundColor: Colors.background
   },
   infoIconContainer: {
+    position: 'absolute',
     top: 10,
-    left: Metrics.screenWidth - 80
+    right: 10
   },
   extremeIconContainer: {
-    top: 30,
-    left: Metrics.screenWidth - 80
+    position: 'absolute',
+    top: 80,
+    right: 10
   },
   icons_container: {
     flexDirection: 'row',

@@ -5,9 +5,9 @@ import PushNotification from 'react-native-push-notification'
 import { connect } from 'react-redux'
 import Actions from '../Actions/Creators'
 import VibrationIOS from 'VibrationIOS'
+import Routes from '../Navigation/Routes'
 import { AsyncStorage } from 'react-native'
 import config from '../Config/AppSetting'
-
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
@@ -21,7 +21,7 @@ class PushNotificationsController extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props
+    const { dispatch, navigator } = this.props
 
     PushNotification.configure({
       onRegister: (token) => {
@@ -58,7 +58,7 @@ class PushNotificationsController extends React.Component {
           const message = notification.message
           const duration = 7000
           const type = 'warning'
-          this.showAlertWithCallback(message, type, duration, desAddress)      
+          this.showAlertWithCallback(message, type, duration, desAddress)
         }
         else { 
           //console.log('is background')
@@ -76,7 +76,7 @@ class PushNotificationsController extends React.Component {
       popInitialNotification: true,
       requestPermissions: true
     })
-
+    PushNotification.setApplicationIconBadgeNumber(0)
     MessageBarManager.registerMessageBar(this.refs.alert)
   }
 

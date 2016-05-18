@@ -11,7 +11,11 @@ import React, {
 } from 'react-native';
 import Camera from 'react-native-camera';
 import TimerMixin from 'react-timer-mixin';
-import Icon from 'react-native-vector-icons/Ionicons'
+import NavigationBar from '../Components/NavigationBar' 
+import I18n from '../I18n/I18n.js'
+import { Colors } from '../Themes'
+import Routes from '../Navigation/Routes'
+
 var MessageBarAlert = require('react-native-message-bar').MessageBar;
 var MessageBarManager = require('react-native-message-bar').MessageBarManager;
 
@@ -21,18 +25,23 @@ export default class CameraScreen extends Component {
     super(props)
     this.state = {
       imageList: [],
-      isAuto: true
+      isAuto: true,
+      numberofPicture: 0
     }
+    this.dismiss = this.dismiss.bind(this)
+    this.goToGallery = this.goToGallery.bind(this)
   }
 
   componentDidMount () {
-    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture()}, 1500);
+    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture(); this.setState({numberofPicture: this.state.numberofPicture + 1})}, 1000);
     this.clearTimer = TimerMixin.setTimeout(() => {TimerMixin.clearInterval(this.intervalTimer);this.setState({isAuto: false})}, 10000);
     MessageBarManager.registerMessageBar(this.refs.alert);
   }
 
   takePicture () {
-    this.camera.capture().catch(err => console.error(err));
+    this.camera.capture()
+      .then((data) => {this.setState({imageList: this.state.imageList.concat(data)})})
+      .catch(err => console.error(err));
   }
 
   componentWillUnmount () {
@@ -41,32 +50,30 @@ export default class CameraScreen extends Component {
     MessageBarManager.unregisterMessageBar();
   }
 
-  pressTakeButton () {
-    this.showMessage()
-    this.camera.capture().catch(err => console.error(err));
+  dismiss () {
+    this.props.navigator.pop()
   }
 
-  showMessage () {
-    MessageBarManager.showAlert({
-      message: 'Take picture successful',
-      alertType: 'info',
-      // See Properties section for full customization
-      // Or check `index.ios.js` or `index.android.js` for a complete example
-      viewTopOffset: 60,
-      duration: 2000,
-      messageStyle: { color: 'white', fontSize: 16 }
-    });
+  goToGallery () {
+    this.props.navigator.push(Routes.GalleryScreen)
   }
 
   render () {
-    const text = this.state.isAuto ? <Text style={styles.capture}>Automatic take picture</Text> : <Icon onPress={() => this.pressTakeButton()} name="ios-camera" size={48} color="white" />
+    const leftItem={layout: 'icon', title: 'Back', icon: 'ios-arrow-back', onPress: this.dismiss}
+    const rightItem={layout: 'title', title: 'Done', onPress: this.goToGallery}
+    const text = this.state.isAuto ? <Text style={styles.capture}>Automatic take picture ({this.state.numberofPicture})</Text> : null
     return (
+      <View style={{flex: 1}}>
+      <NavigationBar
+          title= 'Camera'
+          style={{backgroundColor: Colors.drawerColor}}
+          leftItem={leftItem}
+          rightItem={rightItem}/>
       <View style={styles.container}>
         <Camera
           ref={(cam) => {
             this.camera = cam;
           }}
-          captureTarget={Platform.OS === 'android' ? Camera.constants.CaptureTarget.disk : Camera.constants.CaptureTarget.cameraRoll}
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}>
         </Camera>
@@ -74,6 +81,7 @@ export default class CameraScreen extends Component {
         {text}
         </View>
         <MessageBarAlert ref="alert" />
+      </View>
       </View>
     );
   }

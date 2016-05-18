@@ -14,6 +14,7 @@ import PushNotification from 'react-native-push-notification'
 import I18n from '../I18n/I18n.js'
 import config, { homeInfoListData } from '../Config/AppSetting'
 import SendIntentAndroid from 'react-native-send-intent'
+import NavigationBar from '../Components/NavigationBar'
 
 export default class HomeScreen extends React.Component {
 
@@ -174,19 +175,37 @@ export default class HomeScreen extends React.Component {
     )
   }
 
+  renderNavigationBar () {
+    const leftItem={layout: 'icon', title: 'Save', icon: 'android-menu', onPress: this.context.openDrawer}
+    return (
+      <NavigationBar
+        title= {I18n.t('home')}
+        style={{backgroundColor: Colors.drawerColor}}
+        leftItem={leftItem}/>
+    )
+  }
+
   render () {
+
     return (
       <View style={styles.screenContainer}>
-        { this.renderMapScreen() }
-        { this.renderInfoButton() }
-        { this.renderExtremeButton() }
-        { this.renderBubblePopUp() }
-        { this.renderBottomButtons() }
+        { this.renderNavigationBar() }
+        <View style={{flex: 1}}>
+          { this.renderMapScreen() }
+          { this.renderInfoButton() }
+          { this.renderExtremeButton() }
+          { this.renderBubblePopUp() }
+          { this.renderBottomButtons() }
+        </View>
       </View>
     )
   }
   
 }
+
+HomeScreen.contextTypes = {
+  openDrawer: React.PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
   return {

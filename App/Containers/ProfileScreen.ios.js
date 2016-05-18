@@ -7,6 +7,7 @@ import formStyles from './Styles/ProfileStyle.js'
 import { Colors, Images, Metrics } from '../Themes'
 import Actions from '../Actions/Creators'
 import Routes from '../Navigation/Routes'
+import NavigationBar from '../Components/NavigationBar' 
 // external libs
 import Icon from 'react-native-vector-icons/Ionicons'
 import Animatable from 'react-native-animatable'
@@ -42,13 +43,10 @@ export default class ProfileScreen extends React.Component {
       saved: false,
       editUserGroup: false,
     }
+    this.tapSaveButton = this.tapSaveButton.bind(this)
   }
   
   componentWillMount () {
-    this.props.navigator.state.tapHamburger = () => {
-      this.props.navigator.drawer.toggle()
-    }
-    this.props.navigator.state.tapSaveButton = this.tapSaveButton.bind(this)
     if(this.props.profileData.saved){
       this.state.profile = this.props.profileData.profile
       this.state.saved = this.props.profileData.saved
@@ -56,7 +54,7 @@ export default class ProfileScreen extends React.Component {
     }
   }
 
-   handleFormFocus (event, reactNode) {
+  handleFormFocus (event, reactNode) {
    this.refs.scroll.scrollToFocusedInput(event, reactNode)
   }
 
@@ -105,6 +103,8 @@ export default class ProfileScreen extends React.Component {
   render () {
     const {firstName, lastName, birthday, gender, email, mobile, userGroups, address} = this.state.profile
     const {city} = this.state
+    const leftItem={layout: 'icon', icon: 'android-menu', onPress: this.context.openDrawer}
+    const rightItem={layout: 'title', title: 'Save', onPress: this.tapSaveButton}
     const renderUserGroupView = !this.state.editUserGroup ? null : (
       <CheckboxGroups 
         items={userGroupListData}
@@ -114,8 +114,14 @@ export default class ProfileScreen extends React.Component {
         iconColor={'blue'}
       />
     )
-
     return(
+      <View style={{flex: 1}}>
+      <NavigationBar
+        title= {I18n.t('profile')}
+        style={{backgroundColor: Colors.drawerColor}}
+        leftItem={leftItem}
+        rightItem={rightItem}/>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
       <KeyboardAwareScrollView ref='scroll'>
         <Form
           style={formStyles.form}
@@ -203,9 +209,16 @@ export default class ProfileScreen extends React.Component {
         </Form>
         <FormCityPicker value={city} onChange={(value) => this.setState({city: value.name, countryCode: value.country})}/>
       </KeyboardAwareScrollView>
+      </View>
+      </View>
     )
   }
 }
+
+ProfileScreen.contextTypes = {
+  openDrawer: React.PropTypes.func,
+};
+
 
 const mapStateToProps = (state) => {
   return {
