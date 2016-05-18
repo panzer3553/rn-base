@@ -58,13 +58,15 @@ class PushNotificationsController extends React.Component {
           const message = notification.message
           const duration = 7000
           const type = 'warning'
+          dispatch(Actions.receiveEmergency(notification.data))
           this.showAlertWithCallback(message, type, duration, desAddress)
         }
         else { 
           //console.log('is background')
           console.log('DES:' + desAddress) 
           const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=driving'
-          dispatch(Actions.requestDirection(desAddress, mode))
+          dispatch(Actions.receiveEmergency(notification.data))
+          dispatch(Actions.navigate('emergency'))
         }
       },
       senderID: PARSE_CLOUD_GCD_SENDER_ID,
@@ -108,7 +110,7 @@ class PushNotificationsController extends React.Component {
       //console.log('SRC:' + srcAddress)
       const mode = (Platform.OS === 'ios') ? '&dirflg=d' : '&mode=bicycling'
       const { dispatch } = this.props
-      dispatch(Actions.requestDirection(desAddress, mode))
+      dispatch(Actions.navigate('emergency'))
   }
 
 }

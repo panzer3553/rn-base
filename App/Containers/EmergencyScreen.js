@@ -41,6 +41,7 @@ export default class EmergencyScreen extends React.Component {
 
   render () {
     const leftItem={layout: 'icon', icon: 'android-menu', onPress: this.context.openDrawer}
+    const {emergencyData} = this.props
   	return(
 	  	<View style={{flex:1, backgroundColor: 'white'}}>
         <NavigationBar
@@ -51,9 +52,9 @@ export default class EmergencyScreen extends React.Component {
           <MapScreen />
         </View>
         <View style={{flex: 1, padding: 16}}>
-          <Text>Address</Text>
-          <Text>Type</Text>
-          <Text>Username</Text>
+          <Text>Address: {emergencyData ? emergencyData.emergency.address : ""}</Text>
+          <Text>Type: {emergencyData ? emergencyData.emergency.type : ""}</Text>
+          <Text>Location: {emergencyData ? '(' + emergencyData.emergency.location.longitude + ', ' + emergencyData.emergency.location.latitude + ")" : ""}</Text>
           <Text>Contact Phone</Text>
           <View style={styles.imgContainer}>
               <ScrollView style={styles.imgContainer} automaticallyAdjustContentInsets={false} horizontal={true} showsHorizontalScrollIndicator={false} >
@@ -105,10 +106,8 @@ EmergencyScreen.contextTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    latitude: state.mapscreen.latitude,
-    longitude: state.mapscreen.longitude
+    emergencyData: state.emergencyReceive.data
   }
 }
-
 
 export default connect(mapStateToProps)(EmergencyScreen)
