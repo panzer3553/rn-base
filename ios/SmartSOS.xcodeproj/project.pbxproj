@@ -22,6 +22,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		92885CC81CED958B00E57B4B /* GetImageFromCameraRoll.m in Sources */ = {isa = PBXBuildFile; fileRef = 92885CC61CED943100E57B4B /* GetImageFromCameraRoll.m */; };
 		F818C0481CE0574C00750A59 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F818C0451CE0571900750A59 /* libRNImagePicker.a */; };
 		F85344621CE2DD2C00585790 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F85344511CE2DCF200585790 /* libRCTCamera.a */; };
 		F8661E1E1CB601090079A5B2 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8661E1B1CB600E90079A5B2 /* libRNI18n.a */; };
@@ -213,6 +214,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		92885CC61CED943100E57B4B /* GetImageFromCameraRoll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GetImageFromCameraRoll.m; path = SmartSOS/GetImageFromCameraRoll.m; sourceTree = "<group>"; };
 		F818C0311CE0571900750A59 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		F853444A1CE2DCF100585790 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		F8661E0B1CB600E90079A5B2 /* RNI18n.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/RNI18n.xcodeproj"; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 		13B07FAE1A68108700A75B9A /* SmartSOS */ = {
 			isa = PBXGroup;
 			children = (
+				92885CC61CED943100E57B4B /* GetImageFromCameraRoll.m */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -570,7 +573,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = Q4QWTLBE26;
+						DevelopmentTeam = 5TY9P9S7PP;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -876,6 +879,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92885CC81CED958B00E57B4B /* GetImageFromCameraRoll.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -945,7 +949,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Enouvo Space (H25K8322E8)";
 				DEAD_CODE_STRIPPING = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -957,7 +961,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.enouvo.smartsos;
 				PRODUCT_NAME = SmartSOS;
-				PROVISIONING_PROFILE = "d40af2cd-2155-478f-9e02-fee245b39b95";
+				PROVISIONING_PROFILE = "aa759139-a75b-4b47-832a-ebacc8429e69";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -966,7 +970,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Enouvo Space (H25K8322E8)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -977,7 +981,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.enouvo.smartsos;
 				PRODUCT_NAME = SmartSOS;
-				PROVISIONING_PROFILE = "d40af2cd-2155-478f-9e02-fee245b39b95";
+				PROVISIONING_PROFILE = "aa759139-a75b-4b47-832a-ebacc8429e69";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -999,7 +1003,6 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Enouvo Space (H25K8322E8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Enouvo Space (H25K8322E8)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1048,7 +1051,6 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Enouvo Space (H25K8322E8)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Enouvo Space (H25K8322E8)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
