@@ -13,7 +13,7 @@ import { watchDirectionRequest } from './MapDirectionSaga'
 import { watchReceiveNotification } from './PushNotificationSaga'
 import { watchUploadImage } from './UploadImageSaga'
 import { watchGetEmergencyById } from './GetEmergencyByIdSaga'
-
+import {watchFetchImages} from './FetchImageSaga'
 // start the daemons
 export default function * root() {
   yield fork(watchLoginAttempt),
@@ -26,5 +26,6 @@ export default function * root() {
   yield fork(watchReceiveNotification),
   yield fork(watchUpdateLocationAndSaveEmergengy),
   yield fork(watchUploadImage),
-  yield fork(watchGetEmergencyById)
+  yield fork(watchGetEmergencyById),
+  yield fork(watchFetchImages)
 }

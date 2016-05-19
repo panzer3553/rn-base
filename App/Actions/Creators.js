@@ -90,6 +90,10 @@ const receiveEmergency = (data) => createAction(Types.RECEIVE_EMERGENCY, {data})
 /**
  Makes available all the action creators we've created.
  */
+const fetchImages = (id) => createAction(Types.FETCH_IMAGES, {id})
+const fetchImagesSuccess = (links) => createAction(Types.FETCH_IMAGES_SUCCESS, {links})
+const fetchImagesFailure = (error) => createAction(Types.FETCH_IMAGES_FAILURE, {error})
+
 export default {
   attemptLogin,
   loginSuccess,
@@ -130,5 +134,8 @@ export default {
   getEmergencyByIdSuccess,
   getEmergencyByIdFailure,
   navigate,
-  receiveEmergency
+  receiveEmergency,
+  fetchImages,
+  fetchImagesSuccess,
+  fetchImagesFailure
 }

@@ -33,7 +33,7 @@ export default class CameraScreen extends Component {
   }
 
   componentDidMount () {
-    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture(); this.setState({numberofPicture: this.state.numberofPicture + 1})}, 1000);
+    this.intervalTimer = TimerMixin.setInterval(() => {this.takePicture(); this.setState({numberofPicture: this.state.numberofPicture + 1})}, 2000);
     this.clearTimer = TimerMixin.setTimeout(() => {TimerMixin.clearInterval(this.intervalTimer);this.setState({isAuto: false})}, 10000);
     MessageBarManager.registerMessageBar(this.refs.alert);
   }

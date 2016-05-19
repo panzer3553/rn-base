@@ -44,7 +44,7 @@ export default new class Routes {
 
   get HelpScreen () {
     return {
-      customConfiguration: Navigator.SceneConfigs.PushFromRight ,
+      customConfiguration: Navigator.SceneConfigs.FloatFromRight,
       component: require('../Containers/HelpScreen').default,
       leftButton: 'BACK',
       displayNavBar: true

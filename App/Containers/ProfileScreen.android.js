@@ -2,6 +2,7 @@
 import React from 'react'
 import { View, ScrollView, Text, TextInput, PropTypes, Alert, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
+import { Colors, Images, Metrics } from '../Themes'
 import styles from './Styles/HomeScreenStyle'
 import InputField from '../Components/InputField'
 import PickerField from '../Components/PickerField'
@@ -12,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 // Components to show examples (only real point of merge conflict)
 // I18n
 import I18n from '../I18n/I18n.js'
+import NavigationBar from '../Components/NavigationBar' 
 const STORAGE_KEY_PROFILE = "PROFILE_ID"
 import Actions from '../Actions/Creators'
 
@@ -36,6 +38,7 @@ export default class ProfileScreen extends React.Component {
       city: null,
       country: null
     }
+    this.tapSaveButton = this.tapSaveButton.bind(this)
   }
 
     componentWillMount () {
@@ -74,7 +77,16 @@ export default class ProfileScreen extends React.Component {
 
   render () {
     const {firstName, lastName, birthday, gender, email, mobile, groups, address, city} = this.state
+    const leftItem={layout: 'icon', icon: 'android-menu', onPress: this.context.openDrawer}
+    const rightItem={layout: 'title', title: 'Save', onPress: this.tapSaveButton}
     return (
+    <View style={{flex: 1}}>
+      <NavigationBar
+        title= {I18n.t('profile')}
+        style={{backgroundColor: Colors.drawerColor}}
+        leftItem={leftItem}
+        rightItem={rightItem}/>
+      <View style={{flex: 1}}>
       <ScrollView style={[styles.screenContainer, {backgroundColor: '#FAFAFA'}]}>
         <Separator label="Basic"/>
         <InputField icon="ios-person" placeholder="First Name" value={firstName} onValueChange={(value) => this.setState({firstName: value})}/>
@@ -110,9 +122,15 @@ export default class ProfileScreen extends React.Component {
         <FormCityPicker value={city} onChange={(value)=> this.setState({city: value.name, country: value.country})}/>
         <View style={{height: 40}}></View>
       </ScrollView>
+      </View>
+      </View>
     )
   }
 }
+
+ProfileScreen.contextTypes = {
+  openDrawer: React.PropTypes.func,
+};
 
 const mapStateToProps = (state) => {
   return {

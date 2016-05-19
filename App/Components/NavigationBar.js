@@ -26,7 +26,10 @@ class F8HeaderAndroid extends React.Component {
         <Ionicons.ToolbarAndroid
           navIconName={leftItem.icon}
           onIconClicked={leftItem && leftItem.onPress}
+          iconColor="white"
           title={this.props.title}
+          titleColor="white"
+          subtitleColor="white"
           actions={actions}
           onActionSelected={this.handleActionSelected.bind(this)}
           style={styles.toolbar}>
@@ -119,7 +122,7 @@ var styles = StyleSheet.create({
   },
   toolbar: {
     height: 56,
-    backgroundColor: 'blue'
+    backgroundColor: '#FF5722'
   },
   header: {
     backgroundColor: 'transparent',
