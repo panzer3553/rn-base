@@ -78,8 +78,8 @@ export default class ImageCamera extends React.Component{
 
   uploadToServer () {
     const {dispatch} = this.props
-    const emergencyId = 'H6lrirRO1U'
-    dispatch(Actions.uploadImage(this.state.images, emergencyId))
+    const {emergencyId} = this.props;//'H6lrirRO1U'
+    dispatch(Actions.uploadImage(this.state.images, emergencyId, this.state.selected))
   }
 
 
@@ -123,7 +123,7 @@ export default class ImageCamera extends React.Component{
 
 const mapStateToProps = (state) => {
   return {
-   
+    emergencyId: state.emergencyData.ok.objectId
   }
 }
 

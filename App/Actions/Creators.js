@@ -71,8 +71,8 @@ const skipSwiper = () =>
 const updateLocationAndSaveEmergency = (emergencyType, profileId) =>
   createAction(Types.UPDATE_LOCATION_AND_SAVE_EMERGENCY, {emergencyType, profileId})
 
-const uploadImage = (data, emergencyId) =>
-  createAction(Types.UPLOAD_IMAGE, {data, emergencyId})
+const uploadImage = (data, emergencyId, selectedImages) =>
+  createAction(Types.UPLOAD_IMAGE, {data, emergencyId, selectedImages})
 const uploadImageSuccess = () =>
   createAction(Types.UPLOAD_IMAGE_SUCCESS)
 const uploadImageFailure = (error) =>

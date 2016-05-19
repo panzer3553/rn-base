@@ -5,14 +5,15 @@ import createReducer from './CreateReducer'
 export const INITIAL_STATE = Immutable({
 	data: null,
 	emergencyId: null,
-	
+	selectedImages: null,
 	error: null
 })
 
 const upload = (state, action) =>
 	state.merge({
 		data: action.data,
-		emergencyId: action.emergencyId
+		emergencyId: action.emergencyId,
+		selectedImages: action.selectedImages
 	})
 
 const success = (state, action) =>

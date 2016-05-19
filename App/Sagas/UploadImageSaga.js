@@ -32,9 +32,13 @@ export function * getFromServer (path) {
 
 export function * watchUploadImage () {
   while (true) { 
-  	const {data, emergencyId} = yield take(Types.UPLOAD_IMAGE)
+  	const {data, emergencyId, selectedImages} = yield take(Types.UPLOAD_IMAGE)
+    console.log('ARRAY' + selectedImages)
     var i = 0
     for (i = 0; i < data.length; i++ ) {
+
+      if (!selectedImages[i]) continue // NOT upload unselected image
+
       try {
           const uploadBody = {base64: data[i].base64}
           const ok = yield call(saveToServer, 'files/' + 'picture.jpg', 'POST', uploadBody)
@@ -70,7 +74,7 @@ export function * watchUploadImage () {
           } 
     	}
     	catch (error) {
-  		  yield put(Actions.UPLOAD_IMAGE_FAILUREe, error)
+  		  yield put(Actions.UPLOAD_IMAGE_FAILURE, error)
     	}
     }
     
