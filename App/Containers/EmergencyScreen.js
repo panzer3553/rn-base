@@ -104,7 +104,7 @@ export default class EmergencyScreen extends React.Component {
           leftItem={leftItem}/>
         <View style={{flex: 2}}>
           <MapScreen emergency={this.getEmergencyLocation()}/>
-          <TouchableHighlight style={{position: 'absolute', top: 10, right: 10}} onPress={() => this.handleGetDirections()}>
+          <TouchableHighlight style={{position: 'absolute', top: 10, right: 10}} onPress={() => {if(emergencyData){this.handleGetDirections()}}}>
             <Icon name="navigate" size={24} color="black"/>
           </TouchableHighlight>
         </View>
@@ -163,7 +163,7 @@ EmergencyScreen.contextTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    emergencyData: state.emergencyReceive.data
+    emergencyData: state.emergencyReceive.data,
     slatitude: state.mapscreen.latitude,
     slongitude: state.mapscreen.longitude
   }
