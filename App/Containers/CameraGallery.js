@@ -9,14 +9,24 @@ import {
   ScrollView,
   CameraRoll,
   View,
-  Dimensions
+  Dimensions,
+  PropTypes
 } from 'react-native';
+var {height, width} = Dimensions.get('window');
+CustomImageManager = require('NativeModules').CustomImageManager;
 import Icon from 'react-native-vector-icons/Ionicons';
 import NavigationBar from '../Components/NavigationBar' 
-var {height, width} = Dimensions.get('window');
 import { Colors } from '../Themes'
+import { connect } from 'react-redux'
+import Actions from '../Actions/Creators'
 
 export default class ImageCamera extends React.Component{
+
+  static propTypes = {
+    navigator: PropTypes.object.isRequired,
+    dispatch: PropTypes.func
+  }
+
   constructor() {
     super();
     this.state = {
@@ -25,27 +35,30 @@ export default class ImageCamera extends React.Component{
       selected: [],
     };
     this.dismiss = this.dismiss.bind(this)
+    this.uploadToServer = this.uploadToServer.bind(this)
   }
 
   componentDidMount() {
     const fetchParams = {
       first: 10,
     };
-    CameraRoll.getPhotos(fetchParams).done((data) => this.storeImages(data), (err) => this.logImageError(err));
+    CustomImageManager.getImage(fetchParams).done((data) => this.storeImages(data), (err) => this.logImageError(err));
   }
 
   storeImages(data) {
     const assets = data.edges;
-    const images = assets.map((asset) => asset.node.image);
+    const images = assets.map((asset) => asset.node.image)
+    console.log('IMAGE:' + JSON.stringify(images[0])) 
     const selected = [];
-        this.setState({
+    this.setState({
       images: images,
     });
 
     for (var i = 0; i < images.length; i++) {
-          selected.push(false);
+      selected.push(false);
     }
   }
+
 
   logImageError(err) {
     console.log(err);
@@ -64,15 +77,26 @@ export default class ImageCamera extends React.Component{
     this.props.navigator.pop()
   }
 
+  uploadToServer () {
+    const {dispatch} = this.props
+    const emergencyId = 'H6lrirRO1U'
+    //console.log('base64:' + this.state.images[0].base64)
+    dispatch(Actions.uploadImage(this.state.images, emergencyId))
+  }
+
+  //'data:image/jpeg;base64,'
+
   render() {
     const {active,selected} = this.state;
     const leftItem={layout: 'icon', title: 'Back', icon: 'ios-arrow-back', onPress: this.dismiss}
+    const rightItem={layout: 'title', title: 'Upload', onPress: this.uploadToServer}
     return (
       <View style={{flex: 1}}>
       <NavigationBar
           title= 'Gallery'
           style={{backgroundColor: Colors.drawerColor}}
-          leftItem={leftItem}/>
+          leftItem={leftItem}
+          rightItem={rightItem}/>
       <ScrollView style={styles.container}>
         <View style={styles.imageGrid}>
         { this.state.images.map((image,index) => {
@@ -92,18 +116,25 @@ export default class ImageCamera extends React.Component{
             )
           })
         }
-        </View>
+        </View>image
       </ScrollView>
     </View>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+   
+  }
+}
+
+export default connect(mapStateToProps)(ImageCamera)
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
-        marginTop: 64
+        backgroundColor: '#F5FCFF'
     },
     imageGrid: {
         flex: 1,
