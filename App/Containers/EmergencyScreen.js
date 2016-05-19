@@ -8,7 +8,7 @@ import I18n from '../I18n/I18n.js'
 import { connect } from 'react-redux'
 import NavigationBar from '../Components/NavigationBar' 
 import MapScreen from '../Components/MapScreen'
-var {height, width} = Dimensions.get('window');
+import Lightbox from 'react-native-lightbox'
 
 import React, { 
   View, 
@@ -20,8 +20,12 @@ import React, {
   WebView,
   Dimensions,
   TouchableWithoutFeedback,
-  Image
+  Image,
+  ActionSheetIOS,
+  Platform,
+  TouchableHighlight,
 } from 'react-native'
+const {height, width} = Dimensions.get('window');
 
 export default class EmergencyScreen extends React.Component {
 	
@@ -29,13 +33,63 @@ export default class EmergencyScreen extends React.Component {
     super(props)
     this.state = {
       images: [
+      {uri: 'http://knittingisawesome.com/wp-content/uploads/2012/12/cat-wearing-a-reindeer-hat1.jpg'},
       {uri: 'http://files.parsetfss.com/6869fbd8-8b0f-4f09-9ec6-3f6eeaf669c0/tfss-94ab0fe1-7936-4b19-8411-4cd78f77b68b-picture.jpg'},
       {uri: 'http://files.parsetfss.com/6869fbd8-8b0f-4f09-9ec6-3f6eeaf669c0/tfss-94ab0fe1-7936-4b19-8411-4cd78f77b68b-picture.jpg'},
       {uri: 'http://files.parsetfss.com/6869fbd8-8b0f-4f09-9ec6-3f6eeaf669c0/tfss-94ab0fe1-7936-4b19-8411-4cd78f77b68b-picture.jpg'},
-      {uri: 'http://files.parsetfss.com/6869fbd8-8b0f-4f09-9ec6-3f6eeaf669c0/tfss-94ab0fe1-7936-4b19-8411-4cd78f77b68b-picture.jpg'},
-      {uri: 'http://files.parsetfss.com/6869fbd8-8b0f-4f09-9ec6-3f6eeaf669c0/tfss-94ab0fe1-7936-4b19-8411-4cd78f77b68b-picture.jpg'},
-      {}
       ]
+    }
+  }
+
+  getEmergencyLocation () {
+    if(this.props.emergencyData) {
+      const {longitude, latitude} = this.props.emergencyData.emergency.location
+      return {longitude: longitude, latitude: latitude}
+    }
+    else
+      return null
+  }
+
+    handleGetDirections() {
+    if (Platform.OS === 'ios') {
+      ActionSheetIOS.showActionSheetWithOptions(
+        {
+          title: 'Direction to emergency',
+          options: ['Open in Apple Maps', 'Open in Google Maps', 'Cancel'],
+          destructiveButtonIndex: -1,
+          cancelButtonIndex: 2,
+        },
+        this.openMaps
+      );
+    } else if (Platform.OS === 'android') {
+      const {longitude, latitude} = this.props.emergencyData.emergency.location
+      const {slatitude, slongitude} = this.props
+      srcAddress = slatitude + ', ' + slongitude
+      desAddress = latitude + ', ' + longitude 
+      const directionUrl  = 'saddr=' + srcAddress + '&daddr=' + desAddress + mode
+      Linking.openURL('http://maps.google.com/maps?' + address);
+    }
+  }
+
+  openMaps(option) {
+    const {longitude, latitude} = this.props.emergencyData.emergency.location
+    const {slatitude, slongitude} = this.props
+    srcAddress = slatitude + ', ' + slongitude
+    desAddress = latitude + ', ' + longitude 
+    const directionUrl  = 'saddr=' + srcAddress + '&daddr=' + desAddress + 'car'
+    switch (option) {
+      case 0:
+        Linking.openURL('http://maps.apple.com/?' + address);
+        break;
+
+      case 1:
+        var nativeGoogleUrl = 'comgooglemaps-x-callback://?' +
+          address + '&x-success=f8://&x-source=F8';
+        Linking.canOpenURL(nativeGoogleUrl).then((supported) => {
+          var url = supported ? nativeGoogleUrl : 'http://maps.google.com/?' + address;
+          Linking.openURL(url);
+        });
+        break;
     }
   }
 
@@ -49,9 +103,12 @@ export default class EmergencyScreen extends React.Component {
           style={{backgroundColor: Colors.drawerColor}}
           leftItem={leftItem}/>
         <View style={{flex: 2}}>
-          <MapScreen />
+          <MapScreen emergency={this.getEmergencyLocation()}/>
+          <TouchableHighlight style={{position: 'absolute', top: 10, right: 10}} onPress={() => this.handleGetDirections()}>
+            <Icon name="navigate" size={24} color="black"/>
+          </TouchableHighlight>
         </View>
-        <View style={{flex: 1, padding: 16}}>
+        <ScrollView style={{flex: 1, padding: 16}}>
           <Text>Address: {emergencyData ? emergencyData.emergency.address : ""}</Text>
           <Text>Type: {emergencyData ? emergencyData.emergency.type : ""}</Text>
           <Text>Location: {emergencyData ? '(' + emergencyData.emergency.location.longitude + ', ' + emergencyData.emergency.location.latitude + ")" : ""}</Text>
@@ -61,16 +118,16 @@ export default class EmergencyScreen extends React.Component {
                 <View style={styles.imgContent}>
                 { this.state.images.map((image,index) => {
                     return(
-                        <View key={index}>
+                        <Lightbox key={index} activeProps={{style: {width: width, height: width}}}>
                             <Image style={styles.image} source={{ uri: image.uri }}/>
-                        </View>
+                        </Lightbox>
                     )
                   })
                 }
                 </View>
               </ScrollView>
         </View>
-        </View>
+        </ScrollView>
 	  	</View>
   	)
   }
@@ -86,8 +143,8 @@ var styles = StyleSheet.create({
     flexWrap:"wrap",
   },
   image:{
-    height:100,
-    width:100,
+    width: 100,
+    height: 100,
     marginRight:5,
     alignItems:"flex-end",
     justifyContent:"flex-end",
@@ -107,6 +164,8 @@ EmergencyScreen.contextTypes = {
 const mapStateToProps = (state) => {
   return {
     emergencyData: state.emergencyReceive.data
+    slatitude: state.mapscreen.latitude,
+    slongitude: state.mapscreen.longitude
   }
 }
 

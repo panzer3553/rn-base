@@ -33,6 +33,10 @@ export default class MapScreen extends React.Component {
           longitudeDelta: 0.01
         }}
         showsUserLocation={true}>
+        {this.props.emergency ? <MapView.Marker
+          coordinate={this.props.emergency}
+          title="Emergency"
+        /> : null}
       </MapView>
   		)
   	}
