@@ -24,6 +24,7 @@ import React, {
   ActionSheetIOS,
   Platform,
   TouchableHighlight,
+  Linking
 } from 'react-native'
 const {height, width} = Dimensions.get('window');
 
@@ -39,6 +40,7 @@ export default class EmergencyScreen extends React.Component {
       {uri: 'http://files.parsetfss.com/6869fbd8-8b0f-4f09-9ec6-3f6eeaf669c0/tfss-94ab0fe1-7936-4b19-8411-4cd78f77b68b-picture.jpg'},
       ]
     }
+    this.openMaps = this.openMaps.bind(this)
   }
 
   getEmergencyLocation () {
@@ -50,7 +52,7 @@ export default class EmergencyScreen extends React.Component {
       return null
   }
 
-    handleGetDirections() {
+  handleGetDirections() {
     if (Platform.OS === 'ios') {
       ActionSheetIOS.showActionSheetWithOptions(
         {
@@ -64,29 +66,29 @@ export default class EmergencyScreen extends React.Component {
     } else if (Platform.OS === 'android') {
       const {longitude, latitude} = this.props.emergencyData.emergency.location
       const {slatitude, slongitude} = this.props
-      srcAddress = slatitude + ', ' + slongitude
-      desAddress = latitude + ', ' + longitude 
-      const directionUrl  = 'saddr=' + srcAddress + '&daddr=' + desAddress + mode
-      Linking.openURL('http://maps.google.com/maps?' + address);
+      desAddress= slatitude + ', ' + slongitude
+      srcAddress = latitude + ', ' + longitude 
+      const directionUrl  = 'saddr=' + srcAddress + '&daddr=' + desAddress 
+      Linking.openURL('http://maps.google.com/maps?' + directionUrl);
     }
   }
 
   openMaps(option) {
     const {longitude, latitude} = this.props.emergencyData.emergency.location
     const {slatitude, slongitude} = this.props
-    srcAddress = slatitude + ', ' + slongitude
-    desAddress = latitude + ', ' + longitude 
-    const directionUrl  = 'saddr=' + srcAddress + '&daddr=' + desAddress + 'car'
+    desAddress= slatitude + ', ' + slongitude
+    srcAddress = latitude + ', ' + longitude 
+    const directionUrl  = 'saddr=' + srcAddress + '&daddr=' + desAddress 
     switch (option) {
       case 0:
-        Linking.openURL('http://maps.apple.com/?' + address);
+        Linking.openURL('http://maps.apple.com/?' + directionUrl);
         break;
 
       case 1:
         var nativeGoogleUrl = 'comgooglemaps-x-callback://?' +
-          address + '&x-success=f8://&x-source=F8';
+          directionUrl + '&x-success=f8://&x-source=F8';
         Linking.canOpenURL(nativeGoogleUrl).then((supported) => {
-          var url = supported ? nativeGoogleUrl : 'http://maps.google.com/?' + address;
+          var url = supported ? nativeGoogleUrl : 'http://maps.google.com/?' + directionUrl;
           Linking.openURL(url);
         });
         break;
