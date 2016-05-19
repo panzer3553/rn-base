@@ -107,7 +107,7 @@ export default class EmergencyScreen extends React.Component {
         <View style={{flex: 2}}>
           <MapScreen emergency={this.getEmergencyLocation()}/>
           <TouchableHighlight style={{position: 'absolute', top: 10, right: 10}} onPress={() => {if(emergencyData){this.handleGetDirections()}}}>
-            <Icon name="navigate" size={24} color="black"/>
+            <Icon name="navigate" size={24} color="blue"/>
           </TouchableHighlight>
         </View>
         <ScrollView style={{flex: 1, padding: 16}}>

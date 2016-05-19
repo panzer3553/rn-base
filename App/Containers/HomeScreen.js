@@ -38,9 +38,11 @@ export default class HomeScreen extends React.Component {
   }
 
   handleShowPopUp (_items) {
-    this.setState({
-      items: _items,
-      isPopupShow: true
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({
+        items: _items,
+        isPopupShow: true
+      })
     })
   }
 
@@ -49,19 +51,21 @@ export default class HomeScreen extends React.Component {
   }
 
   showConfirmDialog (_title, _message, _phoneNumber, type) {
-    Alert.alert(
-      _title,
-      _message + _phoneNumber,
-      [
-        {text: 'Cancel', onPress: () => console.log('Cancel')},
-        {text: 'OK', onPress: () =>  this.makePhoneCall(_phoneNumber)},
-      ]
-    )
-    const {dispatch} = this.props  
-    AsyncStorage.getItem(config.STORAGE_KEY_PROFILE).then((value) => {
-     if (value !== null){
-       dispatch(Actions.updateLocationAndSaveEmergency(type, value))
-     }
+    InteractionManager.runAfterInteractions(() => {
+      Alert.alert(
+        _title,
+        _message + _phoneNumber,
+        [
+          {text: 'Cancel', onPress: () => console.log('Cancel')},
+          {text: 'OK', onPress: () =>  this.makePhoneCall(_phoneNumber)},
+        ]
+      )
+      const {dispatch} = this.props  
+      AsyncStorage.getItem(config.STORAGE_KEY_PROFILE).then((value) => {
+       if (value !== null){
+         dispatch(Actions.updateLocationAndSaveEmergency(type, value))
+       }
+      })
     })
   }
 
