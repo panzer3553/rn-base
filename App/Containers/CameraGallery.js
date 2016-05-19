@@ -42,13 +42,12 @@ export default class ImageCamera extends React.Component{
     const fetchParams = {
       first: 10,
     };
-    CustomImageManager.getImage(fetchParams).done((data) => this.storeImages(data), (err) => this.logImageError(err));
+    CustomImageManager.getImages(fetchParams).done((data) => this.storeImages(data), (err) => this.logImageError(err));
   }
 
   storeImages(data) {
     const assets = data.edges;
     const images = assets.map((asset) => asset.node.image)
-    console.log('IMAGE:' + JSON.stringify(images[0])) 
     const selected = [];
     this.setState({
       images: images,
@@ -80,13 +79,12 @@ export default class ImageCamera extends React.Component{
   uploadToServer () {
     const {dispatch} = this.props
     const emergencyId = 'H6lrirRO1U'
-    //console.log('base64:' + this.state.images[0].base64)
     dispatch(Actions.uploadImage(this.state.images, emergencyId))
   }
 
-  //'data:image/jpeg;base64,'
 
   render() {
+    console.log(this.state.images)
     const {active,selected} = this.state;
     const leftItem={layout: 'icon', title: 'Back', icon: 'ios-arrow-back', onPress: this.dismiss}
     const rightItem={layout: 'title', title: 'Upload', onPress: this.uploadToServer}
@@ -116,7 +114,7 @@ export default class ImageCamera extends React.Component{
             )
           })
         }
-        </View>image
+        </View>
       </ScrollView>
     </View>
     )
@@ -134,7 +132,7 @@ export default connect(mapStateToProps)(ImageCamera)
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5FCFF'
+        backgroundColor: '#F5FCFF',
     },
     imageGrid: {
         flex: 1,

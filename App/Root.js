@@ -49,28 +49,6 @@ export default class RNBase extends React.Component {
     })
   }
 
-  renderDrawerContent () {
-  // I tried this but it don't work. The renderDrawerContent run before the main render run so i can't pass this.navigator to navigator. 
-  // It give me unidentified value >_<
-  // return (
-  //       <DrawerContent navigator={this.navigator}/>
-  //       )
-
-    return (
-      <View style={{marginTop: 30, padding: 10}}>
-        {drawerItems.map((item, i) =>
-          <TouchableWithoutFeedback key ={i} onPress={this._changePath.bind(this, item[1])}>
-            <View style={drawerStyles.section}>
-              <Icon name={item[0]} size={Metrics.icons.medium} color="white" style={drawerStyles.icon}/>
-              <Text style={drawerStyles.text}>
-                {I18n.t(item[1])}
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>)  
-        }
-      </View>
-    )
-  }
 
   renderNavigator () {
     return  (

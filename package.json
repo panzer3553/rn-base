@@ -31,6 +31,7 @@
     "react-native-form-generator": "^0.7.2",
     "react-native-i18n": "0.0.8",
     "react-native-image-picker": "^0.18.15",
+    "react-native-lightbox": "^0.6.0",
     "react-native-maps": "^0.3.1",
     "react-native-material-kit": "^0.3.1",
     "react-native-message-bar": "^1.5.2",

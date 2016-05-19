@@ -86,6 +86,7 @@ const getEmergencyByIdFailure = (error) =>
 
 const navigate = (tab) => createAction(Types.NAVIGATION, {tab})
 
+const receiveEmergency = (data) => createAction(Types.RECEIVE_EMERGENCY, {data})
 /**
  Makes available all the action creators we've created.
  */
@@ -128,5 +129,6 @@ export default {
   getEmergencyById,
   getEmergencyByIdSuccess,
   getEmergencyByIdFailure,
-  navigate
+  navigate,
+  receiveEmergency
 }

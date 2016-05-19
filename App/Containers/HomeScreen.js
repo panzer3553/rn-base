@@ -58,7 +58,12 @@ export default class HomeScreen extends React.Component {
       ]
     )
     const {dispatch} = this.props  
-    dispatch(Actions.updateLocationAndSaveEmergency(type))
+
+    AsyncStorage.getItem(config.STORAGE_KEY_PROFILE).then((value) => {
+     if (value !== null){
+       dispatch(Actions.updateLocationAndSaveEmergency(type, value))
+     }
+    })
   }
 
   makePhoneCall (_phoneNumber) {
@@ -71,9 +76,13 @@ export default class HomeScreen extends React.Component {
 
   sendExtremeEmergency () {
     InteractionManager.runAfterInteractions(() => {
-      const {dispatch} = this.props  
-      dispatch(Actions.updateLocationAndSaveEmergency('alarm'))
-      this.props.navigator.push(Routes.CameraScreen)
+      const {dispatch} = this.props
+      AsyncStorage.getItem(config.STORAGE_KEY_PROFILE).then((value) => {
+        if (value !== null){
+          dispatch(Actions.updateLocationAndSaveEmergency('alarm', value))
+        }  
+        this.props.navigator.push(Routes.CameraScreen)
+      })
     })
   }
 
@@ -100,8 +109,7 @@ export default class HomeScreen extends React.Component {
         width:Metrics.button.large, 
         height: Metrics.button.large, 
         borderRadius: Metrics.button.large / 2, 
-        backgroundColor: Colors.snow
-      })
+      }).withBackgroundColor(Colors.snow)
       .build()
 
      if (!this.state.isPopupShow) {
@@ -113,7 +121,7 @@ export default class HomeScreen extends React.Component {
               'Please confirm to make the call to FIRE STATION: ',
               '+84982709185', 
               'fire')}>
-              <Icon name='fire' size={Metrics.icons.medium} color='red' />
+              <Icon name='fire' size={24} color='red' />
             </Fab>
             <Fab onPress={this.showConfirmDialog.bind(this, 
               'Do you want to make this call ?',
@@ -121,7 +129,7 @@ export default class HomeScreen extends React.Component {
               'Please confirm to make the call to  AMBULANCE: ',
               '+84982709185',
                'ambulance')}>
-              <Icon name='ambulance' size={Metrics.icons.medium} color='red' />
+              <Icon name='ambulance' size={24} color='red' />
             </Fab>
             <Fab onPress={ this.showConfirmDialog.bind(this, 
               'Do you want to make this call ?',
@@ -129,7 +137,7 @@ export default class HomeScreen extends React.Component {
               'Please confirm to make the call to POLICE STATION: ',
               '+84982709185', 
               'police')}>
-              <Icon name='bell' size={Metrics.icons.medium} color='red' />
+              <Icon name='bell' size={24} color='red' />
             </Fab>
           </View>   
         )
@@ -143,14 +151,13 @@ export default class HomeScreen extends React.Component {
         width:Metrics.button.medium, 
         height: Metrics.button.medium, 
         borderRadius: Metrics.button.medium/2, 
-        backgroundColor: Colors.snow
-      })
+      }).withBackgroundColor(Colors.snow)
       .build()
 
     return (
       <View style={styles.infoIconContainer}>
         <SmallFab onPress={this.handleShowPopUp.bind(this, homeInfoListData)}>
-          <Icon name='info' size={Metrics.icons.small} color='red' />
+          <Icon name='info' size={18} color='red' />
         </SmallFab>
       </View>
     )
@@ -162,14 +169,13 @@ export default class HomeScreen extends React.Component {
         width:Metrics.button.medium, 
         height: Metrics.button.medium, 
         borderRadius: Metrics.button.medium/2, 
-        backgroundColor: Colors.snow
-      })
+      }).withBackgroundColor(Colors.snow)
       .build()
 
     return (
       <View style={styles.extremeIconContainer}>
         <SmallFab onPress={this.sendExtremeEmergency.bind(this)}>
-          <Icon name="warning" size={Metrics.icons.small} color="red" />
+          <Icon name="warning" size={18} color="red" />
         </SmallFab>
       </View>
     )

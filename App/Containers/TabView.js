@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import HomeScreen from './HomeScreen'
 import ProfileScreen from './ProfileScreen'
 import Developing from './Developing'
+import EmergencyScreen from './EmergencyScreen'
 import Drawer from 'react-native-drawer'
 import I18n from '../I18n/I18n.js'
 import { Colors, Images, Metrics } from '../Themes'
@@ -21,8 +22,8 @@ import Actions from '../Actions/Creators'
 const drawerItems = [
   ["home", 'home'], 
   ["person", "profile"], 
-  ["local-hospital", "emergency"], 
-  ["email", "recommend"], 
+  ["local-hospital", "instruction"], 
+  ["warning", "emergency"], 
   ["share", "feedback"], 
   ["settings", "about"]
 ]
@@ -56,10 +57,10 @@ export default class TabsView extends React.Component{
         return <HomeScreen navigator={this.props.navigator}/>
       case 'profile':
         return <ProfileScreen navigator={this.props.navigator}/>
-      case 'emergency':
+      case 'instruction':
         return <Developing navigator={this.props.navigator}/>
-      case 'recommend':
-        return <Developing navigator={this.props.navigator} />
+      case 'emergency':
+        return <EmergencyScreen navigator={this.props.navigator} />
       case 'feedback':
         return <Developing navigator={this.props.navigator} />
       case 'about':

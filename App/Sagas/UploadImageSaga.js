@@ -65,14 +65,7 @@ export function * watchUploadImage () {
                     ]
                 }
               }
-
               const resUpdateEmergency = yield call( saveToServer, 'classes/Emergency/' + emergencyId,'PUT', updateEmergencyBody)
-              //const resGetImageCollectionId = yield call(getFromServer, 'classes/Emergency/' + emergencyId) 
-              // if (resGetImageCollectionId) {
-              //   console.log(resGetImageCollectionId.images[0])
-              //   const resGetImage = yield call(getFromServer, 'classes/ImageCollection/' + resGetImageCollectionId.images[0].objectId, 'GET')
-              //   console.log('URL:' + resGetImage.url.url)
-              // }
             }
           } 
     	}
@@ -82,6 +75,4 @@ export function * watchUploadImage () {
     }
     
   }
-
-
 }
