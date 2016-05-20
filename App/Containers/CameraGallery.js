@@ -9,6 +9,7 @@ import {
   ScrollView,
   CameraRoll,
   View,
+  Alert,
   Dimensions,
   PropTypes
 } from 'react-native';
@@ -33,16 +34,39 @@ export default class ImageCamera extends React.Component{
       images: [],
       active: false,
       selected: [],
+      hasReceivedEmergencyId: false,
+      emergencyId: null
     };
     this.dismiss = this.dismiss.bind(this)
     this.uploadToServer = this.uploadToServer.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
+    const {resultSavedEmergency} = this.props
+    if (resultSavedEmergency) {
+      //console.log('componentDidMount:' + JSON.stringify(resultSavedEmergency))
+      this.setState({
+        emergencyId: this.props.resultSavedEmergency.objectId
+      });
+    }    
+
     const fetchParams = {
       first: 10,
     };
     CustomImageManager.getImages(fetchParams).done((data) => this.storeImages(data), (err) => this.logImageError(err));
+  }
+
+  componentWillReceiveProps (nextProps) {
+    
+    const {resultSavedEmergency} = nextProps
+    //console.log('componentWillReceiveProps:' + JSON.stringify(resultSavedEmergency))
+    if (resultSavedEmergency)
+    {
+      this.setState({
+        emergencyId: this.props.resultSavedEmergency.objectId
+      });
+    }
+
   }
 
   storeImages(data) {
@@ -57,7 +81,6 @@ export default class ImageCamera extends React.Component{
       selected.push(false);
     }
   }
-
 
   logImageError(err) {
     console.log(err);
@@ -77,17 +100,22 @@ export default class ImageCamera extends React.Component{
   }
 
   uploadToServer () {
-    const {dispatch} = this.props
-    const {emergencyId} = this.props;//'H6lrirRO1U'
-    dispatch(Actions.uploadImage(this.state.images, emergencyId, this.state.selected))
+    if (this.state.emergencyId){
+      const {dispatch} = this.props
+      dispatch(Actions.uploadImage(this.state.images, this.state.emergencyId, this.state.selected))
+    }
+    else {
+      Alert.alert('Warning', 'No emergency case recently!')
+    }
   }
 
 
   render() {
-    console.log(this.state.images)
+    // console.log(this.state.images)
     const {active,selected} = this.state;
-    const leftItem={layout: 'icon', title: 'Back', icon: 'ios-arrow-back', onPress: this.dismiss}
-    const rightItem={layout: 'title', title: 'Upload', onPress: this.uploadToServer}
+    const leftItem = {layout: 'icon', title: 'Back', icon: 'ios-arrow-back', onPress: this.dismiss}
+    const rightItem = {layout: 'title', title: 'Upload', onPress: this.uploadToServer}
+
     return (
       <View style={{flex: 1}}>
       <NavigationBar
@@ -123,7 +151,7 @@ export default class ImageCamera extends React.Component{
 
 const mapStateToProps = (state) => {
   return {
-    emergencyId: state.emergencyData.ok.objectId
+    resultSavedEmergency: state.emergencyData.ok
   }
 }
 

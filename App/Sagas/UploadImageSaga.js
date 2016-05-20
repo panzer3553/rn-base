@@ -74,8 +74,10 @@ export function * watchUploadImage () {
           } 
     	}
     	catch (error) {
-  		  yield put(Actions.UPLOAD_IMAGE_FAILURE, error)
+  		  yield put(Actions.uploadImageFailure(error))
     	}
+
+      yield put(Actions.uploadImageSuccess())
     }
     
   }

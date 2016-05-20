@@ -29,16 +29,15 @@ import React, {
 const {height, width} = Dimensions.get('window');
 
 export default class EmergencyScreen extends React.Component {
+
+  static propTypes = {
+    dispatch: PropTypes.func
+  }
 	
   constructor (props) {
     super(props)
     this.state = {
-      images: [
-      {uri: 'http://knittingisawesome.com/wp-content/uploads/2012/12/cat-wearing-a-reindeer-hat1.jpg'},
-      {uri: 'http://files.parsetfss.com/6869fbd8-8b0f-4f09-9ec6-3f6eeaf669c0/tfss-94ab0fe1-7936-4b19-8411-4cd78f77b68b-picture.jpg'},
-      {uri: 'http://files.parsetfss.com/6869fbd8-8b0f-4f09-9ec6-3f6eeaf669c0/tfss-94ab0fe1-7936-4b19-8411-4cd78f77b68b-picture.jpg'},
-      {uri: 'http://files.parsetfss.com/6869fbd8-8b0f-4f09-9ec6-3f6eeaf669c0/tfss-94ab0fe1-7936-4b19-8411-4cd78f77b68b-picture.jpg'},
-      ]
+      images: []
     }
     this.openMaps = this.openMaps.bind(this)
   }
@@ -95,6 +94,22 @@ export default class EmergencyScreen extends React.Component {
     }
   }
 
+  componentWillMount () {
+    const {dispatch} = this.props
+    const {emergencyId} = this.props//NOTE TEST CURRENTLY, WILL ADD RECEIVING EMERGENCY_ID by push notification later
+    dispatch(Actions.getEmergencyById(emergencyId))    
+  }
+
+
+  componentWillReceiveProps (nextProps) {
+
+    if (this.props.imagesInfo) {
+      this.setState({
+        images: [...this.props.imagesInfo]
+      })
+    }
+  }
+  
   render () {
     const leftItem={layout: 'icon', icon: 'android-menu', onPress: this.context.openDrawer}
     const {emergencyData} = this.props
@@ -119,11 +134,11 @@ export default class EmergencyScreen extends React.Component {
               <ScrollView style={styles.imgContainer} automaticallyAdjustContentInsets={false} horizontal={true} showsHorizontalScrollIndicator={false} >
                 <View style={styles.imgContent}>
                 { this.state.images.map((image,index) => {
-                    return(
+                      return (
                         <Lightbox key={index} activeProps={{style: {width: width, height: width}}}>
-                            <Image style={styles.image} source={{ uri: image.uri }}/>
+                            <Image style={styles.image} source={{ uri: image}}/>
                         </Lightbox>
-                    )
+                      )
                   })
                 }
                 </View>
@@ -167,7 +182,9 @@ const mapStateToProps = (state) => {
   return {
     emergencyData: state.emergencyReceive.data,
     slatitude: state.mapscreen.latitude,
-    slongitude: state.mapscreen.longitude
+    slongitude: state.mapscreen.longitude,
+    imagesInfo: state.getEmergency.imagesInfo,
+    emergencyId: state.uploadImage.emergencyId//testing, will change to emergencyId of another person later
   }
 }
 

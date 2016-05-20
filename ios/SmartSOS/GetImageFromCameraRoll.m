@@ -168,8 +168,8 @@ RCT_EXPORT_METHOD(getImages:(NSDictionary *)params
           CLLocation *loc = [result valueForProperty:ALAssetPropertyLocation];
           NSDate *date = [result valueForProperty:ALAssetPropertyDate];
           CGImageRef imageRef = [result thumbnail];
-          NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:imageRef], 0.1);
-          NSString *base64Encoded = [imageData base64EncodedStringWithOptions:0];
+          NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:imageRef], 1.0);
+          NSString *base64Encoded = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
           [assets addObject:@{
                               @"node": @{
                                   @"type": [result valueForProperty:ALAssetPropertyType],

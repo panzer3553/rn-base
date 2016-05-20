@@ -15,17 +15,27 @@ export function * getFromServer (path) {
   }).then(response => response.json())
 }
 
+
+
 export function * watchGetEmergencyById () {
   while(true) {
     const {emergencyId}  = yield take(Types.GET_EMERGENCY_BY_ID)
     try {
       const ok = yield call(getFromServer, 'classes/Emergency/' + emergencyId)
-	  if (ok) {
-	  	yield put(Actions.GET_EMERGENCY_BY_ID_SUCCESS, ok.images)
-	  }
+  	  if (ok) {
+        var i = 0;
+        var urlArray = [];
+        for (i; i < ok.images.length; i++) {
+          const okImage =  yield call(getFromServer, 'classes/ImageCollection/' + ok.images[i].objectId)
+          if (okImage) {
+            urlArray = [...urlArray, okImage.url.url]
+          }
+        }
+  	  	yield put(Actions.getEmergencyByIdSuccess(urlArray))
+  	  }
     }
     catch (error) {
-	  yield put(Actions.GET_EMERGENCY_BY_ID_FAILURE, error)
+	    yield put(Actions.getEmergencyByIdFailure(error))
     }
   }
 }

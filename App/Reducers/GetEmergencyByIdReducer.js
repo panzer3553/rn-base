@@ -15,7 +15,7 @@ const get = (state, action) =>
 
 const success = (state, action) =>
 	state.merge({
-	  imageUrls: [...imagesInfo]
+	  imagesInfo: action.imagesInfo
 	})
 
 const failure = (state, action) =>
@@ -24,9 +24,9 @@ const failure = (state, action) =>
 	})
 
 const ACTION_HANDLERS = {
-	[Types.UPLOAD_IMAGE]: get,
-	[Types.UPLOAD_IMAGE_SUCCESS]: success,
-	[Types.UPLOAD_IMAGE_FAILURE]: failure
+	[Types.GET_EMERGENCY_BY_ID]: get,
+	[Types.GET_EMERGENCY_BY_ID_SUCCESS]: success,
+	[Types.GET_EMERGENCY_BY_ID_FAILURE]: failure
 }
 
 export default createReducer(INITIAL_STATE, ACTION_HANDLERS)
