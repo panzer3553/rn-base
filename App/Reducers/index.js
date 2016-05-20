@@ -24,8 +24,8 @@ export default combineReducers({
   getEmergency: GetEmergencyByIdReducer,
   navigation: NavigationReducer,
   emergencyReceive: EmergencyReducer,
-  images: FetchImageReducer
+  emergencyImages: FetchImageReducer
 }) 
 
 // Put reducer keys that you do NOT want stored to persistence here
-export const persistentStoreBlacklist = ['login', 'emergencyData', 'mapscreen', 'navigation', 'emergencyReceive', 'images']
+export const persistentStoreBlacklist = ['login', 'emergencyData', 'mapscreen', 'navigation', 'emergencyReceive', 'emergencyImages']
