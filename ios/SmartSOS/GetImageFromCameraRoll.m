@@ -14,7 +14,7 @@
 
 #import "RCTAssetsLibraryRequestHandler.h"
 #import "RCTConvert.h"
-#import "RCTLog.h"
+//#import "RCTLog.h"
 #import "RCTUtils.h"
 
 
@@ -87,8 +87,8 @@ RCT_ENUM_CONVERTER(ALAssetsGroupType, (@{
   
   ALAssetsFilter *filter = options[json ?: @"photos"];
   if (!filter) {
-    RCTLogError(@"Invalid filter option: '%@'. Expected one of 'photos',"
-                "'videos' or 'all'.", json);
+//    RCTLogError(@"Invalid filter option: '%@'. Expected one of 'photos',"
+//                "'videos' or 'all'.", json);
   }
   return filter ?: [ALAssetsFilter allPhotos];
 }
@@ -167,9 +167,10 @@ RCT_EXPORT_METHOD(getImages:(NSDictionary *)params
           CGSize dimensions = [result defaultRepresentation].dimensions;
           CLLocation *loc = [result valueForProperty:ALAssetPropertyLocation];
           NSDate *date = [result valueForProperty:ALAssetPropertyDate];
-          CGImageRef imageRef = [result thumbnail];
-          NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:imageRef], 1.0);
-          NSString *base64Encoded = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+          ALAssetRepresentation *representation = [result defaultRepresentation];
+          CGImageRef imageRef = [representation fullResolutionImage];
+          NSData *imageData = UIImageJPEGRepresentation([UIImage imageWithCGImage:imageRef], 0.7);
+          NSString *base64Encoded = [imageData base64EncodedStringWithOptions:0];
           [assets addObject:@{
                               @"node": @{
                                   @"type": [result valueForProperty:ALAssetPropertyType],
@@ -203,7 +204,7 @@ RCT_EXPORT_METHOD(getImages:(NSDictionary *)params
     }
   } failureBlock:^(NSError *error) {
     if (error.code != ALAssetsLibraryAccessUserDeniedError) {
-      RCTLogError(@"Failure while iterating through asset groups %@", error);
+//      RCTLogError(@"Failure while iterating through asset groups %@", error);
     }
     reject(customRCTErrorUnableToLoad, nil, error);
   }];
