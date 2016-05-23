@@ -118,13 +118,13 @@ export default class EmergencyScreen extends React.Component {
           <View style={styles.imgContainer}>
               <ScrollView style={styles.imgContainer} automaticallyAdjustContentInsets={false} horizontal={true} showsHorizontalScrollIndicator={false} >
                 <View style={styles.imgContent}>
-                { this.state.images.map((image,index) => {
+                { this.props.images ? this.props.images.map((image,index) => {
                     return(
                         <Lightbox key={index} activeProps={{style: {width: width, height: width}}}>
-                            <Image style={styles.image} source={{ uri: image.uri }}/>
+                            <Image style={styles.image} source={{ uri: image }}/>
                         </Lightbox>
                     )
-                  })
+                  }) : null
                 }
                 </View>
               </ScrollView>
@@ -167,7 +167,8 @@ const mapStateToProps = (state) => {
   return {
     emergencyData: state.emergencyReceive.data,
     slatitude: state.mapscreen.latitude,
-    slongitude: state.mapscreen.longitude
+    slongitude: state.mapscreen.longitude,
+    images: state.emergencyImages.imageLinks
   }
 }
 

@@ -48,7 +48,7 @@
     "redux-logger": "^2.4.0",
     "redux-persist": "^2.0.1",
     "redux-saga": "^0.9.3",
-    "seamless-immutable": "^5.0.1"
+    "seamless-immutable": "^6.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0",
