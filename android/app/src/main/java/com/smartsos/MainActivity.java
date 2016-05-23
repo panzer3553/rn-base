@@ -9,6 +9,7 @@ import com.AirMaps.AirPackage; // <--- This!
 import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.burnweb.rnsendintent.RNSendIntentPackage;  // <--- import
+import com.rnfs.RNFSPackage;
 import java.util.Arrays;
 import java.util.List;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.lwansbrough.RCTCamera.*;
 import android.provider.Settings;
+import com.custom.CustomImageManagerPackage;
 
 public class MainActivity extends ReactActivity {
 
@@ -58,6 +60,8 @@ public class MainActivity extends ReactActivity {
             new RNSendIntentPackage(), // add this manager
             new ImagePickerPackage(),
             new RCTCameraPackage(),
+            new CustomImageManagerPackage(),
+            new RNFSPackage(),
             mReactNativePushNotificationPackage
         );
     }
