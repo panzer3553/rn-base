@@ -17,6 +17,7 @@ import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.lwansbrough.RCTCamera.*;
 import android.provider.Settings;
+import com.custom.CustomImageManagerPackage;
 
 public class MainActivity extends ReactActivity {
 
@@ -58,6 +59,7 @@ public class MainActivity extends ReactActivity {
             new RNSendIntentPackage(), // add this manager
             new ImagePickerPackage(),
             new RCTCameraPackage(),
+            new CustomImageManagerPackage(),
             mReactNativePushNotificationPackage
         );
     }
