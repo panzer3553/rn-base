@@ -105,6 +105,8 @@ function getGroupsFromEmergencyType(type) {
             return ["medicalUser", "medicalGroup", "volunteer"];
         case "police":
             return ["policeStation", "policeGroup", "volunteer"];
+        case "alarm":
+            return ["policeStation", "policeGroup", "volunteer", "ambulanceGroup", "militarianGroup"];
         default:
             return ["volunteer"];
     }
