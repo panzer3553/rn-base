@@ -40,7 +40,7 @@ export function * watchUploadImage () {
       if (!selectedImages[i]) continue // NOT upload unselected image
 
       try {
-          const uploadBody = {base64: data[i].base64}
+          const uploadBody = {base64: data[i].base64, width: data[i].width, height: data[i].height}
           const ok = yield call(saveToServer, 'files/' + 'picture.jpg', 'POST', uploadBody)
           if (ok) {
             const imageCollectionBody = {
@@ -74,8 +74,10 @@ export function * watchUploadImage () {
           } 
     	}
     	catch (error) {
-  		  yield put(Actions.UPLOAD_IMAGE_FAILURE, error)
+  		  yield put(Actions.uploadImageFailure(error))
     	}
+
+      yield put(Actions.uploadImageSuccess())
     }
     
   }

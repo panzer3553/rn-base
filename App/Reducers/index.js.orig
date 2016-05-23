@@ -28,4 +28,8 @@ export default combineReducers({
 }) 
 
 // Put reducer keys that you do NOT want stored to persistence here
-export const persistentStoreBlacklist = ['login', 'emergencyData', 'mapscreen', 'navigation', 'emergencyReceive', 'getEmergency', 'uploadImage', 'emergencyImages']
+<<<<<<< HEAD
+export const persistentStoreBlacklist = ['login', 'emergencyData', 'mapscreen', 'navigation', 'emergencyReceive', 'emergencyImages']
+=======
+export const persistentStoreBlacklist = ['login', 'emergencyData', 'mapscreen', 'navigation', 'emergencyReceive', 'getEmergency', 'uploadImage']
+>>>>>>> e65429b552b06e07567e521afda472f311393c1a

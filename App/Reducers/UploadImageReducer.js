@@ -1,6 +1,7 @@
 import Types from '../Actions/Types'
 import Immutable from 'seamless-immutable'
 import createReducer from './CreateReducer'
+import {Alert} from 'react-native'
 
 export const INITIAL_STATE = Immutable({
 	data: null,
@@ -16,9 +17,9 @@ const upload = (state, action) =>
 		selectedImages: action.selectedImages
 	})
 
-const success = (state, action) =>
-	state.merge({
-	})
+const success = (state, action) => {
+	Alert.alert('Upload Image', 'Upload Image Success')
+}
 
 const failure = (state, action) =>
 	state.merge({

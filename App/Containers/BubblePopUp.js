@@ -214,10 +214,10 @@ export default class BubblePopUp extends React.Component {
     }
 
 	ImagePickerManager.showImagePicker(imageUploadOptions, (response) => {
-      console.log('Response = ', response);
+      //console.log('Response = ', response);
 
       if (response.didCancel) {
-        console.log('User cancelled image picker')
+        //console.log('User cancelled image picker')
       }
       else if (response.error) {
         console.log('ImagePickerManager Error: ', response.error)

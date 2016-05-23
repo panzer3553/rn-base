@@ -50,14 +50,4 @@ export default new class Routes {
       displayNavBar: true
     }
   }
-
-  get ImageCollectionScreen () {
-    return {
-      customConfiguration: Navigator.SceneConfigs.PushFromRight ,
-      component: require('../Containers/ImageCollectionScreen').default,
-      leftButton: 'BACK',
-      displayNavBar: true
-    }
-  }
-  
 }

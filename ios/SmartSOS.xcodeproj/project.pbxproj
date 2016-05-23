@@ -573,7 +573,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 5TY9P9S7PP;
+						DevelopmentTeam = Q4QWTLBE26;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -961,7 +961,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.enouvo.smartsos;
 				PRODUCT_NAME = SmartSOS;
-				PROVISIONING_PROFILE = "aa759139-a75b-4b47-832a-ebacc8429e69";
+				PROVISIONING_PROFILE = "d40af2cd-2155-478f-9e02-fee245b39b95";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -981,7 +981,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.enouvo.smartsos;
 				PRODUCT_NAME = SmartSOS;
-				PROVISIONING_PROFILE = "aa759139-a75b-4b47-832a-ebacc8429e69";
+				PROVISIONING_PROFILE = "d40af2cd-2155-478f-9e02-fee245b39b95";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1005,6 +1005,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Enouvo Space (H25K8322E8)";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1053,6 +1054,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Enouvo Space (H25K8322E8)";
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

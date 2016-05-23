@@ -62,7 +62,7 @@ export default class CheckboxGroup extends Component {
 
     _onChange = (checked, value) => {
         const { selected } = this.state;
-        console.log('_' + checked + '_' + value)
+        // console.log('_' + checked + '_' + value)
         if (checked) {
             this.setState({
                 selected: [...selected, value]
