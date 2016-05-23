@@ -37,7 +37,6 @@ export default class EmergencyScreen extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      images: []
     }
     this.openMaps = this.openMaps.bind(this)
   }
@@ -97,16 +96,12 @@ export default class EmergencyScreen extends React.Component {
   componentWillMount () {
     const {dispatch} = this.props
     const {emergencyId} = this.props//NOTE TEST CURRENTLY, WILL ADD RECEIVING EMERGENCY_ID by push notification later
-    dispatch(Actions.getEmergencyById(emergencyId))    
   }
 
-
-  componentWillReceiveProps (nextProps) {
-
-    if (this.props.imagesInfo) {
-      this.setState({
-        images: [...this.props.imagesInfo]
-      })
+  componentDidMount () {
+    const {dispatch} = this.props
+    if(this.props.emergencyData){
+      dispatch(Actions.fetchImages(this.props.emergencyData.emergency.objectId))
     }
   }
   
@@ -133,13 +128,13 @@ export default class EmergencyScreen extends React.Component {
           <View style={styles.imgContainer}>
               <ScrollView style={styles.imgContainer} automaticallyAdjustContentInsets={false} horizontal={true} showsHorizontalScrollIndicator={false} >
                 <View style={styles.imgContent}>
-                { this.state.images.map((image,index) => {
-                      return (
+                { this.props.images ? this.props.images.map((image,index) => {
+                    return(
                         <Lightbox key={index} activeProps={{style: {width: width, height: width}}}>
-                            <Image style={styles.image} source={{ uri: image}}/>
+                            <Image style={styles.image} source={{ uri: image }}/>
                         </Lightbox>
-                      )
-                  })
+                    )
+                  }) : null
                 }
                 </View>
               </ScrollView>
@@ -183,8 +178,7 @@ const mapStateToProps = (state) => {
     emergencyData: state.emergencyReceive.data,
     slatitude: state.mapscreen.latitude,
     slongitude: state.mapscreen.longitude,
-    imagesInfo: state.getEmergency.imagesInfo,
-    emergencyId: state.uploadImage.emergencyId//testing, will change to emergencyId of another person later
+    images: state.emergencyImages.imageLinks,
   }
 }
 

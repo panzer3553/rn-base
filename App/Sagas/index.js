@@ -9,10 +9,8 @@ import { watchLoginAttempt } from './LoginSaga'
 import { watchSaveProfile } from './SaveProfileSaga'
 import { watchSaveEmergency} from './SaveEmergencySaga'
 import { watchSaveToken } from './SaveTokenSaga'
-import { watchDirectionRequest } from './MapDirectionSaga'
 import { watchReceiveNotification } from './PushNotificationSaga'
 import { watchUploadImage } from './UploadImageSaga'
-import { watchGetEmergencyById } from './GetEmergencyByIdSaga'
 import {watchFetchImages} from './FetchImagesSaga'
 // start the daemons
 export default function * root() {
@@ -22,10 +20,8 @@ export default function * root() {
   yield fork(watchSaveProfile),
   yield fork(watchSaveEmergency),
   yield fork(watchSaveToken),
-  yield fork(watchDirectionRequest),
   yield fork(watchReceiveNotification),
   yield fork(watchUpdateLocationAndSaveEmergengy),
   yield fork(watchUploadImage),
-  yield fork(watchGetEmergencyById),
   yield fork(watchFetchImages)
 }

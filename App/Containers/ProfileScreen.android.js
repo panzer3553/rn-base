@@ -1,4 +1,3 @@
-// An All Components Screen is a great way to dev and quick-test components
 import React from 'react'
 import { View, ScrollView, Text, TextInput, PropTypes, Alert, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
@@ -10,8 +9,6 @@ import DateField from '../Components/DateField'
 import Separator from '../Components/Separator'
 import FormCityPicker from '../Components/FormCityPicker'
 import Icon from 'react-native-vector-icons/FontAwesome'
-// Components to show examples (only real point of merge conflict)
-// I18n
 import I18n from '../I18n/I18n.js'
 import NavigationBar from '../Components/NavigationBar' 
 const STORAGE_KEY_PROFILE = "PROFILE_ID"

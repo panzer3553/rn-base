@@ -5,10 +5,8 @@ import SaveProfileReducer from './SaveProfileReducer'
 import SaveEmergencyReducer from './SaveEmergencyReducer'
 import SaveTokenReducer from './SaveTokenReducer'
 import NotificationReducer from './NotificationReducer'
-import MapDirectionReducer  from './MapDirectionReducer'
 import NavigationReducer from './NavigationReducer'
 import UploadImageReducer from './UploadImageReducer'
-import GetEmergencyByIdReducer from './GetEmergencyByIdReducer'
 import EmergencyReducer from './EmergencyReducer'
 import FetchImageReducer from './FetchImageReducer'
 // glue all the reducers together into 1 root reducer
@@ -19,13 +17,11 @@ export default combineReducers({
   emergencyData: SaveEmergencyReducer,
   tokenData: SaveTokenReducer,
   notificationData: NotificationReducer,
-  direction: MapDirectionReducer,
   uploadImage: UploadImageReducer, 
-  getEmergency: GetEmergencyByIdReducer,
   navigation: NavigationReducer,
   emergencyReceive: EmergencyReducer,
   emergencyImages: FetchImageReducer
 }) 
 
 // Put reducer keys that you do NOT want stored to persistence here
-export const persistentStoreBlacklist = ['login', 'emergencyData', 'mapscreen', 'navigation', 'emergencyReceive', 'getEmergency', 'uploadImage', 'emergencyImages']
+export const persistentStoreBlacklist = ['login', 'emergencyData', 'mapscreen', 'navigation', 'emergencyReceive', 'uploadImage', 'emergencyImages']

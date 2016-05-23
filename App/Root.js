@@ -35,7 +35,6 @@ export default class RNBase extends React.Component {
   componentWillMount () {
     const {dispatch} = this.props
     dispatch(Actions.requestLocation())
-    dispatch(Actions.fetchImages('ISnEIfvxAo'))
   }
 
   componentDidMount () {

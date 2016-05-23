@@ -25,13 +25,6 @@ const receiveJsonByCoords = (json) =>
 const receiveJsonByCoordsFailure = (errorCode) =>
   createAction(Types.MAP_JSON_FAILURE, {errorCode})
 
-const requestDirection = (desAddress, mode) => 
-  createAction(Types.MAP_DIRECTION_REQUEST, { desAddress, mode })
-const receiveDirection = () =>
-  createAction(Types.MAP_DIRECTION_RECEIVE)
-const receiveDirectionFailure = (error) => 
-  createAction(Types.MAP_DIRECTION_FAILURE, { error })
-
 const saveProfile = (profile, objectId) =>
   createAction(Types.SAVE_PROFILE, {profile, objectId})
 const saveProfileSuccess = (ok) =>
@@ -77,12 +70,6 @@ const uploadImageSuccess = () =>
   createAction(Types.UPLOAD_IMAGE_SUCCESS)
 const uploadImageFailure = (error) =>
   createAction(Types.UPLOAD_IMAGE_FAILURE, {error})
-const getEmergencyById = (emergencyId) =>
-  createAction(Types.GET_EMERGENCY_BY_ID, {emergencyId})
-const getEmergencyByIdSuccess = (imagesInfo) =>
-  createAction(Types.GET_EMERGENCY_BY_ID_SUCCESS, {imagesInfo})
-const getEmergencyByIdFailure = (error) => 
-  createAction(Types.GET_EMERGENCY_BY_ID_FAILURE, {error})
 
 const navigate = (tab) => createAction(Types.NAVIGATION, {tab})
 
@@ -106,9 +93,6 @@ export default {
   requestJsonByCoords,
   receiveJsonByCoords,
   receiveJsonByCoordsFailure,
-  requestDirection,
-  receiveDirection,
-  receiveDirectionFailure,
   saveProfile,
   saveProfileSuccess,
   saveProfileFailure,
@@ -130,9 +114,6 @@ export default {
   uploadImage,
   uploadImageSuccess,
   uploadImageFailure,
-  getEmergencyById,
-  getEmergencyByIdSuccess,
-  getEmergencyByIdFailure,
   navigate,
   receiveEmergency,
   fetchImages,

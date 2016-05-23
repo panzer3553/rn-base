@@ -1,5 +1,3 @@
-'use strict';
-
 import React, { Platform, View } from 'react-native'
 import PushNotification from 'react-native-push-notification'
 import { connect } from 'react-redux'
@@ -64,7 +62,6 @@ class PushNotificationsController extends React.Component {
         else { 
           //console.log('is background')
           console.log('DES:' + desAddress) 
-          const mode = (Platform.OS === 'ios') ? 'dirflg=d' : 'mode=driving'
           dispatch(Actions.receiveEmergency(notification.data))
           dispatch(Actions.navigate('emergency'))
         }
@@ -108,7 +105,6 @@ class PushNotificationsController extends React.Component {
                             + this.props.longitude 
       //console.log('DES:' + desAddress) 
       //console.log('SRC:' + srcAddress)
-      const mode = (Platform.OS === 'ios') ? '&dirflg=d' : '&mode=bicycling'
       const { dispatch } = this.props
       dispatch(Actions.navigate('emergency'))
   }

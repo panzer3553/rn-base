@@ -1,4 +1,3 @@
-
 import React, { View, ScrollView, Text, TouchableOpacity, PropTypes, StyleSheet, Alert, AsyncStorage} from 'react-native'
 import { Form, InputField, Separator, SwitchField, LinkField ,PickerField, DatePickerField, KeyboardAwareScrollView} from 'react-native-form-generator'
 import { connect } from 'react-redux'
@@ -8,10 +7,8 @@ import { Colors, Images, Metrics } from '../Themes'
 import Actions from '../Actions/Creators'
 import Routes from '../Navigation/Routes'
 import NavigationBar from '../Components/NavigationBar' 
-// external libs
 import Icon from 'react-native-vector-icons/Ionicons'
 import Animatable from 'react-native-animatable'
-// I18n
 import I18n from '../I18n/I18n.js'
 import Styles from './Styles/LoginScreenStyle'
 import config, { userGroupListData } from '../Config/AppSetting'

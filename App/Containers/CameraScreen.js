@@ -40,7 +40,7 @@ export default class CameraScreen extends Component {
 
   takePicture () {
     this.camera.capture()
-      .then((data) => {this.setState({imageList: this.state.imageList.concat(data)})})
+      .then((data) => console.log(data))
       .catch(err => console.error(err));
   }
 
