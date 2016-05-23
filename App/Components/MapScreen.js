@@ -16,8 +16,8 @@ export default class MapScreen extends React.Component {
 			region: {
         latitude: 0,
         longitude: 0,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01
+        latitudeDelta: 0.02,
+        longitudeDelta: 0.02
 			}
 		}
 	}
@@ -29,8 +29,8 @@ export default class MapScreen extends React.Component {
   		  region={{
           latitude: this.props.latitude || 0,
           longitude: this.props.longitude || 0,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01
+          latitudeDelta: 0.08,
+          longitudeDelta: 0.08
         }}
         showsUserLocation={true}>
         {this.props.emergency ? <MapView.Marker

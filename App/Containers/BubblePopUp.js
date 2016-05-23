@@ -1,4 +1,3 @@
-
 import styles from './Styles/BubblePopUpStyle'
 import Triangle from '../Components/Triangle'
 import { Colors, Images, Metrics } from '../Themes'

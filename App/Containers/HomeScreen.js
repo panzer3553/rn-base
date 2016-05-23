@@ -1,4 +1,3 @@
-// An All Components Screen is a great way to dev and quick-test components
 import React, { View, Text, PropTypes, Alert, AsyncStorage, Platform, InteractionManager } from 'react-native'
 import { connect } from 'react-redux'
 import styles from './Styles/HomeScreenStyle'
